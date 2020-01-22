@@ -1,0 +1,863 @@
+<#if trade??>
+<div id="ddd" class="b">
+                <h3 style="text-align:center">Transaction Receipt</h3>
+                <table width="100%" class="pn-ftable" cellpadding="0" cellspacing="0" border="1">
+<td width="20%" class="pn-flabel pn-flabel-h">Is the recipient the client himself?:</td>
+<td colspan="1" width="30%" class="pn-fcontent">
+<div id="is_self_print"></div>
+</td>
+<td width="20%" class="pn-flabel pn-flabel-h">Transaction time:</td>
+<td colspan="1" width="30%" class="pn-fcontent">
+${trade.custom_time?string.medium}
+</td>
+</tr>
+<tr>
+<td width="20%" class="pn-flabel pn-flabel-h">Customer Name:</td>
+<td colspan="1" width="30%" class="pn-fcontent">
+${(user.name)!}</td>
+<td width="20%" class="pn-flabel pn-flabel-h">Mobile:</td>
+<td colspan="1" width="30%" class="pn-fcontent">
+${(user.mobile)!}</td>
+</tr>
+<tr>
+<td class="pn-flabel pn-flabel-h">Savings account currency 1:</td><td colspan="1" class="pn-fcontent">
+	${(user.save_cy1)!}
+</td>
+<td class="pn-flabel pn-flabel-h">Amount:</td>
+<td colspan="1" class="pn-fcontent">
+	${(user.save_cy1_amount)!}
+</td></tr>
+<tr>
+<td class="pn-flabel pn-flabel-h">Savings account currency 2:</td><td colspan="1" class="pn-fcontent">
+	${(user.save_cy2)!}
+</td>
+<td class="pn-flabel pn-flabel-h">Amount:</td>
+<td colspan="1" class="pn-fcontent">
+	${(user.save_cy2_amount)!}
+</td></tr>
+<tr>
+<td class="pn-flabel pn-flabel-h">Bitcoin Amount:</td>
+<td colspan="3" class="pn-fcontent">
+	${(user.save_bitcoin_amount)!}
+</td></tr>
+<tr>
+<td class="pn-fcontent" height="30" colspan="6">Payment information</td>
+</tr>
+<tr>
+<td class="pn-flabel pn-flabel-h">Currency type:</td>
+<td colspan="1" class="pn-fcontent">
+	<div id="pay_cy_print"></div>
+</td>
+<td class="pn-flabel pn-flabel-h">Total amount:</td>
+<td colspan="1" class="pn-fcontent">
+${(trade.pay_total)!}
+</td></tr>
+<tr>
+<td class="pn-flabel pn-flabel-h">Payment Method 1:</td>
+<td colspan="1" class="pn-fcontent">
+<div id="pay_md1_print"></div>
+</td>
+<td class="pn-flabel pn-flabel-h">Amount:</td>
+<td colspan="1" class="pn-fcontent">
+${(trade.pay_md1_amount)!}
+</td>
+<#if trade.pay_md1_memo??>
+<tr>
+<td class="pn-flabel pn-flabel-h">Memo:</td>
+<td colspan="1" class="pn-fcontent">${(trade.pay_md1_memo)!}</td>
+</tr>
+</#if>
+<#if trade.pay_md2_amount gt 0>
+<tr>
+<td class="pn-flabel pn-flabel-h">Payment Method 2:</td><td colspan="1" class="pn-fcontent">
+<div id="pay_md2_print"></div>
+</td>
+<td class="pn-flabel pn-flabel-h">Amount:</td>
+<td colspan="1" class="pn-fcontent">${(trade.pay_md2_amount)!}
+</td>
+</tr>
+<#if trade.pay_md2_memo??>
+<tr>
+<td class="pn-flabel pn-flabel-h">Memo:</td>
+<td colspan="1" class="pn-fcontent">${(trade.pay_md2_memo)!}</td>
+</tr>
+</#if>
+</#if>
+<#if trade.add_info??>
+<tr>
+<td class="pn-flabel pn-flabel-h">Additional information:</td>
+<td colspan="1" class="pn-fcontent">${(trade.add_info)!}</td>
+</tr>
+</#if>
+<tr>
+<td class="pn-flabel pn-flabel-h">Service Fee:</td><td colspan="1" class="pn-fcontent">
+	<div id="serv_fee_print"></div>&nbsp;&nbsp;Current service fee rate:${(serv_fee_rate)!}
+</td>
+<td class="pn-flabel pn-flabel-h">Amount:</td>
+<td colspan="1" class="pn-fcontent">
+${(trade.serv_fee_amount)!}
+</td>
+</tr>
+<#if trade.serv_fee_memo??>
+<tr>
+<td class="pn-flabel pn-flabel-h">Memo:</td>
+<td colspan="1" class="pn-fcontent">${(trade.serv_fee_memo)!}</td>
+</tr>
+</#if>
+<tr>
+<td class="pn-flabel pn-flabel-h">Exchange rate:</td>
+<td colspan="1" class="pn-fcontent">${(trade.ex_rate)!}
+</td>
+<td colspan="1" class="pn-fcontent">
+Exchange rate direction:<div id="rate_direction_print"></div>
+</td>
+<td colspan="1" class="pn-fcontent">
+Computing method:<div id="computing_md_print"></div>
+</td>
+</tr>
+<tr>
+<td class="pn-fcontent" height="30" colspan="4">Withdrawal Information</td>
+</tr>
+<tr>
+<td class="pn-flabel pn-flabel-h">Currency type:</td>
+<td colspan="1" class="pn-fcontent">
+<div id="withdraw_cy_print"></div>
+</td>
+<td class="pn-flabel pn-flabel-h">Total amount:</td>
+<td colspan="3" class="pn-fcontent">${(trade.withdraw_total)!}
+</td></tr>
+<tr>
+<td class="pn-flabel pn-flabel-h">Payment method 1:</td>
+<td colspan="1" class="pn-fcontent">
+<div id="withdraw_md1_print"></div>
+</td>
+<td class="pn-flabel pn-flabel-h">Amount:</td>
+<td colspan="1" class="pn-fcontent">${(trade.withdraw_md1_amount)!}</td>
+</tr>
+<#if trade.withdraw_md1_memo??>
+<tr>
+<td class="pn-flabel pn-flabel-h">Memo:</td>
+<td colspan="1" class="pn-fcontent">${(trade.withdraw_md1_memo)!}</td>
+</tr>
+</#if>
+<#if trade.withdraw_md2_amount gt 0>
+<tr>
+<td class="pn-flabel pn-flabel-h">Payment method 2:</td>
+<td colspan="1" class="pn-fcontent">
+<div id="withdraw_md2_print"></div>
+</td>
+<td class="pn-flabel pn-flabel-h">Amount:</td>
+<td colspan="1" class="pn-fcontent">${(trade.withdraw_md2_amount)!}
+</td>
+</tr>
+<#if trade.withdraw_md2_memo??>
+<tr>
+<td class="pn-flabel pn-flabel-h">Memo:</td>
+<td colspan="1" class="pn-fcontent">${(trade.withdraw_md2_memo)!}</td>
+</tr>
+</#if>
+</#if>
+</table>
+                <button class="print-link avoid-this">
+                Print this in a new window, without this button and the title
+                </button>
+            </div>
+            </#if>
+<table width="100%" class="pn-ftable" cellpadding="2" cellspacing="1" border="0">
+<tr>
+<td width="12%" class="pn-flabel pn-flabel-h">客户姓名:</td>
+<td colspan="1" width="20%" class="pn-fcontent">
+${(user.name)!}</td>
+<td width="12%" class="pn-flabel pn-flabel-h">手机号:</td>
+<td colspan="1" width="20%" class="pn-fcontent">
+${(user.mobile)!}</td>
+<td width="12%" class="pn-flabel pn-flabel-h">收款人是否是客户本人:</td>
+<td colspan="1" width="24%" class="pn-fcontent">
+<label><input name="trade.is_self" type="radio" value="1" checked/>Yes </label> 
+<label><input name="trade.is_self" type="radio" value="0" />No </label> 
+</td>
+</tr>
+<tr>
+<td width="12%" class="pn-flabel pn-flabel-h">买入BTC总额:</td>
+<td colspan="1" width="20%" class="pn-fcontent">
+${(btc.sum_buy_btc)!}</td>
+<td width="12%" class="pn-flabel pn-flabel-h">卖出BTC总额:</td>
+<td colspan="1" width="20%" class="pn-fcontent">
+${(btc.sum_sale_btc)!}</td>
+<td width="12%" class="pn-flabel pn-flabel-h">差额(买入-卖出):</td>
+<td colspan="1" width="24%" class="pn-fcontent">
+${(btc.diff)!}
+</td>
+</tr>
+<tr>
+<td class="pn-flabel pn-flabel-h">储蓄账户币种1:</td><td colspan="1" class="pn-fcontent">
+	${(user.save_cy1)!}
+</td>
+<td class="pn-flabel pn-flabel-h">金额:</td>
+<td colspan="3" class="pn-fcontent">
+	${(user.save_cy1_amount)!}
+</td></tr>
+<tr>
+<td class="pn-flabel pn-flabel-h">储蓄账户币种2:</td><td colspan="1" class="pn-fcontent">
+	${(user.save_cy2)!}
+</td>
+<td class="pn-flabel pn-flabel-h">金额:</td>
+<td colspan="3" class="pn-fcontent">
+	${(user.save_cy2_amount)!}
+</td></tr>
+<tr>
+<td class="pn-flabel pn-flabel-h">比特币金额:</td>
+<td colspan="5" class="pn-fcontent">
+	${(user.save_bitcoin_amount)!}
+</td></tr>
+<tr>
+	<td class="pn-flabel pn-flabel-h"><span class="pn-frequired"></span>自定义交易日期:</td>
+	<td colspan="5" class="pn-fcontent">
+		<input type="text" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="trade.custom_time" id="customTime" value="${(trade.custom_time?string('yyyy-MM-dd HH:mm:ss'))!}" style="width: 210px;" />
+		<font color="red">*不选择默认为当前时间*</font>
+	</td>
+</tr>
+<tr>
+<td class="pn-fcontent" height="30" colspan="6">支付信息</td>
+</tr>
+<tr id="tr-media">
+        <td class="pn-flabel pn-flabel-h"><div>
+          	不可撤销声明:
+        </div></td>
+        <td colspan="5" class="pn-fcontent">
+        <#if finalProofList??>
+		<div class="parentFileBox" style="width: 100%;">
+		<ul class="fileBoxUl">
+			<#list finalProofList as c>
+				<li class="">
+				<div class="viewThumb"><img id="fp_${c_index}" src="${c.url!}"></div>
+				<div class="diyCancel"></div>
+				<div class="diySuccess" style="display: block;"></div>
+				<div class="diyFileName">${c.name!}</div>
+				<div class="diyBar" style="display: none;">
+				<div class="diyProgress" style="width: 100%;"></div>
+				<div class="diyProgressText">上传完成</div>
+				</div>
+				</li>
+			</#list>
+		</ul>
+		</div>
+		</#if>
+        <div id="demo">
+		<div id="final_proof_div"></div>
+		
+		
+		
+		</div>
+        </td>
+    </tr>
+    <tr><td class="pn-flabel pn-flabel-h">转账截图:</td>
+    <td class="pn-fcontent" colspan="5">
+    <#if transferScreenshotsList??>
+		<div class="parentFileBox" style="width: 100%;">
+		<ul class="fileBoxUl">
+			<#list transferScreenshotsList as c>
+				<li class="">
+				<div class="viewThumb"><img id="ts_${c_index}" src="${c.url!}"></div>
+				<div class="diyCancel"></div>
+				<div class="diySuccess" style="display: block;"></div>
+				<div class="diyFileName">${c.name!}</div>
+				<div class="diyBar" style="display: none;">
+				<div class="diyProgress" style="width: 100%;"></div>
+				<div class="diyProgressText">上传完成</div>
+				</div>
+				</li>
+			</#list>
+		</ul>
+		</div>
+		</#if>
+    <div id="box">
+	<div id="transfer_screenshots_div"></div>
+	</div>
+
+		</td></tr>
+<tr>
+<td class="pn-flabel pn-flabel-h">货币种类:</td><td colspan="1" class="pn-fcontent">
+	<select name="trade.pay_cy" id="pay_cy">
+		<#list cyList as c>
+			<option value="${c.code!}">${c.name!}</option>
+		</#list>
+	</select>
+</td>
+<td class="pn-flabel pn-flabel-h">总额:</td>
+<td colspan="3" class="pn-fcontent">
+<input id="pay_total" type="number" step="0.0001" maxlength="50" name="trade.pay_total" value="${(trade.pay_total)!}" maxlength="50"/>
+</td></tr>
+<tr>
+<td class="pn-flabel pn-flabel-h">支付方式1:</td><td colspan="1" class="pn-fcontent">
+	<select name="trade.pay_md1" id="pay_md1">
+		<#list payMethodList as c>
+			<option value="${c.ename!}">${c.ename!}</option>
+		</#list>
+	</select>
+</td>
+<td class="pn-flabel pn-flabel-h">金额:</td>
+<td colspan="1" class="pn-fcontent">
+<input id="pay_md1_amount" type="number" step="0.0001" maxlength="50" name="trade.pay_md1_amount" value="${(trade.pay_md1_amount)!}" maxlength="50"/>
+</td><td class="pn-flabel pn-flabel-h">备注:</td>
+<td colspan="1" class="pn-fcontent">
+<input id="pay_md1_memo" type="text" maxlength="500" name="trade.pay_md1_memo" value="${(trade.pay_md1_memo)!}" size="40"/>
+</td>
+</tr>
+<tr>
+<td class="pn-flabel pn-flabel-h">支付方式2:</td><td colspan="1" class="pn-fcontent">
+	<select name="trade.pay_md2" id="pay_md2">
+		<#list payMethodList as c>
+			<option value="${c.ename!}">${c.ename!}</option>
+		</#list>
+	</select>
+</td>
+<td class="pn-flabel pn-flabel-h">金额:</td>
+<td colspan="1" class="pn-fcontent">
+<input id="pay_md2_amount" type="number" step="0.0001" maxlength="50" name="trade.pay_md2_amount" value="${(trade.pay_md2_amount)!}" maxlength="50"/>
+</td><td class="pn-flabel pn-flabel-h">备注:</td>
+<td colspan="1" class="pn-fcontent">
+<input id="pay_md2_memo" type="text" maxlength="200" name="trade.pay_md2_memo" value="${(trade.pay_md2_memo)!}" size="40"/>
+</td>
+</tr>
+<tr><td class="pn-flabel pn-flabel-h">附加信息:</td>
+<td colspan="5" class="pn-fcontent">
+<textarea name="trade.add_info" cols="70" rows="3">${(trade.add_info)!}</textarea> 
+</td>
+</tr>
+<tr>
+<td class="pn-flabel pn-flabel-h">手续费:</td><td colspan="1" class="pn-fcontent">
+	<select name="trade.serv_fee" id="serv_fee">
+		<#list payMethodList as c>
+			<option value="${c.ename!}">${c.ename!}</option>
+		</#list>
+	</select>&nbsp;&nbsp;当前费率:${(serv_fee_rate)!}&nbsp;&nbsp;<a href="/admin/config/edit/3">修改费率</a>
+</td>
+<td class="pn-flabel pn-flabel-h">金额:</td>
+<td colspan="1" class="pn-fcontent">
+<input id="serv_fee_amount" type="text" maxlength="50" name="trade.serv_fee_amount" value="${(trade.serv_fee_amount)!}" maxlength="50"/>
+</td><td class="pn-flabel pn-flabel-h">备注:</td>
+<td colspan="3" class="pn-fcontent">
+<input id="serv_fee_memo" type="text" maxlength="200" name="trade.serv_fee_memo" value="${(trade.serv_fee_memo)!}" size="40"/>
+</td>
+</tr>
+<tr>
+<td class="pn-flabel pn-flabel-h">交易汇率:</td><td colspan="1" class="pn-fcontent">
+<input id="ex_rate" type="number" step="0.0000000001" maxlength="50" name="trade.ex_rate" value="${(trade.ex_rate)!}" maxlength="50"/>
+</td>
+<td class="pn-flabel pn-flabel-h">汇率方向:</td>
+<td colspan="1" class="pn-fcontent">
+<label><input name="trade.rate_direction" type="radio" value="0" checked/>正向 Forward direction</label> 
+<label><input name="trade.rate_direction" type="radio" value="1" />反向 Opposite direction</label> 
+</td><td class="pn-flabel pn-flabel-h">计算方法:</td>
+<td colspan="3" class="pn-fcontent">
+<label><input name="trade.computing_md" type="radio" value="1" />相乘 Multiplication</label> 
+<label><input name="trade.computing_md" type="radio" value="0" checked />相除 Division</label> 
+<input id="pay_total_computing" type="button" value="根据支付总额计算"/><input id="withdraw_total_computing" type="button" value="根据取款总额计算"/>
+</td>
+</tr>
+<tr>
+<td class="pn-fcontent" height="30" colspan="6">取款信息</td>
+</tr>
+<tr>
+<td class="pn-flabel pn-flabel-h">货币种类:</td><td colspan="1" class="pn-fcontent">
+	<select name="trade.withdraw_cy" id="withdraw_cy">
+		<#list cyList as c>
+			<option value="${c.code!}">${c.name!}</option>
+		</#list>
+	</select>
+</td>
+<td class="pn-flabel pn-flabel-h">总额:</td>
+<td colspan="3" class="pn-fcontent">
+<input id="withdraw_total" type="number" step="0.0001" maxlength="50" name="trade.withdraw_total" value="${(trade.withdraw_total)!}" maxlength="50"/>
+</td></tr>
+<tr>
+<td class="pn-flabel pn-flabel-h">支付方式1:</td><td colspan="1" class="pn-fcontent">
+	<select name="trade.withdraw_md1" id="withdraw_md1">
+		<#list payMethodList as c>
+			<option value="${c.ename!}">${c.ename!}</option>
+		</#list>
+	</select>
+</td>
+<td class="pn-flabel pn-flabel-h">金额:</td>
+<td colspan="1" class="pn-fcontent">
+<input id="withdraw_md1_amount" type="number" step="0.0001" maxlength="50" name="trade.withdraw_md1_amount" value="${(trade.withdraw_md1_amount)!}" maxlength="50"/>
+</td><td class="pn-flabel pn-flabel-h">备注:</td>
+<td colspan="1" class="pn-fcontent">
+<input id="withdraw_md1_memo" type="text" maxlength="500" name="trade.withdraw_md1_memo" value="${(trade.withdraw_md1_memo)!}" size="40"/>
+</td>
+</tr>
+<tr>
+<td class="pn-flabel pn-flabel-h">支付方式2:</td><td colspan="1" class="pn-fcontent">
+	<select name="trade.withdraw_md2" id="withdraw_md2">
+		<#list payMethodList as c>
+			<option value="${c.ename!}">${c.ename!}</option>
+		</#list>
+	</select>
+</td>
+<td class="pn-flabel pn-flabel-h">金额:</td>
+<td colspan="1" class="pn-fcontent">
+<input id="withdraw_md2_amount" type="number" step="0.0001" maxlength="50" name="trade.withdraw_md2_amount" value="${(trade.withdraw_md2_amount)!}" maxlength="50"/>
+</td><td class="pn-flabel pn-flabel-h">备注:</td>
+<td colspan="1" class="pn-fcontent">
+<input id="withdraw_md2_memo" type="text" maxlength="200" name="trade.withdraw_md2_memo" value="${(trade.withdraw_md2_memo)!}" size="40"/>
+</td>
+</tr>
+<tr><td colspan="6" class="pn-fbutton">
+<input type="hidden" name="trade.uid" value="${(user.id)!}" />
+<input id="trade_id" type="hidden" name="trade.id" value="${(trade.id)!}" />
+<input type="hidden" id="serv_fee_rate" value="${(serv_fee_rate)!}" />
+<input type="hidden" id="final_proof" name="final_proof" style="width:200px" value="${finalProof!}"/>
+<input type="hidden" id="transfer_screenshots" name="transfer_screenshots" style="width:200px" value="${transferScreenshots!}"/>
+<#if method!='view'>
+<input id="submit_one" type="submit" value="提交" class="submit"/> &nbsp;
+ <input type="reset" value="重置" class="reset"/></td>
+ <#else>
+ <#if trade??><input id="print" type="button" value="打印" class="export"/> &nbsp;</#if>
+ </#if>
+</tr></table>
+<script>
+$(function () { 
+	/* function getDate(){
+
+		   var myDate = new Date();
+
+		    //获取当前年
+		   var year = myDate.getFullYear();
+
+		   //获取当前月
+		   var month = myDate.getMonth() + 1;
+
+		    //获取当前日
+		    var date = myDate.getDate();
+		    var h = myDate.getHours(); //获取当前小时数(0-23)
+		    var m = myDate.getMinutes(); //获取当前分钟数(0-59)
+		    var s = myDate.getSeconds();
+
+		   //获取当前时间
+
+		   var now = year + '-' + conver(month) + "-" + conver(date) + " " + conver(h) + ':' + conver(m) + ":" + conver(s);
+			return now;
+		}
+
+		//日期时间处理
+		function conver(s) {
+			return s < 10 ? '0' + s : s;
+		}
+
+		//打印输出
+
+		alert(getDate()); */
+
+
+		$('#ddd').hide();
+	var trade_id = $('#trade_id').val();
+	
+	if(trade_id==''){
+		
+		$('#pay_total').val(0);
+		$('#pay_md1_amount').val(0);
+		$('#pay_md2_amount').val(0);
+		$('#withdraw_total').val(0);
+		$('#withdraw_md1_amount').val(0);
+		$('#withdraw_md2_amount').val(0);
+		$('#pay_cy').val("NZD");
+		$('#withdraw_cy').val("BTC");
+	}
+	else{
+		
+		$('#pay_cy').val("${(trade.pay_cy)!}");
+		$('#withdraw_cy').val("${(trade.withdraw_cy)!}");
+		$('#pay_md1').val("${(trade.pay_md1)!}");
+		
+		$('#pay_md2').val("${(trade.pay_md2)!}");
+		$('#serv_fee').val("${(trade.serv_fee)!}");
+		$('#withdraw_md1').val("${(trade.withdraw_md1)!}");
+		$('#withdraw_md2').val("${(trade.withdraw_md2)!}");
+		var is_self = '${(trade.is_self)!}';
+		if(is_self==1){
+			$('input[type=radio][name="trade.is_self"][value=1]').attr("checked",true);
+		}
+		else{
+			$('input[type=radio][name="trade.is_self"][value=0]').attr("checked",true);
+		}
+		var rate_direction = '${(trade.rate_direction)!}';
+		if(rate_direction==1){
+			$('input[type=radio][name="trade.rate_direction"][value=1]').attr("checked",true);
+		}
+		else{
+			$('input[type=radio][name="trade.rate_direction"][value=0]').attr("checked",true);
+		}
+		var computing_md = '${(trade.computing_md)!}';
+		if(computing_md==1){
+			$('input[type=radio][name="trade.computing_md"][value=1]').attr("checked",true);
+		}
+		else{
+			$('input[type=radio][name="trade.computing_md"][value=0]').attr("checked",true);
+		}
+		//打印
+		$('#pay_cy_print').text($('#pay_cy option:selected').text());
+		$('#pay_md1_print').text($('#pay_md1 option:selected').text());
+		$('#pay_md2_print').text($('#pay_md2 option:selected').text());
+		$('#serv_fee_print').text($('#serv_fee option:selected').text());
+		var is_self_print = $("input[type=radio][name='trade.is_self']:checked")[0].nextSibling.nodeValue;
+		var rate_direction_print = $("input[type=radio][name='trade.rate_direction']:checked")[0].nextSibling.nodeValue;
+		var computing_md_print = $("input[type=radio][name='trade.computing_md']:checked")[0].nextSibling.nodeValue;
+		$('#is_self_print').text(is_self_print);
+		$('#rate_direction_print').text(rate_direction_print);
+		$('#computing_md_print').text(computing_md_print);
+		$('#withdraw_cy_print').text($('#withdraw_cy option:selected').text());
+		$('#withdraw_md1_print').text($('#withdraw_md1 option:selected').text());
+		$('#withdraw_md2_print').text($('#withdraw_md2 option:selected').text());
+	}
+	$('input[type=radio][name="trade.rate_direction"]').change(function() {
+		var ex_rate = $('#ex_rate').val().trim();
+		if(ex_rate!=''){
+			var accuracy = 10000000000;
+			var inverse = Math.round(1/ex_rate*accuracy)/accuracy;
+			$('#ex_rate').val(inverse);
+			/* if (this.value == '0') {
+		        alert("0");
+		    }
+		    else if (this.value == '1') {
+		        alert("1");
+		    } */
+		}
+		
+	});
+	$("#pay_total_computing").click(function(){
+		if($('#pay_total').val()==''){
+			alert("请输入支付总额");
+		}
+		else if($('#ex_rate').val()==''){
+			alert("请输入交易汇率")
+		}
+		else{
+			var computing_md = $("input[name='trade.computing_md']:checked").val();
+			var withdraw_amount;
+			var accuracy = 10000;
+			if($('#withdraw_cy').val()=='BTC'){
+				accuracy = 10000;
+				//alert("btc");
+			}
+			if(computing_md==0){
+				withdraw_amount = Math.round($('#pay_total').val()/$('#ex_rate').val()*accuracy)/accuracy;
+			}
+			else{
+				withdraw_amount = Math.round($('#pay_total').val()*$('#ex_rate').val()*accuracy)/accuracy;
+			}
+			$('#withdraw_total').val(withdraw_amount);
+		}
+	}); 
+	$("#withdraw_total_computing").click(function(){
+		if($('#withdraw_total').val()==''){
+			alert("请输入取款总额");
+		}
+		else if($('#ex_rate').val()==''){
+			alert("请输入交易汇率")
+		}
+		else{
+			var computing_md = $("input[name='trade.computing_md']:checked").val();
+			var pay_amount;
+			var accuracy = 10000;
+			if($('#pay_cy').val()=='BTC'){
+				accuracy = 10000;
+			}
+			if(computing_md==0){
+				pay_amount = Math.round($('#withdraw_total').val()*$('#ex_rate').val()*accuracy)/accuracy;
+			}
+			else{
+				pay_amount = Math.round($('#withdraw_total').val()/$('#ex_rate').val()*accuracy)/accuracy;
+			}
+			$('#pay_total').val(pay_amount);
+			var serv_fee_rate = $('#serv_fee_rate').val();
+			var serv_fee_amount = Math.round(pay_amount*serv_fee_rate*100)/100;
+			$('#serv_fee_amount').val(serv_fee_amount);
+		}
+	}); 
+	$('#pay_total').blur(function(){
+		var pay_total=$('#pay_total').val().trim();
+		var serv_fee_rate = $('#serv_fee_rate').val();
+		if(pay_total!=''&&pay_total!=0&&serv_fee_rate!=''&&serv_fee_rate!=0){
+			var serv_fee_amount = Math.round(pay_total*serv_fee_rate*100)/100;
+			$('#serv_fee_amount').val(serv_fee_amount);
+			//alert(serv_fee_amount);
+		}
+		
+	});
+	$("#submit_one").click(function(){
+		if($('#pay_total').val().trim()==''||$('#pay_total').val().trim()==0
+				||$('#withdraw_total').val().trim()==''||$('#withdraw_total').val().trim()==0
+				||$('#pay_md1_amount').val().trim()==''||$('#pay_md1_amount').val().trim()==0
+				||$('#withdraw_md1_amount').val().trim()==''||$('#withdraw_md1_amount').val().trim()==0
+				||$('#ex_rate').val().trim()==''||$('#ex_rate').val().trim()==0
+				||$('#serv_fee_amount').val().trim()==''){
+			alert("非法输入");
+	    	return false;
+		}
+		else{
+			var boo = 0;
+			var msg = "";
+			var pay_total = $('#pay_total').val();
+			var pay1 = parseFloat($('#pay_md1_amount').val());
+			var pay2 = parseFloat($('#pay_md2_amount').val());
+			if(pay1+pay2!=pay_total){
+				boo=1;
+				msg ="支付金额有误";
+			}
+			var withdraw_total = $('#withdraw_total').val();
+			var withdraw1 = parseFloat($('#withdraw_md1_amount').val());
+			var withdraw2 = parseFloat($('#withdraw_md2_amount').val());
+			if(withdraw_total!=withdraw1+withdraw2){
+				boo=1;
+				msg="取款金额有误";
+			}
+			//校验取款总额
+			var computing_md = $("input[name='trade.computing_md']:checked").val();
+			var withdraw_amount;
+			if(computing_md==0){
+				withdraw_amount = Math.round($('#pay_total').val()/$('#ex_rate').val()*10000)/10000;
+			}
+			else{
+				withdraw_amount = Math.round($('#pay_total').val()*$('#ex_rate').val()*10000)/10000;
+			}
+			//alert(withdraw_amount);
+			if(withdraw_amount != $('#withdraw_total').val()){
+				boo=1;
+				msg = "取款金额计算有误";
+			}
+			if(boo==1){
+				alert(msg);
+				return false;
+			}
+			else{
+				if($('#withdraw_cy').val()!='BTC'){
+					accuracy = 100;
+					var wd1 = $('#withdraw_md1_amount').val();
+					var wd2 = $('#withdraw_md2_amount').val();
+					wd11 = Math.round(wd1*accuracy)/accuracy;
+					wd22 = Math.round(wd2*accuracy)/accuracy;
+					var wdt = wd11+wd22;
+					$('#withdraw_md1_amount').val(wd11);
+					$('#withdraw_md2_amount').val(wd22);
+					$('#withdraw_total').val(wdt);
+					//alert("btc");
+				}
+				return true;	
+			}
+			
+		}
+	}); 
+	
+})
+
+</script>
+<script src="/js/jQuery.print.js"></script>
+        <script type='text/javascript'>
+        //<![CDATA[
+        jQuery(function($) { 'use strict';
+            $("#print").on('click', function() {
+                //Print ele4 with custom options
+                $('#ddd').show();
+                $("#ddd").print({
+                    //Use Global styles
+                    globalStyles : false,
+                    //Add link with attrbute media=print
+                    mediaPrint : false,
+                    //Custom stylesheet
+                    //stylesheet : "http://fonts.googleapis.com/css?family=Inconsolata",
+                    //Print in a hidden iframe
+                    iframe : false,
+                    //Don't print this
+                    noPrintSelector : ".avoid-this",
+                    //Add this at top
+                    //prepend : "Hello World!!!<br/>",
+                    //Add this on bottom
+                    //append : "<span><br/>Buh Bye!</span>",
+                    //Log to console when printing is done via a deffered callback
+                    deferred: $.Deferred().done(function() { 
+                    	$('#ddd').hide();
+                    	console.log('Printing done', arguments); 
+                    })
+                });
+            }); 
+            // Fork https://github.com/sathvikp/jQuery.print for the full list of options
+        });
+        //]]>
+        </script>
+<script>
+var $fp0 = $('#fp_0');
+$fp0.viewer({
+  viewed: function() {
+    $fp0.viewer('zoomTo', 1);
+  }
+}); 
+var $fp1 = $('#fp_1');
+$fp1.viewer({
+  viewed: function() {
+    $fp1.viewer('zoomTo', 1);
+  }
+}); 
+var $fp2 = $('#fp_2');
+$fp2.viewer({
+  viewed: function() {
+    $fp2.viewer('zoomTo', 1);
+  }
+}); 
+var $fp3 = $('#fp_3');
+$fp3.viewer({
+  viewed: function() {
+    $fp3.viewer('zoomTo', 1);
+  }
+}); 
+var $fp4 = $('#fp_4');
+$fp4.viewer({
+  viewed: function() {
+    $fp4.viewer('zoomTo', 1);
+  }
+}); 
+var $ts0 = $('#ts_0');
+$ts0.viewer({
+  viewed: function() {
+    $ts0.viewer('zoomTo', 1);
+  }
+}); 
+var $ts1 = $('#ts_1');
+$ts1.viewer({
+  viewed: function() {
+    $ts1.viewer('zoomTo', 1);
+  }
+}); 
+var $ts2 = $('#ts_2');
+$ts2.viewer({
+  viewed: function() {
+    $ts2.viewer('zoomTo', 1);
+  }
+}); 
+var $ts3 = $('#ts_3');
+$ts3.viewer({
+  viewed: function() {
+    $ts3.viewer('zoomTo', 1);
+  }
+}); 
+var $ts4 = $('#ts_4');
+$ts4.viewer({
+  viewed: function() {
+    $ts4.viewer('zoomTo', 1);
+  }
+}); 
+</script>
+<script type="text/javascript">
+var showText = "选择文件";
+var fpf = '${finalProof!}';
+if(fpf!=''){
+	showText = "追加文件";
+}
+var showText2 = "选择图片";
+var ts = '${transferScreenshots!}';
+if(ts!=''){
+	showText2 = "追加图片";
+}
+/*
+
+* 服务器地址,成功返回,失败返回参数格式依照jquery.ajax习惯;
+
+* 其他参数同WebUploader
+
+*/
+$('#final_proof_div').diyUpload({
+
+	url:'/file/file',
+
+	success:function( data ) {
+
+		var fp = $('#final_proof').val();
+		if(fp==''){
+			
+		}
+		else{
+			fp = fp + "," ;
+		}
+		fp = fp + data.data[0];
+		$('#final_proof').val(fp);
+		console.info( $('#final_proof').val() );
+
+	},
+
+	error:function( err ) {
+
+		console.info( err );	
+
+	},
+
+	buttonText : showText,
+
+	chunked:true,
+
+	// 分片大小
+
+	chunkSize:512 * 1024,
+
+	//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
+
+	fileNumLimit:5,
+
+	fileSizeLimit:25000 * 1024,
+
+	fileSingleSizeLimit:5000 * 1024,
+
+	accept: {}
+
+});
+
+
+$('#transfer_screenshots_div').diyUpload({
+
+	url:'/file/file',
+
+	success:function( data ) {
+		
+		var fp = $('#transfer_screenshots').val();
+		if(fp==''){
+			
+		}
+		else{
+			fp = fp + "," ;
+		}
+		fp = fp + data.data[0];
+		$('#transfer_screenshots').val(fp);
+		console.info( $('#transfer_screenshots').val() );
+
+	},
+
+	error:function( err ) {
+
+		console.info( err );	
+
+	},
+	
+	buttonText : showText2,
+
+	chunked:true,
+
+	// 分片大小
+
+	chunkSize:512 * 1024,
+
+	//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
+
+	fileNumLimit:5,
+
+	fileSizeLimit:25000 * 1024,
+
+	fileSingleSizeLimit:5000 * 1024,
+
+	accept: {}
+
+});
+
+
+
+
+
+</script>

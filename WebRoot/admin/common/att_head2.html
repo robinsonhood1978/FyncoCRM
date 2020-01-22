@@ -1,0 +1,54 @@
+<link rel="stylesheet" href="/css/lightbox.css" type="text/css" media="screen" />
+<script src="/fckeditor/fckeditor.js" type="text/javascript"></script>
+<script src="/js/jquery.lightbox.js" type="text/javascript"></script>
+<script type="text/javascript"> 
+//内容增加时候 上传单个文件
+function uploadImg(textId,fileText) {
+	//检查是否选择了文件
+	var myFile = $("#"+textId);
+	if(myFile.val()=="") {
+		alert("请选择要上传的文件");
+		return;
+	}
+	//将file移动至上传表单
+	$("#mediaContent").empty();
+	$("#mediaContent").append(myFile);
+	//复制一个file放至原处
+	$('#mfc_'+fileText).append(myFile.clone().attr('value',''));
+	$('#'+fileText).attr('value','');
+	//修改属性
+	myFile.attr("id","");
+	//其他表单
+	$("#mediaFilename").val(textId);
+	$("#mediaForm").submit();
+}
+
+//预览图片
+function previewImg2(n) {
+	var img = $("#path_"+n).val();
+	if(img!="") {
+		if(img.indexOf("?")==-1) {
+			$("#preImg_"+n).attr("src",img+"?d="+new Date()*1);
+		} else {
+			$("#preImg_"+n).attr("src",img+"&d="+new Date()*1);
+		}
+		/*if(!$("#preImg"+n).attr("noResize")) {
+			$("#preImg"+n).css("width","auto");
+			$("#preImg"+n).css("height","auto");
+		}*/
+		$("#preImg_"+n).css("width","100");
+		$("#preImg_"+n).css("height","70");
+		$("#hrefImg_"+n).attr("href",img);
+	} else {
+		$("#preImg_"+n).removeAttr("src");		
+	}
+}
+</script>
+<form id="mediaForm" action="/admin/content/file" method="post"
+	enctype="multipart/form-data" target="media_iframe"
+	style="display: none; width: 0px; height: 0px;">
+	<span id="mediaContent"></span>
+	<input type="hidden" id="mediaFilename" name="mediaFilename" />
+</form>
+<iframe name="media_iframe" frameborder="0" border="0"
+	style="display: none; width: 0px; height: 0px;"></iframe>

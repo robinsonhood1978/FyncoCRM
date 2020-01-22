@@ -1,0 +1,157 @@
+<#include "/WEB-INF/m/_m.html" />
+<@layout>
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="am-cf am-padding">
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">Avatar Upload</strong></div>
+    </div>
+
+    <hr/>
+
+    <div class="am-g">
+
+      <div class="am-u-sm-12 am-u-md-4 am-u-md-push-8">
+        
+
+      </div>
+
+      <div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4">
+       
+       
+       
+       <div class="am-panel am-panel-default">
+          <div class="am-panel-bd">
+            <div class="am-g">
+              <div class="am-u-md-8">
+                <!--cropbox start-->
+                    <link rel="stylesheet" href="/css/cropbox.css">
+                    <script src="/js/cropbox.js"></script>
+<div class="container">
+  <div class="imageBox" >
+    <div class="thumbBox"></div>
+    <div class="spinner" style="display: none;">Loading...</div>
+  </div>
+  <div class="action"> 
+    <div class="new-contentarea tc"> <a href="javascript:void(0)" class="am-btn am-btn-lg am-btn-success am-round">
+      <label for="upload-file">Choose</label>
+      </a>
+      <input type="file" class="" name="upload-file" id="upload-file">
+    </div>
+    <input type="button" id="btnCrop" class="am-btn am-btn-lg am-btn-success am-round" value="Cutting">
+    <input type="button" id="btnZoomIn" class="am-btn am-btn-lg am-btn-success am-round" value="+">
+    <input type="button" id="btnZoomOut" class="am-btn am-btn-lg am-btn-success am-round" value="-">
+  </div>        
+   
+</div>
+
+<script type="text/javascript">
+$(window).load(function() {
+	var options =
+	{
+		thumbBox: '.thumbBox',
+		spinner: '.spinner',
+		imgSrc: '${(session.user.avatar)!}'
+	}
+	var cropper = $('.imageBox').cropbox(options);
+	$('#upload-file').on('change', function(){
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			options.imgSrc = e.target.result;
+			cropper = $('.imageBox').cropbox(options);
+		}
+		reader.readAsDataURL(this.files[0]);
+		this.files = [];
+	})
+	$('#btnCrop').on('click', function(){
+		var img = cropper.getDataURL();
+		$('#avatar').val(img);
+		$('#cropped').html('');
+		$('#cropped').append('<img src="'+img+'" align="absmiddle" class="am-img-circle am-img-thumbnail" style="border-radius:180px;">');
+	})
+	$('#btnZoomIn').on('click', function(){
+		cropper.zoomIn();
+	})
+	$('#btnZoomOut').on('click', function(){
+		cropper.zoomOut();
+	})
+});
+</script>
+                    <!--cropbox end-->
+                
+                  
+                    
+                  </div>
+
+                
+              </div>
+              <hr/>
+              <div class="am-g">
+              <div class="am-u-md-4">
+              	<div class="am-img-circle am-img-thumbnail" id="cropped"></div>
+              </div>
+              </div>
+              <hr/>
+              <div class="am-g">
+              		<div class="am-u-md-4">
+                    	<form class="am-form"">
+                    		<div class="am-form-group">
+                    		<input type="hidden" name="avatar" id="avatar" value=""> 
+                    		<button type="button" onclick="return Check();" class="am-btn am-btn-lg am-btn-primary am-round"> 保 存 </button>    
+                    		</div>                	
+                    	</form>
+                    	<!--alert start-->
+      <div class="am-modal am-modal-alert" id="pwd-alert">
+  		<div class="am-modal-dialog">
+    		<div class="am-modal-bd" id="myalert">
+      
+    		</div>
+    		<div class="am-modal-footer">
+      			<span class="am-modal-btn">知道了</span>
+    		</div>
+  		</div>
+	  </div>
+	  <!--alert end-->
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+       
+        
+      </div>
+    </div>
+  </div>
+  <!-- content end -->
+<script>
+var $modal = $('#pwd-alert');
+function Check(){
+	if($('#avatar').val()==''){
+		$('#myalert').text("请先选图并裁切^-^");
+		$modal.modal();
+		return false;
+	}
+	else{
+		var avatar = $('#avatar').val();
+		$.post("/m/jsaveavatar", {avatar}, function(data) {
+			if(data.code==1){
+			 	layer.open({
+				    content: data.msg,
+				    btn: 'Got it'
+				  });
+				return false;
+			}
+			else{ 
+				layer.open({
+				    content: 'Your avatar has been uploaded. Enjoy it!',
+				    btn: 'Got it',
+				    yes: function(){
+				    	location.href="/m";
+				      }
+				  });
+			}
+			return false;
+		}, "json");
+	}
+}
+</script>
+</@layout>

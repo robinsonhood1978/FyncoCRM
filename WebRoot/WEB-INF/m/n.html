@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>惟视眼科</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="icon" type="image/png" href="/t/assets/i/favicon.png">
+  <link rel="stylesheet" href="/t/assets/css/amazeui.min.css"/>
+  <link href="/video-js/video-js.min.css" rel="stylesheet" type="text/css">
+  <!-- video.js must be in the <head> for older IEs to work. -->
+  <script src="/video-js/video.js"></script>
+  <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.media.js"></script>
+  <script type="text/javascript" src="/js/pdfobject.min.js"></script>
+  <style>
+  #pdf {
+width: 100%;
+height: 500px;
+margin: 2em auto;
+border: 1px solid #65452;
+}
+ 
+#pdf p {
+   padding: 1em;
+}
+ 
+#pdf object {
+   display: block;
+   border: solid 1px #123;
+}
+  /* Style the second URL with a red border */
+    @media only screen and (min-width: 641px) {
+      .am-offcanvas {
+        display: block;
+        position: static;
+        background: none;
+      }
+
+      .am-offcanvas-bar {
+        position: static;
+        width: auto;
+        background: none;
+        -webkit-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+      }
+      .am-offcanvas-bar:after {
+        content: none;
+      }
+
+    }
+
+    @media only screen and (max-width: 640px) {
+      .am-offcanvas-bar .am-nav>li>a {
+        color:#ccc;
+        border-radius: 0;
+        border-top: 1px solid rgba(0,0,0,.3);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.05)
+      }
+
+      .am-offcanvas-bar .am-nav>li>a:hover {
+        background: #404040;
+        color: #fff
+      }
+
+      .am-offcanvas-bar .am-nav>li.am-nav-header {
+        color: #777;
+        background: #404040;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+        text-shadow: 0 1px 0 rgba(0,0,0,.5);
+        border-top: 1px solid rgba(0,0,0,.3);
+        font-weight: 400;
+        font-size: 75%
+      }
+
+      .am-offcanvas-bar .am-nav>li.am-active>a {
+        background: #1a1a1a;
+        color: #fff;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,.3)
+      }
+
+      .am-offcanvas-bar .am-nav>li+li {
+        margin-top: 0;
+      }
+    }
+
+    .my-head {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .my-button {
+      position: fixed;
+      top: 0;
+      right: 0;
+      border-radius: 0;
+    }
+    .my-sidebar {
+      padding-right: 0;
+      border-right: 1px solid #eeeeee;
+    }
+
+    .my-footer {
+      border-top: 1px solid #eeeeee;
+      padding: 10px 0;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+          video {
+            max-width: 100%;
+            height: auto;
+          }
+
+          iframe,
+          embed,
+          object {
+            max-width: 100%;
+          }
+
+          .container {
+            width: 90%;
+            padding: 5%;
+            margin:0px auto;
+            background:#fff;
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+          }
+
+          .vendor {
+            padding: 2%;
+            background: #fff;
+            margin-bottom: 2em;
+          }
+
+          .unsupported {
+            background: #fddfde;
+          }
+          
+  </style>
+
+</head>
+<body>
+<header class="am-g my-head">
+  <div class="am-u-sm-12 am-article">
+    <h1 class="am-article-title">${(content.title)!}</h1>
+    <#if content.short_title??>
+    <blockquote>${(content.short_title)!}</blockquote>
+    </#if>
+    <#if content.author??>
+    <p class="am-comment-author">作者：${(content.author)!}</p>
+    </#if>
+    <p class="am-article-meta">${(content.release_date)!}</p>
+  </div>
+</header>
+<hr class="am-article-divider"/>
+<div class="am-g am-g-fixed">
+  <div class="am-u-md-10 am-u-md-push-1">
+    <div class="am-g">
+      <div class="am-u-sm-11 am-u-sm-centered">
+        <div class="am-cf am-article">
+        <#if content.description??>
+        <h2>摘要</h2>
+          <p>${(content.description)!}</p>
+          <hr class="am-article-divider">
+          </#if>
+          <#if content.title_img??>
+          <img src="${(content.title_img)!}" class="am-img-responsive"/>
+          </#if>
+          <#if content.txt??>
+          ${(content.txt)!}
+          <#else>
+          <p>暂无内容</p>
+          </#if>
+          <hr class="am-article-divider">
+<#if pdf_att??>
+<#if client??>
+<#else>
+		<h2>附件</h2>
+       <a class="media" href="${(pdf_att.url)!}">${(pdf_att.name)!}</a>
+        <hr/>
+</#if>
+</#if>
+      </div>
+    </div>
+  </div>
+
+</div>
+<#if video_att??>
+<div class="container">
+	<div class="vendor">
+		<iframe width="425" height="349" src="/info/video?url=${(video_att.url)!}&pic=${(content.title_img)!}" frameborder="0" allowfullscreen></iframe>
+	</div>
+</div>
+</#if>
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="/t/assets/js/polyfill/rem.min.js"></script>
+<script src="/t/assets/js/polyfill/respond.min.js"></script>
+<script src="/t/assets/js/amazeui.legacy.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="/t/assets/js/jquery.min.js"></script>
+<script src="/t/assets/js/amazeui.min.js"></script>
+<!--<![endif]-->
+
+	<script src="/js/jquery.fitvids.js"></script>
+      <script>
+        $(".container").fitVids();
+      </script>
+ <#if pdf_att??>
+<script type="text/javascript">  
+$(function() {  
+    $('a.media').media();  
+});  
+</script>  
+</#if> 
+</body>
+</html>

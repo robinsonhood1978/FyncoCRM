@@ -1,0 +1,86 @@
+<#macro paginate currentPage pageSize totalPage totalRow actionUrl urlParas="">
+	<#if (totalPage <= 0) || (currentPage > totalPage)><#return></#if>
+	<#local startPage = currentPage - 4>
+	<#if (startPage < 1)><#local startPage = 1></#if>
+	
+	<#local endPage = currentPage + 4>
+	<#if (endPage > totalPage)><#local endPage = totalPage></#if>
+	
+	<#if (currentPage <= 8)>
+				<#local startPage = 1>
+			</#if>
+			<#if ((totalPage - currentPage) < 8)>
+				<#local endPage = totalPage>
+			</#if>
+			<#local currentRecord = pageSize*currentPage>
+			<#if (currentRecord gt totalRow)><#local currentRecord = totalRow></#if>
+ <div class="pagination-light">
+ <ul class="pagination ">
+
+                                                <li class="page-item <#if startPage gt 1><#else>disabled</#if>">
+                                                    <a class="page-link" href="${actionUrl}1" aria-label="Previous">
+                                                     	<span class="sr-only">First</span>
+                                                        <span aria-hidden="true" class="material-icons">first_page</span>
+                                                       
+                                                    </a>
+                                                </li>
+
+<#if currentPage gt 1>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="${actionUrl}${currentPage-1}" aria-label="Previous">
+                                                    	<span class="sr-only">Prev</span>
+                                                        <span aria-hidden="true" class="material-icons">chevron_left</span>
+                                                        
+                                                    </a>
+                                                </li>
+</#if>
+<#list startPage..endPage as t>
+
+                                                    
+	  <#if currentPage==t>
+	  <li class="page-item active">
+      <#else>
+      <li class="page-item">
+      </#if>
+      <a class="page-link" href="${actionUrl}#{t}${urlParas!}" aria-label="1">
+                                                        <span>${t}</span>
+                                                    </a>
+                                                </li>
+      </#list>
+                                               
+
+<#if currentPage lt totalPage>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="${actionUrl}${currentPage+1}" aria-label="Next">
+                                                        <span class="sr-only">Next</span>
+                                                        <span aria-hidden="true" class="material-icons">chevron_right</span>
+                                                    </a>
+                                                </li>
+</#if>
+
+                                                <li class="page-item <#if totalPage gt endPage><#else>disabled</#if>">
+                                                    <a class="page-link" href="${actionUrl}${totalPage}" aria-label="Next">
+                                                        <span class="sr-only">Last</span>
+                                                        <span aria-hidden="true" class="material-icons">last_page</span>
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+                                            
+ </div>
+ <div class="d-flex flex-row align-items-center">
+                                        <!-- div class="form-inline">
+                                            View
+                                            <select class="custom-select ml-2" style="width: 70px;">
+                                                <option value="1" selected>1</option>
+                                                <option value="1">2</option>
+                                                <option value="10">10</option>
+                                                <option value="100">100</option>
+                                            </select>
+                                        </div -->
+                                        <div class="ml-auto">
+                                           ${currentRecord} <span class="text-muted">of ${totalRow}</span>
+                                        </div>
+                                    </div>
+
+</#macro>

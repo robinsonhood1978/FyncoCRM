@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Fynco</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="stylesheet" href="/f/assets/css/amazeui.min.css"/>
+  <style>
+    @media only screen and (min-width: 641px) {
+      .am-offcanvas {
+        display: block;
+        position: static;
+        background: none;
+      }
+
+      .am-offcanvas-bar {
+        position: static;
+        width: auto;
+        background: none;
+        -webkit-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+      }
+      .am-offcanvas-bar:after {
+        content: none;
+      }
+
+    }
+
+    @media only screen and (max-width: 640px) {
+      .am-offcanvas-bar .am-nav>li>a {
+        color:#ccc;
+        border-radius: 0;
+        border-top: 1px solid rgba(0,0,0,.3);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.05)
+      }
+
+      .am-offcanvas-bar .am-nav>li>a:hover {
+        background: #404040;
+        color: #fff
+      }
+
+      .am-offcanvas-bar .am-nav>li.am-nav-header {
+        color: #777;
+        background: #404040;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+        text-shadow: 0 1px 0 rgba(0,0,0,.5);
+        border-top: 1px solid rgba(0,0,0,.3);
+        font-weight: 400;
+        font-size: 75%
+      }
+
+      .am-offcanvas-bar .am-nav>li.am-active>a {
+        background: #1a1a1a;
+        color: #fff;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,.3)
+      }
+
+      .am-offcanvas-bar .am-nav>li+li {
+        margin-top: 0;
+      }
+    }
+
+    .my-head {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .my-button {
+      position: fixed;
+      top: 0;
+      right: 0;
+      border-radius: 0;
+    }
+    .my-sidebar {
+      padding-right: 0;
+      border-right: 1px solid #eeeeee;
+	} 
+
+    .my-footer {
+      border-top: 1px solid #eeeeee;
+      padding: 10px 0;
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<header id="amz-header" class="am-topbar am-topbar-fixed-top">
+  <div class="am-container">
+    
+      <a href="/"><img src="/images/logo.png" class="am-topbar-brand"></a>
+
+
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-secondary am-show-sm-only"
+            data-am-collapse="{target: '#collapse-head'}"><span class="am-sr-only">${I18N.getText("switch")}</span> <span
+        class="am-icon-bars"></span></button>
+
+    <div class="am-collapse am-topbar-collapse" id="collapse-head">
+      <ul class="am-nav am-nav-pills am-topbar-nav">
+        <li class="am-active"><a href="/">${I18N.getText("home")}</a></li>
+        <li><a href="/">${I18N.getText("about")}</a></li>
+        <li><a href="/info">${I18N.getText("news")}</a></li>
+        <li><a href="/kaihu">${I18N.getText("blog")}</a></li>
+        <li class="am-dropdown" data-am-dropdown>
+          <a class="am-dropdown-toggle" data-am-dropdown-toggle href="/know">
+          ${I18N.getText("learn")}<span class="am-icon-caret-down"></span>
+          </a>
+          <ul class="am-dropdown-content">
+            
+            <li><a href="/yp">${I18N.getText("howitworks")}</a></li>
+            <li><a href="/jnb">${I18N.getText("save")}</a></li>
+            <li><a href="/jnc">${I18N.getText("buy")}</a></li>
+            <li><a href="/xxz">${I18N.getText("sell")}</a></li>
+            <li><a href="/xxz">${I18N.getText("faqs")}</a></li>
+          </ul>
+        </li>
+      </ul>
+	  <#if session?? && session.user??>
+	  <div class="am-topbar-right">
+        <a href="/logout" class="am-btn am-btn-secondary am-topbar-btn am-btn-sm am-round"><span class="am-icon-power-off"></span> ${I18N.getText("logout")}</a>
+      </div>
+	  <div class="am-topbar-right">
+        <a href="/m" class="am-btn am-btn-primary am-topbar-btn am-btn-sm am-round"><span class="am-icon-home"></span> ${I18N.getText("mcenter")}</a>
+      </div>
+	  <#else>
+      <div class="am-topbar-right">
+        <a href="/r" class="am-btn am-btn-secondary am-topbar-btn am-btn-sm am-round"><span class="am-icon-pencil"></span> ${I18N.getText("signup")}</a>
+      </div>
+
+      <div class="am-topbar-right">
+        <a href="/l" class="am-btn am-btn-primary am-topbar-btn am-btn-sm am-round"><span class="am-icon-user"></span> ${I18N.getText("login")}</a>
+      </div>
+      </#if>
+    </div>
+  </div>
+</header>
+<div class="am-g my-head">
+  <div class="am-u-sm-12 am-article">
+    <h1 class="am-article-title">TERMS AND CONDITIONS OF USE</h1>
+    <p class="am-article-meta">
+    </p>
+  </div>
+</div>
+<div class="am-g am-g-fixed">
+  <div class="am-u-md-12">
+    <div class="am-g">
+      <div class="am-u-sm-11 am-u-sm-centered">
+        <div class="am-cf am-article">
+          
+          <p>&nbsp;<span style=" font-family: Raleway; font-size: medium;">Before you continue using our website we advise you to read our</span><span style=" font-family: Raleway; font-size: medium;">&nbsp;</span><a data-v-18f16fc4="" href="http://www.Fynco.co.nz/privacy-policy" style="font-family: Raleway; font-size: medium; box-sizing: inherit; border: 0px solid rgb(228, 228, 228); background-color: transparent; color: rgb(33, 136, 241);">PRIVACY POLICY</a><span style=" font-family: Ralaeway; font-size: medium;">, it will help you to gain a better understanding of the information that we gather from you and our practices.</span></p>
+<h2 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.875rem; font-family: Raleway; color: rgb(49, 54, 62); ">YOUR ACCEPTANCE OF THESE TERMS OF USE</h2>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">These terms of service are an agreement between you, (You), and us, (Us), Little Crypto Limited, who run the business of Taiji, from its principal place of business at 17 Landing Road, Titirangi, Auckland.</p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">By using this website, www.Fynco.co.nz, and by registering for a Taiji Account, or by using any of the services provided by Taiji, you are agreeing to accept and comply with the terms and conditions of use stated below (&quot;Terms of Use&quot;).</p>
+<h2 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.875rem; font-family: Raleway; color: rgb(49, 54, 62); ">OUR COMPANY</h2>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">The business of &quot;Taiji&quot; and its services are provided by our company Little Crypto Limited including, without limitation, its Owners, Directors, Investors, Employees or other related parties. Our Company Registration Number is: 5148501 Our Financial Services Provider number is FSP572487</p>
+<h2 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.875rem; font-family: Raleway; color: rgb(49, 54, 62); ">DEFINITIONS</h2>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">The words we use in this Terms of Use Agreement and their meanings:</p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; "><em data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">We, Us, Our, Ours, Our Company</em>&nbsp;= Taiji, Little Crypto Limited<br data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);" />
+<em data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">The Platform</em>&nbsp;= the website and its applications www.Fynco.co.nz<br data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);" />
+<em data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">You, Yours</em>&nbsp;= You<br data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);" />
+<em data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">User</em>&nbsp;= Taiji Account holder<br data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);" />
+<em data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">Buyer</em>&nbsp;= Buyer, the person wanting to Buy Bitcoin or Ethereum<br data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);" />
+<em data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">Seller&nbsp;</em>= Seller, there person wanting to Sell Bitcoin or Ethereum<br data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);" />
+<em data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">Taiji Number</em>&nbsp;= The Taiji Account holder&rsquo;s unique number<br data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);" />
+<em data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">Verification</em>&nbsp;= The process of authenticating the new Taiji&rsquo;s Account<br data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);" />
+<em data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">Onfido</em>&nbsp;= The platform used to authenticate the verification process</p>
+<h2 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.875rem; font-family: Raleway; color: rgb(49, 54, 62); ">TERMS AND CONDITIONS OF USE</h2>
+<h4 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.25rem; font-family: Raleway; color: rgb(49, 54, 62); ">1. THE PLATFORM AND OUR SERVICES</h4>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">The primary service provided and operated by Taiji is the website www.Fynco.co.nz, together with its related mobile applications (collectively the &quot;Platform&rdquo;). The Platform allows Buyers to buy the Internet currency known as &quot;Bitcoins&quot; and &quot;Ethereum&rdquo; (see http://bitcoin.org), through small regular payments that are saved and converted to proportions of the currency, on a value basis.</p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">The Service that is provided and operated by Taiji also allows sellers (&quot;Sellers&rdquo;) to sell back their Bitcoin or Ethereum to Taiji.</p>
+<h4 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.25rem; font-family: Raleway; color: rgb(49, 54, 62); ">2. REGISTRATION AND ELIGIBILITY</h4>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">To access the Platform and receive the Services, you must create an account in accordance with the requirements of the Platform (a &quot;User Account&rdquo;).</p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">You may only create a User Account:</p>
+<ol data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; padding: 0px 0px 0px 50px; list-style-position: initial; list-style-image: initial; font-family: Raleway; font-size: medium; ">
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">if you are at least 18 years old and be able to service a New Zealand bank account</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">if you provide accurate, complete and truthful information as required by our User Account creation process;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">if you provide a valid email address and password; and</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">consent to us contacting you about your User Account and your User Profile (including to verify the personal information that you have provided to us in your User Account and User Profile) or the Services.</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">By creating a User Account, you authorise Taiji to use your personal information to make enquiries to verify your identity either directly or through third parties, in order to protect our Platform, Services and other users against fraud or illegal activities and to meet our anti-money laundering requirements. If we are not satisfied with the outcome of such enquiries, we may terminate your User Account immediately or refuse to let you create such a User Account</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">It is your responsibility to maintain the confidentiality and security of any information that may be used to access your User Account, including your log-in information or password. You must notify Taiji immediately of any unauthorised access or use of your account, password or any other applicable breach of our Platform and Services by submitting a support request on our website. You understand that anyone accessing your User Account will be able to enter into transactions using your User Account, and Taiji has no obligation to verify or take any steps to verify any instruction received from you or appearing to be sent by you.</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">Importantly, you agree that you will: not share your password, login information, or other security related information with any other person that may allow them to access your User Account; not permit any other person to use or access your User Account or login information; notify us if there has been, or you suspect there will be, any unauthorised use of your User Account; and only create one User Account, you will not register as a user under multiple personas</li>
+</ol>
+<h4 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.25rem; font-family: Raleway; color: rgb(49, 54, 62); ">3. RISKS OF TRADING AND/OR HOLDING DIGITAL CURRENCIES</h4>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">You acknowledge and agree that:</p>
+<ol data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; padding: 0px 0px 0px 50px; list-style-position: initial; list-style-image: initial; font-family: Raleway; font-size: medium; ">
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">the trading and/or holding of Digital Currency is unlike traditional currencies, goods or commodities in the market: it involves significant and exceptional risks and the losses can be substantial. You should carefully consider and assess whether trading or holding of digital currency is suitable for you depending upon your financial circumstances and tolerance to risk and you should take independent financial advice</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">we have not advised you to, or recommended that you should, use the Platform and/or Services, or trade and/or hold Digital Currencies</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">once a transaction involving the transfer of Digital Currencies has been completed, it is impossible to reverse it;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">unlike other traditional forms of currency, Digital Currency is decentralised and is not backed by a central bank, government or legal entities. As such, the value of Digital Currencies is extremely volatile and may swing depending upon the market, confidence of investors, competing currencies, regulatory announcements or changes, technical problems or any other factors. Taiji makes no warranties or representations as to the future value of any Digital Currencies and accepts no liability for any change in value of your Portfolio;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">you must exercise extreme caution whenever you select, store or transmit your private keys that relate to your Digital Currency. If another person learns your private key then they can take your funds. If you forget or lose your private key or password, you acknowledge that&nbsp;<br data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);" />
+    <ol data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; padding: 0px 0px 0px 50px; list-style-position: initial; list-style-image: initial;">
+        <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">we do not keep a record of that private key;</li>
+        <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">that we cannot provide a back-up;</li>
+        <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">you will lose your Digital Currency;</li>
+    </ol>
+    </li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">if you choose to provide us with an address to send your Digital Currency to, it is your sole responsibility to ensure that you have entered a correct and valid address. Taiji is not responsible or liable for any loss of Digital Currency due to you providing us with an incorrect address</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">You acknowledge that we do not issue financial products or provide any financial advice and no offer or other disclosure document has been, or will be, prepared in relation to the Services, the Platform and/or any of the Digital Currencies, under the Financial Markets Conduct Act 2013, the Financial Advisers Act 2008 or any other similar legislation</li>
+</ol>
+<h4 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.25rem; font-family: Raleway; color: rgb(49, 54, 62); ">4. APPOINTMENT</h4>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">You appoint Taiji, and Taiji accepts the appointment, to act as your agent for the purchase of Digital Currency that you have ordered through your User Account on our Platform, in accordance with the terms and conditions of these Terms.</p>
+<h4 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.25rem; font-family: Raleway; color: rgb(49, 54, 62); ">5. YOUR OBLIGATIONS</h4>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">The purpose of our Platform and Service rules is to facilitate a safe and enjoyable experience for all users. When you use our Platform or Services, you warrant and agree that you will:</p>
+<ol data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; padding: 0px 0px 0px 50px; list-style-position: initial; list-style-image: initial; font-family: Raleway; font-size: medium; ">
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">comply at all times with New Zealand law;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">not interfere with or attempt to impair our computer systems or transit software viruses, worms, other harmful files or other malware;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">not use a robot, spider, scraper or other unauthorised automated means to access the Platform or the Services or any content shown on the Platform;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">not attempt to gain unauthorised access to any part of the Platform or the Services, including attempting to gain access to a User Account other than yours;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">not attempt to reverse engineer, disassemble or otherwise attempt to construct, copy or replicate the Platform&rsquo;s source code, formulas or processes;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">ensure that all information that you provide to us is current, complete and accurate (including your contact details);</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">not use the Platform and/or the Services to engage in any restricted or criminal activities, including:
+    <ol data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; padding: 0px 0px 0px 50px; list-style-position: initial; list-style-image: initial;">
+        <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">financing terrorist organisations;</li>
+        <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">money laundering, illegal gambling, fraud;</li>
+        <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">distributing or funding drugs and drug paraphernalia;</li>
+        <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">malicious hacking;</li>
+        <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">wire transfer money orders;</li>
+        <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">as a means to transfer funds between bank accounts;</li>
+        <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">to carry out any act that is illegal in New Zealand or in the jurisdiction where the person carrying out the activity is resident, domiciled or located;</li>
+        <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">For any commercial purposes which are competitive to the Platform or our business or which would otherwise be detrimental or prejudicial to our interests in any way;</li>
+        <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">to only use the Platform and the Services to purchase Digital Currency on your own behalf, and not on behalf of anyone else;</li>
+        <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">not use systematic, repetitive or other related methods which are designed to generate or obtain repetitive and repeated amounts of data or other information from or to the Platform or which may otherwise place an unreasonable load on the infrastructure of the Platform; and</li>
+        <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">not do anything else that may interfere with or negatively affect the operation of our Platform, the Services or other users&rsquo; use and enjoyment of the Services and/or the Platform.</li>
+    </ol>
+    </li>
+</ol>
+<div data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-family: Raleway; font-size: medium; ">
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">5.1 USER ACCOUNT</span></p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">As a Taiji Account holder you are solely responsible for maintaining the confidentiality of your private user details (login details, password). You are responsible for all activities that occur under your password accessed account.</p>
+</div>
+<h4 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.25rem; font-family: Raleway; color: rgb(49, 54, 62); ">6. BANK PAYMENTS</h4>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">The following conditions pertain to the Bank Payments from the Taiji account holder to Taiji, (Little Crypto Limited):</p>
+<ol data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; padding: 0px 0px 0px 50px; list-style-position: initial; list-style-image: initial; font-family: Raleway; font-size: medium; ">
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">Bank Payment Bank Account:</span><br data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);" />
+    Bank payments from Taiji Account holders are made directly to our bank account, named &quot;Little Crypto Limited&rdquo;.</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">Bank Payment Maximum Amount and Frequency:</span><br data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);" />
+    Taiji receives payments of between $10 - $2000NZ a week into the Taiji bank account.
+    <p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">Multiple payments can be made in a week and will be combined into a single transaction for delivery as long as it is under the maximum four weekly amount of $2000.</p>
+    <p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">There is no minimum frequency, if no payment is received into the Taiji bank account, then there is no service provided. Hence, payment can be made at anytime into the Taiji bank account, as long as the payment is above $20NZ and below $2000 in that given week (7 days), and below $2000 in the four week time frame.</p>
+    </li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">Bank Payment Reference Number:</span><br data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);" />
+    Bank payments must include the Taiji Account holder&rsquo;s unique Taiji number as the bank reference. Bank payments not showing the Taiji Account holder&rsquo;s unique Taiji number in the bank reference will be refunded back to the Taiji Account holder&rsquo;s bank account.</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">Incorrect Bank Payment Reference Number:</span><br data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);" />
+    Bank payments from the Taiji Account holder that have an incorrect unique Taiji number in the bank reference will be refunded back to the Taiji Account holder&rsquo;s bank account.</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">Bank payments over maximum $ value:</span><br data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);" />
+    Bank payments received from the Taiji Account holder that are over $2000 NZD in that given week (7 days), will be processed up to the $2000 NZD maximum and anything over $2000 NZD refunded back to the Taiji Account holder&rsquo;s bank account.</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">Bank payments under minimum $ value:</span><br data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);" />
+    Bank payments received from the Taiji Account holder that are under $20NZ in that given week (7 days), will be refunded back to the Taiji Account holder&rsquo;s bank account.</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">Bank payments that have missed the Buying Timeline:</span><br data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);" />
+    Bank payments that miss or are too late for the Monday Buying timeline are included in the following weekly Monday buy.</li>
+</ol>
+<div data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-family: Raleway; font-size: medium; ">
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">6.1 REFUNDING YOUR PAYMENT BACK TO YOU</span></p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">In regards to the above bank payment issues, we will endeavour to refund the money as soon as possible. Within two weeks of the deposit we will email asking you for a bank account number to refund the payment. The onus is now on the user to claim their money by proof of deposit and sending us their bank account number.</p>
+</div>
+<h4 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.25rem; font-family: Raleway; color: rgb(49, 54, 62); ">7. BITCOIN / ETHEREUM PRICE</h4>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">The Service provided and operated by Taiji also allows all registered users Taiji Account holders to sell back to us, only the amount of Bitcoins or Ethereum that they have saved through us, at the &lsquo;Market Price&rsquo; of a registered exchange.</p>
+<div data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-family: Raleway; font-size: medium; ">
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">7.1 THE PURCHASE PRICE</span></p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">The Purchase Price is posted on the Site and may vary from time to time without prior notice to you.</p>
+</div>
+<div data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-family: Raleway; font-size: medium; ">
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">7.2 PURCHASE PRICE LOSS</span></p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">In light of any event which results in the loss of Bitcoin or Ethereum you forgo any form of action against anyone or anything as a result of that loss. As a Taiji Account holder and User you have the option to discontinue use of the services at any time.</p>
+</div>
+<h4 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.25rem; font-family: Raleway; color: rgb(49, 54, 62); ">8. GOVERNING LAW</h4>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">Taiji, this Site and the Content (excluding linked Sites or content) are physically located within Auckland New Zealand. This Agreement shall be governed pursuant to the laws of New Zealand. Any and all disputes arising under this Agreement shall be settled exclusively before courts of competent jurisdiction in New Zealand. You agree to waive any right you may have to:</p>
+<ol data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; padding: 0px 0px 0px 50px; list-style-position: initial; list-style-image: initial; font-family: Raleway; font-size: medium; ">
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">have a trial by jury; and</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">have the commencement of or participation in any class action against Taiji related to this Site, You also agree to opt out of any class proceedings against Taiji or its licensors.</li>
+</ol>
+<h4 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.25rem; font-family: Raleway; color: rgb(49, 54, 62); ">9. SERVICE DISCLAIMERS</h4>
+<ol data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; padding: 0px 0px 0px 50px; list-style-position: initial; list-style-image: initial; font-family: Raleway; font-size: medium; ">
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">
+    <p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">You are solely responsible for the retrieval and use of the Content. You should apply Your own judgment in making any use of any Content, including, without limitation, the use of the information as the basis for any conclusions.</p>
+    <p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">Except as expressly provided in this agreement, this site and all content, products, services and software on this site or made available through this site are provided &quot;as is&rdquo; without any representations, warranties, guarantees or conditions, of any kind, whether express or implied, statutory or otherwise, including, but not limited to, warranties as to uninterrupted or error-free operation, availability, accuracy, completeness, currentness, reliability, timeliness, legality, suitability, privacy, security, merchantability, quality, title, non-infringement or fitness for a particular purpose, or those arising out of a course of dealing or usage of trade.</p>
+    </li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">
+    <p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">You acknowledge that the Platform does not contain all information that you will require in order to evaluate whether or not you should invest, use or trade in a Digital Currency.</p>
+    <p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">We also do not warrant the accuracy or correctness of information displayed on the Platform and we give no warranties or guarantees or accept any liability (except that which cannot be excluded by law) in relation to the statements, representations and information displayed on the Platform</p>
+    </li>
+</ol>
+<h4 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.25rem; font-family: Raleway; color: rgb(49, 54, 62); ">10. LIMITATIONS OF LIABILITY</h4>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">To the maximum extent permitted by law, we will not be liable for any loss, cost, damage, liability, claim or expense which may arise out of, or in connection with, the use of this Platform and/or the Services, or the use of or reliance on information contained on or linked to this Platform, including from any:</p>
+<ol data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; padding: 0px 0px 0px 50px; list-style-position: initial; list-style-image: initial; font-family: Raleway; font-size: medium; ">
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">corruption or loss of data or other information;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">malware that may be transmitted to your computer by use of the Services and/or the Platform;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">interruption, suspension or discontinuance of the Platform or the Services; or time delays or time differences between the time shown and recorded on our systems and the time shown and recorded on your own computer or mobile device and systems (as the date and time that you see when you use the Services is based on the date and time settings of your own computer or mobile device)</li>
+</ol>
+<h4 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.25rem; font-family: Raleway; color: rgb(49, 54, 62); ">11. FORCE MAJEURE</h4>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">We have no liability to you for any lack of performance, unavailability or failure of the Platform and/or the Services, or failure to comply with these Terms, due to circumstances out of our control, including change of law, regulations or policy, or an event of force majeure.</p>
+<h4 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.25rem; font-family: Raleway; color: rgb(49, 54, 62); ">12. FAIR TRADING ACT AND CONSUMER GUARANTEES APPLIES</h4>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">Nothing in these Terms is intended to limit any rights or remedies that you may have under the Fair Trading Act 1986 or the Consumer Guarantees Act 1993</p>
+<h4 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.25rem; font-family: Raleway; color: rgb(49, 54, 62); ">13. AMENDMENT TO THESE TERMS</h4>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">We may amend or modify (&quot;Amendments&rdquo;) these Terms in whole or in part by posting a link to the revised version at least 7 days&rsquo; in advance of the effective date of any amendment on the homepage of our website&nbsp;<a data-v-18f16fc4="" href="https://Taiji.co/" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); background-color: transparent; color: rgb(33, 136, 241);">www.Taiji.co</a></p>
+<h4 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.25rem; font-family: Raleway; color: rgb(49, 54, 62); ">14. GENERAL</h4>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">By using our Platform, you accept that it is your responsibility to determine whether and to what extent, any taxes apply to any transactions you conduct through our Services.</p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">If any provision of the Terms are held to be invalid, unenforceable or illegal for any reason, that provision must be read down to the extent necessary to preserve its operation. If it cannot be read down it must be severed, and the remaining parts of the Terms will remain in full force and effect.</p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">If we do not exercise or enforce any rights available to us under these Terms that does not constitute a waiver of those rights.</p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">You may not assign, transfer and/or subcontract any of your rights under these Terms. We may provide you with notices, including notices relating to these Terms by way of electronic communications, including by email or other electronic communication on the Platform or through the Services.</p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">For any other questions about the Platform or the Services, or complaints please contact us at&nbsp;<a data-v-18f16fc4="" href="mailto:support@Taiji.co" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); background-color: transparent; color: rgb(33, 136, 241);">support@Taiji.co</a></p>
+<h4 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.25rem; font-family: Raleway; color: rgb(49, 54, 62); ">15. USE OF OUR PLATFORM AND SERVICES</h4>
+<div data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-family: Raleway; font-size: medium; ">
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">15.1 SECURITY</span></p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">You acknowledge that:</p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">the transmission of information over the internet (including to or from the Platform) is not completely secure or error free. In particular, emails to or from us and information submitted to or accessed via this Platform may not be secure and you should use discretion in deciding what information you send to us via these means; and emails to and from us may undergo email filtering and virus scanning, including by third party contractors. We do not warrant that such filters and scans will be effective in removing viruses or other potentially harmful code.</p>
+</div>
+<div data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-family: Raleway; font-size: medium; ">
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">15.2 LINKING</span></p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">This Platform may contain links to other websites (&quot;Third Party Websites&rdquo;). When you click on those links or access Third Party Websites through the Platform, we may earn a payment as a result of that referral.</p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">We make no representation or warranty as to, and are not responsible or liable for, the Third Party Website, the accuracy, legality, decency or any other aspect of any content that is on that Third Party Website (&quot;Third Party Content&rdquo;) nor for any infringement of third party intellectual property rights as a result of hosting links to Third Party Websites and Third Party Content on the Platform.</p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">All statements, representations, offers, products or services provided through Third Party Websites and Third Party Content are the sole responsibility of the operator of the Third Party Website or the author of the Third Party Content and in so far as such links to Third Party Websites or Third Party Content are hosted on the Platform they are done so at the request of the operator or author for the purposes of promoting their offers, products and services. Except where expressly stated otherwise, we do not act as agent, representative, partner or in any other capacity on behalf of such operator or author. The inclusion of a Third Party Website does not imply our endorsement, recommendation or support of the applicable website or any information, opinions, third party goods or third party services referred to on it.</p>
+</div>
+<div data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-family: Raleway; font-size: medium; ">
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">15.3 COOKIES</span></p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">We may use cookies to identify your computer on our server and so we can track your use on our Platform. In some instances, cookies may collect and store personal information about you. Such personal information will only be used by us in accordance with our Privacy Policy.</p>
+</div>
+<div data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-family: Raleway; font-size: medium; ">
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">15.4 SUPPORTED MOBILE DEVICES AND BROWSERS</span></p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">For optimum performance, we recommend that you use the latest version of your current Web browser to access the Platform. It is the intent of Taiji that all of its Web pages and Web-based applications will work well with Google Chrome and the current stable release and one previous release of Mozilla Firefox, Apple Safari, and Microsoft Edge.</p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">Web browsers that are fully compatible with these browsers and older versions of these browsers may also be suitable, but Taiji does not design or maintain services, or test for browsers that are not listed above.</p>
+</div>
+<div data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-family: Raleway; font-size: medium; ">
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">15.5 COUNTRY OF RESIDENCE</span></p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">Depending on your country of residence, you may not be able to use all the functions of the Site. It is your responsibility to follow those rules and laws in your country of residence and/or country from which you access this Site and Services. As long as you agree to and comply with these Terms of Use, Taiji grants to you a personal, non-exclusive, non-transferable, non-sublicensable and limited right to enter and use the Site and the Service</p>
+</div>
+<div data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-family: Raleway; font-size: medium; ">
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">15.6 AUDITING AND MONITORING</span></p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">As part of any Taiji compliance program (to manage compliance with these Terms and Conditions and any law or requirement by any authority), we reserve the right to:</p>
+<ol data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; padding: 0px 0px 0px 50px; list-style-position: initial; list-style-image: initial;">
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">review, audit and monitor (manually or through automated means) your use of the Platform and/or the Services;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">take any action we deem appropriate in our sole discretion in accordance with our policies, including suspending or terminating your User Account, editing, removing or blocking any content that we deem inappropriate or unacceptable, and in the case of any illegal or suspected illegal activity, reporting any matters to the appropriate authority; and</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">access, collect, preserve or disclose information about your use of the Services and/or the Platform (including your communications and content you submit) as is necessary to:
+    <ol data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; padding: 0px 0px 0px 50px; list-style-position: initial; list-style-image: initial;">
+        <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">comply with any legal process;</li>
+        <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">enforce these Terms;</li>
+        <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">respond to any claims or complaints about any content you submit, or act or omissions by you;</li>
+        <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">respond to your customer service requests; and</li>
+        <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">protect the rights, property, safety of us, any user or the public.</li>
+    </ol>
+    </li>
+</ol>
+</div>
+<div data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-family: Raleway; font-size: medium; ">
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">15.7 INTELLECTUAL PROPERTY</span></p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">All Intellectual Property Rights in and to the Platform, the Services, and the software and other material underlying and forming part of the Platform and the Services (&quot;Platform Material&rdquo;) is owned by us (and/or our suppliers and licensors), except where expressly stated in these Terms or elsewhere on the Platform.</p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">When using this Platform and/or the Services, we grant you a limited, non-exclusive, non-transferable, revocable licence to access and use those software, tools or applications only as required for your use of the Platform and the Services and as expressly permitted in these Terms.</p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">You may download and print content from this Platform for your own personal or internal business purposes only. You must not use, reproduce, store, publish, adapt, communicate to the public, distribute to third parties, amend, create derivative works from any part of the Platform or the Services without our prior written consent or otherwise do anything that would infringe our Intellectual Property Rights in the Platform or the Platform Material.</p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">Reference on the Platform to any companies, products, services, branding, offers or other information, by trade name, trademark or otherwise does not constitute or imply endorsement, sponsorship or recommendation by us or the respective trademark owner.</p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">We reserve all right, title and interest not expressly granted under this licence to the fullest extent possible under applicable laws and you agree to do anything necessary, including executing any documents, to give full effect to this clause</p>
+</div>
+<div data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-family: Raleway; font-size: medium; ">
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">15.8 COPYRIGHT</span></p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">Content published on this website, (digital downloads, images, texts, graphics, logos) are the property of Taiji and its content creators, protected by copyright laws. The entire compilation of the content found on this website is the exclusive property of Taiji.</p>
+</div>
+<div data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-family: Raleway; font-size: medium; ">
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">15.9 SOCIAL MEDIA, COMMENTS REVIEWS AND EMAILS</span></p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">Taiji welcomes comments, posts and email communication, as long as it is not obscene, illegal, defamatory, threatening, infringing of intellectual property rights, invasive of privacy or injurious in any way to third parties. Content must be free of software viruses, political campaign and commercial solicitation</p>
+</div>
+<div data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-family: Raleway; font-size: medium; ">
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);"><span data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); font-weight: bolder;">15.10 PROHIBITED USES</span></p>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62);">&quot;Prohibited Uses&rdquo; means any of the following or the furtherance of any act that is illegal in New Zealand (&quot;NZ.&rdquo;) or in the jurisdiction where the person carrying out the activity is resident, domiciled or located; including but not limited to, money laundering, illegal gambling operations, terrorist financing, or malicious hacking.</p>
+</div>
+<h4 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.25rem; font-family: Raleway; color: rgb(49, 54, 62); ">16. TERMINATION</h4>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">Taiji may suspend, limit, restrict or deactivate the access to the Platform and Services, including your User Account, if:</p>
+<ol data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; padding: 0px 0px 0px 50px; list-style-position: initial; list-style-image: initial; font-family: Raleway; font-size: medium; ">
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">we receive a serious complaint or multiple complaints about you from any other person;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">you gain or attempt to gain unauthorised access to the another member&rsquo;s User Account;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">there is a technical or operational difficulty;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">we consider any conduct by you (whether or not that conduct is related to the Platform or the Services) puts the Platform, the Services or other users at risk;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">you use or attempt to use the Platform in order to perform illegal or criminal activities;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">your use of the Platform is subject to any pending investigation, litigation or government proceeding;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">you fail to pay or fraudulently pay for any transactions;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">you breach these Terms;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">we, in our reasonable discretion deem your behaviour to be unacceptable; your conduct may, in our reasonable opinion, bring us into disrepute or adversely affect our reputation or image; and/or</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">we receive a valid request from a law enforcement or government agency to do so.</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">we consider any conduct by you (whether or not that conduct is related to the Platform or the Services) puts the Platform, the Services or other users at risk; you use or attempt to use the Platform in order to perform illegal or criminal activities;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">your use of the Platform is subject to any pending investigation, litigation or government proceeding;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">We may also terminate these Terms and cease to provide the Services and the Platform at our discretion, or if we undergo an insolvency event, meaning that where that party becomes unable to pay its debts as they fall due, or a statutory demand is served, a liquidator, receiver or manager (or any similar person) is appointed, or any insolvency procedure under the Companies Act 1993 is instituted or occurs.</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">Upon termination of these Terms and/or our termination of your User Account, you will not be able to receive the Services or access any other component of the Platform and Taiji will not have any liability to you for any loss, cost, damage or expenses as a result of the termination.</li>
+</ol>
+<h4 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.25rem; font-family: Raleway; color: rgb(49, 54, 62); ">17. INDEMNITY</h4>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">To the maximum extent permitted by law, you indemnify us from and hold us harmless against any and all loss or damage, liabilities, penalties, fines, expenses (including reasonable solicitor/client fees) and costs which arise out of or relate to:</p>
+<ol data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; padding: 0px 0px 0px 50px; list-style-position: initial; list-style-image: initial; font-family: Raleway; font-size: medium; ">
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">your use of the Platform and/or the Services;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">any breach of these Terms or Privacy Policy;</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">any information that you provide to us via this Platform; or</li>
+    <li data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228);">any damage that you may cause this Platform.</li>
+</ol>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">This indemnification includes without limitation, liability relating to intellectual property rights and breaches of privacy.</p>
+<h4 data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; font-size: 1.25rem; font-family: Raleway; color: rgb(49, 54, 62); ">LIABILITY CAP</h4>
+<p data-v-18f16fc4="" style="box-sizing: inherit; border: 0px solid rgb(228, 228, 228); margin: 0px 0px 12px; color: rgb(49, 54, 62); font-family: Raleway; font-size: medium; ">Notwithstanding clause 10, any claim a user may have, if we are found to be liable for any loss, cost, damage or expense arising out of or in connection with your use of the Platform or the Services or these Terms, our maximum aggregate liability to you will be limited to two times the total amount of Fees that you have paid to us in the previous twelve months.</p>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <a href="#sidebar" class="am-btn am-btn-sm am-btn-success am-icon-bars am-show-sm-only my-button" data-am-offcanvas><span class="am-sr-only">侧栏导航</span></a>
+</div>
+
+<footer class="my-footer">
+  <p><small>© Copyright 2019. </small>Fynco</p>
+</footer>
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="/f/assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="/f/assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="/f/assets/js/amazeui.min.js"></script>
+</body>
+</html>

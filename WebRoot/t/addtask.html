@@ -1,0 +1,156 @@
+<#include "/t/_s.html" />
+<@layout>
+                <div class="mdk-drawer-layout__content page">
+
+
+
+                    <div class="container-fluid  page__heading-container">
+                        <div class="page__heading">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="#"><i class="material-icons icon-20pt">home</i></a></li>
+                                    <li class="breadcrumb-item">Mortgage Hub</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Tasks</li>
+                                </ol>
+                            </nav>
+                            <h3 class="m-0"><#if method=='add'>New<#else>Edit</#if> Task</h3>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="container-fluid page__container">
+                        <div class="card card-form">
+                            <div class="row no-gutters">
+                                
+                                <div class="col-lg-8 card-form__body card-body">
+                                	<div class="row">
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label for="title">Title</label>
+                                                <input type="text" class="form-control" id="title" value="${(task.title)!}">
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                 	
+                                    <div class="row">
+                                    	
+                                        <div class="col">
+                                             <div class="form-group">
+		                                        <label for="due_date">Due Date</label>
+		                                        <input id="due_date" type="text" class="form-control" placeholder="" data-toggle="flatpickr" data-flatpickr-enable-time="true" data-flatpickr-alt-format="F j, Y at H:i" data-flatpickr-date-format="Y-m-d H:i" value="${(task.due_date)!}">
+		                                    </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="reminder">Reminder Time</label>
+                                                <select id="reminder" data-toggle="select" data-minimum-results-for-search="-1" class="form-control">
+		                                            <option value="3" data-avatar-src="/t/assets/images/icon/3ds.jpg">
+		                                                3 days before the due date
+		                                            </option>
+		                                            <option value="5" data-avatar-src="/t/assets/images/icon/5ds.jpg">
+		                                                5 days before the due date
+		                                            </option>
+		                                            <option value="7" data-avatar-src="/t/assets/images/icon/7ds.jpg">
+		                                                7 days before the due date
+		                                            </option>
+		                                        </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                       
+                                    
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Task Description</label><br/>
+                                                <textarea class="comment" id="description" rows="3" cols="60">${(task.description)!}</textarea>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+ 
+
+                        
+                        <div class="text-right mb-5">
+                        <input type="hidden" id="taskid" value="${(task.id)!}">
+                            <button class="btn btn-success" onClick="return SaveTask('${method}');">Save</button>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- // END drawer-layout__content -->
+                <script>
+                Date.prototype.Format = function (fmt) { // author: meizz
+                    var o = {
+                        "M+": this.getMonth() + 1, // 月份
+                        "d+": this.getDate(), // 日
+                        "h+": this.getHours(), // 小时
+                        "m+": this.getMinutes(), // 分
+                        "s+": this.getSeconds(), // 秒
+                        "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
+                        "S": this.getMilliseconds() // 毫秒
+                    };
+                    if (/(y+)/.test(fmt))
+                        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                    for (var k in o)
+                        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                            return fmt;
+                }
+                var nowdate = new Date().Format("yyyy-MM-dd hh:mm:ss"); 
+                $(function () { 
+                	if('${method}'=='edit'){
+                		var reminder = '${(task.reminder_days)!}';
+                    	$('#reminder').val(reminder).trigger('change');
+                    	//$("#gender").select2();
+                	}
+                	
+                })
+function SaveTask(method){
+				var title=$('#title').val();
+				var due_date=$('#due_date').val()+":00";
+				var reminder=$('#reminder').val();
+				var description=$('#description').val();
+				var taskid = $('#taskid').val();
+
+				var url = "/task/";
+				if(method=='add')url+="save";
+				else url+="update";
+
+				$.post(url, {"task.id":taskid,"task.title":title,
+					"task.reminder_days":reminder,"task.due_date":due_date,
+					"task.description":description}, function(data) {
+					if(data.code==1){
+					 	mlayer.open({
+						    content: 'Fail',
+						    btn: 'Got it'
+						  });
+						return false;
+					}
+					else{ 
+						mlayer.open({
+						    content: 'Success',
+						    btn: 'Got it',
+						    yes: function(){
+						    	window.parent.location.reload(); 
+						    	var index = parent.layer.getFrameIndex(window.name);
+					 	        parent.layer.close(index);
+						      }
+						  });
+					}
+					return false;
+				}, "json"); 
+				return false;
+	
+
+}
+</script>
+</@layout>

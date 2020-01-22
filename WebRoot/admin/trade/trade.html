@@ -1,0 +1,56 @@
+<#include "/admin/common/_layout.html"/>
+<@layout>
+<#include "/admin/trade/top.html"/>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  
+  <tr>
+    <td><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#a8c7ce">
+      <tr>
+        <td width="4%" height="20" bgcolor="d3eaef" class="STYLE10"><div align="center">
+          <input type="checkbox" onclick='Pn.checkbox("ids",this.checked)' />
+        </div></td>
+        <td width="10%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">交易号(trade#)</span></div></td>
+        <td width="10%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">姓名(Customer Name)</span></div></td>
+        <td width="10%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">开户状态(Status)</span></div></td>
+        <td width="12%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">交易员(Trade Operator)</span></div></td>
+        <td width="12%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">交易明细(Trade Details)</span></div></td>
+        <td width="15%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">交易时间(Timestamp)</span></div></td>
+        <td width="30%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">基本操作</span></div></td>
+      </tr>
+      <form id="tableForm" method="post">
+        <#list tradePage.getList() as x>
+  <tr>
+        <td height="20" bgcolor="#FFFFFF"><div align="center">
+          <input type="checkbox" name="ids" value="${x.id}" />
+        </div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center"><span class="STYLE19">${x.trade_no!}</span></div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${x.name!}</div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">
+        <#if x.kaihu_status==0>
+        	未申请
+        </#if>
+        <#if x.kaihu_status==1>
+        	<font color="red">已申请</font>
+        </#if>
+        <#if x.kaihu_status==2>
+        	<font color="blue">已开户</font>
+        </#if>
+        </div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${x.actor!}</div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${x.pay_cy!}:${x.pay_total} - ${x.withdraw_cy}:${x.withdraw_total}</div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${x.custom_time!}</td>
+        <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE21">
+        <a href="/admin/trade/view/${x.id}">查看</a> |
+        <a href="/admin/trade/edit/${x.id}">修改</a> | 
+        <a href="/admin/trade/delete/${x.id}">删除</a></div></td>
+  </tr>
+  </#list>
+  </form>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="30"><#include "/admin/common/_paginate.html" />
+	<@paginate currentPage=tradePage.pageNumber totalPage=tradePage.totalPage totalRow=tradePage.totalRow actionUrl="/admin/trade/" /></td>
+  </tr>
+</table>
+</@layout>

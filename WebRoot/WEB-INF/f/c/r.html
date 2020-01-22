@@ -1,0 +1,151 @@
+<#include "/WEB-INF/f/c/_l.html" />
+<@layout>
+<div class="am-g">
+  <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+    <br>
+    <div>
+    	<h3>${I18N.getText("signup")}</h3>
+    	<p>
+    	${I18N.getText("signup_detail")}
+    	</p>
+    	<hr>
+    </div>
+
+
+    <form method="post" action="/rs" class="am-form" id="doc" onSubmit="return Reg();" >
+    <fieldset>
+      <div class="am-form-group">
+      <label for="email">${I18N.getText("email")}:</label>
+      <input type="email" name="user.email" id="email" value="" placeholder="Email" required>
+      </div>
+      <div class="am-form-group">
+      <label for="nick">${I18N.getText("nick")}:</label>
+      <input type="text" name="user.nick" id="nick" minlength="3" placeholder="At least three letters or numbers" value="" required>
+      </div>
+      <div class="am-form-group">
+      <label for="mobile">${I18N.getText("mobile")}:</label>
+      <input type="tel" name="user.mobile" id="mobile" pattern="[0-9]*" value="" required>
+      </div>
+      
+      <div class="am-form-group">
+      <label for="pwd">${I18N.getText("password")}:</label>
+      <input type="password" name="user.pwd" id="pwd" minlength="6" placeholder="At least six letters or numbers" value="" required>
+      </div>
+      <div class="am-form-group">
+      <label for="pwd2">${I18N.getText("password_confirm")}:</label>
+      <input type="password" name="pwd2" id="pwd2" minlength="6" value="" placeholder="Input password again" required>
+      </div>
+      <div class="am-cf">
+      	<input type="hidden" value="0" id="invalid">
+      	<input type="hidden" value="" id="msg">
+      	${I18N.getText("by_sign")}<br/><br/>
+        <input type="submit" name="" value="${I18N.getText('get_started')}" class="am-btn am-btn-primary am-btn-sm am-fl">
+      </div>
+      <!--alert start-->
+      <div class="am-modal am-modal-alert" tabindex="-1" id="pwd-alert">
+  		<div class="am-modal-dialog">
+    		<div class="am-modal-bd" id="myalert">
+      
+    		</div>
+    		<div class="am-modal-footer">
+      			<span class="am-modal-btn">${I18N.getText("got_it")}</span>
+    		</div>
+  		</div>
+	  </div>
+	  <!--alert end-->
+    </fieldset>
+    </form>
+  </div>
+</div>
+<script>
+var $modal = $('#pwd-alert');
+$(function () { 
+	
+	$('#mobile').blur(function(){
+		var vmobile=$('#mobile').val();
+		if(vmobile!=''){
+  			$.post("/mobile", {mobile:vmobile}, function(data) {
+				if(data.code>0){
+				 	$('#invalid').val(data.code);
+				 	$('#msg').val(data.msg);
+				 	$('#mobile').focus();
+				 	$('#myalert').text(data.msg);
+					$modal.modal();
+				}
+				else{
+					$('#invalid').val(0);
+				}
+			}, "json");
+		}
+	});
+	/*$('#skype').blur(function(){
+		var vskype=$('#skype').val();
+		if(vskype!=''){
+  			$.post("/skype", {skype:vskype}, function(data) {
+				if(data.code>0){
+				 	$('#invalid').val(data.code);
+				 	$('#msg').val(data.msg);
+				 	$('#skype').focus();
+				 	$('#myalert').text(data.msg);
+					$modal.modal();
+				}
+				else{
+					$('#invalid').val(0);
+				}
+			}, "json");
+		}
+	});*/
+	$('#email').blur(function(){
+		var vemail=$('#email').val();
+		if(vemail!=''){
+  			$.post("/email", {email:vemail}, function(data) {
+				if(data.code>0){
+				 	$('#invalid').val(data.code);
+				 	$('#msg').val(data.msg);
+				 	$('#email').focus();
+				 	$('#myalert').text(data.msg);
+					$modal.modal();
+				}
+				else{
+					$('#invalid').val(0);
+				}
+			}, "json");
+		}
+	});
+	$('#nick').blur(function(){
+		var vnick=$('#nick').val();
+		if(vnick!=''){
+  			$.post("/nick", {nick:vnick}, function(data) {
+				if(data.code>0){
+				 	$('#invalid').val(data.code);
+				 	$('#msg').val(data.msg);
+				 	$('#nick').focus();
+				 	$('#myalert').text(data.msg);
+					$modal.modal();
+				}
+				else{
+					$('#invalid').val(0);
+				}
+			}, "json");
+		}
+	});
+	
+})
+function Reg(){
+	if($('#pwd').val()==$('#pwd2').val()){
+		if($('#invalid').val()>0){
+			$('#myalert').text($('#msg').val());
+			$modal.modal();
+			return false;
+		}
+		else
+			return true;
+	}
+	else{
+		$('#myalert').text(${I18N.getText("pass_different")});
+		$modal.modal();
+		return false;
+	}
+}
+</script>
+</@layout>

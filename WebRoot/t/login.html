@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login</title>
+
+    <!-- Prevent the demo from appearing in search engines -->
+    <meta name="robots" content="noindex">
+
+    <!-- Simplebar -->
+    <link type="text/css" href="/t/assets/vendor/simplebar.min.css" rel="stylesheet">
+
+    <!-- App CSS -->
+    <link type="text/css" href="/t/assets/css/app.css" rel="stylesheet">
+    <link type="text/css" href="/t/assets/css/app.rtl.css" rel="stylesheet">
+
+    <!-- Material Design Icons -->
+    <link type="text/css" href="/t/assets/css/vendor-material-icons.css" rel="stylesheet">
+    <link type="text/css" href="/t/assets/css/vendor-material-icons.rtl.css" rel="stylesheet">
+
+    <!-- Font Awesome FREE Icons -->
+    <link type="text/css" href="/t/assets/css/vendor-fontawesome-free.css" rel="stylesheet">
+    <link type="text/css" href="/t/assets/css/vendor-fontawesome-free.rtl.css" rel="stylesheet">
+
+</head>
+
+<body class="layout-login">
+
+
+
+
+
+    <div class="layout-login__overlay"></div>
+    <div class="layout-login__form bg-white" data-simplebar>
+        <div class="d-flex justify-content-center mt-2 mb-5 navbar-light">
+            <a href="index.html" class="navbar-brand" style="min-width: 0">
+                <img class="navbar-brand-icon" src="/t/assets/images/stack-logo-blue.svg" width="25" alt="Stack">
+                <span>Fynco CRM</span>
+            </a>
+        </div>
+
+        <h4 class="m-0">Welcome back!</h4>
+        <p class="mb-5">Login to access your FyncoCRM Account </p>
+
+        <form>
+            <div class="form-group">
+                <label class="text-label" for="email_2">Email Address:</label>
+                <div class="input-group input-group-merge">
+                    <input id="email" type="email" required class="form-control form-control-prepended">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <span class="far fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label id="pass" class="text-label" for="password_2">Password:</label>
+                <div class="input-group input-group-merge">
+                    <input id="pwd" type="password" required class="form-control form-control-prepended" placeholder="Enter your password">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <span class="fa fa-key"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb-5">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" id="rememberMe">
+                    &nbsp;&nbsp;<label for="rememberMe">Remember me</label>
+                </div>
+            </div>
+            <div class="form-group text-center">
+            	<input type="hidden" name="logintype" value="password" id="logintype">
+                <button class="btn btn-primary mb-5" type="button" onClick="return Login();">Login</button><br>
+                <a href="/forgotpwd">Forgot password?</a> <br>
+            </div>
+        </form>
+    </div>
+
+
+    <!-- jQuery -->
+    <script src="/t/assets/vendor/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="/t/assets/vendor/popper.min.js"></script>
+    <script src="/t/assets/vendor/bootstrap.min.js"></script>
+
+    <!-- Simplebar -->
+    <script src="/t/assets/vendor/simplebar.min.js"></script>
+
+    <!-- DOM Factory -->
+    <script src="/t/assets/vendor/dom-factory.js"></script>
+
+    <!-- MDK -->
+    <script src="/t/assets/vendor/material-design-kit.js"></script>
+
+    <!-- App -->
+    <script src="/t/assets/js/toggle-check-all.js"></script>
+    <script src="/t/assets/js/check-selected-row.js"></script>
+    <script src="/t/assets/js/dropdown.js"></script>
+    <script src="/t/assets/js/sidebar-mini.js"></script>
+    <script src="/t/assets/js/app.js"></script>
+
+    <!-- App Settings (safe to remove) -->
+    <script src="/t/assets/js/app-settings.js"></script>
+    
+    <!-- Fynco -->
+    <script src="/f/assets/js/md5.min.js"></script>
+	<script src="/f/assets/js/base64.min.js"></script>
+	<script src="/f/assets/js/layer.js"></script>
+	<script src="/f/assets/js/js.cookie.min.js"></script>
+	<script src="/f/assets/js/fynco.js"></script>
+
+<script>
+$(function () { 
+	//判断之前是否有设置cookie，如果有，则设置【记住我】选择框  
+    if(Cookies.get('fynco_userName')!=undefined){  
+        $("#rememberMe").attr("checked", true);  
+    }else{  
+        $("#rememberMe").attr("checked", false);  
+    }  
+      
+    //读取cookie  
+    if($('#rememberMe:checked').length>0){  
+        $('#email').val(Cookies.get('fynco_userName'));  
+        $('#pwd').val(Cookies.get('fynco_password'));  
+    }  
+      
+  //监听【记住我】事件  
+    $("#rememberMe").click(function(){  
+    	if($('#rememberMe:checked').length>0){//设置cookie  
+        	Cookies.set('fynco_userName', $('#email').val());  
+        	Cookies.set('fynco_password', $('#pwd').val());  
+        }else{//清除cookie  
+        	Cookies.remove('fynco_userName');  
+        	Cookies.remove('fynco_password');  
+        } 
+    });  
+   
+	/* $('#pwd').blur(()=>{
+		var pwd=$('#pwd').val();
+		if(pwd!=''){
+			pwd=Base64.encode(md5(pwd));
+			$('#pwd').val(pwd);
+		}
+	}); */
+    $('#email').blur(()=>{
+		var vemail=$('#email').val();
+		if(vemail!=''){
+				$.post("/emailcheck", {email:vemail}, function(data) {
+				if(data.code==1){
+				}
+				else{
+					$('#invalid').val(0);
+					if(data.code==2){
+						$("#pass").text("Access Code:");
+						$('#logintype').val("access_code");
+					}
+					else{
+						$("#pass").text("Password:");
+						$('#logintype').val("password");
+					}
+				}
+			}, "json");
+		}
+	});
+})
+
+function Login(){
+	var vemail=$('#email').val();
+	var vpwd=$('#pwd').val();
+	var vlogintype=$('#logintype').val();
+	var vemail=$('#email').val();
+	if(vemail!=''&& ValidateEmail(vemail)){
+		
+		$.post("/emailcheck", {email:vemail}, function(data) {
+			if(data.code==1){
+			 	$('#email').focus();
+			 	layer.open({
+				    content: data.msg,
+				    btn: 'Got it'
+				  });
+			 	return false;
+			}
+		}, "json");
+			var pwdmd5=Base64.encode(md5(vpwd));
+			if(vlogintype=='access_code'){
+				pwdmd5=vpwd;
+			}
+			//console.log(pwdmd5)
+			$.post("/jlogin", {email:vemail,pwd:pwdmd5,logintype:vlogintype}, function(data) {
+			if(data.code==1){
+			 	layer.open({
+				    content: data.msg,
+				    btn: 'Got it'
+				  });
+				return false;
+			}
+			else if (data.code==2){
+				layer.open({
+				    content: 'Success',
+				    btn: 'Got it',
+				    yes: function(){
+				    	location.href="/setpwd";
+				      }
+				  });
+				
+			}
+			else{ 
+				if($('#rememberMe:checked').length>0){//设置cookie  
+		        	Cookies.set('fynco_userName', $('#email').val());  
+		        	Cookies.set('fynco_password', $('#pwd').val());  
+		        }else{//清除cookie  
+		        	Cookies.remove('fynco_userName');  
+		        	Cookies.remove('fynco_password');  
+		        } 
+				//sessionStorage.setItem("fynco_email", vemail); 
+				/* layer.open({
+				    content: 'Success',
+				    btn: 'Got it',
+				    yes: function(){
+				    	location.href="/";
+				      }
+				  }); */
+				location.href="/";
+			}
+			return false;
+		}, "json");
+	}
+}
+</script>
+
+</body>
+
+</html>

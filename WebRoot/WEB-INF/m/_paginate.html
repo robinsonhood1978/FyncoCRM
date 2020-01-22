@@ -1,0 +1,35 @@
+<#macro paginate currentPage totalPage totalRow actionUrl urlParas="">
+	<#if (totalPage <= 0) || (currentPage > totalPage)><#return></#if>
+	<#local startPage = currentPage - 4>
+	<#if (startPage < 1)><#local startPage = 1></#if>
+	
+	<#local endPage = currentPage + 4>
+	<#if (endPage > totalPage)><#local endPage = totalPage></#if>
+	
+	<#if (currentPage <= 8)>
+				<#local startPage = 1>
+			</#if>
+			<#if ((totalPage - currentPage) < 8)>
+				<#local endPage = totalPage>
+			</#if>
+<div class="am-cf">
+ 共<strong> ${totalRow}</strong> 条记录，当前第<strong> ${currentPage}</strong> 页，共 <strong>${totalPage}</strong> 页
+  <div class="am-fr">
+    <ul class="am-pagination">
+      <#if (startPage>1)>
+      <li class="am-disabled"><a href="#">«</a></li>
+      </#if>
+      <#list startPage..endPage as t>
+	  <#if currentPage==t>
+      <li class="am-active"><a href="${actionUrl}#{t}${urlParas!}">${t}</a></li>
+      <#else>
+      <li><a href="${actionUrl}#{t}${urlParas!}">${t}</a></li>
+      </#if>
+      </#list>
+      <#if totalPage gt endPage>
+      <li><a href="#">»</a></li>
+      </#if>
+    </ul>
+  </div>
+</div>
+</#macro>

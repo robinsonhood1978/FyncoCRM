@@ -1,0 +1,194 @@
+<#include "/t/_c.html" />
+<@layout>
+<div class="mdk-drawer-layout__content page">
+
+
+				
+
+					<div class="container-fluid page__container">
+                        <div class="page__heading d-flex align-items-center">
+                            <div class="flex">
+                                <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="#"><i class="material-icons icon-20pt">home</i></a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Notifications</li>
+                                </ol>
+                            </nav>
+                            <h1 class="m-0">Notifications</h1>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+
+
+                    <div class="container-fluid page__container">
+
+                        <div class="card">
+                            <!-- div class="card-header card-header-large bg-white">
+                                <h4 class="card-header__title">Current Users</h4>
+                            </div-->
+                            <div class="card-header">
+
+                                <div class="d-flex flex-row align-items-center">
+                                        <div class="form-inline">
+                                            <form action="/notification" class="form-inline">
+                                    <label class="mr-sm-2" for="inlineFormFilterBy">Filter by:</label>
+                                    <input name="keyword" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="keyword" value="${session.lead_keyword!}" placeholder="">
+
+                                    <label class="sr-only" for="inlineFormRole">Field</label>
+                                    <select name="field" id="field" class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                                        <option value="name">Name</option>
+                                        <option value="mobile">Mobile</option>
+                                        <option value="email">Email</option>
+                                    </select>
+
+                                    <button class="btn" type="submit" role="button"><i class="material-icons">search</i></button>
+                                </form>
+                                        </div>
+                                        <div class="ml-auto">
+                                            <button type="button" onclick="optDelete('/notification/del');" id="delete" class="btn btn-outline-info btn-rounded">Delete</button>
+                                        </div>
+                                    </div>
+                            </div>
+
+
+                            <div class="table-responsive border-bottom" data-toggle="lists" data-lists-values='["js-lists-values-employee-name"]'>
+
+                                <table class="table mb-0 thead-border-top-0">
+                                    <thead>
+                                        <tr>
+
+                                            <th style="width: 18px;">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input js-toggle-check-all" data-target="#staff" id="customCheckAll">
+                                                    <label class="custom-control-label" for="customCheckAll"><span class="text-hide">Toggle all</span></label>
+                                                </div>
+                                            </th>
+
+                                            <th>Name</th>
+                                            <th >Title</th>
+                                            <th >Content</th>
+                                            <th >Create Time</th>
+                                            <th >Personal Email</th>
+                                            <th >Type</th>
+                                            <th ></th>
+                                        </tr>
+                                    </thead>
+                                    <form id="tableForm" method="post">
+                                    <tbody class="list" id="staff">
+<#list contentPage.getList() as x>
+                                        <tr ondblclick="DoubleClick('${x.id}','${x.type}','${x.link_id}');">
+
+                                            <td>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input name="ids" value="${x.id}" type="checkbox" class="check_class custom-control-input js-check-selected-row" id="customCheck_${x_index}">
+                                                    <label class="custom-control-label" for="customCheck_${x_index}"><span class="text-hide">Check</span></label>
+                                                </div>
+                                            </td>
+
+                                            <td>
+
+                                                <div class="media align-items-center">
+                                                    <div class="avatar avatar-xs mr-2">
+                                                        <img src="<#if x.avatar??>${x.avatar}<#else>/t/assets/images/avatar/dfavatar.png</#if>" alt="Avatar" class="avatar-img rounded-circle">
+                                                    </div>
+                                                    <div class="media-body">
+
+                                                        <span class="js-lists-values-employee-name">${x.first_name!} ${x.last_name!}</span>
+
+                                                    </div>
+                                                </div>
+
+                                            </td>
+
+                                            <td>
+                                                <div class="media align-items-center">
+                                                    <a href="<#if x.type==0>/announcement/detail/${(x.link_id)!}<#else>javascript:void(0)</#if>" <#if x.type==1>onclick="View('${x.id}');"</#if>>${x.title!}</a>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge badge-pill badge-info">${x.content!}</span></td>
+
+                                            <td><#if x.create_time??>${(x.create_time)?string('dd/MM/yyyy')!}</#if></td>
+                                            
+                                            <td><span onclick="SendMail('${x.email!}')" class="badge badge-pill badge-light"><small class="text-muted">${x.email!}</small></span></td>
+                                            <td>${x.ntype!}</td>
+                                            <td>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
+	                                        <div class="dropdown-menu dropdown-menu-right">
+	                                        <a href="javascript:void(0)" onclick="View('${x.id}');" class="dropdown-item">View</a>
+	                                            <a href="/notification/del/${x.id}" class="dropdown-item">Delete</a>
+	    
+	                                            <div class="dropdown-divider"></div>
+	                                           
+	                                        </div>
+                                            </td>
+                                        </tr>
+
+</#list>
+                                    </tbody>
+                                    </form>
+                                </table>
+                            </div>
+
+                            <div class="card-body text-right">
+                            	<#include "/t/_paginate.html" />
+	<@paginate currentPage=contentPage.pageNumber pageSize=contentPage.pageSize totalPage=contentPage.totalPage totalRow=contentPage.totalRow actionUrl="/notification?p=" urlParas=""/>
+                                
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <!-- // END drawer-layout__content -->		
+                <script>
+                function SendMail(email){
+                	var url = '/amail?t='+email;
+                	layer.open({
+                		type: 2,
+                		title: 'Write an Email',
+                		fixed: false, //不固定
+                		maxmin: true,
+                	    shadeClose: true, //点击遮罩关闭层
+                		area: ['80%', '80%'],
+                		content: url ,
+                		success:function(layero,index){
+                        },
+                        end:function(){
+                			//alert(1)
+                        }
+                	});
+                }
+                function DoubleClick(id,type,link_id){
+                	if(type=='1')
+                		View(id);
+                	else
+                		location.href='/announcement/detail/'+link_id;
+                }
+                function View(id){
+                	//alert(id)
+                	var url = '/notification/detail?id='+id;
+            		layer.open({
+            			type: 2,
+            			title: 'Notification Details',
+            			fixed: false, //不固定
+            			maxmin: true,
+            		    shadeClose: true, //点击遮罩关闭层
+            			area: ['60%', '85%'],
+            			content: url ,
+            			success:function(layero,index){
+            	        },
+            	        end:function(){
+            	        	//ShowApplicant();
+            	        }
+            		});
+                }
+                </script>			
+<script src="/f/assets/js/layer.js"></script>
+<script src="/f/assets/js/mobile/mlayer.js"></script>
+</@layout>

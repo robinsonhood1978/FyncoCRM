@@ -1,0 +1,237 @@
+<#include "/t/_c.html" />
+<@layout>
+                <div class="mdk-drawer-layout__content page">
+
+
+
+                    <div class="container-fluid  page__heading-container">
+                        <div class="page__heading">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="#"><i class="material-icons icon-20pt">home</i></a></li>
+                                    <li class="breadcrumb-item">Clients</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Leads</li>
+                                </ol>
+                            </nav>
+                            <h1 class="m-0"><#if method=='add'>New<#else>Edit</#if> Lead</h1>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="container-fluid page__container">
+                        <div class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">Lead Information</strong></p>
+                                    <p class="text-muted">Edit the lead details.</p>
+                                    <div class="embed-responsive embed-responsive-1by1">
+									  <iframe id="iframe_avatar" class="embed-responsive-item" src="/add_avatar2?url=${(client.avatar)!}" allowfullscreen></iframe>
+									</div>  
+									<div class="row">
+									<div class="col">
+									<div style="text-align:center;" class="form-group">
+									<button id="edit_avatar" type="button" class="btn btn-primary btn-rounded">Edit Avatar</button>
+									</div>
+									</div>
+									</div>        
+                                </div>
+                                <div class="col-lg-8 card-form__body card-body">
+                                	<div class="row">
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Title</label>
+                                                <input type="text" class="form-control" name="client.title" id="title" value="${(client.title)!}">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Gender</label>
+                                                <select id="gender" data-toggle="select" data-minimum-results-for-search="-1" class="form-control">
+		                                            <option value="1" data-avatar-src="/t/assets/images/avatar/male.jpg">
+		                                                Male
+		                                            </option>
+		                                            <option value="0" data-avatar-src="/t/assets/images/avatar/female.jpg">
+		                                                Female
+		                                            </option>
+		                                            <option value="2" data-avatar-src="/t/assets/images/avatar/dfavatar.png">
+		                                                Unknown
+		                                            </option>
+		                                        </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                 	<div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">First name</label>
+                                                <input type="text" class="form-control" name="client.first_name" id="first_name" value="${(client.first_name)!}">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Last name</label>
+                                                <input type="text" class="form-control" name="client.last_name" id="last_name" value="${(client.last_name)!}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Preferred Name</label>
+                                                <input type="text" class="form-control" name="client.prefered_name" id="prefered_name" value="${(client.prefered_name)!}" >
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                             <div class="form-group">
+		                                        <label for="birthday">Date of Birth</label>
+		                                        <input id="birthday" type="text" class="form-control" value="<#if client??&&client.birthday??>${(client.birthday)?string('dd/MM/yyyy')!}</#if>" placeholder="date: 00/00/0000" data-mask="00/00/0000" autocomplete="off" maxlength="10">
+		                                    </div>
+                                        </div>
+                                    </div>
+                                   <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Personal Email</label>
+                                                <input type="text" class="form-control" name="client.personal_email" id="personal_email" value="${(client.personal_email)!}">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Work Email</label>
+                                                <input type="text" class="form-control" name="client.work_email" id="work_email" value="${(client.work_email)!}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Mobile</label>
+                                                <input class="form-control" type="tel" name="client.mobile" id="mobile" pattern="[0-9]*" placeholder="Input your mobile" value="${(client.mobile)!}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Work Phone</label>
+                                                <input type="text" class="form-control" name="client.work_phone" id="work_phone" value="${(client.work_phone)!}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="row">
+                                        
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Home Phone</label>
+                                                <input type="text" class="form-control" name="client.home_phone" id="home_phone" value="${(client.home_phone)!}">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+ 
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Comments</label><br/>
+                                                <textarea class="comment" id="comments" name="client.comments" rows="3" cols="60">${(client.comments)!}</textarea>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+ 
+
+                        
+                        <div class="text-right mb-5">
+                        <input type="hidden" id="clientid" value="${(client.id)!}">
+                         <input type="hidden" id="avatar_url" value="${(client.avatar)!}">
+                            <button class="btn btn-success" onClick="return SaveLead('${method}');">Save</button>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- // END drawer-layout__content -->
+                <script>
+                var client_avatar = '${(client.avatar)!}';
+                $(function () { 
+                	if('${method}'=='edit'){
+                		var gender = '${(client.gender)!}';
+                    	$('#gender').val(gender).trigger('change');
+                    	//$("#gender").select2();
+                	}
+                	$("#edit_avatar").on('click',function(e){
+                		var url = '/add_avatar3?url='+client_avatar;
+                		layer.open({
+                			type: 2,
+                			title: 'Edit client avatar',
+                			fixed: false, //不固定
+                			maxmin: true,
+                		    shadeClose: true, //点击遮罩关闭层
+                			area: ['60%', '85%'],
+                			content: url ,
+                			success:function(layero,index){
+                	        },
+                	        end:function(){
+                	        	document.getElementById('iframe_avatar').contentWindow.document.getElementById('profile-pic').src=$('#avatar_url').val();
+                	        	//alert($('#avatar_url').val());
+                	        }
+                		});
+                	});
+                })
+function SaveLead(method){
+				var title=$('#title').val();
+				var gender=$('#gender').val();
+				var first_name=$('#first_name').val();
+				var last_name=$('#last_name').val();
+				var prefered_name=$('#prefered_name').val();
+				var birthday = $('#birthday').val();
+				var work_phone=$('#work_phone').val();
+				var mobile=$('#mobile').val();
+				var home_phone=$('#home_phone').val();
+				
+				var personal_email=$('#personal_email').val();
+				var work_email=$('#work_email').val();
+				var comments=$('#comments').val();
+				var clientid=$('#clientid').val();
+				//var avatar=document.getElementById('iframe_avatar').contentWindow.document.getElementById('avatar_url').value;
+				var avatar = $('#avatar_url').val();
+				//alert(avatar);
+				var url = "/lead/";
+				if(method=='add')url+="save";
+				else url+="update";
+
+				$.post(url, {"client.id":clientid,"client.title":title,"client.gender":gender,"client.first_name":first_name,"client.last_name":last_name,"client.prefered_name":prefered_name,
+					"birthday":birthday,"client.work_phone":work_phone,"client.mobile":mobile,"client.home_phone":home_phone,"client.personal_email":personal_email,"client.work_email":work_email,
+					"client.comments":comments,"client.avatar":avatar}, function(data) {
+					if(data.code==1){
+					 	mlayer.open({
+						    content: 'Fail',
+						    btn: 'Got it'
+						  });
+						return false;
+					}
+					else{ 
+						//sessionStorage.setItem("fynco_email", vemail); 
+						mlayer.open({
+						    content: 'Success',
+						    btn: 'Got it',
+						    yes: function(){
+						    	location.href="/lead";
+						      }
+						  });
+					}
+					return false;
+				}, "json");
+				return false;
+	
+
+}
+</script>
+</@layout>

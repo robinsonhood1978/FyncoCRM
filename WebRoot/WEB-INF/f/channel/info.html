@@ -1,0 +1,15 @@
+<#include "../c/head.html"/>
+
+<section class="" id="amz-main" data-tag="cpt-divider">
+<div class="am-g am-g-fixed">
+<br/><br/>
+<div class="content col-md-12 am-u-md-12">
+<@cms_content_list channelId='${channel.id}' channelOption='1' typeId='1' count='500' orderBy ='2'>
+	                    <#list tag_list as a>
+<h3><a href="/${a.path}-${a.id}">${a.title}</a></h3>
+<hr>
+                </#list>
+              </@cms_content_list>
+
+</div></div></section>
+<#include "../c/foot.html"/>

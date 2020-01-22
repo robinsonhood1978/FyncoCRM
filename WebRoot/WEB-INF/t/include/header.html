@@ -1,0 +1,102 @@
+<div class="head fn-clear">
+  <div class="head_01"><a href="/"><img src="/f/i/01b.jpg" alt="" /></a></div>
+  <div class="head_02 nav_box">
+    <ul>
+      	<li class="bg nav_li">
+			<a class="nav_a" href="/" id="index">首页</a>
+			<p class="second_nav_header"></p>
+		</li>
+		
+		<li class="bg nav_li">
+			<a class="nav_a" href="/jjfa" id="jjfa">解决方案</a>
+	        <p class="second_nav_header">
+	        	<a href="/glxxhzhfw" id="glxxhzhfw" style="width: 140px;">管理信息化综合服务</a>
+	        	<a href="/dzswztjjfa" id="dzswztjjfa" style="width: 140px;">电子商务整体解决方案</a>
+	        	<a href="/ydyyjjfa" id="ydyyjjfa" style="width: 140px;margin-left: 20px">移动应用解决方案</a>
+	        </p>
+		</li>
+		
+		<li class="bg nav_li">
+			<a class="nav_a" href="/cpyfw" id="cpyfw">产品与服务</a>
+		    <p class="second_nav_header">
+		    <@cms_content_list typeId='1' count='4' recommend='1' orderBy='8' channelOption='2' channelId='219,220' titLen='12' append='...'>
+			<#list tag_list as a>
+	        	<a href="/${a.path}-${a.id}" id="${a.path}" title="${(a.title)!}">${(a.title)!} </a>
+	        </#list>
+		  	</@cms_content_list>
+		    </p>		
+		</li>
+		
+		<li class="bg nav_li">
+			<a class="nav_a" href="/cpyc" id="cpyc">诚聘英才</a>
+			<p class="second_nav_header"></p>
+		</li>
+		
+		<li class="bg nav_li">
+			<a class="nav_a" href="/gsjj" id="gyjw">关于智合</a>
+		   	<p class="second_nav_header">
+		   		<a href="/gsjj" id="gsjj" style="width: 110px">公司简介</a>
+		   		<a href="/mtxw" id="mtxw" style="width: 110px">媒体新闻</a>
+		   		<a href="/qywh" id="qywh" style="width: 110px">企业文化</a>
+		   		<a href="/qyzz" id="qyzz" style="width: 110px">企业资质</a>
+<!--		   		<a href="/hzhb" id="hzhb" style="width: 110px">合作伙伴</a>-->
+		   	</p>
+		</li>
+		
+		<li class="bg nav_li">
+			<a class="nav_a" href="/lxwm" id="lxwm">联系我们</a>
+			<p class="second_nav_header"></p>
+		</li>
+    </ul>
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".second_nav_header").hide();
+	var channelPath = $.trim("${(channel.path)!}");
+	var parentClass = $("#"+channelPath).parent().attr("class");
+	if(typeof(parentClass)=="undefined"){
+		if(channelPath=="dzswztjjfalm"){
+			$("#cpyfw").parent().attr("class","bg nav_li nav_line");
+			$("#cpyfw").siblings("p").show();
+		}else{
+			//其他没有找到的情况
+			$("#gyjw").parent().attr("class","bg nav_li nav_line");
+			$("#gyjw").siblings("p").show();
+		}
+	}else{
+		if(parentClass=="second_nav_header"){
+			$("#"+channelPath).parent().parent().attr("class","bg nav_li nav_line");
+			$("#"+channelPath).parent().show();
+		}else if(parentClass=="bg nav_li"){
+			$("#"+channelPath).parent().attr("class","bg nav_li nav_line");
+			$("#"+channelPath).siblings("p").show();
+		}
+	}
+	var nav_li =$(".nav_li");
+    var nav_a =$(".nav_a");
+    var nav_line = $(".nav_line");
+    var navSibling=  nav_line.siblings("li.nav_li");
+    nav_line.find(".second_nav_header").show().parents("li").siblings("li.nav_li").find(".second_nav_header").hide();
+    navSibling.hover(function(){
+        $(this).addClass("nav_line").find(".second_nav_header").show();
+        $(this).siblings("li.nav_li").find(".second_nav_header").hide();
+    },function(){
+            $(this).removeClass("nav_line");
+            nav_li.find(".second_nav_header").hide();
+            nav_line.find(".second_nav_header").show();
+        }
+    )
+	
+	
+	//定位
+	//$(".content").attr("id","hash0");
+	var contentId = $.trim("${(content.id)!}");
+	if(contentId!=null && contentId!="" && channelPath=="ydyyjjfa"){
+		window.location.hash = "#ydyyjjfa"+contentId;
+	}
+	//else{
+	//	window.location.hash = "#hash0";
+	//}
+});
+</script>

@@ -1,0 +1,64 @@
+<#include "/WEB-INF/f/c/_l.html" />
+<@layout>
+<div class="am-g">
+  <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+    <br>
+    <div>
+    	<h3>Verify Code</h3>
+    	<hr>
+    </div>
+
+
+    <div class="am-form" id="doc" >
+    <fieldset>
+      <div class="am-form-group">
+      <label for="email">Input the verify code </label>
+      <input type="text" id="verifycode" name="verifycode" minlength="3" placeholder="Verify Code" value="" required>
+      </div>
+      <div class="am-cf">
+      	<input type="hidden" value="0" id="invalid">
+      	<input type="hidden" value="" id="msg">
+        <input type="submit" name="" value="Submit" class="am-btn am-btn-primary am-btn-sm am-fl" onClick="return Verifycode();" >
+      </div>
+      <!--alert start-->
+      <div class="am-modal am-modal-alert" tabindex="-1" id="alert">
+  		<div class="am-modal-dialog">
+    		<div class="am-modal-bd" id="myalert">
+     
+    		</div>
+    		<div class="am-modal-footer">
+      			<span class="am-modal-btn">${I18N.getText("got_it")}</span>
+    		</div>
+  		</div>
+	  </div>
+	  <!--alert end-->
+    </fieldset>
+    </div>
+  </div>
+</div>
+<script>
+var $modal = $('#alert');
+$(function () { 
+})
+function Verifycode(){
+	var verifycode=$('#verifycode').val();
+	if(verifycode!=''){
+			$.post("/jverifycode", {verifycode}, function(data) {
+			if(data.code==1){
+			 	$('#invalid').val(data.code);
+			 	$('#msg').val(data.msg);
+			 	layer.open({
+				    content: data.msg,
+				    btn: 'Got it'
+				  });
+				return false;
+			}
+			else{ 
+				location.href="/setpwd";
+			}
+			return false;
+		}, "json");
+	}
+}
+</script>
+</@layout>

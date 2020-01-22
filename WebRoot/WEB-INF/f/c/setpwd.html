@@ -1,0 +1,81 @@
+<#include "/WEB-INF/f/c/_l.html" />
+<@layout>
+<div class="am-g">
+  <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+    <br>
+    <div>
+    	<h3>${I18N.getText("setpwd")}</h3>
+    	<hr>
+    </div>
+
+
+    <form class="am-form" id="doc" >
+    <fieldset>
+      <div class="am-form-group">
+      <label for="pwd">${I18N.getText("password")}:</label>
+      <input type="password" name="user.pwd" id="pwd" minlength="6" placeholder="At least six letters or numbers" value="" required>
+      </div>
+      <div class="am-form-group">
+      <label for="pwd2">${I18N.getText("password_confirm")}:</label>
+      <input type="password" name="pwd2" id="pwd2" minlength="6" value="" placeholder="Input password again" required>
+      </div>
+      
+      <div class="am-cf">
+      	<input type="hidden" value="0" id="invalid">
+      	<input type="hidden" value="" id="msg">
+        <input type="submit" name="" value="${I18N.getText('login')}" class="am-btn am-btn-primary am-btn-sm am-fl" onClick="return Setpwd();" >
+        <input type="submit" name="" value="Forget Password ^_^? " class="am-btn am-btn-default am-btn-sm am-fr">
+      </div>
+      <!--alert start-->
+      <div class="am-modal am-modal-alert" tabindex="-1" id="alert">
+  		<div class="am-modal-dialog">
+    		<div class="am-modal-bd" id="myalert">
+    		</div>
+    		<div class="am-modal-footer">
+      			<span class="am-modal-btn">${I18N.getText("got_it")}</span>
+    		</div>
+  		</div>
+	  </div>
+	  <!--alert end-->
+    </fieldset>
+    </form>
+  </div>
+</div>
+<script>
+var $modal = $('#alert');
+function Setpwd(){
+	if($('#pwd').val()==$('#pwd2').val()){
+		var pwd=$('#pwd').val();
+		var pwd2=$('#pwd2').val();
+		var pwdmd5=Base64.encode(md5(pwd));
+		console.log(pwdmd5);
+		if(pwd!=''){
+			$.post("/jsetpwd", {pwd:pwdmd5}, function(data) {
+				if(data.code==1){
+				 	$('#myalert').text(data.msg);
+					$modal.modal();
+					return false;
+				}
+				else{
+					sessionStorage.setItem("fynco_email", data.email); 
+					layer.open({
+					    content: 'Success',
+					    btn: 'Got it',
+					    yes: function(){
+					        location.href="/";
+					      }
+					  });
+					return false;
+				}
+			}, "json");
+		}
+	}
+	else{
+		$('#myalert').text("${I18N.getText('pass_different')}");
+		$modal.modal();
+		return false;
+	} 
+	return false
+}
+</script>
+</@layout>

@@ -1,0 +1,66 @@
+<#include "/admin/common/_layout.html"/>
+<@layout>
+<#include "/admin/dict/top.html"/>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="table-layout:fixed;">
+  <tr>
+    <td height="25" background="/images/right_10.gif" style="border-top:solid 1px #b2cdd2; border-bottom:solid 1px #b2cdd2 "><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="25"  style="width:5px;">&nbsp;</td>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+          <td width="25" height="20" ><div align="center"><img src="/images/${method!}.gif" width="14" height="14" /></div></td>
+            <td width="135" height="20" align="left" ><span class="STYLE1"><#if method='index'>数据字典类别列表</#if><#if method='add'>添加数据字典</#if><#if method='edit'>编辑数据字典</#if></span></td>
+            <td width="600" height="20" align="center" >
+<#if resultMsg??>
+  	<span class="STYLE1"><font color="blue">${resultMsg!}</font></span>
+  </#if></td>
+  <#if method='index'>
+            <td><div align="right"><span class="STYLE1">
+              <input type="checkbox" onclick='Pn.checkbox("ids",this.checked)'/>
+              全选      &nbsp;&nbsp;<img src="/images/add.gif" width="10" height="10" />
+               <span onClick="location.href='/admin/dict/addbase';">添加字典类别</span>  
+               <img src="/images/del.gif" width="10" height="10" /> 
+               <span class="STYLE1" onclick="optDelete('/admin/dict/deletebase');"> 删除&nbsp;&nbsp;&nbsp;&nbsp;</span></div></td>
+</#if>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#a8c7ce">
+      <tr>
+        <td width="5%" height="20" bgcolor="d3eaef" class="STYLE10"><div align="center">
+          <input type="checkbox" onclick='Pn.checkbox("ids",this.checked)' />
+        </div></td>
+        <td width="20%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">字典ID</span></div></td>
+        <td width="20%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">类别名称</span></div></td>
+        <td width="10%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">类别编码</span></div></td>
+        <td width="15%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">基本操作</span></div></td>
+      </tr>
+      <form id="tableForm" method="post">
+        <#list dictPage.getList() as x>
+  <tr>
+        <td height="20" bgcolor="#FFFFFF"><div align="center">
+          <input type="checkbox" name="ids" value="${x.id}" />
+        </div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center"><span class="STYLE19">${x.id!}</span></div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${x.name}</div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${x.code!}</div></td>
+        <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE21">
+        <a href="/admin/dict/son/1-${x.id}">对应字典维护</a>
+        | <a href="/admin/dict/editbase/${x.id}">修改</a>
+         | <a href="/admin/dict/deletebase/${x.id}">删除</a></div></td>
+  </tr>
+  </#list>
+  </form>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="30"><#include "/admin/common/_paginate.html" />
+	<@paginate currentPage=dictPage.pageNumber totalPage=dictPage.totalPage totalRow=dictPage.totalRow actionUrl="/dict/" /></td>
+  </tr>
+</table>
+</@layout>

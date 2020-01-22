@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>北京京诚智合科技有限公司</title>
+	<link rel="stylesheet" href="/f/x/c/style.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="/f/x/c/flexslider.css" type="text/css" media="all" />
+	
+	<script src="/js/jquery-1.8.3.min.js" type="text/javascript"></script>
+	<!--[if lt IE 9]>
+		<script src="/f/x/j/modernizr.custom.js"></script>
+	<![endif]-->
+	<script src="/f/x/j/jquery.flexslider-min.js" type="text/javascript"></script>
+	<script src="/f/x/j/functions.js" type="text/javascript"></script>
+</head>
+<body>
+	<!-- wrapper -->
+	<div id="wrapper">
+		<!-- shell -->
+		<div class="shell">
+			<!-- container -->
+			<div class="container">
+							
+				<!-- header -->
+				<header class="header">
+					<h1 id="logo"><a href="#">Proper</a></h1>
+					<nav id="navigation">
+						<ul>
+							<li class="active"><a href="#">首页</a></li>
+							<li><a href="#">关于智合</a>
+								<ul>
+									<li><a href="/gsjj">公司简介</a></li>
+									<li><a href="/mtxw">媒体新闻</a></li>
+									<li><a href="/qywh">企业文化</a></li>
+									<li><a href="/qyzz">企业资质</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="#">解决方案<span></span></a>
+								<ul>
+									<li><a href="#">管理信息化</a></li>
+									<li><a href="#">电子商务</a></li>
+									<li><a href="#">移动应用</a></li>
+									<li><a href="#">金融p2p</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="#">成功案例<span></span></a>
+								<ul>
+									<li><a href="#">南方煤炭</a></li>
+									<li><a href="#">中航大宗</a></li>
+									<li><a href="#">可口可乐</a></li>
+									<li><a href="#">黄金叶</a></li>
+								</ul>
+							</li>
+							<li><a href="#">诚聘英才</a></li>
+							<li><a href="#">联系我们</a></li>
+							
+						</ul>
+					</nav>
+					<div class="cl">&nbsp;</div>
+				</header>
+				<!-- end of header -->
+				<div class="main">
+					<!-- slider -->
+					<div class="flexslider">
+						<ul class="slides">
+						<@cms_content_list channelId='222' channelOption='2' typeId='1' count='4' orderBy ='1'>
+	                    <#list tag_list as a>
+                <li>
+                <img src="${a.title_img!}"/>
+                </li>
+                </#list>
+              </@cms_content_list>
+							
+						</ul>
+					</div>
+					<!-- end of slider -->
+					
+                    <!-- cols -->
+					<section class="cols">
+					<@cms_channel_list channelId='199' count='4'>
+	                    <#list tag_list as a>
+						<div class="col">
+							<p><a href="/${a.path!}"><img src="${a.title_img!}" title="${a.name!}"></a></p>
+						</div>
+						</#list>
+              		</@cms_channel_list>
+						<div class="cl">&nbsp;</div>
+					</section>
+					<!-- end of cols  -->
+					<!-- box -->
+					<section class="box">
+						<span class="shadow-t"></span>
+						<h3>成功案例</h3>
+						
+						<div class="cl">&nbsp;</div>
+						<!-- entries -->
+						<div class="entries">
+						<@cms_content_list channelId='223' channelOption='2' typeId='1' count='4' orderBy ='1'>
+	                    <#list tag_list as a>
+                <div class="entry">
+								<a href="/${a.path}-${a.id}"><img src="${a.title_img!}" alt="" /></a>
+								<span class="shadow"></span>
+							</div>
+                </#list>
+              </@cms_content_list>
+							<div class="cl">&nbsp;</div>
+							<span class="shadow-b"></span>
+						</div>	
+					<!-- end of entries -->
+					</section>
+					<!-- end of box -->
+					
+					
+					<!-- services -->
+					<section class="services">
+						<div class="widget">
+							<h3>诚邀加盟</h3>
+							<p>网络科技——移动互联的浪潮方兴未艾，京诚智合愿意和您携手迈入信息化时代，立足于科技创新和真诚服务，一起开拓网络科技时代！</p>
+						</div>
+						<div class="widget contact-widget">
+							<h3>联系我们</h3>
+							<ul>
+								<li>北京市通州区北杨洼251号2-3-309</li>
+								<li><strong>电话: </strong>010-81516771</li>
+							</ul>
+						</div>
+						<div class="widget socials-widget">
+							<h3>面向未来</h3>
+							<p>未来，一起掌握。</p>
+						</div>
+						<div class="cl">&nbsp;</div>
+					</section>
+					<!-- end of services -->
+					
+
+
+
+				</div>
+				<!-- end of main -->
+			</div>
+			<!-- end of container -->	
+			<div class="footer">
+				<p class="copy">北京京诚智合科技有限公司  京ICP备15018256号</p>
+			</div>
+		</div>
+		<!-- end of shell -->
+	</div>
+	<!-- end of wrappert -->
+</body>
+</html>

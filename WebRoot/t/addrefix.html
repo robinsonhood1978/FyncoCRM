@@ -1,0 +1,520 @@
+<#include "/t/_s.html" />
+<@layout>
+                <div class="mdk-drawer-layout__content page">
+
+
+
+                    <div class="container-fluid  page__heading-container">
+                        <div class="page__heading">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="#"><i class="material-icons icon-20pt">home</i></a></li>
+                                    <li class="breadcrumb-item">Clients</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Client</li>
+                                </ol>
+                            </nav>
+                            <h1 class="m-0"><#if method=='addrefix'>New<#else>Edit</#if> Refix Client</h1>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="container-fluid page__container">
+                        <div class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">Client Basic Information</strong></p>
+                                </div>
+                                <div class="col-lg-8 card-form__body card-body">
+                                	<div class="row">
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Title</label>
+                                                <input type="text" class="form-control" name="client.title" id="title" value="${(client.title)!}">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Gender</label>
+                                                <select id="gender" data-toggle="select" data-minimum-results-for-search="-1" class="form-control">
+		                                            <option value="1" data-avatar-src="/t/assets/images/avatar/male.jpg">
+		                                                Male
+		                                            </option>
+		                                            <option value="0" data-avatar-src="/t/assets/images/avatar/female.jpg">
+		                                                Female
+		                                            </option>
+		                                            <option value="2" data-avatar-src="/t/assets/images/avatar/dfavatar.png">
+		                                                Unknown
+		                                            </option>
+		                                        </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                 	<div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">First name</label>
+                                                <input type="text" class="form-control" name="client.first_name" id="first_name" value="${(client.first_name)!}">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Last name</label>
+                                                <input type="text" class="form-control" name="client.last_name" id="last_name" value="${(client.last_name)!}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Preferred Name</label>
+                                                <input type="text" class="form-control" name="client.prefered_name" id="prefered_name" value="${(client.prefered_name)!}" >
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                             <div class="form-group">
+		                                        <label for="birthday">Date of Birth</label>
+		                                        <input id="birthday" type="text" class="form-control" value="<#if client??&&client.birthday??>${(client.birthday)?string('dd/MM/yyyy')!}</#if>" placeholder="date: 00/00/0000" data-mask="00/00/0000" autocomplete="off" maxlength="10">
+		                                    </div>
+                                        </div>
+                                    </div>
+                                   <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Personal Email</label>
+                                                <input type="text" class="form-control" name="client.personal_email" id="personal_email" value="${(client.personal_email)!}">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Work Email</label>
+                                                <input type="text" class="form-control" name="client.work_email" id="work_email" value="${(client.work_email)!}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Mobile</label>
+                                                <input class="form-control" type="tel" name="client.mobile" id="mobile" pattern="[0-9]*" placeholder="Input your mobile" value="${(client.mobile)!}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Work Phone</label>
+                                                <input type="text" class="form-control" name="client.work_phone" id="work_phone" value="${(client.work_phone)!}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="row">
+                                        
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Home Phone</label>
+                                                <input type="text" class="form-control" name="client.home_phone" id="home_phone" value="${(client.home_phone)!}">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+ 
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Comments</label><br/>
+                                                <textarea class="comment" id="comments" name="client.comments" rows="3" cols="60">${(client.comments)!}</textarea>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card card-form">
+                            <div class="row no-gutters">
+                             
+                                <div class="col-lg-4 card-body">
+                                 <h4 class="card-header__title mb-0">Loan Structure</h4>
+                                    
+                                    
+                                </div>
+                                
+                                <div class="col-lg-8 card-form__body card-body">
+                                <div id="loans">
+	                                	<div id="loan">
+	                                	<div id="loan_[node_index]">
+	                                	<div class="card-header bg-white d-flex align-items-center">
+                               <p><strong class="headings-color">Loan Information</strong></p>
+                                <div class="d-flex ml-auto">
+                                    <div style="display:none" onclick="Remove('[node_index]')" id="removeloan">
+                                                <i class="material-icons">remove_circle_outline</i>
+                                           		<label>Remove</label>
+                                           		</div>
+                                </div>
+                            </div>
+                                	<div class="row">
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Bank</label>
+                                                <input type="text" class="form-control" name="loan_bank" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Customer NO.</label>
+                                                <input type="text" class="form-control" name="loan_customer_no" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                 	<div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Borrowing Entity</label>
+                                                <input type="text" class="form-control" name="loan_borrowing_entity" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Loan Amount</label>
+                                                <input type="text" class="form-control" name="loan_amount" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Loan Account NO.</label>
+                                                <input type="text" class="form-control" name="loan_account_no" value="" >
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                             <div class="form-group">
+		                                        <label for="loan_effective_date">Effective Date</label>
+		                                        <input id="loan_effective_date_0" onblur="CalReview('[node_index]')" name="loan_effective_date" type="text" class="form-control" value="" placeholder="date: 00/00/0000" data-mask="00/00/0000" autocomplete="off" maxlength="10">
+		                                    </div>
+                                        </div>
+                                    </div>
+                                   <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Now Rate Period</label>
+                                                <select id="loan_now_rate_period_0" onchange="CalReview('[node_index]')" name="loan_now_rate_period"  class="form-control">
+		                                            <option value="6">
+		                                                6 months
+		                                            </option>
+		                                            <option value="12">
+		                                                1 year
+		                                            </option>
+		                                            <option value="18">
+		                                                18 months
+		                                            </option>
+		                                            <option value="24">
+		                                                2 years
+		                                            </option>
+		                                            <option value="36">
+		                                                3 years
+		                                            </option>
+		                                            <option value="48">
+		                                                4 years
+		                                            </option>
+		                                            <option value="60">
+		                                                5 years
+		                                            </option>
+		                                        </select>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Review Date</label>
+                                                <input id="loan_review_date_0" name="loan_review_date" type="text" class="form-control" value="" placeholder="date: 00/00/0000" data-mask="00/00/0000" autocomplete="off" maxlength="10">
+		                                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                   <div class="row">
+                                   		<div class="col">
+                                            <div class="form-group">
+                                                <label for="loan_interest_rate">Reminder Date</label>
+                                                <select name="loan_reminder_days" class="form-control">
+		                                            <option value="30">
+		                                                1 months before Review Date
+		                                            </option>
+		                                            <option value="21">
+		                                                3 weeks before Review Date
+		                                            </option>
+		                                            <option value="14">
+		                                                2 weeks before Review Date
+		                                            </option>
+		                                            <option value="7">
+		                                                1 week before Review Date
+		                                            </option>
+		                                        </select>
+                                            </div>
+                                        </div>
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label for="loan_interest_rate">Interest Rate</label>
+                                                <input type="text" class="form-control" name="loan_interest_rate" value="" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                            <input type="hidden" class="form-control" name="task_id" value="" >
+                                                <label for="fname">Notes</label><br/>
+                                                <textarea class="comment" name="loan_notes" rows="3" cols="60"></textarea>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+			                                   <div id="addloan">
+                                                <i class="material-icons">add_circle_outline</i>
+                                           		<label>Add More Loan Structure</label>
+                                           		</div>
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                            </div>
+                            </div>
+                        </div>
+
+ 
+
+                        
+                        <div class="text-right mb-5">
+                        <input type="hidden" id="clientid" value="${(client.id)!}">
+                        <input type="hidden" id="oldtasks" value="">
+                            <button class="btn btn-success" onClick="return SaveRefix('${method}');">Save</button>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- // END drawer-layout__content -->
+                <script>
+                function Remove(id){
+                	//alert(id)
+                	$('#loan_'+id).remove();
+                }
+                function d2sd(effective_date,months){
+                	//moment.locale('en-NZ'); 
+                	return moment(effective_date, "DD/MM/YYYY").add(months, 'months').format('DD/MM/YYYY');
+                }
+                String.prototype.replaceAll = function(search, replacement) {
+            	    var target = this;
+            	    return target.split(search).join(replacement);
+            	};
+                function parseDom(arg) {
+
+                	var objE = document.createElement("div");
+
+                	objE.innerHTML = "<div>"+arg+"</div>";
+
+                	return objE.childNodes;
+
+                }
+function CalReview(node_index){
+	
+	if(node_index=='[node_index]'){
+		var effective_date = $('#loan_effective_date_0').val();
+		if(effective_date!=''){
+			var months = $('#loan_now_rate_period_0').val();
+			$('#loan_review_date_0').val(d2sd(effective_date,months));
+		}
+		else{
+			$('#loan_review_date_0').val('');
+		}
+	}
+	else{
+		var effective_date = $('#loan_effective_date_'+node_index).val();
+		if(effective_date!=''){
+			var months = $('#loan_now_rate_period_'+node_index).val();
+			$('#loan_review_date_'+node_index).val(d2sd(effective_date,months));
+		}
+		else{
+			$('#loan_review_date_'+node_index).val('');
+		}
+	}
+		
+}
+                $(function () { 
+                	function copyNode(nodeid){
+                		var node_index = document.getElementsByName("loan_effective_date").length;
+                		var sourceNode = document.getElementById(nodeid); // 获得被克隆的节点对象 
+                		var clonedNode = sourceNode.cloneNode(true); // 克隆节点 
+                		//console.log(sourceNode.innerHTML)
+                		//console.log('--------------------')
+                		$node = $(clonedNode);
+                		$node.find('div[id="removeloan"]').css("display","block");
+                		$node.find('input[name="loan_effective_date"]').attr("id","loan_effective_date_"+node_index);
+                		$node.find('select[name="loan_now_rate_period"]').attr("id","loan_now_rate_period_"+node_index);
+                		$node.find('input[name="loan_review_date"]').attr("id","loan_review_date_"+node_index);
+                		$node.find('input[name="task_id"]').val(0);
+                		var html = $node.html().replaceAll('[node_index]',node_index);  
+                		//console.log(html)
+                		var newnode = parseDom(html);
+                		sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点 
+                	}
+                	$("#addloan").on('click',function(e){
+                		copyNode("loan");
+                	});
+                	if('${method}'=='editrefix'){
+                		var gender = '${(client.gender)!}';
+                    	$('#gender').val(gender).trigger('change');
+                    	
+                    	var loan = '${(client.loan)!}';
+                    	var oldTaskIdsArr = new Array();
+	                	if(loan!=''){
+		                	var loanArray = JSON.parse(loan);
+		                	for(var i=1;i<loanArray.length;i++){
+		                		copyNode("loan");
+		                	}
+		                	var loan_bank = document.getElementsByName("loan_bank");
+		    				var loan_customer_no = document.getElementsByName("loan_customer_no");
+		    				var loan_borrowing_entity = document.getElementsByName("loan_borrowing_entity");
+		    				var loan_amount = document.getElementsByName("loan_amount");
+		    				var loan_account_no = document.getElementsByName("loan_account_no");
+		    				var loan_effective_date = document.getElementsByName("loan_effective_date");
+		    				var loan_now_rate_period = document.getElementsByName("loan_now_rate_period");
+		    				var loan_review_date = document.getElementsByName("loan_review_date");
+		    				var loan_reminder_days = document.getElementsByName("loan_reminder_days");
+		    				var loan_interest_rate = document.getElementsByName("loan_interest_rate");
+		    				var loan_notes = document.getElementsByName("loan_notes");
+		    				var task_id = document.getElementsByName("task_id");
+		    				for(var i=0;i<loanArray.length;i++){
+		    					loan_bank[i].value=loanArray[i]['loan_bank'];
+		    					loan_customer_no[i].value=loanArray[i]['loan_customer_no'];
+		    					loan_borrowing_entity[i].value=loanArray[i]['loan_borrowing_entity'];
+		    					loan_amount[i].value=loanArray[i]['loan_amount'];
+		    					loan_account_no[i].value=loanArray[i]['loan_account_no'];
+		    					loan_effective_date[i].value=loanArray[i]['loan_effective_date'];
+		    					loan_now_rate_period[i].value=loanArray[i]['loan_now_rate_period'];
+		    					loan_review_date[i].value=loanArray[i]['loan_review_date'];
+		    					loan_reminder_days[i].value=loanArray[i]['loan_reminder_days'];
+		    					loan_interest_rate[i].value=loanArray[i]['loan_interest_rate'];
+		    					loan_notes[i].value=loanArray[i]['loan_notes'];
+		    					task_id[i].value=loanArray[i]['task_id'];
+		    					oldTaskIdsArr.push(loanArray[i]['task_id']);
+		    				}  
+	                	} 
+	                	if(oldTaskIdsArr.length>0)
+	                		$('#oldtasks').val(String(oldTaskIdsArr));
+	                		
+                	}
+                	
+                })
+function SaveRefix(method){
+				var title=$('#title').val();
+				var gender=$('#gender').val();
+				var first_name=$('#first_name').val();
+				var last_name=$('#last_name').val();
+				var prefered_name=$('#prefered_name').val();
+				var birthday = $('#birthday').val();
+				var work_phone=$('#work_phone').val();
+				var mobile=$('#mobile').val();
+				var home_phone=$('#home_phone').val();
+				
+				var personal_email=$('#personal_email').val();
+				var work_email=$('#work_email').val();
+				var comments=$('#comments').val();
+				var clientid=$('#clientid').val();
+				var oldtasks=$('#oldtasks').val();
+				//var avatar=document.getElementById('iframe_avatar').contentWindow.document.getElementById('avatar_url').value;
+				//alert(avatar);
+				var url = "/client/";
+				if(method=='addrefix')url+="save";
+				else url+="update";
+				
+				var loanArray = new Array();
+				var loan_bank = document.getElementsByName("loan_bank");
+				var loan_customer_no = document.getElementsByName("loan_customer_no");
+				var loan_borrowing_entity = document.getElementsByName("loan_borrowing_entity");
+				var loan_amount = document.getElementsByName("loan_amount");
+				var loan_account_no = document.getElementsByName("loan_account_no");
+				var loan_effective_date = document.getElementsByName("loan_effective_date");
+				var loan_now_rate_period = document.getElementsByName("loan_now_rate_period");
+				var loan_review_date = document.getElementsByName("loan_review_date");
+				var loan_reminder_days = document.getElementsByName("loan_reminder_days");
+				var loan_interest_rate = document.getElementsByName("loan_interest_rate");
+				var loan_notes = document.getElementsByName("loan_notes");
+				var task_id = document.getElementsByName("task_id");
+				var newtasks = new Array();
+				for(var i=0;i<loan_bank.length;i++){
+					if(loan_bank[i].value!=''){
+						loanArray.push({"loan_bank":loan_bank[i].value,"loan_customer_no":loan_customer_no[i].value,
+							"loan_borrowing_entity":loan_borrowing_entity[i].value,"loan_amount":loan_amount[i].value,
+							"loan_account_no":loan_account_no[i].value,"loan_effective_date":loan_effective_date[i].value,
+							"loan_now_rate_period":loan_now_rate_period[i].value,"loan_review_date":loan_review_date[i].value,
+							"loan_reminder_days":loan_reminder_days[i].value,"loan_interest_rate":loan_interest_rate[i].value,
+							"loan_notes":loan_notes[i].value,"task_id":task_id[i].value});
+						newtasks.push(task_id[i].value);
+					}
+				} 
+				var jsonLoan = JSON.stringify( loanArray );
+
+				var oldstr = $('#oldtasks').val();
+				var delset = new Set();
+				if(oldstr!=''){
+					var old = oldstr.split(",");
+					var oldset = new Set(old);
+	 				var newset = new Set(newtasks);
+	 				
+		
+	 				for (var x of oldset) {
+	 					if(newset.has(x)){
+	 					}
+	 					else{
+	 						delset.add(x);
+	 					}
+	 				}
+				}
+ 				var deltasks ='';
+ 				if(delset.size>0){
+ 					deltasks =  String(Array.from(delset));
+ 				}
+				$.post(url, {"client.id":clientid,"client.type":1,"client.title":title,"client.gender":gender,"client.first_name":first_name,"client.last_name":last_name,"client.prefered_name":prefered_name,
+					"birthday":birthday,"client.work_phone":work_phone,"client.mobile":JSON.stringify([mobile]),"client.home_phone":home_phone,"client.personal_email":JSON.stringify([personal_email]),"client.work_email":work_email,
+					"client.comments":comments,"client.loan":jsonLoan,"oldtasks":oldtasks,"deltasks":deltasks}, function(data) {
+					if(data.code==1){
+					 	mlayer.open({
+						    content: 'Fail',
+						    btn: 'Got it'
+						  });
+						return false;
+					}
+					else{ 
+						//sessionStorage.setItem("fynco_email", vemail); 
+						mlayer.open({
+						    content: 'Success',
+						    btn: 'Got it',
+						    yes: function(){
+						    	window.parent.location.reload(); 
+						    	var index = parent.layer.getFrameIndex(window.name);
+					 	        parent.layer.close(index);
+						      }
+						  });
+					}
+					return false;
+				}, "json");
+				return false;
+	
+
+}
+</script>
+
+</@layout>

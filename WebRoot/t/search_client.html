@@ -1,0 +1,178 @@
+<#include "/t/_s.html" />
+<@layout>
+<div class="mdk-drawer-layout__content page">
+
+
+				
+
+
+                    
+
+
+
+                    <div class="container-fluid page__container">
+
+                        <div class="card">
+                            <!-- div class="card-header card-header-large bg-white">
+                                <h4 class="card-header__title">Current Users</h4>
+                            </div-->
+                            <div class="card-header">
+
+                                <div class="d-flex flex-row align-items-center">
+                                        <div class="form-inline">
+                                            <form action="/client" class="form-inline">
+                                    <label class="mr-sm-2" for="inlineFormFilterBy">Filter by:</label>
+                                    <input name="keyword" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="keyword" value="${session.client_keyword!}" placeholder="">
+
+                                    <label class="sr-only" for="inlineFormRole">Field</label>
+                                    <select name="field" id="field" class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                                        <option value="name">Name</option>
+                                        <option value="mobile">Mobile</option>
+                                    </select>
+
+                                    <button class="btn" type="submit" role="button"><i class="material-icons">search</i></button>
+                                </form>
+                                        </div>
+                                        <div class="ml-auto">
+                                            <button type="button" id="add2applicant" class="btn btn-outline-info btn-rounded">Add to Application</button>
+                                        </div>
+                                    </div>
+                            </div>
+
+
+                            <div class="table-responsive border-bottom" data-toggle="lists" data-lists-values='["js-lists-values-employee-name"]'>
+
+                                <table class="table mb-0 thead-border-top-0">
+                                    <thead>
+                                        <tr>
+
+                                            <th style="width: 18px;">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input js-toggle-check-all" data-target="#staff" id="customCheckAll">
+                                                    <label class="custom-control-label" for="customCheckAll"><span class="text-hide">Toggle all</span></label>
+                                                </div>
+                                            </th>
+
+                                            <th>Name</th>
+                                            <th >Title</th>
+                                            <th >Date of Birth</th>
+                                            <th >Mobile</th>
+                                            <th >Personal Email</th>
+                                            <th >Comments</th>
+                                         
+                                        </tr>
+                                    </thead>
+                                    <form id="tableForm" method="post">
+                                    <tbody class="list" id="staff">
+<#list contentPage.getList() as x>
+                                        <tr>
+
+                                            <td>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input name="ids" value="${x.id}" type="checkbox" class="check_class custom-control-input js-check-selected-row" id="customCheck_${x_index}">
+                                                    <label class="custom-control-label" for="customCheck_${x_index}"><span class="text-hide">Check</span></label>
+                                                </div>
+                                            </td>
+
+                                            <td>
+
+                                                <div class="media align-items-center">
+                                                    <div class="avatar avatar-xs mr-2">
+                                                        <img src="<#if x.avatar??>${x.avatar}<#else>/t/assets/images/avatar/dfavatar.png</#if>" alt="Avatar" class="avatar-img rounded-circle">
+                                                    </div>
+                                                    <div class="media-body">
+
+                                                        <span class="js-lists-values-employee-name">${x.first_name!} ${x.last_name!}</span>
+
+                                                    </div>
+                                                </div>
+
+                                            </td>
+
+                                            <td>
+                                                <div class="media align-items-center">
+                                                    <a href="">${x.title!}</a>
+                                                </div>
+                                            </td>
+
+                                            <td><#if x.birthday??>${(x.birthday)?string('dd/MM/yyyy')!}</#if></td>
+                                            <td><span class="badge badge-warning">${x.mobile!}</span></td>
+                                            <td><small class="text-muted">${x.personal_email!}</small></td>
+                                            <td>${x.comments!}</td>
+                                            
+                                        </tr>
+
+</#list>
+                                    </tbody>
+                                    </form>
+                                </table>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <!-- // END drawer-layout__content -->		
+<script>
+$(function () { 
+	function unique(arr) {
+	  return Array.from(new Set(arr));
+	}
+	var field = '${session.client_field!}';
+	if(field!='')
+		$('#field').val(field);
+	$( "#add2applicant" ).on("click",function() {
+		var index = parent.layer.getFrameIndex(window.name);
+		var ids = document.getElementsByName("ids");
+		 var b = new Array();
+         $("input:checkbox[name = 'ids']:checked").each(function(i){ 
+             //使用循环遍历迭代的方式得到所有被选中的checkbox复选框
+             b.push( $(this).val() ); //当前被选中checkbox背后对应的值
+         });
+ 		 if(b.length==0){
+ 			layer.open({
+			    content: 'Please choose one at least.',
+			    btn: 'Got it'
+			  });
+ 		}
+ 		else{
+ 			var a = parent.$("#app_ids").val();
+ 			if(a==''){
+ 				//alert("b:"+String(b));
+ 				var s = String(b);
+ 				parent.$("#minus_ids").val(b);
+ 				parent.$("#app_ids").val(s);
+ 			}
+ 			else{
+ 				var union = a.split(",");
+ 				var unionset = new Set(union);
+ 				var addset = new Set(b);
+
+ 				for (var x of addset) {
+ 					if(unionset.has(x)){
+ 						addset.delete(x);
+ 					}
+ 					else{
+ 						unionset.add(x);
+ 					}
+ 				}
+
+				let minus = Array.from(addset);
+				union = Array.from(unionset);
+	 				
+ 				parent.$("#minus_ids").val(minus);
+ 				parent.$("#app_ids").val(String(union));
+ 				//alert("minus:"+minus)
+ 				//alert(union)
+ 			}
+ 			
+ 	        parent.layer.close(index);
+ 		} 
+	}); 
+})
+</script>			
+
+</@layout>

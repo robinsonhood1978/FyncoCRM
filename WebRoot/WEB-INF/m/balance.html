@@ -1,0 +1,93 @@
+<#include "/WEB-INF/m/_m.html" />
+<@layout>
+<!-- jqPagination styles -->
+		<link rel="stylesheet" href="/css/jqpagination.css" />
+		<script src="/js/jquery.jqpagination.min.js"></script>
+<!-- content start -->
+<div class="admin-content">
+
+  <div class="am-cf am-padding">
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">Account</strong>  <small></small></div>
+  </div>
+
+  <div class="am-tabs am-margin" data-am-tabs>
+    <ul class="am-tabs-nav am-nav am-nav-tabs">
+      <li class="am-active"><a href="#tab1">Balance</a></li>
+    </ul>
+
+    <div class="am-tabs-bd">
+      <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+        <form class="am-form">
+          
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Mobile:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${(user.mobile)!}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Savings account currency 1:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${(user.save_cy1)!}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Amount:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${(user.save_cy1_amount)!}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Savings account currency 2:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${(user.save_cy2)!}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Amount:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${(user.save_cy2_amount)!}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Bitcoin Amount:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${(user.save_bitcoin_amount)!}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+
+
+        </form>
+
+      </div>
+
+      
+
+    </div>
+  </div>
+
+
+</div>
+<!-- content end -->
+</@layout>

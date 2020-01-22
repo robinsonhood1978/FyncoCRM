@@ -1,0 +1,36 @@
+<#include "/admin/common/_layout.html" />
+<@layout>
+<#include "/admin/dict/top.html"/>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="table-layout:fixed;">
+  <tr>
+    <td height="25" background="/images/right_10.gif" style="border-top:solid 1px #b2cdd2; border-bottom:solid 1px #b2cdd2 "><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="25"  style="width:5px;">&nbsp;</td>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+          <td width="25" height="20" ><div align="center"><img src="/images/add.gif" width="14" height="14" /></div></td>
+            <td width="135" height="20" align="left" ><span class="STYLE1">编辑数据字典</span></td>
+            <td width="600" height="20" align="center" >
+<#if resultMsg??>
+  	<span class="STYLE1"><font color="blue">${resultMsg!}</font></span>
+  </#if></td>
+  <#if method='index'>
+            <td><div align="right"><span class="STYLE1">
+              <input type="checkbox" onclick='Pn.checkbox("ids",this.checked)'/>
+              全选      &nbsp;&nbsp;<img src="/images/add.gif" width="10" height="10" />
+               <span onClick="location.href='/admin/dict/addbase';">添加</span>  
+               <img src="/images/del.gif" width="10" height="10" /> 
+               <span class="STYLE1" onclick="optDelete('/admin/dict/deletebase');"> 删除&nbsp;&nbsp;&nbsp;&nbsp;</span></div></td>
+</#if>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<div class="body-box">
+	<form id="myForm" action="/admin/dict/update" method="post">
+		<#include "_form.html" />
+	</form>
+</div>
+</@layout>

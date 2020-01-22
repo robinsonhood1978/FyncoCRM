@@ -1,0 +1,349 @@
+<#include "/WEB-INF/m/_m.html" />
+<#assign isSelfArr = ['No','Yes'] /> 
+<#assign rdArr = ['Forward direction','Opposite direction'] /> 
+<#assign cmArr = ['Division','Multiplication'] /> 
+<@layout>
+<!-- jqPagination styles -->
+		<link rel="stylesheet" href="/css/jqpagination.css" />
+		<script src="/js/jquery.jqpagination.min.js"></script>
+<!-- content start -->
+<div class="admin-content">
+
+  <div class="am-cf am-padding">
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">Trading</strong>  <small></small></div>
+  </div>
+
+  <div class="am-tabs am-margin" data-am-tabs>
+    <ul class="am-tabs-nav am-nav am-nav-tabs">
+      <li class="am-active"><a href="#tab1">Details</a></li>
+    </ul>
+
+    <div class="am-tabs-bd">
+      <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+        <form class="am-form">
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Is the recipient the client himself?
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${isSelfArr[trade.is_self]}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Transaction time:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${trade.create_time?string.medium}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          
+          <hr/>
+          <div class="am-panel am-panel-secondary">
+	          <div class="am-panel-hd">
+	          <h3 class="am-panel-title">Withdrawal Information</h3>
+	          </div>
+	     <div class="am-panel-bd">
+
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Currency type:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+            <#list cyList as c>
+            <#if c.code==trade.withdraw_cy>
+			${c.name!}
+			</#if>
+			</#list>
+              <div id="withdraw_cy_print"></div>
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Total amount:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${(trade.withdraw_total)!}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Withdraw Method 1:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              <#list payMethodList as c>
+            <#if c.ename==trade.withdraw_md1>
+			${c.ename!}
+			</#if>
+			</#list>
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Amount:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${(trade.withdraw_md1_amount)!}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          <#if trade.withdraw_md1_memo??>
+			<div class="am-g am-margin-top">
+			            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+			              Memo:
+			            </div>
+			            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+			              ${(trade.withdraw_md1_memo)!}
+			            </div>
+			            <div class="am-hide-sm-only am-u-md-4"></div>
+			          </div>
+			</#if>
+          
+          <#if trade.withdraw_md2_amount gt 0>
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Withdraw Method 2:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              <#list payMethodList as c>
+            <#if c.ename==trade.withdraw_md2>
+			${c.ename!}
+			</#if>
+			</#list>
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Amount:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${(trade.withdraw_md2_amount)!}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          <#if trade.withdraw_md2_memo??>
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Memo:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${(trade.withdraw_md2_memo)!}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          </#if>
+          </#if>
+          
+     
+          
+          
+          
+		</div></div> 
+		
+          <hr/>
+          <div class="am-panel am-panel-primary">
+	          <div class="am-panel-hd">
+	          <h3 class="am-panel-title">Payment Information</h3>
+	          </div>
+	     <div class="am-panel-bd">
+
+
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Currency type:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              <#list cyList as c>
+            <#if c.code==trade.pay_cy>
+			${c.name!}
+			</#if>
+			</#list>
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Total amount:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${(trade.pay_total)!}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Payment Method 1:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              <#list payMethodList as c>
+            <#if c.ename==trade.pay_md1>
+			${c.ename!}
+			</#if>
+			</#list>
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Amount:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${(trade.pay_md1_amount)!}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          <#if trade.pay_md1_memo??>
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Memo:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${(trade.pay_md1_memo)!}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          </#if>
+          <#if trade.pay_md2_amount gt 0>
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Payment Method 2:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              <#list payMethodList as c>
+            <#if c.ename==trade.pay_md2>
+			${c.ename!}
+			</#if>
+			</#list>
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Amount:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${(trade.pay_md2_amount)!}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          <#if trade.pay_md2_memo??>
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Memo:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${(trade.pay_md2_memo)!}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          </#if>
+          </#if>
+          
+          
+ 		<#if trade.add_info??>
+		  <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Additional information:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${(trade.add_info)!}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+		</#if>
+		<div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Service Fee:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              <#list payMethodList as c>
+            <#if c.ename==trade.serv_fee>
+			${c.ename!}
+			</#if>
+			</#list>&nbsp;&nbsp;(Current service fee rate:${(serv_fee_rate)!})
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Amount:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${(trade.serv_fee_amount)!}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+		<#if trade.serv_fee_memo??>
+		  <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Memo:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${(trade.serv_fee_memo)!}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+</#if>
+
+		 <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Exchange rate:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${(trade.ex_rate)!}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Exchange rate direction:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${rdArr[trade.rate_direction]}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+          <div class="am-g am-margin-top">
+            <div class="am-u-sm-6 am-u-md-4 am-text-right">
+              Computing method:
+            </div>
+            <div class="am-u-sm-6 am-u-md-4 am-text-left">
+              ${cmArr[trade.computing_md]}
+            </div>
+            <div class="am-hide-sm-only am-u-md-4"></div>
+          </div>
+     
+          
+          
+          
+		</div></div>    
+		
+		  
+        </form>
+
+      </div>
+
+      
+
+    </div>
+  </div>
+
+
+</div>
+<!-- content end -->
+</@layout>

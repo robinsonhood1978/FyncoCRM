@@ -1,0 +1,151 @@
+<#include "/WEB-INF/m/_m.html" />
+<@layout>
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="am-cf am-padding">
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">Email Setting</strong></div>
+    </div>
+
+    <hr/>
+
+    <div class="am-g">
+
+      <div class="am-u-sm-12 am-u-md-4 am-u-md-push-8">
+        
+
+      </div>
+
+      <div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4">
+        <form class="am-form am-form-horizontal">
+          <div class="am-form-group">
+            <label for="oldpwd" class="am-u-sm-3 am-form-label">Email</label>
+            <div class="am-u-sm-9">
+              <input type="email" pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" name="user.email" minlength="5" id="email" value="" required>
+               <input id="mysub" type="button" name="" value="Verify email" class="am-btn am-btn-primary am-btn-sm am-fl" onClick="return Verifyemail();" >
+            </div>
+          </div>
+
+          <div class="am-form-group">
+            <label for="pwd" class="am-u-sm-3 am-form-label">Verify Code</label>
+            <div class="am-u-sm-9">
+              <input type="text" name="user.verifycode" id="verifycode" value="" required>
+            </div>
+          </div>
+
+
+          <div class="am-form-group">
+            <div class="am-u-sm-9 am-u-sm-push-3">
+              <input type="button" name="" value="Submit" class="am-btn am-btn-primary am-btn-sm am-fl" onClick="return Verifycode();" >
+            </div>
+          </div>
+          <!--alert start-->
+      <div class="am-modal am-modal-alert" id="alert">
+  		<div class="am-modal-dialog">
+    		<div class="am-modal-bd" id="myalert">
+      
+    		</div>
+    		<div class="am-modal-footer">
+      			<span class="am-modal-btn">Got it</span>
+    		</div>
+  		</div>
+	  </div>
+	  <!--alert end-->
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- content end -->
+  <script>
+var $modal = $('#alert');
+$(function () { 
+/* 	$('#email').blur(()=>{
+		var vemail=$('#email').val();
+		if(vemail!=''){
+			if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(vemail)){
+				$.post("/noemailcheck", {email:vemail}, function(data) {
+					if(data.code==1){
+					 	$('#email').focus();
+					 	$('#myalert').text(data.msg);
+						$modal.modal();
+					}
+				}, "json");
+			}
+			else{
+				$('#myalert').text('Invalid email address');
+				$modal.modal();
+			}
+		}
+	}); */
+})
+function Verifyemail(){
+	var vemail=$('#email').val();
+	if(vemail!=''){
+		if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(vemail)){
+			$.post("/noemailcheck", {email:vemail}, function(data) {
+				if(data.code==1){
+				 	$('#email').focus();
+				 	$('#myalert').text(data.msg);
+					$modal.modal();
+				}
+				else{
+					$('#mysub').attr("disabled", "disabled");
+					//$("#mysub").removeAttr("disabled");
+					layer.open({
+				        type: 2,
+				        // ,shade: false
+				        time: 7
+				    });
+					$.post("/jverifynewemail", {email:vemail}, function(data) {
+						if(data.code==1){
+						 	$('#invalid').val(data.code);
+						 	$('#msg').val(data.msg);
+						 	layer.open({
+							    content: data.msg,
+							    btn: 'Got it'
+							  });
+							return false;
+						}
+						else{ 
+							layer.open({
+							    content: 'The verify email has been sent. Find out the verify code in the email, then input it in the below box.',
+							    btn: 'Got it'
+							  });
+						}
+						return false;
+					}, "json");
+				}
+			}, "json");
+		}
+		else{
+			$('#myalert').text('Invalid email address');
+			$modal.modal();
+		}
+	}
+	
+}
+function Verifycode(){
+	var verifycode=$('#verifycode').val();
+	if(verifycode!=''){
+		$.post("/jsetemailbyverifycode", {verifycode}, function(data) {
+			if(data.code==1){
+			 	layer.open({
+				    content: data.msg,
+				    btn: 'Got it'
+				  });
+				return false;
+			}
+			else{ 
+				layer.open({
+				    content: 'Your email address has been updated. Enjoy it!',
+				    btn: 'Got it',
+				    yes: function(){
+				    	location.href="/m";
+				      }
+				  });
+			}
+			return false;
+		}, "json");
+	}
+}
+</script>
+</@layout>

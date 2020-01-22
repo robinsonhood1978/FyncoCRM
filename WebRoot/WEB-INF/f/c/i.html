@@ -1,0 +1,296 @@
+<#include "/WEB-INF/f/c/_l.html" />
+<@layout>
+<style>
+    .get {
+      background: #1E5B94;
+      color: #fff;
+      text-align: center;
+      padding: 40px 0;
+    }
+	.am-list-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  position: absolute;
+  right: 1px;
+  font-size: 1.3rem;
+  top: -1.1rem;
+}
+    .get-title {
+      font-size: 200%;
+      border: 2px solid #fff;
+      padding: 20px;
+      display: inline-block;
+    }
+
+    .get-btn {
+      background-color: #67b80e!important;
+    }
+    .join-btn {
+      background: #ffff99;
+    }
+
+    .detail {
+      background: #fff;
+      padding: 30px 10px 0px 10px;
+    }
+
+    .detail-h2 {
+      text-align: center;
+      font-size: 150%;
+      margin: 30px 0;
+    }
+
+    .detail-h3 {
+      color: #1f8dd6;
+    }
+
+    .detail-p {
+      color: #7f8c8d;
+    }
+
+    .detail-mb {
+      margin-bottom: 30px;
+    }
+
+    .hope {
+      background: #0bb59b;
+      padding: 30px 0;
+    }
+
+    .hope-img {
+      text-align: center;
+    }
+
+    .hope-hr {
+      border-color: #149C88;
+    }
+
+    .hope-title {
+      font-size: 140%;
+    }
+
+    .about {
+      background: #fff;
+      padding: 0px 0;
+      color: #7f8c8d;
+    }
+
+    .about-color {
+      color: #34495e;
+    }
+
+    .about-title {
+      font-size: 180%;
+      padding: 30px 0 50px 0;
+      text-align: center;
+    }
+
+    .footer p {
+      color: #7f8c8d;
+      margin: 0;
+      padding: 15px 0;
+      text-align: center;
+      background: #2d3e50;
+    }
+  </style>
+<div class="get">
+  <div class="am-g">
+    <div class="am-u-lg-12">
+      <h1 class="get-title">${I18N.getText("word")}</h1>
+      <p>
+        ${I18N.getText("description")}
+      </p>
+      <a href="/l" class="am-btn am-btn-success">${I18N.getText("signupin2m")} √</a>
+    </div>
+  </div>
+</div>
+
+<div class="detail">
+  <div class="am-g am-container">
+    <div class="am-u-lg-12">
+      
+      <div class="am-g">
+        <div class="am-u-lg-4 am-u-md-6 am-u-sm-12 detail-mb">
+
+          <div data-am-widget="list_news" class="am-list-news am-list-news-default">
+  <!--列表标题-->
+  <div class="am-list-news-hd am-cf">
+    <!--带更多链接-->
+    <a href="/news" class="">
+      <h2>${I18N.getText("news")}</h2>
+      <span class="am-list-news-more am-fr">${I18N.getText("more")} &raquo;</span>
+    </a>
+  </div>
+  <div class="am-list-news-bd">
+    <ul class="am-list">
+    <@cms_content_list channelId='21' channelOption='1' typeId='1' count='5' orderBy ='2'>
+	                    <#list tag_list as a>
+	    <li class="am-g am-list-item-dated">
+        <a href="/${a.path}-${a.id}" class="am-list-item-hd ">${a.title}</a>
+        <span class="am-list-date">${a.release_date?string('yyyy-MM-dd')}</span>
+      </li>
+                </#list>
+              </@cms_content_list>
+    </ul>
+  </div>
+</div>
+        </div>
+        <div class="am-u-lg-4 am-u-md-6 am-u-sm-12 detail-mb">
+          <div data-am-widget="list_news" class="am-list-news am-list-news-default">
+  <!--列表标题-->
+  <div class="am-list-news-hd am-cf">
+    <!--带更多链接-->
+    <a href="/blog" class="">
+      <h2>${I18N.getText("blog")}</h2>
+      <span class="am-list-news-more am-fr">${I18N.getText("more")} &raquo;</span>
+    </a>
+  </div>
+  <div class="am-list-news-bd">
+    <ul class="am-list">
+    <@cms_content_list channelId='22' channelOption='1' typeId='1' count='5' orderBy ='2'>
+	                    <#list tag_list as a>
+	    <li class="am-g am-list-item-dated">
+        <a href="/${a.path}-${a.id}" class="am-list-item-hd ">${a.title}</a>
+        <span class="am-list-date"><a href="/owner/${a.creator}">
+        <#if a.avatar??>
+              <img src="${a.avatar!}" alt="" class="am-list-avatar" width="48" height="48">
+            <#else>
+            <img src="/f/i/avatar.png" alt="" class="am-list-avatar" width="48" height="48">
+            </#if>
+            </a></span>
+      </li>
+                </#list>
+              </@cms_content_list>
+    </ul>
+  </div>
+</div>
+        </div>
+        <div class="am-u-lg-4 am-u-md-6 am-u-sm-12 detail-mb">
+          <div data-am-widget="list_news" class="am-list-news am-list-news-default">
+  <!--列表标题-->
+  <div class="am-list-news-hd am-cf">
+    <!--带更多链接-->
+    <a href="/know" class="">
+      <h2>${I18N.getText("knowledge")}</h2>
+      <span class="am-list-news-more am-fr">${I18N.getText("more")} &raquo;</span>
+    </a>
+  </div>
+  <div class="am-list-news-bd">
+    <ul class="am-list">
+    <@cms_content_list channelId='24' channelOption='1' typeId='1' count='5' orderBy ='2'>
+	                    <#list tag_list as a>
+	    <li class="am-g">
+        <a href="/${a.path}-${a.id}" class="am-list-item-hd ">${a.title}</a>
+      </li>
+                </#list>
+              </@cms_content_list>
+    </ul>
+  </div>
+</div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div class="hope">
+  <div class="am-g am-container">
+    <div class="am-u-lg-4 am-u-md-6 am-u-sm-12 hope-img">
+      <img src="/f/assets/i/examples/landing.png" alt="" data-am-scrollspy="{animation:'slide-left', repeat: false}">
+      <hr class="am-article-divider am-show-sm-only hope-hr">
+    </div>
+    <div class="am-u-lg-8 am-u-md-6 am-u-sm-12">
+      <h2 class="hope-title">${I18N.getText("think")}</h2>
+      <p>
+        ${I18N.getText("think_detail")}
+        
+      </p>
+      <a href="/l" class="am-btn am-btn-success">${I18N.getText("signupin2m")} √</a>
+    </div>
+  </div>
+</div>
+<div class="detail">
+  <div class="am-g am-container">
+    <div class="am-u-lg-12">
+      <div class="am-g">
+        <div class="am-u-lg-3 am-u-md-6 am-u-sm-12 detail-mb">
+
+          <h3 class="detail-h3">
+            <i class="am-icon-usd am-icon-sm"></i>
+            ${I18N.getText("be_smart")}
+          </h3>
+
+          <p class="detail-p">
+          	${I18N.getText("be_smart_detail")}  
+          </p>
+        </div>
+        <div class="am-u-lg-3 am-u-md-6 am-u-sm-12 detail-mb">
+          <h3 class="detail-h3">
+            <i class="am-icon-btc am-icon-sm"></i>
+            ${I18N.getText("buy_bitcoin")}
+          </h3>
+	
+          <p class="detail-p">
+            ${I18N.getText("buy_bitcoin_detail")}
+          </p>
+        </div>
+        <div class="am-u-lg-3 am-u-md-6 am-u-sm-12 detail-mb">
+          <h3 class="detail-h3">
+            <i class="am-icon-users am-icon-sm"></i>
+           ${I18N.getText("make_it")}
+          </h3>
+
+          <p class="detail-p">
+           ${I18N.getText("make_it_detail")}
+          </p>
+        </div>
+        <div class="am-u-lg-3 am-u-md-6 am-u-sm-12 detail-mb">
+          <h3 class="detail-h3">
+            <i class="am-icon-send-o am-icon-sm"></i>
+            ${I18N.getText("faq")}
+          </h3>
+
+          <p class="detail-p">
+            ${I18N.getText("faq_detail")}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+
+<div class="about">
+  <div class="am-g am-container">
+    <div class="am-u-lg-12">
+      <div class="am-g">
+		
+		<div class="am-u-lg-6 am-u-md-4 am-u-sm-12">
+          <h4 class="about-color">${I18N.getText("about_us")}</h4>
+
+          <p>${I18N.getText("about_us_detail")}</p>
+          
+          <hr class="am-article-divider am-show-sm-only">
+        </div>
+        
+        <div class="am-u-lg-6 am-u-md-8 am-u-sm-12">
+          
+          <h4 class="about-color">${I18N.getText("contact_us")}</h4>
+
+          <p>
+          <i class="detail-h3 am-icon-phone"></i> ${I18N.getText("telephone")}: 09-111 1111<br/>
+          <i class="detail-h3 am-icon-sm am-icon-mobile"></i>  ${I18N.getText("mobile")}: 022-522 1111<br/>
+          <i class="detail-h3 am-icon-skype"></i> Skype: fynconz<br/>
+          <i class="detail-h3 am-icon-envelope"></i> ${I18N.getText("email")}: Fynco@gmail.com<br/>
+          <i class="detail-h3 am-icon-location-arrow"></i> ${I18N.getText("address")}：Auckland, New Zealand </p>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</@layout>

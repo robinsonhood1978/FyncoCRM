@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>北京京诚智合科技有限公司</title>
+	<link href="/f/css/1.css"rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/f/js/jquery-1.js"></script>
+    <script src="/f/js/wk_inc.js" language="javascript"></script>
+</head>
+
+<body>
+<div class="top fn-clear">
+  <#include "../include/header.html"/>
+</div>
+<div class="main_cnt01">
+  <div class="content fn-clear">
+    <div class="location"><a href="/" title="首页" class="home">首页</a><a><span>产品与服务</span></a></div>
+    <div class="content_main">
+      <div class="news">
+        <div class="pd_sm"> <img src="/f/i/13.jpg" alt="">
+          <div class="word_02">从小微企业、中型企业、大集团企业到超大型集团企业，金网解决方案可以帮助中国企业从成长到成熟各阶段提高运营效益。从前端到后端，从制造到服务，从OA、协同、信息、管理到供应链，金网能帮助各行各业的企业提高协作效率、运营效益、应对市场快速变化的决策能力，以及在行业范围的核心竞争力。</div>
+        </div>
+      </div>
+      <div class="tit_bg">
+        <div class="tit_bg01">管理信息化综合服务</div>
+      </div>
+      <div class="news_01">
+        <div class="info_01">
+          <ul>
+          <@cms_content_list typeId='1' count='10' titLen='12' orderBy='8' channelOption='2' channelId='219' append='...'>
+			<#list tag_list as a>
+			<li>
+	        	<span><a href="/${a.path}-${a.id}" title="${(a.title)!}"><@text_cut s=a.title len="50" append="..."/></a></span><br>
+	        	<@text_cut s=a.description len="110" append="..."/>
+	        	<a href="/${a.path}-${a.id}" title="${(a.title)!}">详细了解 </a>
+	        </li>
+	        </#list>
+		  </@cms_content_list>
+          </ul>
+        </div>
+      </div>
+      
+      
+      <div class="tit_bg">
+        <div class="tit_bg01">电子商务整体解决方案</div>
+      </div>
+      <div class="news_01">
+        <div class="info_01">
+          <ul>
+            <@cms_content_list typeId='1' count='10' titLen='12' orderBy='8' channelOption='2' channelId='220' append='...'>
+			<#list tag_list as a>
+			<li>
+	        	<span><@text_cut s=a.title len="50" append="..."/></span><br>
+	        	<@text_cut s=a.description len="110" append="..."/>
+	        	<a href="/${a.path}-${a.id}" title="${(a.title)!}">详细了解 </a>
+	        </li>
+	        </#list>
+		  </@cms_content_list>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer fn-clear">
+  <#include "../include/footer.html"/>
+</div>
+</body>
+</html>

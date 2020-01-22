@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>北京京诚智合科技有限公司</title>
+    <link href="/f/css/1.css"rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/f/js/jquery-1.js"></script>
+    <script src="/f/js/wk_inc.js" language="javascript"></script>
+</head>
+
+<body>
+<div class="top fn-clear">
+  <#include "../include/header.html"/>
+</div>
+<div class="main_cnt03">
+  <div class="content1 fn-clear">
+    <ul>
+    	<li class="bg_02" id="noHide"><img src="/f/i/03.png" alt=""></li>
+    	
+		<@cms_content_list typeId='1' count='10' orderBy='8' channelOption='0' channelId=channel.id>
+	        <#if tag_list?? && tag_list?size gt 0>
+			<#list tag_list as a>
+			<li class="bg_01" onclick="fun_toggle('02_${(a.id)!}');"><a href="javascript:void(0)">> ${(a.title)!}</a></li>
+			<li class="bg_02" id="02_${(a.id)!}">${(a.txt)!}</li>
+  			</#list>
+          	</#if>
+        </@cms_content_list>
+		
+		
+		<li class="bg_03">
+			<strong>期待您的关注，期待您的加盟！</strong><br>地址：北京通州梨园中建二局写字楼309室    人力资源部<br>
+			邮编：101101<br/>
+			电话：(010)81516771 <br>
+			Email：paul_bob@126.com 
+		</li>
+    </ul>
+  </div>
+</div>
+<div class="footer fn-clear">
+  <#include "../include/footer.html"/>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".bg_02[id!=noHide]").hide();
+});
+function fun_toggle(contentId){
+	$("#"+contentId).siblings(".bg_02[id!=noHide]").hide("nomal");
+	$("#"+contentId).toggle("nomal");
+}
+</script>
+</body>
+</html>

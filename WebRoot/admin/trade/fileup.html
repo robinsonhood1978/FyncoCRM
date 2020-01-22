@@ -1,0 +1,34 @@
+<#include "/admin/common/_layout.html" />
+<@layout>
+<script src="/js/upload.js"></script>
+<h3>可将图片拖拽到下框中</h3>
+<div id="drop_area"></div>
+<script type="text/javascript">
+var dragImgUpload = new DragImgUpload("#drop_area",{
+	callback:function (files) {
+		//回调函数，可以传递给后台等等
+		var file = files[0];
+		console.log(file.name);
+		
+		var formData = new FormData();
+	    formData.append("photo",file);
+	    $.ajax({
+	        url:'/m/file', /*接口域名地址*/
+	        type:'post',
+	        data: formData,
+	        contentType: false,
+	        processData: false,
+	        success:function(res){
+	            console.log(res);
+	            if(res.status=="ok"){
+	            	console.log(res.url);
+	                alert(res.url);
+	            }else{
+	                alert('失败');
+	            }
+	        }
+	    })
+	}
+})
+</script>
+</@layout>

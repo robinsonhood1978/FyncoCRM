@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>北京京诚智合科技有限公司</title>
+	<link href="/f/css/1.css"rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/f/js/jquery-1.js"></script>
+    <script src="/f/js/wk_inc.js" language="javascript"></script>
+</head>
+
+<body>
+<div class="top fn-clear">
+  <#include "../include/header.html"/>
+</div>
+<div class="main_cnt">
+  <div class="content fn-clear">
+    <div class="location"><a href="/" title="首页" class="home">首页</a><a href="/gsjj" title="关于智合"><span>关于智合</span></a> <span>媒体新闻</span></div>
+    <div class="content_main">
+      <div class="content_left">
+        <#include "../include/gyjw_left.html"/>
+      </div>
+      <div class="content_right">
+      <@cms_content_page typeId='1' count='15' orderBy='8' channelOption='2' channelId=channel.id dateFormat='yyyy-MM-dd' pageNo=pageNo>
+        <ul>
+			<#list tag_pagination.getList() as a>
+			<li class="list">
+	        	<a href="/${a.path}-${a.id}" title="${(a.title)!}"><@text_cut s=a.title len="30" append="..."/> </a>
+	        	<span>(${(a.custom_time?string(dateFormat))!})</span>
+	        </li>
+	        </#list>
+        </ul>
+        <div class="manu">
+        <#assign p=tag_pagination/>
+				<div class="page">
+				共${p.totalRow}条记录 ${p.pageNumber}/${p.totalPage}页
+				<#if p.pageNumber == 1>&nbsp;<a disabled="disabled">首页</a> <a disabled="disabled">上一页</a><#t/>
+				<#else>&nbsp;<a href="/${channel.path}_1">首页</a> <a href="/${channel.path}_${p.pageNumber-1}">上一页</a><#t/>
+				</#if>
+				<#if p.pageNumber == p.totalPage>&nbsp;<a disabled="disabled">下一页</a> <a disabled="disabled">尾页</a>
+				<#else>&nbsp;<a href="/${channel.path}_${p.pageNumber+1}">下一页</a> <a href="/${channel.path}_${p.totalPage}">尾页</a>
+				</#if>
+				&nbsp;第<select onChange="location='/${channel.path}_'+this.value">
+				<#list 1..p.totalPage as i>
+				    <#if p.pageNumber==i>
+				  <option value="${i}" selected="selected">${i}</option>
+				  <#else>
+				  <option value="${i}">${i}</option>
+				  </#if>
+				 </#list>
+				</select>页
+				</div>
+		</div>
+      </@cms_content_page>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer fn-clear">
+  <#include "../include/footer.html"/>
+</div>
+</body>
+</html>

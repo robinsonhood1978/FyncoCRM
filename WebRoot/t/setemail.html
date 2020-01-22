@@ -1,0 +1,201 @@
+<#include "/t/_l.html" />
+<@layout>
+                <div class="mdk-drawer-layout__content page">
+
+
+
+                    <div class="container-fluid  page__heading-container">
+                        <div class="page__heading">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="#"><i class="material-icons icon-20pt">home</i></a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Account</li>
+                                </ol>
+                            </nav>
+                            <h1 class="m-0">Email Setting</h1>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="container-fluid page__container">
+
+                        <div class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">First Step</strong></p>
+                                    <p class="text-muted">Receive the verify code from your old email.</p>
+                                </div>
+                                <div class="col-lg-8 card-form__body card-body">
+                                    <div class="form-group">
+                                        <label for="opass">Current Email</label>
+                                        <br/>
+                                        ${session.user.email!}
+                                    </div>
+                                    <div class="text-right mb-5">
+			                            <button id="sendvc1" class="btn btn-success" onClick="return Verifyemail(1);">Send Verify Code</button>
+			                        </div>
+                                    <div id="oldemail_verifycode" class="form-group">
+                                        <label for="cpass">Input the verify code received from your old email address</label>
+                                        <br/>
+                                        <input style="width: 270px;" name="verifycode1" id="verifycode1" value="" required type="text" class="form-control">
+                                    </div>
+                                    <div class="text-right mb-5">
+			                            <button id="vc1" class="btn btn-success" onClick="return Verifycode(1);">Submit Verify Code</button>
+			                        </div>
+                                    <div id="new_email" class="form-group">
+                                        <label for="npass">New Email</label>
+                                        <input style="width: 270px;" id="email" value="" required type="text" class="form-control">
+                                    </div>
+                                    <div class="text-right mb-5">
+			                            <button id="sendvc2" class="btn btn-success" onClick="return Verifyemail(2);">Send New Email Verify Code</button>
+			                        </div>
+                                    <div id="newemail_verifycode" class="form-group">
+                                        <label for="cpass">Verify Code</label>
+                                        <input style="width: 270px;" id="verifycode" value="" type="text" class="form-control">
+                                    </div>
+                                    <div class="text-right mb-5">
+			                            <button id="vc2" class="btn btn-success" onClick="return Verifycode(2);">Submit New Email Verify Code</button>
+			                        </div>
+                                </div>
+                            </div>
+                        </div>
+
+                       
+                        
+                    </div>
+
+
+                </div>
+                <!-- // END drawer-layout__content -->
+<script>
+$(function () { 
+	$('#oldemail_verifycode').hide();
+	$('#vc1').hide();
+	$('#new_email').hide();
+	$('#sendvc2').hide();
+	$('#newemail_verifycode').hide();
+	$('#vc2').hide();
+})
+
+function Verifyemail(type){
+	if(type==1){
+						//$("#mysub").removeAttr("disabled");
+		layer.open({
+	        type: 2,
+	        // ,shade: false
+	        time: 7
+	    });
+		$.post("/jverifynewemail", function(data) {
+			if(data.code==1){
+			 	layer.open({
+				    content: data.msg,
+				    btn: 'Got it'
+				  });
+				return false;
+			}
+			else{ 
+				layer.open({
+				    content: 'The verify email has been sent. Find out the verify code in the email, then input it in the below box.',
+				    btn: 'Got it'
+				  });
+				$('#sendvc1').attr("disabled", "disabled");
+				$('#sendvc1').hide();
+				$('#oldemail_verifycode').show();
+				$('#vc1').show();
+			}
+			return false;
+		}, "json");
+	}
+	else{
+		var vemail=$('#email').val();
+		if(vemail!=''){
+			if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(vemail)){
+				$.post("/noemailcheck", {email:vemail}, function(data) {
+					if(data.code==1){
+						layer.open({
+						    content: data.msg,
+						    btn: 'Got it'
+						  });
+					}
+					else{
+						layer.open({
+					        type: 2,
+					        // ,shade: false
+					        time: 7
+					    });
+						$.post("/jverifynewemail", {email:vemail}, function(data) {
+							if(data.code==1){
+							 	layer.open({
+								    content: data.msg,
+								    btn: 'Got it'
+								  });
+								return false;
+							}
+							else{ 
+								layer.open({
+								    content: 'The verify email has been sent. Find out the verify code in the email, then input it in the below box.',
+								    btn: 'Got it'
+								  });
+								$('#sendvc2').attr("disabled", "disabled");
+								$('#sendvc2').hide();
+								$('#newemail_verifycode').show();
+								$('#vc2').show();
+							}
+							return false;
+						}, "json");
+					}
+				}, "json");
+			}
+			else{
+				layer.open({
+				    content: 'Invalid email address',
+				    btn: 'Got it'
+				  });
+			}
+		}
+	}
+}
+function Verifycode(type){
+	
+	var verifycode=$('#verifycode').val();
+	if(type==1){
+		verifycode=$('#verifycode1').val();
+	}
+	if(verifycode!=''){
+		$.post("/jsetemailbyverifycode", {verifycode,type}, function(data) {
+			if(data.code==1){
+			 	layer.open({
+				    content: 'Wrong verify code',
+				    btn: 'Got it'
+				  });
+				return false;
+			}
+			else{ 
+				if(type==1){
+					layer.open({
+					    content: 'Your verify code is right, please input your new email address.',
+					    btn: 'Got it'
+					  });
+					$('#oldemail_verifycode').hide();
+					$('#vc1').hide();
+					$('#new_email').show();
+					$('#sendvc2').show();
+				}
+				else{
+					layer.open({
+					    content: 'Your email address has been updated. Enjoy it!',
+					    btn: 'Got it',
+					    yes: function(){
+					    	location.href="/";
+					      }
+					  });
+				}
+			}
+			return false;
+		}, "json");
+	}
+}
+</script>
+</@layout>

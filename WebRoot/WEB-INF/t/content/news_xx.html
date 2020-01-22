@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>北京京诚智合科技有限公司</title>
+	<link href="/f/css/1.css"rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/f/js/jquery-1.js"></script>
+    <script src="/f/js/wk_inc.js" language="javascript"></script>
+</head>
+<style>
+.word_01 img{margin-left:0}
+</style>
+<body>
+<div class="top fn-clear">
+  <#include "../include/header.html"/>
+</div>
+<div class="main_cnt">
+  <div class="content fn-clear">
+    <div class="location"><a href="/" title="首页" class="home">首页</a><a href="/gsjj" title="关于智合"><span>关于智合</span></a> <a href="/mtxw" title="媒体新闻"><span>媒体新闻</span></a></div>
+    <div class="content_main">
+    	<div class="news">
+        	<div class="title_01">
+        		${(content.title)!}<br>
+        		<span>
+        			发布时间：${(content.custom_time?string('yyyy-MM-dd'))!} 
+        		  	 来源：<#if content.origin_url??><a target="_blank" href="${content.origin_url!}">${content.origin}</a><#else>${content.origin!'--'}</#if>
+        		</span>
+        	</div>
+            <div class="word_01">
+            	${txt!}
+			</div>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="footer fn-clear">
+  <#include "../include/footer.html"/>
+</div>
+</body>
+</html>

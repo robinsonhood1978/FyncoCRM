@@ -1,0 +1,92 @@
+<#include "/admin/common/_layout.html" />
+<#assign validIdArr = ['Passport','Identity Card','Driving License'] /> 
+<@layout>
+<div class="box-positon">
+	<div class="rpos">当前位置: 会员管理 - 查看</div>
+	<form class="ropt">
+		<input type="submit" value="返回列表" onclick="this.form.action='/admin/user';" class="return-button"/>
+	</form>
+	<div class="clear"></div>
+</div>
+<div class="body-box">
+		<table width="100%" class="pn-ftable" cellpadding="2" cellspacing="1" border="0">
+<tr><td width="12%" class="pn-flabel pn-flabel-h"><span class="pn-frequired">*</span>用户名:</td>
+<td colspan="1" width="38%" class="pn-fcontent">${(user.username)!}</td>
+<td width="12%" class="pn-flabel pn-flabel-h">电子邮箱:</td>
+<td colspan="1" width="38%" class="pn-fcontent">${(user.email)!}</td></tr>
+<tr><td width="12%" class="pn-flabel pn-flabel-h">角色:</td><td colspan="1" width="38%" class="pn-fcontent">
+${roleName!}
+</td>
+<td width="12%" class="pn-flabel pn-flabel-h">手机:</td><td colspan="1" width="38%" class="pn-fcontent">
+${(user.mobile)!}</td></tr>
+<tr><td width="12%" class="pn-flabel pn-flabel-h">姓名:</td>
+<td colspan="1" width="38%" class="pn-fcontent">${(user.name)!}</td>
+<td width="12%" class="pn-flabel pn-flabel-h">别名:</td><td colspan="1" width="38%" class="pn-fcontent">
+${(user.alias)!}
+</td>
+</tr>
+<tr><td width="12%" class="pn-flabel pn-flabel-h">生日:</td>
+<td colspan="1" width="38%" class="pn-fcontent">${(user.birthday)!}</td>
+<td width="12%" class="pn-flabel pn-flabel-h">地址:</td><td colspan="1" width="38%" class="pn-fcontent">
+${(user.address)!}
+</td>
+</tr>
+<tr><td width="12%" class="pn-flabel pn-flabel-h">有效身份证件:</td>
+<td colspan="1" width="38%" class="pn-fcontent">${validIdArr[user.valid_id]}</td>
+<td width="12%" class="pn-flabel pn-flabel-h">有效身份证件号码:</td><td colspan="1" width="38%" class="pn-fcontent">
+${(user.uid)!}
+</td>
+</tr>
+<tr><td width="12%" class="pn-flabel pn-flabel-h">有效身份证件正面照片:</td>
+<td colspan="1" width="38%" class="pn-fcontent">
+<img id="front_id" src="${(user.uid_pic)!}" alt="预览" style="width:100px;height:70px;background-color:#ccc;border:1px solid #333">
+</td>
+<td width="12%" class="pn-flabel pn-flabel-h">有效身份证件背面照片:</td><td colspan="1" width="38%" class="pn-fcontent">
+<img id="back_id" src="${(user.back_uid_pic)!}" alt="预览" style="width:100px;height:70px;background-color:#ccc;border:1px solid #333">
+</td>
+</tr>
+<tr><td width="12%" class="pn-flabel pn-flabel-h">面部照片:</td>
+<td colspan="1" width="38%" class="pn-fcontent">
+<img id="face_id" src="${(user.face_pic)!}" alt="预览" style="width:100px;height:70px;background-color:#ccc;border:1px solid #333">
+</td>
+<td width="12%" class="pn-flabel pn-flabel-h">地址证明:</td><td colspan="1" width="38%" class="pn-fcontent">
+<img id="address_proof" src="${(user.address_proof)!}" alt="预览" style="width:100px;height:70px;background-color:#ccc;border:1px solid #333">
+</td>
+</tr>
+<tr><td width="12%" class="pn-flabel pn-flabel-h">Skype:</td>
+<td colspan="1" width="38%" class="pn-fcontent">${(user.skype)!}</td>
+<td width="12%" class="pn-flabel pn-flabel-h">Whatsapp:</td>
+<td colspan="1" width="38%" class="pn-fcontent">${(user.whatsapp)!}</td>
+</tr>
+<tr><td width="12%" class="pn-flabel pn-flabel-h">Wechat:</td>
+<td colspan="3" width="38%" class="pn-fcontent">${(user.wechat)!}</td>
+</tr>
+</table>
+</div>
+<script>
+var $front_id = $('#front_id');
+var $back_id = $('#back_id');
+var $face_id = $('#face_id');
+var $address_proof = $('#address_proof');
+$front_id.viewer({
+  viewed: function() {
+    $front_id.viewer('zoomTo', 1);
+  }
+}); 
+$back_id.viewer({
+	  viewed: function() {
+	    $back_id.viewer('zoomTo', 1);
+	  }
+	}); 
+$face_id.viewer({
+	  viewed: function() {
+	    $face_id.viewer('zoomTo', 1);
+	  }
+	}); 
+$address_proof.viewer({
+	  viewed: function() {
+	    $address_proof.viewer('zoomTo', 1);
+	  }
+	}); 
+</script>
+</@layout>

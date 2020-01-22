@@ -1,0 +1,3480 @@
+<#include "/t/_c.html" />
+<link type="text/css" href="/f/layui/css/layui.css" rel="stylesheet">
+<@layout>
+                <div class="mdk-drawer-layout__content page">
+
+
+
+                    <div class="container-fluid  page__heading-container">
+                        <div class="page__heading">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="#"><i class="material-icons icon-20pt">home</i></a></li>
+                                    <li class="breadcrumb-item">Clients</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Applications</li>
+                                </ol>
+                            </nav>
+                            <h1 class="m-0">Application Details</h1>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="container-fluid page__container">
+                    
+                        <div class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">General</strong></p>
+                                   
+                                </div>
+                                <div class="col-lg-8 card-form__body card-body">
+                                	<div class="row">
+                                        
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Application Date</label><br/>
+                                                <#if application??&&application.application_date??>${(application.application_date)?string('dd/MM/yyyy')!}</#if>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Adviser Name</label><br/>
+                                                ${(application.adviser_name)!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                 	<div class="row">
+                                        
+                                        
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Adviser Email</label><br/>
+                                                ${(application.adviser_email)!}
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Adviser Contact Number</label><br/>
+                                                ${(application.adviser_contact_number)!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+
+                                </div>
+                                
+                                
+                            </div>
+                        </div>
+                        <div class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">Loan Information</strong></p>
+                                   
+                                </div>
+                                <div class="col-lg-8 card-form__body card-body">
+                                	
+                                 	<div class="row">
+                                 		<div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Lender</label><br/>
+                                                ${(application.lender)!}
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Lending Amount Required</label><br/>
+                                                ${(application.lending_amount_required)!}
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Lending Purpose</label><br/>
+                                                <div id="lending_purpose"></div>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Purpose</label><br/>
+                                                ${(application.purpose)!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">LVR</label><br/>
+                                                ${(application.LVR)!}
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Finance Date</label><br/>
+                                                <#if application??&&application.finance_date??>${(application.finance_date)?string('dd/MM/yyyy')!}</#if>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Settlement Date</label><br/>
+                                                <#if application??&&application.settlement_date??>${(application.settlement_date)?string('dd/MM/yyyy')!}</#if>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Borrower</label><br/>
+                                                ${(application.borrower)!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Security Holder</label><br/>
+                                                ${(application.security_holder)!}
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">UMI</label><br/>
+                                                ${(application.UMI)!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Existing Loan Amount</label><br/>
+                                                ${(application.existing_loan_amount)!}
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Total Loan Amount</label><br/>
+                                                ${(application.total_loan_amount)!}
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+
+                                </div>
+                                
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">Security</strong></p>
+                                    <p class="text-muted">Edit the client detailed security information.</p>
+                                </div>
+                                <div class="col-lg-8 card-form__body card-body">
+                                	<div id="security">
+	                                	<div id="security_property">
+	                                	<div id="security_property_[property_index]">
+	                                		<div class="card-header bg-white d-flex align-items-center">
+				                               <p><strong class="headings-color">Security Information</strong></p>
+				                                
+				                            </div>
+		                                 	<div class="row">
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <label for="fname">Property Address</label>
+		                                                <div name="security_property"></div>
+		                                        	</div>
+		                                        </div>
+		                                        
+		                                    </div>
+		                                    <div class="row">
+		                                       <div class="col">
+		                                            <div class="form-group">
+		                                                <label>Bank</label>
+		                                                <div name="security_bank"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <label>Owner</label>
+		                                                <div name="security_owner"></div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    <div class="row">
+		                                       <div class="col">
+		                                            <div class="form-group">
+		                                                <label>Property Type</label>
+		                                                <div name="security_property_type"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <label>Use</label>
+		                                                <div name="security_property_use"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <label>Value</label>
+		                                                <div name="security_property_value"></div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+	                                    </div>
+                                    </div>
+                                    </div>
+                                   
+                                    
+                                   
+                                   
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                  <div style="display:none;" class="card card-form">
+                            <div class="row no-gutters">
+                                
+                                <div class="col-lg-8 card-form__body card-body">
+                                	
+                                 	<div class="row">
+                                 		<!-- div class="col">
+                                            <div class="form-group">
+			                                   <div id="add_new_lead">
+                                                <i class="material-icons">add_circle_outline</i>
+                                           		<label for="fname">New Lead</label>
+                                           		</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+			                                   <div id="add_new_client">
+                                                <i class="material-icons">add_circle_outline</i>
+                                           		<label for="fname">New Client</label>
+                                           		</div>
+                                            </div>
+                                        </div-->
+                                        <div class="col">
+                                            <div class="form-group">
+			                                   <div id="add_new_applicant">
+                                                <i class="material-icons">add_circle_outline</i>
+                                           		<label for="fname">New Applicant</label>
+                                           		</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+			                                   <div id="from_applicant">
+                                                <i class="material-icons">add_circle_outline</i>
+                                           		<label for="fname">Applicants</label>
+                                           		</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                               
+			                                   <div id="addapplicantfromleads">
+                                                <i class="material-icons">add_circle_outline</i>
+                                           		<label for="fname">Leads</label>
+                                           		</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                               
+			                                   <div id="addapplicantfromclient">
+                                                <i class="material-icons">add_circle_outline</i>
+                                           		<label for="fname">Clients</label>
+                                           		</div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div id="applicants">
+	                                    <div id="applicant" style="display:none;">
+	                                    	<div id="div_applicant_[applicant_id]">
+		                                    	<div class="stories-cards mb-4">
+		
+					                            <div class="card stories-card">
+					                                <div class="stories-card__content d-flex align-items-center flex-wrap">
+					                                    <div class="avatar avatar-sm mr-2">
+					                                        <img src="[applicant_avatar]"  alt="Avatar" class="avatar-img rounded-circle">
+					                                    </div>
+					                                    <div class="stories-card__title flex">
+					                                        <h6 class="card-title m-0">[applicant_name]</h6>
+					                                        <small class="text-dark-gray"></small>
+					                                    </div>
+					                                    
+					                                    <div class="dropdown ml-auto">
+					                                        <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
+					                                        <div class="dropdown-menu dropdown-menu-right">
+					                                            <a href="javascript:void(0)" class="dropdown-item">View</a>
+					                                            <a href="javascript:void(0)" onclick="EditApplicant('[applicant_id]');" class="dropdown-item">Edit</a>
+					                                            <div class="dropdown-divider"></div>
+					                                            <a href="javascript:void(0)" onclick="RemoveDiv('[applicant_id]');" class="dropdown-item">Remove</a>
+					                                        </div>
+					                                    </div>
+					                                </div>
+					                            </div> 
+					
+					                        	</div>
+					                        </div>
+	                                    </div>
+	                                 </div>
+	                                    
+
+                                    
+
+                                </div>
+                                
+                                <div class="col-lg-2 card-body">
+                                    <p><strong class="headings-color">Applicant</strong></p>
+                                   
+                                </div>
+                            </div>
+                        </div>   
+                           
+                 <div id="clientinfos">
+                 	<div id="clientinfo" style="display:none;" class="">
+                        <div class="col">
+                        	<div class="card-header card-header-sm">
+                                <h6 id="applicant_name" class="card-header__title">[applicant_name]</h6>
+                                <input type="hidden" name="applicantname_[applicant_id]" value="[applicant_name]">
+                            </div>
+                            <div class="card-form__body">   			
+	                            <div style="max-height:100%" class="embed-responsive embed-responsive-1by1">
+								  <iframe id="client-info-[applicant_id]" style="max-height:100%" class="embed-responsive-item" src=""></iframe>
+								</div>  
+                            </div> 
+                     	</div>
+                     	
+                 	</div>
+                 </div>
+	
+                        
+                        <div class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">Assets</strong></p>
+                                    <p class="text-muted"></p>
+                                </div>
+                                <div class="col-lg-8 card-form__body">
+                                   			<div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                            <div class="custom-control custom-checkbox">
+		                     
+		                                            </div>
+		                                              
+		                                            </div>
+			                                     </div>
+			                                     <div style="vertical-align: bottom;width:25%">
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+                                                        
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Description</label>
+		                                                
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Value</label>
+		                                                
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                            <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                            <div class="custom-control custom-checkbox">
+		                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		                                            </div>
+		                                              
+		                                            </div>
+			                                     </div>
+			                                     <div style="vertical-align: bottom;width:25%">
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+		                                               <label></label><br/>
+                                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Cash
+                                                        
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		                                            <label></label>
+		                                                <div id="cash_d" name="cash_d"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                            <label></label>
+		                                                <div id="cash_v" name="cash_v"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                                
+                                                <div id="savings">
+                                                <div id="saving">
+                                                <div id="saving_[saving_index]">
+                                                
+                                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                               
+		                                            </div>
+			                                     </div>
+			                                     <div style="width:25%">
+		                                            <div class="form-group">
+		                                               <div id="txt_saving" class="custom-control custom-checkbox">
+                                                            <label></label>
+                                                        Saving
+                                                        </div>
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="saving_d"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <div name="saving_v"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                                   
+                                                
+                                                </div>
+                                                </div>
+                                                </div>
+                                                
+                                                <div id="investments">
+                                                <div id="investment">
+                                                <div id="investment_[investment_index]">
+                                                
+                                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                              
+		                                            </div>
+			                                     </div>
+			                                     <div style="width:25%">
+		                                            <div class="form-group">
+		                                               <div id="txt_investment" class="custom-control custom-checkbox">
+                                                            <label></label>
+                                                        Investment
+                                                        </div>
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="investment_d"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <div name="investment_v"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                                   
+                                                
+                                                </div>
+                                                </div>
+                                                </div>
+                                   <div id="kiwisavers">
+                                                <div id="kiwisaver">
+                                                <div id="kiwisaver_[kiwisaver_index]">
+                                                
+                                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                               
+		                                            </div>
+			                                     </div>
+			                                     <div style="width:25%">
+		                                            <div class="form-group">
+		                                               <div id="txt_kiwisaver" class="custom-control custom-checkbox">
+                                                            <label></label>
+                                                        KiwiSaver
+                                                        </div>
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="kiwisaver_d"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <div name="kiwisaver_v"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                                   
+                                                
+                                                </div>
+                                                </div>
+                                                </div>       
+                                   <div id="vehicles">
+                                                <div id="vehicle">
+                                                <div id="vehicle_[vehicle_index]">
+                                                
+                                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                               
+		                                            </div>
+			                                     </div>
+			                                     <div style="width:25%">
+		                                            <div class="form-group">
+		                                               <div id="txt_vehicle" class="custom-control custom-checkbox">
+                                                            <label></label>
+                                                        Motor Vehicle
+                                                        </div>
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="vehicle_d"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <div name="vehicle_v"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                                   
+                                                
+                                                </div>
+                                                </div>
+                                                </div>      
+                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                            <div class="custom-control custom-checkbox">
+		                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		                                            </div>
+		                                              
+		                                            </div>
+			                                     </div>
+			                                     <div style="vertical-align: bottom;width:25%">
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+		                                               <label></label><br/>
+                                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Furniture
+                                                        
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		                                            <label></label>
+		                                                <div id="furniture_d" name="furniture_d"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                            <label></label>
+		                                                <div id="furniture_v" name="furniture_v"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>             
+                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                            <div class="custom-control custom-checkbox">
+		                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		                                            </div>
+		                                              
+		                                            </div>
+			                                     </div>
+			                                     <div style="vertical-align: bottom;width:25%">
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+		                                               <label></label><br/>
+                                                       Deposit on property (If Paid)
+                                                        
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		                                            <label></label>
+		                                                <div id="deposit_d" name="deposit_d"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                            <label></label>
+		                                                <div id="deposit_v" name="deposit_v"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    
+		                       <div id="propertys">
+                                                <div id="property">
+                                                <div id="property_[property_index]">
+                                                
+                                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                               
+		                                            </div>
+			                                     </div>
+			                                     <div style="width:25%">
+		                                            <div class="form-group">
+		                                               <div id="txt_property" class="custom-control custom-checkbox">
+                                                            <label></label>
+                                                        Property
+                                                        </div>
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="property_d"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <div name="property_v"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                                   
+                                                
+                                                </div>
+                                                </div>
+                                                </div>
+                                                
+                               <div id="businessowns">
+                                                <div id="businessown">
+                                                <div id="businessown_[businessown_index]">
+                                                
+                                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                               
+		                                            </div>
+			                                     </div>
+			                                     <div style="width:25%">
+		                                            <div class="form-group">
+		                                               <div id="txt_businessown" class="custom-control custom-checkbox">
+                                                            <label></label>
+                                                        Business owned
+                                                        </div>
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="businessown_d"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <div name="businessown_v"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                                   
+                                                
+                                                </div>
+                                                </div>
+                                                </div>
+                            <div id="otherassets">
+                                                <div id="otherasset">
+                                                <div id="otherasset_[otherasset_index]">
+                                                
+                                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                               
+		                                            </div>
+			                                     </div>
+			                                     <div style="width:25%">
+		                                            <div class="form-group">
+		                                               <div id="txt_otherasset" class="custom-control custom-checkbox">
+                                                            <label></label>
+                                                        Other Assets (Specify) 
+                                                        </div>
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="otherasset_d"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <div name="otherasset_v"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                                   
+                                                
+                                                </div>
+                                                </div>
+                                                </div>                           
+									<div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                            <div class="custom-control custom-checkbox">
+		                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		                                            </div>
+		                                              
+		                                            </div>
+			                                     </div>
+			                                     <div style="vertical-align: bottom;width:25%">
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+		                                               <label>&nbsp;</label>
+                                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total Value
+                                                        
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                            
+		                                            <div id="total_value"></div>
+		                                                
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                         <div class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">Liabilities</strong></p>
+                                    <p class="text-muted"></p>
+                                </div>
+                                <div class="col-lg-8 card-form__body">
+                                   			<div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                            <div class="custom-control custom-checkbox">
+		                     
+		                                            </div>
+		                                              
+		                                            </div>
+			                                     </div>
+			                                     <div style="vertical-align: bottom;width:25%">
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+                                                        
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Description</label>
+		                                                
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Balance</label>
+		                                                
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+<div id="loandrops">
+                                                <div id="loandrop">
+                                                <div id="loandrop_[loandrop_index]">
+                                                
+                                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                               
+		                                            </div>
+			                                     </div>
+			                                     <div style="width:25%">
+		                                            <div class="form-group">
+		                                            <div class="custom-control custom-checkbox">
+                                                        <div name="loandrop_sel"></div>
+                                                        </div>
+		                                              
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="loandrop_d"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <div name="loandrop_v"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                                   
+                                                
+                                                </div>
+                                                </div>
+                                                </div>                             
+                                                
+                                                
+                                                
+                                                <div id="revcredits">
+                                                <div id="revcredit">
+                                                <div id="revcredit_[revcredit_index]">
+                                                
+                                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                               
+		                                            </div>
+			                                     </div>
+			                                     <div style="width:25%">
+		                                            <div class="form-group">
+		                                               <div id="txt_revcredit" class="custom-control custom-checkbox">
+                                                            <label></label>
+                                                        Revolving Credit
+                                                        </div>
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="revcredit_d"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <div name="revcredit_v"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                                   
+                                                
+                                                </div>
+                                                </div>
+                                                </div>
+                                                
+                                                <div id="overlimits">
+                                                <div id="overlimit">
+                                                <div id="overlimit_[overlimit_index]">
+                                                
+                                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                               
+		                                            </div>
+			                                     </div>
+			                                     <div style="width:25%">
+		                                            <div class="form-group">
+		                                               <div id="txt_overlimit" class="custom-control custom-checkbox">
+                                                            <label></label>
+                                                        Overdraft Limit
+                                                        </div>
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="overlimit_d"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <div name="overlimit_v"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                                   
+                                                
+                                                </div>
+                                                </div>
+                                                </div>
+                                                
+                                                
+<div id="creditcards">
+                                                <div id="creditcard">
+                                                <div id="creditcard_[creditcard_index]">
+                                                
+                                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                               
+		                                            </div>
+			                                     </div>
+			                                     <div style="width:25%">
+		                                            <div class="form-group">
+		                                               <div id="txt_creditcard" class="custom-control custom-checkbox">
+                                                            <label></label>
+                                                        Credit Card
+                                                        </div>
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="creditcard_d"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <div name="creditcard_v"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                                   
+                                                
+                                                </div>
+                                                </div>
+                                                </div>        
+                                                
+<div id="storecards">
+                                                <div id="storecard">
+                                                <div id="storecard_[storecard_index]">
+                                                
+                                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                               
+		                                            </div>
+			                                     </div>
+			                                     <div style="width:25%">
+		                                            <div class="form-group">
+		                                               <div id="txt_storecard" class="custom-control custom-checkbox">
+                                                            <label></label>
+                                                        Store Card
+                                                        </div>
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="storecard_d"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <div name="storecard_v"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                                   
+                                                
+                                                </div>
+                                                </div>
+                                                </div>            
+<div id="hirepurchases">
+                                                <div id="hirepurchase">
+                                                <div id="hirepurchase_[hirepurchase_index]">
+                                                
+                                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                               
+		                                            </div>
+			                                     </div>
+			                                     <div style="width:25%">
+		                                            <div class="form-group">
+		                                               <div id="txt_hirepurchase" class="custom-control custom-checkbox">
+                                                            <label></label>
+                                                        Hire Purchase
+                                                        </div>
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="hirepurchase_d"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <div name="hirepurchase_v"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                                   
+                                                
+                                                </div>
+                                                </div>
+                                                </div>       
+<div id="otherliabilitys">
+                                                <div id="otherliability">
+                                                <div id="otherliability_[otherliability_index]">
+                                                
+                                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                               
+		                                            </div>
+			                                     </div>
+			                                     <div style="width:25%">
+		                                            <div class="form-group">
+		                                               <div id="txt_otherliability" class="custom-control custom-checkbox">
+                                                            <label></label>
+                                                        Other Liabilities
+                                                        </div>
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="otherliability_d"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <div name="otherliability_v"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                                   
+                                                
+                                                </div>
+                                                </div>
+                                                </div>                              
+                                   
+                                   
+		                                    
+		                      
+                                                
+                              
+                                                      
+									
+
+
+                                </div>
+                            </div>
+                        </div>
+                        
+
+ <div id="applicantmi_txt" style="display:none;">
+  <h5>Income and expenditure</h5>
+<p>Monthly Income from work</p>   
+ </div>                       
+<div id="midivs">
+<div id="midiv" style="display:none;" >
+	<div id="applicant_mi_card_[applicant_id]" class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="card-header card-header-sm bg-white">
+                                        <h6 id="applicant_name" class="card-header__title">[applicant_name]</h6>
+                                        <input type="hidden" name="applicantname_[applicant_id]" value="[applicant_name]">
+                                    </div>
+                                <div class="col-lg-12 card-form__body">
+                                   			<div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                            <div class="custom-control custom-checkbox">
+		                     
+		                                            </div>
+		                                              
+		                                            </div>
+			                                     </div>
+			                                     
+			                                      <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Income</label>
+		                                                
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Description</label>
+		                                                
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Gross</label>
+		                                                
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Net</label>
+		                                                
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+<div id="monthincomes_[applicant_id]">
+                                                <div id="monthincome_[applicant_id]">
+                                                <div id="monthincome_[applicant_id]_[monthincome_index]">
+                                                
+                                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                               
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		                                               
+                                                      
+                                                
+                                                <div name="monthincome_income_[applicant_id]"></div>
+				                               
+                                                  
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="monthincome_description_[applicant_id]"></div>
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="monthincome_gross_[applicant_id]"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <div name="monthincome_net_[applicant_id]"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                                   
+                                                
+                                                </div>
+                                                </div>
+                                                </div>                             
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                                                                
+                                   
+		                                    
+		                      
+                                                
+                              
+                                                      
+									
+
+
+                                </div>
+                            </div>
+                        </div>
+	
+</div>
+</div>                    
+<div id="applicantmifr_txt" style="display:none;">
+<p>Monthly Income from Rental</p>   
+ </div>                          
+                                   
+<div id="mifrdivs">
+<div id="mifrdiv" style="display:none;" >
+	<div id="applicant_mifr_card_[applicant_id]" class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="card-header card-header-sm bg-white">
+                                        <h6 id="applicant_name" class="card-header__title">[applicant_name]</h6>
+                                        <input type="hidden" name="mifr_applicantname_[applicant_id]" value="[applicant_name]">
+                                    </div>
+                                <div class="col-lg-12 card-form__body">
+                                   			<div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                            <div class="custom-control custom-checkbox">
+		                     
+		                                            </div>
+		                                              
+		                                            </div>
+			                                     </div>
+			                                     
+			                                      <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Income</label>
+		                                                
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Description</label>
+		                                                
+		                                            </div>
+			                                     </div>
+		                                       
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Net</label>
+		                                                
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+<div id="monthincomesfr_[applicant_id]">
+                                                <div id="monthincomefr_[applicant_id]">
+                                                <div id="monthincomefr_[applicant_id]_[monthincomefr_index]">
+                                                
+                                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                               
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		                                               
+                                                      
+                                                
+                                                <div name="monthincomefr_income_[applicant_id]"></div>
+				                               
+                                                  
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="monthincomefr_description_[applicant_id]"></div>
+		                                            </div>
+			                                     </div>
+		             
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <div name="monthincomefr_net_[applicant_id]"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                                   
+                                                
+                                                </div>
+                                                </div>
+                                                </div>                             
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                                                                
+                                   
+		                                    
+		                      
+                                                
+                              
+                                                      
+									
+
+
+                                </div>
+                            </div>
+                        </div>
+	
+</div>
+</div> 
+
+<div id="applicantmiex_txt" style="display:none;">
+<p>Monthly Expenditure</p>   
+ </div>                          
+                                   
+<div id="miexdivs">
+<div id="miexdiv" style="display:none;" >
+	<div id="applicant_miex_card_[applicant_id]" class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="card-header card-header-sm bg-white">
+                                        <h6 id="applicant_name" class="card-header__title">[applicant_name]</h6>
+                                        <input type="hidden" name="miex_applicantname_[applicant_id]" value="[applicant_name]">
+                                    </div>
+                                <div class="col-lg-12 card-form__body">
+                                   			<div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                            <div class="custom-control custom-checkbox">
+		                     
+		                                            </div>
+		                                              
+		                                            </div>
+			                                     </div>
+			                                     
+			                                      <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Expenditure</label>
+		                                                
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Description</label>
+		                                                
+		                                            </div>
+			                                     </div>
+		                                       
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Monthly Expenses</label>
+		                                                
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+<div id="monthexpend_[applicant_id]">
+                                                <div id="monthexpend_[applicant_id]">
+                                                <div id="monthexpend_[applicant_id]_[monthexpend_index]">
+                                                
+                                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                               
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+                                                <div name="monthexpend_expend_[applicant_id]"></div>
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="monthexpend_description_[applicant_id]"></div>
+		                                            </div>
+			                                     </div>
+		             
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <div name="monthexpend_expense_[applicant_id]"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                                   
+                                                
+                                                </div>
+                                                </div>
+                                                </div>                             
+
+                                </div>
+                            </div>
+                        </div>
+	
+</div>
+</div>                                       
+                        
+<div class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">Notes</strong></p>
+                                   
+                                </div>
+                                <div class="col-lg-8 card-form__body card-body">
+                                	<div id="notes">
+                                		<div id="note">
+                                		<div id="note_[note_index]">
+                                			<div class="row">
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <label id="txt_note">Note</label><br/>
+		                                                <div name="note"></div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                		</div>
+                                	</div>
+                                    
+
+                                </div>
+                                
+                                
+                            </div>
+                        </div>                        
+                        
+                        <div class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">Documents Checklist</strong></p>
+                                   
+                                </div>
+                                <div class="col-lg-8 card-form__body card-body">
+                                	<div id="LAY_preview">
+                                 	<div class="row">
+                                 	
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                                <input type="hidden" name="application_form" id="doc1">
+      											<div class="layui-upload-drag" id="up1">
+												  <i class="layui-icon">&#xe67c;</i>
+												</div>
+												<label for="fname">Application Form</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                                <input type="hidden" name="approval_letter" id="doc2">
+                                                <div class="layui-upload-drag" id="up2">
+												  <i class="layui-icon">&#xe67c;</i>
+												</div>
+												<label for="lname">Approval Letter</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                                <input type="hidden" name="appraisal" id="doc3">
+                                               <div class="layui-upload-drag" id="up3">
+												  <i class="layui-icon">&#xe67c;</i>
+												</div>
+												<label for="fname">Appraisal</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                                <input type="hidden" name="gifting_letter" id="doc4">
+                                                <div class="layui-upload-drag" id="up4">
+												  <i class="layui-icon">&#xe67c;</i>
+												</div>
+												<label for="lname">Gifting Letter</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                                <input type="hidden" name="proof_of_identity" id="doc5">
+      											<div class="layui-upload-drag" id="up5">
+												  <i class="layui-icon">&#xe67c;</i>
+												</div>
+												<label for="fname">Proof of Identity</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                                <input type="hidden" name="rate_lock_form" id="doc6">
+                                                <div class="layui-upload-drag" id="up6">
+												  <i class="layui-icon">&#xe67c;</i>
+												</div>
+												<label for="lname">Rate Lock Form</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                                <input type="hidden" name="sales_purchase_agreement" id="doc7">
+                                               <div class="layui-upload-drag" id="up7">
+												  <i class="layui-icon">&#xe67c;</i>
+												</div>
+												<label for="fname">Sales Purchase Agreement</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                                <input type="hidden" name="ird_summary" id="doc8">
+                                                <div class="layui-upload-drag" id="up8">
+												  <i class="layui-icon">&#xe67c;</i>
+												</div>
+												<label for="lname">IRD Summary</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                 	
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                                <input type="hidden" name="payslip" id="doc9">
+      											<div class="layui-upload-drag" id="up9">
+												  <i class="layui-icon">&#xe67c;</i>
+												</div>
+												<label for="fname">Payslip</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                                <input type="hidden" name="boarder_agreement" id="doc10">
+                                                <div class="layui-upload-drag" id="up10">
+												  <i class="layui-icon">&#xe67c;</i>
+												</div>
+												<label for="lname">Boarder Agreement</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                                <input type="hidden" name="valuation_report" id="doc11">
+                                               <div class="layui-upload-drag" id="up11">
+												  <i class="layui-icon">&#xe67c;</i>
+												</div>
+												<label for="fname">Valuation Report</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                                <input type="hidden" name="loan_statement" id="doc12">
+                                                <div class="layui-upload-drag" id="up12">
+												  <i class="layui-icon">&#xe67c;</i>
+												</div>
+												<label for="lname">Loan Statement</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                                <input type="hidden" name="financial_report" id="doc13">
+      											<div class="layui-upload-drag" id="up13">
+												  <i class="layui-icon">&#xe67c;</i>
+												</div>
+												<label for="fname">Financial Report</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                                <input type="hidden" name="lease_agreement" id="doc14">
+                                                <div class="layui-upload-drag" id="up14">
+												  <i class="layui-icon">&#xe67c;</i>
+												</div>
+												<label for="lname">Lease Agreement</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                                <input type="hidden" name="building_report" id="doc15">
+                                               <div class="layui-upload-drag" id="up15">
+												  <i class="layui-icon">&#xe67c;</i>
+												</div>
+												<label for="fname">Building Report</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                                <input type="hidden" name="loan_agreement" id="doc16">
+                                                <div class="layui-upload-drag" id="up16">
+												  <i class="layui-icon">&#xe67c;</i>
+												</div>
+												<label for="lname">Loan agreement</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                                <input type="hidden" name="bank_statement" id="doc17">
+      											<div class="layui-upload-drag" id="up17">
+												  <i class="layui-icon">&#xe67c;</i>
+												</div>
+												<label for="fname">Bank Statement</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                                <input type="hidden" name="rental_agreement" id="doc18">
+                                                <div class="layui-upload-drag" id="up18">
+												  <i class="layui-icon">&#xe67c;</i>
+												</div>
+												<label for="lname">Rental Agreement</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                                <input type="hidden" name="support_letter" id="doc19">
+                                               <div class="layui-upload-drag" id="up19">
+												  <i class="layui-icon">&#xe67c;</i>
+												</div>
+												<label for="fname">Support Letter</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                                <input type="hidden" name="additional_files" id="doc20">
+                                                <div class="layui-upload-drag" id="up20">
+												  <i class="layui-icon">&#xe67c;</i>
+												</div>
+												<label for="lname">Additional Files</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                              
+                                    
+                                   
+
+                                </div>
+                                
+                              </div>  
+                            </div>
+                        </div>
+                        
+                        <!-- Applicant start-->
+                        
+                   
+                        
+                        <!-- Applicant end -->
+                        <div class="text-right mb-5">
+                        	<input type="hidden" id="appid" value="${(application.id)!}">
+                        	<input id="app_ids" value="${clients!}" hidden="hidden">
+                        	<input id="minus_ids" value="${clients!}" hidden="hidden">
+                           
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- // END drawer-layout__content -->
+                <script>
+                function copyClientInfo(nodeid,applicantid,applicantname){
+            		
+            		var sourceNode = document.getElementById(nodeid); // 获得被克隆的节点对象 
+            		
+            		var clonedNode = sourceNode.cloneNode(true); // 克隆节点 
+            		//alert(applicantid)
+            		$node = $(clonedNode);
+            		
+            		/* var monthincome_index = document.getElementsByName("monthincome_income_"+applicantid).length;
+            		var monthincomefr_index = document.getElementsByName("monthincomefr_income_"+applicantid).length;
+            		var monthexpend_index = document.getElementsByName("monthexpend_expend_"+applicantid).length;
+            		
+            		
+            		$node.find('i[id="add_monthincome_'+applicantid+'"]').css("display","none");
+            		$node.find('i[id="minus_monthincome_'+applicantid+'"]').css("display","block");
+            		
+            		$node.find('i[id="add_monthincomefr_'+applicantid+'"]').css("display","none");
+            		$node.find('i[id="minus_monthincomefr_'+applicantid+'"]').css("display","block");
+            		
+            		$node.find('i[id="add_monthexpend_'+applicantid+'"]').css("display","none");
+            		$node.find('i[id="minus_monthexpend_'+applicantid+'"]').css("display","block"); */
+
+            		
+            		var html = $node.html().replaceAll('[applicant_id]',applicantid).replaceAll('[applicant_name]',applicantname);;  
+            		//html = html.replaceAll('[monthexpend_index]',monthexpend_index);  
+            		
+            		var newnode = parseDom(html);
+            		sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点  
+            		clientIframe(applicantid);
+            	}
+              //计算页面的实际高度，iframe自适应会用到
+                function calcPageHeight(doc) {
+                    var cHeight = Math.max(doc.body.clientHeight, doc.documentElement.clientHeight)
+                    var sHeight = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight)
+                    var height  = Math.max(cHeight, sHeight)
+                    return height
+                }
+                function changeIframeHeight(iframeid,iframesrc){
+                	var ifr = document.getElementById(iframeid)
+                	ifr.src = iframesrc;
+                	ifr.onload = function() {
+                	    var iDoc = ifr.contentDocument || ifr.document
+                	    var height = calcPageHeight(iDoc)+60*1
+                	    ifr.parentNode.style.height = height + 'px'
+                	}
+                }
+                function clientIframe(clientid){
+                	var iframesrc = "/client/view?id="+clientid+"&type=2&l=s";
+                	var iframeid = "client-info-"+clientid;
+                	changeIframeHeight(iframeid,iframesrc);
+                }
+                function RemoveTab(id){
+                	$('#newapplicant_'+id).remove();
+                	$('#newapplicant_form_'+id).remove();
+                	var applicant_index = document.getElementsByName("newapplicant_id").length;
+                	if(applicant_index==1){
+                		$('#newapplicant_forms_card').css("display","none");
+                	}
+                	else{
+                		ActiveTab('1');
+                	}
+                }
+                function NewApplicantSucc(id,tb){
+                	//alert(id);
+                	var a = $("#app_ids").val();
+					var b = new Array();
+					b.push(id);
+		 			if(a==''){
+		 				//alert("b:"+String(b));
+		 				var s = String(b);
+		 				$("#minus_ids").val(b);
+		 				$("#app_ids").val(s);
+		 			}
+		 			else{
+		 				var union = a.split(",");
+		 				var unionset = new Set(union);
+		 				var addset = new Set(b);
+
+		 				for (var x of addset) {
+		 					if(unionset.has(x)){
+		 						addset.delete(x);
+		 					}
+		 					else{
+		 						unionset.add(x);
+		 					}
+		 				}
+
+						let minus = Array.from(addset);
+						union = Array.from(unionset);
+			 				
+		 				$("#minus_ids").val(minus);
+		 				$("#app_ids").val(String(union));
+		 				
+		 			}
+		 			ShowApplicant();
+		 			RemoveTab(tb);
+                }
+                function ActiveTab(id){
+                	$('a').attr("class","nav-link");
+                	$('.tab-pane').css("display","none");
+                	$('#newapplicant_form_'+id).css("display","block");
+                	$('#newapplicant_form_'+id).attr("class","tab-pane active show fade");
+                }
+                function AddNewApplicant(){
+                	var applicant_index = document.getElementsByName("newapplicant_id").length;
+                	$('#newapplicant_forms_card').css("display","block");
+                	
+            		var sourceNode = document.getElementById("newapplicant"); // 获得被克隆的节点对象 
+            		var clonedNode = sourceNode.cloneNode(true); // 克隆节点 
+            		$node = $(clonedNode);
+					if(applicant_index>1){
+						$node.find('a').attr("class","nav-link");
+            		}
+            		var html = $node.html().replaceAll('[newapplicant_index]',applicant_index);  
+            		var newnode = parseDom(html);
+            		sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点 
+            		
+            		var sourceNode2 = document.getElementById("newapplicant_form"); // 获得被克隆的节点对象 
+            		var clonedNode2 = sourceNode2.cloneNode(true); // 克隆节点 
+            		$node2 = $(clonedNode2);
+					
+            		var html2 = $node2.html().replaceAll('[newapplicant_index]',applicant_index);  
+            		var newnode2 = parseDom(html2);
+            		var newformnode = $(newnode2)[0];
+            		if(applicant_index>1){
+            			$(newformnode).find('div[id="newapplicant_form_'+applicant_index+'"]').css("display","none");
+            		}
+            		sourceNode2.parentNode.appendChild(newformnode); // 在父节点插入克隆的节点 
+   
+            	}
+                
+                function MonthIncome(){
+                	var monthincome = [];
+                	var clientids = $("#app_ids").val();
+                	var idArray = clientids.split(",");
+                	
+                	for(var j=0;j<idArray.length;j++){
+                		var appid = idArray[j];
+                		var applicantOb = {};
+                		//monthincome
+        				var monthincomeArray = new Array();
+        				var monthincome_income = document.getElementsByName("monthincome_income_"+appid);
+        				var monthincome_description = document.getElementsByName("monthincome_description_"+appid);
+        				var monthincome_gross = document.getElementsByName("monthincome_gross_"+appid);
+        				var monthincome_net = document.getElementsByName("monthincome_net_"+appid);
+        				for(var i=0;i<monthincome_income.length;i++){
+        					if(monthincome_income[i].value!=''){
+        						monthincomeArray.push({"monthincome_income":monthincome_income[i].value,
+        							"monthincome_description":monthincome_description[i].value,
+        							"monthincome_gross":monthincome_gross[i].value,
+        							"monthincome_net":monthincome_net[i].value});
+        					}
+        				} 
+        				applicantOb.applicantid=appid;
+        				var applicantName= document.getElementsByName("applicantname_"+appid)[0].value;
+        				applicantOb.applicant_name = applicantName;
+        				applicantOb.monthincome = monthincomeArray; 
+        				monthincome.push(applicantOb);
+                	}
+
+    				var jsonMonthincome = JSON.stringify( monthincome );
+    				return jsonMonthincome;
+                }
+                function MonthIncomefr(){
+                	var monthincomefr = [];
+                	var clientids = $("#app_ids").val();
+                	var idArray = clientids.split(",");
+                	
+                	for(var j=0;j<idArray.length;j++){
+                		var appid = idArray[j];
+                		var applicantOb = {};
+                		//monthincome
+        				var monthincomefrArray = new Array();
+        				var monthincome_income = document.getElementsByName("monthincomefr_income_"+appid);
+        				var monthincome_description = document.getElementsByName("monthincomefr_description_"+appid);
+        				var monthincome_net = document.getElementsByName("monthincomefr_net_"+appid);
+        				for(var i=0;i<monthincome_income.length;i++){
+        					if(monthincome_income[i].value!=''){
+        						monthincomefrArray.push({"monthincomefr_income":monthincome_income[i].value,
+        							"monthincomefr_description":monthincome_description[i].value,
+        							"monthincomefr_net":monthincome_net[i].value});
+        					}
+        				} 
+        				applicantOb.applicantid=appid;
+        				var applicantName= document.getElementsByName("applicantname_"+appid)[0].value;
+        				applicantOb.applicant_name = applicantName;
+        				applicantOb.monthincome = monthincomefrArray; 
+        				monthincomefr.push(applicantOb);
+                	}
+
+    				var jsonMonthincomefr = JSON.stringify( monthincomefr );
+    				return jsonMonthincomefr;
+                }	
+                function MonthExpend(){
+                	var monthexpend = [];
+                	var clientids = $("#app_ids").val();
+                	var idArray = clientids.split(",");
+                	
+                	for(var j=0;j<idArray.length;j++){
+                		var appid = idArray[j];
+                		var applicantOb = {};
+                		//monthincome
+        				var monthexpendArray = new Array();
+        				var monthincome_expend = document.getElementsByName("monthexpend_expend_"+appid);
+        				var monthincome_description = document.getElementsByName("monthexpend_description_"+appid);
+        				var monthincome_expense = document.getElementsByName("monthexpend_expense_"+appid);
+        				for(var i=0;i<monthincome_expend.length;i++){
+        					if(monthincome_expend[i].value!=''){
+        						monthexpendArray.push({"monthexpend_expend":monthincome_expend[i].value,
+        							"monthexpend_description":monthincome_description[i].value,
+        							"monthexpend_expense":monthincome_expense[i].value});
+        					}
+        				} 
+        				applicantOb.applicantid=appid;
+        				var applicantName= document.getElementsByName("applicantname_"+appid)[0].value;
+        				applicantOb.applicant_name = applicantName;
+        				applicantOb.monthexpend = monthexpendArray; 
+        				monthexpend.push(applicantOb);
+                	}
+
+    				var jsonMonthexpend = JSON.stringify( monthexpend );
+    				return jsonMonthexpend;
+                }	
+                function RemoveMonthincome(id,applicantid){
+                	$('#monthincome_'+applicantid+'_'+id).remove();
+                }
+                function RemoveMonthincomefr(id,applicantid){
+                	$('#monthincomefr_'+applicantid+'_'+id).remove();
+                }
+                function RemoveMonthexpend(id,applicantid){
+                	$('#monthexpend_'+applicantid+'_'+id).remove();
+                }
+                function AddMonthincome(id){
+                	copyApplicantInfo("monthincome",id);
+                }
+                function AddMonthincomefr(id){
+                	copyApplicantInfo("monthincomefr",id);
+                }
+                function AddMonthexpend(id){
+                	copyApplicantInfo("monthexpend",id);
+                }
+	function copyApplicantInfo(nodeid,applicantid){
+		
+            		var sourceNode = document.getElementById(nodeid+"_"+applicantid); // 获得被克隆的节点对象 
+            		
+            		var clonedNode = sourceNode.cloneNode(true); // 克隆节点 
+            		//alert(applicantid)
+            		$node = $(clonedNode);
+            		
+            		var monthincome_index = document.getElementsByName("monthincome_income_"+applicantid).length;
+            		var monthincomefr_index = document.getElementsByName("monthincomefr_income_"+applicantid).length;
+            		var monthexpend_index = document.getElementsByName("monthexpend_expend_"+applicantid).length;
+            		
+            		
+            		$node.find('i[id="add_monthincome_'+applicantid+'"]').css("display","none");
+            		$node.find('i[id="minus_monthincome_'+applicantid+'"]').css("display","block");
+            		
+            		$node.find('i[id="add_monthincomefr_'+applicantid+'"]').css("display","none");
+            		$node.find('i[id="minus_monthincomefr_'+applicantid+'"]').css("display","block");
+            		
+            		$node.find('i[id="add_monthexpend_'+applicantid+'"]').css("display","none");
+            		$node.find('i[id="minus_monthexpend_'+applicantid+'"]').css("display","block");
+
+            		
+            		var html = $node.html().replaceAll('[monthincome_index]',monthincome_index);  
+            		html = html.replaceAll('[monthincomefr_index]',monthincomefr_index);  
+            		html = html.replaceAll('[monthexpend_index]',monthexpend_index);  
+            		
+            		var newnode = parseDom(html);
+            		sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点  
+            	}
+                function RemoveProperty(id){
+                	$('#property_'+id).remove();
+                }
+                function RemoveVehicle(id){
+                	$('#vehicle_'+id).remove();
+                }
+                function RemoveKiwisaver(id){
+                	$('#kiwisaver_'+id).remove();
+                }
+                function RemoveOtherasset(id){
+                	$('#otherasset_'+id).remove();
+                }
+                function RemoveBusinessown(id){
+                	$('#businessown_'+id).remove();
+                }
+                function RemoveInvestment(id){
+                	$('#investment_'+id).remove();
+                }
+                function RemoveRevcredit(id){
+                	$('#revcredit_'+id).remove();
+                }
+                function RemoveOverlimit(id){
+                	$('#overlimit_'+id).remove();
+                }
+                function RemoveCreditcard(id){
+                	$('#creditcard_'+id).remove();
+                }
+                function RemoveStorecard(id){
+                	$('#storecard_'+id).remove();
+                }
+                function RemoveHirepurchase(id){
+                	$('#hirepurchase_'+id).remove();
+                }
+                function RemoveOtherliability(id){
+                	$('#otherliability_'+id).remove();
+                }
+                function RemoveLoandrop(id){
+                	$('#loandrop_'+id).remove();
+                }
+                
+                function RemoveSaving(id){
+                	$('#saving_'+id).remove();
+                }
+                function RemoveSecurityProperty(id){
+                	$('#security_property_'+id).remove();
+                }
+                function RemoveNote(id){
+                	$('#note_'+id).remove();
+                }
+                String.prototype.replaceAll = function(search, replacement) {
+            	    var target = this;
+            	    return target.split(search).join(replacement);
+            	};
+            	function parseDom(arg) {
+
+                	var objE = document.createElement("div");
+
+                	objE.innerHTML = "<div>"+arg+"</div>";
+
+                	return objE.childNodes;
+
+                }
+            	function copyTr(nodeid){
+            		
+            		var sourceNode = document.getElementById(nodeid); // 获得被克隆的节点对象 
+            		var clonedNode = sourceNode.cloneNode(true); // 克隆节点 
+            		$node = $(clonedNode);
+            		var saving_index = document.getElementsByName("saving_d").length;
+            		var investment_index = document.getElementsByName("investment_d").length;
+            		var revcredit_index = document.getElementsByName("revcredit_d").length;
+            		var overlimit_index = document.getElementsByName("overlimit_d").length;
+            		var creditcard_index = document.getElementsByName("creditcard_d").length;
+            		var storecard_index = document.getElementsByName("storecard_d").length;
+            		var hirepurchase_index = document.getElementsByName("hirepurchase_d").length;
+            		var otherliability_index = document.getElementsByName("otherliability_d").length;
+            		var loandrop_index = document.getElementsByName("loandrop_d").length;
+            		var monthincome_index = document.getElementsByName("monthincome_income").length;
+            		var kiwisaver_index = document.getElementsByName("kiwisaver_d").length;
+            		var otherasset_index = document.getElementsByName("otherasset_d").length;
+            		var businessown_index = document.getElementsByName("businessown_d").length;
+            		var vehicle_index = document.getElementsByName("vehicle_d").length;
+            		var property_index = document.getElementsByName("property_d").length;
+            		var note_index = document.getElementsByName("note").length;
+            		
+            		$node.find('label[id="txt_note"]').css("display","none");
+            		$node.find('i[id="add_note"]').css("display","none");
+            		$node.find('i[id="minus_note"]').css("display","block");
+            		
+            		$node.find('i[id="add_saving"]').css("display","none");
+            		$node.find('i[id="minus_saving"]').css("display","block");
+            		$node.find('div[id="txt_saving"]').css("display","none");
+            		
+            		$node.find('i[id="add_investment"]').css("display","none");
+            		$node.find('i[id="minus_investment"]').css("display","block");
+            		$node.find('div[id="txt_investment"]').css("display","none");
+            		
+            		
+            		$node.find('i[id="add_kiwisaver"]').css("display","none");
+            		$node.find('i[id="minus_kiwisaver"]').css("display","block");
+            		$node.find('div[id="txt_kiwisaver"]').css("display","none");
+            		
+            		$node.find('i[id="add_otherasset"]').css("display","none");
+            		$node.find('i[id="minus_otherasset"]').css("display","block");
+            		$node.find('div[id="txt_otherasset"]').css("display","none");
+            		
+            		$node.find('i[id="add_vehicle"]').css("display","none");
+            		$node.find('i[id="minus_vehicle"]').css("display","block");
+            		$node.find('div[id="txt_vehicle"]').css("display","none");
+            		
+            		$node.find('i[id="add_property"]').css("display","none");
+            		$node.find('i[id="minus_property"]').css("display","block");
+            		$node.find('div[id="txt_property"]').css("display","none");
+            		
+            		$node.find('i[id="add_businessown"]').css("display","none");
+            		$node.find('i[id="minus_businessown"]').css("display","block");
+            		$node.find('div[id="txt_businessown"]').css("display","none");
+            		
+            		$node.find('i[id="add_revcredit"]').css("display","none");
+            		$node.find('i[id="minus_revcredit"]').css("display","block");
+            		$node.find('div[id="txt_revcredit"]').css("display","none");
+            		
+            		$node.find('i[id="add_overlimit"]').css("display","none");
+            		$node.find('i[id="minus_overlimit"]').css("display","block");
+            		$node.find('div[id="txt_overlimit"]').css("display","none");
+            		
+            		$node.find('i[id="add_creditcard"]').css("display","none");
+            		$node.find('i[id="minus_creditcard"]').css("display","block");
+            		$node.find('div[id="txt_creditcard"]').css("display","none");
+            		
+            		$node.find('i[id="add_storecard"]').css("display","none");
+            		$node.find('i[id="minus_storecard"]').css("display","block");
+            		$node.find('div[id="txt_storecard"]').css("display","none");
+            		
+            		$node.find('i[id="add_hirepurchase"]').css("display","none");
+            		$node.find('i[id="minus_hirepurchase"]').css("display","block");
+            		$node.find('div[id="txt_hirepurchase"]').css("display","none");
+            		
+            		$node.find('i[id="add_otherliability"]').css("display","none");
+            		$node.find('i[id="minus_otherliability"]').css("display","block");
+            		$node.find('div[id="txt_otherliability"]').css("display","none");
+            		
+            		$node.find('i[id="add_loandrop"]').css("display","none");
+            		$node.find('i[id="minus_loandrop"]').css("display","block");
+            		$node.find('div[id="txt_loandrop"]').css("visibility","hidden");
+            		
+            		$node.find('i[id="add_monthincome"]').css("display","none");
+            		$node.find('i[id="minus_monthincome"]').css("display","block");
+            		
+            		var html = $node.html().replaceAll('[saving_index]',saving_index);  
+            		html = html.replaceAll('[investment_index]',investment_index);  
+            		
+            		html = html.replaceAll('[kiwisaver_index]',kiwisaver_index);  
+            		html = html.replaceAll('[otherasset_index]',otherasset_index);  
+            		html = html.replaceAll('[vehicle_index]',vehicle_index);  
+            		html = html.replaceAll('[property_index]',property_index);  
+            		html = html.replaceAll('[businessown_index]',businessown_index);  
+            		
+            		html = html.replaceAll('[revcredit_index]',revcredit_index);  
+            		html = html.replaceAll('[overlimit_index]',overlimit_index);  
+            		html = html.replaceAll('[creditcard_index]',creditcard_index);  
+            		html = html.replaceAll('[storecard_index]',storecard_index);  
+            		html = html.replaceAll('[hirepurchase_index]',hirepurchase_index); 
+            		html = html.replaceAll('[otherliability_index]',otherliability_index);  
+            		html = html.replaceAll('[loandrop_index]',loandrop_index);  
+            		html = html.replaceAll('[monthincome_index]',monthincome_index);  
+            		html = html.replaceAll('[note_index]',note_index);  
+            		var newnode = parseDom(html);
+            		sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点 
+            	}
+            	function copyNode(nodeid){
+            		var node_index = document.getElementsByName("loan_effective_date").length;
+            		var property_index = document.getElementsByName("security_property").length;
+            		var mobile_index = document.getElementsByName("mobile").length;
+            		var email_index = document.getElementsByName("email").length;
+            		var address_index = document.getElementsByName("address").length;
+            		var sourceNode = document.getElementById(nodeid); // 获得被克隆的节点对象 
+            		var clonedNode = sourceNode.cloneNode(true); // 克隆节点 
+            		//console.log(sourceNode.innerHTML)
+            		//console.log('--------------------')
+            		$node = $(clonedNode);
+            		$node.find('button[id="bt_mobile"]').css("display","block");
+            		$node.find('div[id="divmobile"]').attr("id","divmobile_"+mobile_index);
+            		$node.find('button[id="bt_email"]').css("display","block");
+            		$node.find('div[id="divemail"]').attr("id","divemail_"+email_index);
+            		$node.find('button[id="bt_address"]').css("display","block");
+            		$node.find('div[id="divaddress"]').attr("id","divaddress_"+address_index);
+            		$node.find('div[id="removeloan"]').css("display","block");
+            		$node.find('div[id="removeProperty"]').css("display","block");
+            		$node.find('input[name="loan_effective_date"]').attr("id","loan_effective_date_"+node_index);
+            		$node.find('select[name="loan_now_rate_period"]').attr("id","loan_now_rate_period_"+node_index);
+            		$node.find('input[name="loan_review_date"]').attr("id","loan_review_date_"+node_index);
+            		$node.find('input[name="task_id"]').val(0);
+            		var html = $node.html().replaceAll('[node_index]',node_index);  
+            		html = html.replaceAll('[property_index]',property_index);  
+            		html = html.replaceAll('[mobile_index]',mobile_index);  
+            		html = html.replaceAll('[email_index]',email_index); 
+            		html = html.replaceAll('[address_index]',address_index); 
+            		//console.log(html)
+            		var newnode = parseDom(html);
+            		sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点 
+            	}
+            	function b20(str){
+            		return (str==='')?0:str*1;
+            	}
+            	function n2b(str){
+            		//alert(str);
+            		if(str===null)return '';
+            		else return str;
+            	}
+            	function ShowApp(){
+	           		　var dfd = $.Deferred();
+	           		　setTimeout(function () {
+	            		　ShowApplicant();
+	            		　dfd.resolve();
+	           		　}, 500);
+	           		  return dfd.promise;
+           		}
+                function ShowApplicant(){
+                	var clientids = $("#minus_ids").val();
+    				if(clientids.length>0){
+    					$('#applicantmi_txt').css("display","block");
+    					$('#applicantmifr_txt').css("display","block");
+    					$('#applicantmiex_txt').css("display","block");
+    					$.post("/client/get_applicants", {"ids":clientids}, function(data) {
+        					if(data.code==0){
+        						//console.log(data.data);
+        						//alert(data.data);
+        						var applicants = data.data;
+        						var html = $('#applicant').html();
+        						var mihtml = $('#midiv').html();
+        						var mifrhtml = $('#mifrdiv').html();
+        						var miexhtml = $('#miexdiv').html();
+        						
+        						for(var i = 0, len = applicants.length; i < len; i++){
+        							var pic = '/t/assets/images/avatar/dfavatar.png';
+        						    var name = n2b(applicants[i]['first_name'])+" "+n2b(applicants[i]['last_name']);
+        						    if(applicants[i]['avatar']!=null)
+        						    	pic = applicants[i]['avatar'];
+        						    var newhtml = html.replaceAll('[applicant_id]','applicant_'+applicants[i]['id']).replace('[applicant_avatar]',pic).replace('[applicant_name]',name);
+        						    $('#applicants').append(newhtml);
+        						    var newmihtml = mihtml.replaceAll('[applicant_id]',applicants[i]['id']).replaceAll('[applicant_name]',name);
+        						    $('#midivs').append(newmihtml);
+        						    var newmifrhtml = mifrhtml.replaceAll('[applicant_id]',applicants[i]['id']).replaceAll('[applicant_name]',name);
+        						    $('#mifrdivs').append(newmifrhtml);
+        						    var newmiexhtml = miexhtml.replaceAll('[applicant_id]',applicants[i]['id']).replaceAll('[applicant_name]',name);
+        						    $('#miexdivs').append(newmiexhtml);
+        						}
+        						
+        						///t/assets/images/stories/256_rsz_clem-onojeghuo-193397-unsplash.jpg
+        						
+        						
+        						
+        						/* layer.open({
+        						    content: 'Success',
+        						    btn: 'Got it'
+        						  });  */
+        					}
+        					return false;
+        				}, "json");  
+    				}
+    				else{
+    					layer.msg('Added Failed. No new applicant.',{
+    	                    icon: 1,
+    	                    time: 1000 //2秒关闭（如果不配置，默认是3秒）
+    	                },function(){
+    	                    //history.go(0);
+    	                });
+    				}
+                }
+                
+                function EditApplicant(id){
+                	var appid = id.split('_')[1];
+                	var url = '/client/edit?type=2&l=s&id='+appid;
+            		layer.open({
+            			type: 2,
+            			title: 'Edit Applicant',
+            			fixed: false, //不固定
+            			maxmin: true,
+            		    shadeClose: true, //点击遮罩关闭层
+            			area: ['80%', '80%'],
+            			content: url ,
+            			success:function(layero,index){
+            	        },
+            	        end:function(){
+            	        	//ShowApplicant();
+            	        }
+            		});
+
+            	}
+                function RemoveDiv(id){
+                	var appid = id.split('_')[1];
+                	var appids = new Set($('#app_ids').val().split(','));
+                	appids.delete(appid);
+                	var new_appids = String(Array.from(appids));
+                	$('#app_ids').val(new_appids);
+            		$('#div_applicant_'+id).remove();
+            		$('#applicant_mi_card_'+appid).remove();
+            		$('#applicant_mifr_card_'+appid).remove();
+            		$('#applicant_miex_card_'+appid).remove();
+            		if(appids.size===0){
+            			$('#applicantmi_txt').css("display","none");
+            			$('#applicantmifr_txt').css("display","none");
+            			$('#applicantmiex_txt').css("display","none");
+            		}
+            			
+            	}
+                function strMapToObj(strMap) {
+				    let obj = Object.create(null);
+				    for (let [k,v] of strMap) {
+				        // We don’t escape the key '__proto__'
+				        // which can cause problems on older engines
+				        obj[k] = v;
+				    }
+				    return obj;
+				}
+				
+				function objToStrMap(obj) {
+				    let strMap = new Map();
+				    for (let k of Object.keys(obj)) {
+				        strMap.set(k, obj[k]);
+				    }
+				    return strMap;
+				}
+				function strMapToJson(strMap) {
+				    return JSON.stringify(strMapToObj(strMap));
+				}
+
+				function jsonToStrMap(jsonStr) {
+				    return objToStrMap(JSON.parse(jsonStr));
+				}
+				
+				function setMonthincome(monthincome){
+                	if(monthincome!=''){
+                		//monthincome
+	    				var miArray = JSON.parse(monthincome);
+	    				for(var j=0;j<miArray.length;j++){
+	    					var applicantOb = miArray[j];
+	    					var applicatid = applicantOb.applicantid;
+	    					var monthincomeArray = applicantOb.monthincome;
+
+	                		for(var i=1;i<monthincomeArray.length;i++){
+
+	                			copyApplicantInfo("monthincome",applicatid);
+
+		                	}
+	                		
+		                	var monthincome_income = document.getElementsByName("monthincome_income_"+applicatid);
+		                	var monthincome_description = document.getElementsByName("monthincome_description_"+applicatid);
+		                	var monthincome_gross = document.getElementsByName("monthincome_gross_"+applicatid);
+		                	var monthincome_net = document.getElementsByName("monthincome_net_"+applicatid);
+		    				for(var i=0;i<monthincomeArray.length;i++){
+		    					monthincome_income[i].innerHTML=monthincomeArray[i]['monthincome_income'];
+		    					monthincome_description[i].innerHTML=monthincomeArray[i]['monthincome_description'];
+		    					monthincome_gross[i].innerHTML=monthincomeArray[i]['monthincome_gross'];
+		    					monthincome_net[i].innerHTML=monthincomeArray[i]['monthincome_net'];
+		    				} 
+	                	}
+                	}  
+				}
+				function setMonthincomefr(monthincome){
+                	if(monthincome!=''){
+                		//monthincome
+	    				var miArray = JSON.parse(monthincome);
+	    				for(var j=0;j<miArray.length;j++){
+	    					var applicantOb = miArray[j];
+	    					var applicatid = applicantOb.applicantid;
+	    					var monthincomeArray = applicantOb.monthincome;
+
+	                		for(var i=1;i<monthincomeArray.length;i++){
+
+	                			copyApplicantInfo("monthincomefr",applicatid);
+		                	}
+	                		
+		                	var monthincome_income = document.getElementsByName("monthincomefr_income_"+applicatid);
+		                	var monthincome_description = document.getElementsByName("monthincomefr_description_"+applicatid);
+		                	var monthincome_net = document.getElementsByName("monthincomefr_net_"+applicatid);
+		    				for(var i=0;i<monthincomeArray.length;i++){
+		    					monthincome_income[i].innerHTML=monthincomeArray[i]['monthincomefr_income'];
+		    					monthincome_description[i].innerHTML=monthincomeArray[i]['monthincomefr_description'];
+		    					monthincome_net[i].innerHTML=monthincomeArray[i]['monthincomefr_net'];
+		    				} 
+	                	}
+                	}  
+				}
+				function setMonthexpend(monthexpend){
+                	if(monthexpend!=''){
+                		//monthincome
+	    				var miArray = JSON.parse(monthexpend);
+	    				for(var j=0;j<miArray.length;j++){
+	    					var applicantOb = miArray[j];
+	    					var applicatid = applicantOb.applicantid;
+	    					var monthexpendArray = applicantOb.monthexpend;
+
+	                		for(var i=1;i<monthexpendArray.length;i++){
+
+	                			copyApplicantInfo("monthexpend",applicatid);
+		                	}
+	                		
+		                	var monthexpend_expend = document.getElementsByName("monthexpend_expend_"+applicatid);
+		                	var monthexpend_description = document.getElementsByName("monthexpend_description_"+applicatid);
+		                	var monthexpend_expense = document.getElementsByName("monthexpend_expense_"+applicatid);
+		    				for(var i=0;i<monthexpendArray.length;i++){
+		    					monthexpend_expend[i].innerHTML=monthexpendArray[i]['monthexpend_expend'];
+		    					monthexpend_description[i].innerHTML=monthexpendArray[i]['monthexpend_description'];
+		    					monthexpend_expense[i].innerHTML=monthexpendArray[i]['monthexpend_expense'];
+		    				} 
+	                	}
+                	}  
+				}
+				function getClientNames(ids){
+					var clients='';
+					$.post("/client/get_applicants_name", {"ids":ids}, function(data) {
+    					if(data.code==0){
+    						clients = data.data;
+    					}
+    				}, "json");   
+					return clients;
+				}
+                if('${method}'=='view'){
+                	var clientids = $("#app_ids").val();
+                	//var idArray = clientids.split(",");
+                	
+                	/* for(var j=0;j<idArray.length;j++){
+                		var appid = idArray[j];
+                		alert(appid)
+                	} */
+                	$.ajaxSettings.async = false;
+                	var applicants = getClientNames(clientids);
+                	$.ajaxSettings.async = true;
+                	
+                	for(var i = 0, len = applicants.length; i < len; i++){
+                		var id = applicants[i]['id'];
+					    var name = n2b(applicants[i]['client_name']);
+					    //alert(id+name)
+					    //var newhtml = html.replaceAll('[applicant_id]','applicant_'+applicants[i]['id']).replace('[applicant_name]',name);
+					    //$('#applicants').append(newhtml);
+					    copyClientInfo("clientinfo",id,name);
+					} 
+
+                	
+                	//clientIframe("myframe",2);
+                	//clientIframe("myframe2",2);
+                	//$('lending_purpose').val('${(application.lending_purpose)!}');
+                	var lending_purpose=String(JSON.parse('${(application.lending_purpose)!}'));
+                	$('#lending_purpose').html(lending_purpose);
+                	ShowApplicant();
+                	var liability = '${(application.liability)!}';
+                	if(liability!=''){
+	                	var liabilityObject = JSON.parse(liability);
+	                	
+	                	var revcreditArray = liabilityObject.revcredit;
+	                	for(var i=1;i<revcreditArray.length;i++){
+	                		copyTr("revcredit");
+	                	}
+	                	var revcredit_d = document.getElementsByName("revcredit_d");
+	                	var revcredit_v = document.getElementsByName("revcredit_v");
+	    				for(var i=0;i<revcreditArray.length;i++){
+	    					revcredit_d[i].innerHTML=revcreditArray[i]['revcredit_d'];
+	    					revcredit_v[i].innerHTML=revcreditArray[i]['revcredit_v'];
+	    				} 
+	    				//overlimit
+	    				var overlimitArray = liabilityObject.overlimit;
+	                	for(var i=1;i<overlimitArray.length;i++){
+	                		copyTr("overlimit");
+	                	}
+	                	var overlimit_d = document.getElementsByName("overlimit_d");
+	                	var overlimit_v = document.getElementsByName("overlimit_v");
+	    				for(var i=0;i<overlimitArray.length;i++){
+	    					overlimit_d[i].innerHTML=overlimitArray[i]['overlimit_d'];
+	    					overlimit_v[i].innerHTML=overlimitArray[i]['overlimit_v'];
+	    				} 
+	    				//creditcard
+	    				var creditcardArray = liabilityObject.creditcard;
+	                	for(var i=1;i<creditcardArray.length;i++){
+	                		copyTr("creditcard");
+	                	}
+	                	var creditcard_d = document.getElementsByName("creditcard_d");
+	                	var creditcard_v = document.getElementsByName("creditcard_v");
+	    				for(var i=0;i<creditcardArray.length;i++){
+	    					creditcard_d[i].innerHTML=creditcardArray[i]['creditcard_d'];
+	    					creditcard_v[i].innerHTML=creditcardArray[i]['creditcard_v'];
+	    				} 
+	    				
+	    				//storecard
+	    				var storecardArray = liabilityObject.storecard;
+	                	for(var i=1;i<storecardArray.length;i++){
+	                		copyTr("storecard");
+	                	}
+	                	var storecard_d = document.getElementsByName("storecard_d");
+	                	var storecard_v = document.getElementsByName("storecard_v");
+	    				for(var i=0;i<storecardArray.length;i++){
+	    					storecard_d[i].innerHTML=storecardArray[i]['storecard_d'];
+	    					storecard_v[i].innerHTML=storecardArray[i]['storecard_v'];
+	    				} 
+	    				
+	    				//hirepurchase
+	    				var hirepurchaseArray = liabilityObject.hirepurchase;
+	                	for(var i=1;i<hirepurchaseArray.length;i++){
+	                		copyTr("hirepurchase");
+	                	}
+	                	var hirepurchase_d = document.getElementsByName("hirepurchase_d");
+	                	var hirepurchase_v = document.getElementsByName("hirepurchase_v");
+	    				for(var i=0;i<hirepurchaseArray.length;i++){
+	    					hirepurchase_d[i].innerHTML=hirepurchaseArray[i]['hirepurchase_d'];
+	    					hirepurchase_v[i].innerHTML=hirepurchaseArray[i]['hirepurchase_v'];
+	    				} 
+	    				
+	    				//otherliability
+	    				var otherliabilityArray = liabilityObject.otherliability;
+	                	for(var i=1;i<otherliabilityArray.length;i++){
+	                		copyTr("otherliability");
+	                	}
+	                	var otherliability_d = document.getElementsByName("otherliability_d");
+	                	var otherliability_v = document.getElementsByName("otherliability_v");
+	    				for(var i=0;i<otherliabilityArray.length;i++){
+	    					otherliability_d[i].innerHTML=otherliabilityArray[i]['otherliability_d'];
+	    					otherliability_v[i].innerHTML=otherliabilityArray[i]['otherliability_v'];
+	    				} 
+	    				
+	    				//loandrop
+	    				var loandropArray = liabilityObject.loandrop;
+	                	for(var i=1;i<loandropArray.length;i++){
+	                		copyTr("loandrop");
+	                	}
+	                	var loandrop_sel = document.getElementsByName("loandrop_sel");
+	                	var loandrop_d = document.getElementsByName("loandrop_d");
+	                	var loandrop_v = document.getElementsByName("loandrop_v");
+	    				for(var i=0;i<loandropArray.length;i++){
+	    					loandrop_sel[i].innerHTML=loandropArray[i]['loandrop_sel'];
+	    					loandrop_d[i].innerHTML=loandropArray[i]['loandrop_d'];
+	    					loandrop_v[i].innerHTML=loandropArray[i]['loandrop_v'];
+	    				} 
+	    				
+	    				
+                	}
+                	
+                	var notes = '${(application.note)!}';
+                	if(notes!=''){
+                		var noteArray = JSON.parse(notes);
+                		for(var i=1;i<noteArray.length;i++){
+	                		copyTr("note");
+	                	}
+                		var note = document.getElementsByName("note");
+                		for(var i=0;i<noteArray.length;i++){
+                			note[i].innerHTML=noteArray[i];
+	                	}
+                	}
+    				
+                	var asset = '${(application.asset)!}';
+                	if(asset!=''){
+	                	var assetObject = JSON.parse(asset);
+	                	$('#total_value').html(assetObject.total_value);
+	                	var cash = assetObject.cash;
+	                	$('#cash_d').html(cash.cash_d);
+	                	$('#cash_v').html(cash.cash_v);
+	                	
+	                	var furniture = assetObject.furniture;
+	                	$('#furniture_d').html(furniture.furniture_d);
+	                	$('#furniture_v').html(furniture.furniture_v);
+	                	
+	                	var deposit = assetObject.deposit;
+	                	$('#deposit_d').html(deposit.deposit_d);
+	                	$('#deposit_v').html(deposit.deposit_v);
+	                	
+	                	var savingArray = assetObject.saving;
+	                	for(var i=1;i<savingArray.length;i++){
+	                		copyTr("saving");
+	                	}
+	                	var saving_d = document.getElementsByName("saving_d");
+	                	var saving_v = document.getElementsByName("saving_v");
+	    				for(var i=0;i<savingArray.length;i++){
+	    					saving_d[i].innerHTML=savingArray[i]['saving_d'];
+	    					saving_v[i].innerHTML=savingArray[i]['saving_v'];
+	    				}  
+	    				
+	    				var investmentArray = assetObject.investment;
+	                	for(var i=1;i<investmentArray.length;i++){
+	                		copyTr("investment");
+	                	}
+	                	var investment_d = document.getElementsByName("investment_d");
+	                	var investment_v = document.getElementsByName("investment_v");
+	    				for(var i=0;i<investmentArray.length;i++){
+	    					investment_d[i].innerHTML=investmentArray[i]['investment_d'];
+	    					investment_v[i].innerHTML=investmentArray[i]['investment_v'];
+	    				}  
+	    				
+	    				
+	    				
+	    				var kiwisaverArray = assetObject.kiwisaver;
+	                	for(var i=1;i<kiwisaverArray.length;i++){
+	                		copyTr("kiwisaver");
+	                	}
+	                	var kiwisaver_d = document.getElementsByName("kiwisaver_d");
+	                	var kiwisaver_v = document.getElementsByName("kiwisaver_v");
+	    				for(var i=0;i<kiwisaverArray.length;i++){
+	    					kiwisaver_d[i].innerHTML=kiwisaverArray[i]['kiwisaver_d'];
+	    					kiwisaver_v[i].innerHTML=kiwisaverArray[i]['kiwisaver_v'];
+	    				}  
+	    				
+	    				var otherassetArray = assetObject.otherasset;
+	                	for(var i=1;i<otherassetArray.length;i++){
+	                		copyTr("otherasset");
+	                	}
+	                	var otherasset_d = document.getElementsByName("otherasset_d");
+	                	var otherasset_v = document.getElementsByName("otherasset_v");
+	    				for(var i=0;i<otherassetArray.length;i++){
+	    					otherasset_d[i].innerHTML=otherassetArray[i]['otherasset_d'];
+	    					otherasset_v[i].innerHTML=otherassetArray[i]['otherasset_v'];
+	    				}  
+	    				
+	    				var businessownArray = assetObject.businessown;
+	                	for(var i=1;i<businessownArray.length;i++){
+	                		copyTr("businessown");
+	                	}
+	                	var businessown_d = document.getElementsByName("businessown_d");
+	                	var businessown_v = document.getElementsByName("businessown_v");
+	    				for(var i=0;i<businessownArray.length;i++){
+	    					businessown_d[i].innerHTML=businessownArray[i]['businessown_d'];
+	    					businessown_v[i].innerHTML=businessownArray[i]['businessown_v'];
+	    				}  
+	    				
+	    				var propertyArray = assetObject.property;
+	                	for(var i=1;i<propertyArray.length;i++){
+	                		copyTr("property");
+	                	}
+	                	var property_d = document.getElementsByName("property_d");
+	                	var property_v = document.getElementsByName("property_v");
+	    				for(var i=0;i<propertyArray.length;i++){
+	    					property_d[i].innerHTML=propertyArray[i]['property_d'];
+	    					property_v[i].innerHTML=propertyArray[i]['property_v'];
+	    				}  
+	    				
+	    				var vehicleArray = assetObject.vehicle;
+	                	for(var i=1;i<vehicleArray.length;i++){
+	                		copyTr("vehicle");
+	                	}
+	                	var vehicle_d = document.getElementsByName("vehicle_d");
+	                	var vehicle_v = document.getElementsByName("vehicle_v");
+	    				for(var i=0;i<vehicleArray.length;i++){
+	    					vehicle_d[i].innerHTML=vehicleArray[i]['vehicle_d'];
+	    					vehicle_v[i].innerHTML=vehicleArray[i]['vehicle_v'];
+	    				}  
+                	} 
+                	
+                	var security = '${(application.security)!}';
+                	if(security!=''){
+	                	var securityArray = JSON.parse(security);
+	                	for(var i=1;i<securityArray.length;i++){
+	                		copyNode("security_property");
+	                	}
+	                	var security_property = document.getElementsByName("security_property");
+	                	var security_bank = document.getElementsByName("security_bank");
+	                	var security_owner = document.getElementsByName("security_owner");
+	    				var security_property_type = document.getElementsByName("security_property_type");
+	    				var security_property_use = document.getElementsByName("security_property_use");
+	    				var security_property_value = document.getElementsByName("security_property_value"); 
+	    				for(var i=0;i<securityArray.length;i++){
+	    					security_property[i].innerHTML=securityArray[i]['property'];
+	    					security_bank[i].innerHTML=securityArray[i]['bank'];
+	    					security_owner[i].innerHTML=securityArray[i]['owner'];
+	    					security_property_type[i].innerHTML=securityArray[i]['property_type'];
+	    					security_property_use[i].innerHTML=securityArray[i]['use'];
+	    					security_property_value[i].innerHTML=securityArray[i]['value']; 
+	    				}  
+                	} 
+                	
+                	var doc = '${(application.documents)!}';
+                	var documents = jsonToStrMap(doc);
+                	
+                	for(var i=1;i<documents.size;i++){
+    					var key = $('#doc'+i).attr("name");
+    					$('#doc'+i).val(documents.get(key));
+    					if(documents.get(key)!='')
+    						$('#up'+i).html('<img src="/f/i/check.png">');
+    				}
+                	
+                	//alert(documents);
+                }
+                $(function () { 
+                	$("#add_note").on('click',function(e){
+                		copyTr("note");
+                	});
+                	$("#add_property").on('click',function(e){
+                		copyTr("property");
+                	});
+                	$("#add_saving").on('click',function(e){
+                		copyTr("saving");
+                	});
+                	$("#add_investment").on('click',function(e){
+                		copyTr("investment");
+                	});
+                	$("#add_revcredit").on('click',function(e){
+                		copyTr("revcredit");
+                	});
+                	$("#add_overlimit").on('click',function(e){
+                		copyTr("overlimit");
+                	});
+                	$("#add_creditcard").on('click',function(e){
+                		copyTr("creditcard");
+                	});
+                	$("#add_storecard").on('click',function(e){
+                		copyTr("storecard");
+                	});
+                	$("#add_hirepurchase").on('click',function(e){
+                		copyTr("hirepurchase");
+                	});
+                	$("#add_otherliability").on('click',function(e){
+                		copyTr("otherliability");
+                	});
+                	$("#add_loandrop").on('click',function(e){
+                		copyTr("loandrop");
+                	});
+                	$("#add_kiwisaver").on('click',function(e){
+                		copyTr("kiwisaver");
+                	});
+                	$("#add_otherasset").on('click',function(e){
+                		copyTr("otherasset");
+                	});
+                	$("#add_businessown").on('click',function(e){
+                		copyTr("businessown");
+                	});
+                	$("#add_vehicle").on('click',function(e){
+                		copyTr("vehicle");
+                	});
+                	$("#addproperty").on('click',function(e){
+                		copyNode("security_property");
+                	});
+                	$("#add_new_lead").on('click',function(e){
+                		$("#minus_ids").val([]);
+                		var url = '/client/add?type=0&l=s';
+                		layer.open({
+                			type: 2,
+                			title: 'Add Applicant to Leads',
+                			fixed: false, //不固定
+                			maxmin: true,
+                		    shadeClose: true, //点击遮罩关闭层
+                			area: ['80%', '80%'],
+                			content: url ,
+                			success:function(layero,index){
+                	        },
+                	        end:function(){
+                	        	ShowApplicant();
+                	        }
+                		});
+                	});
+                	$("#add_new_client").on('click',function(e){
+                		$("#minus_ids").val([]);
+                		var url = '/client/add?type=1&l=s';
+                		layer.open({
+                			type: 2,
+                			title: 'Add Applicant to Clients',
+                			fixed: false, //不固定
+                			maxmin: true,
+                		    shadeClose: true, //点击遮罩关闭层
+                			area: ['80%', '80%'],
+                			content: url ,
+                			success:function(layero,index){
+                	        },
+                	        end:function(){
+                	        	ShowApplicant();
+                	        }
+                		});
+                	});
+                	
+                	$("#add_new_applicant").on('click',function(e){
+                		/* $("#minus_ids").val([]);
+                		var url = '/client/add?type=2&l=s';
+                		layer.open({
+                			type: 2,
+                			title: 'Add Applicant',
+                			fixed: false, //不固定
+                			maxmin: true,
+                		    shadeClose: true, //点击遮罩关闭层
+                			area: ['80%', '80%'],
+                			content: url ,
+                			success:function(layero,index){
+                	        },
+                	        end:function(){
+                	        	ShowApplicant();
+                	        }
+                		}); */
+                		AddNewApplicant();
+                	});
+                	
+                	
+                	function addapplicant(method){
+                		$("#minus_ids").val([]);
+                		var url = '/client/'+method;
+                		layer.open({
+                			type: 2,
+                			title: 'Add Applicant',
+                			fixed: false, //不固定
+                			maxmin: true,
+                		    shadeClose: true, //点击遮罩关闭层
+                			area: ['60%', '60%'],
+                			content: url ,
+                			success:function(layero,index){
+                	        },
+                	        end:function(){
+                	        	ShowApplicant();
+                	        }
+                		});
+                	}
+                	$("#from_applicant").on('click',function(e){
+                		addapplicant('from_applicant');
+                	});
+                	$("#addapplicantfromleads").on('click',function(e){
+                		addapplicant('applicantfromlead');
+                	});
+                	$("#addapplicantfromclient").on('click',function(e){
+                		addapplicant('applicantfromclient');
+                	});
+                })
+                function Liability(){
+                	var liability = {};
+                	//revcredit
+    				var revcreditArray = new Array();
+    				var revcredit_d = document.getElementsByName("revcredit_d");
+    				var revcredit_v = document.getElementsByName("revcredit_v");
+    				for(var i=0;i<revcredit_v.length;i++){
+    					if(revcredit_v[i].value!=''){
+    						revcreditArray.push({"revcredit_d":revcredit_d[i].value,"revcredit_v":revcredit_v[i].value});
+    					}
+    				} 
+    				liability.revcredit = revcreditArray;
+    				
+    				//overlimit
+    				var overlimitArray = new Array();
+    				var overlimit_d = document.getElementsByName("overlimit_d");
+    				var overlimit_v = document.getElementsByName("overlimit_v");
+    				for(var i=0;i<overlimit_v.length;i++){
+    					if(overlimit_v[i].value!=''){
+    						overlimitArray.push({"overlimit_d":overlimit_d[i].value,"overlimit_v":overlimit_v[i].value});
+    					}
+    				} 
+    				liability.overlimit = overlimitArray;
+    				
+    				//creditcard
+    				var creditcardArray = new Array();
+    				var creditcard_d = document.getElementsByName("creditcard_d");
+    				var creditcard_v = document.getElementsByName("creditcard_v");
+    				for(var i=0;i<creditcard_v.length;i++){
+    					if(creditcard_v[i].value!=''){
+    						creditcardArray.push({"creditcard_d":creditcard_d[i].value,"creditcard_v":creditcard_v[i].value});
+    					}
+    				} 
+    				liability.creditcard = creditcardArray;
+    				
+    				//storecard
+    				var storecardArray = new Array();
+    				var storecard_d = document.getElementsByName("storecard_d");
+    				var storecard_v = document.getElementsByName("storecard_v");
+    				for(var i=0;i<storecard_v.length;i++){
+    					if(storecard_v[i].value!=''){
+    						storecardArray.push({"storecard_d":storecard_d[i].value,"storecard_v":storecard_v[i].value});
+    					}
+    				} 
+    				liability.storecard = storecardArray;
+    				
+    				//hirepurchase
+    				var hirepurchaseArray = new Array();
+    				var hirepurchase_d = document.getElementsByName("hirepurchase_d");
+    				var hirepurchase_v = document.getElementsByName("hirepurchase_v");
+    				for(var i=0;i<hirepurchase_v.length;i++){
+    					if(hirepurchase_v[i].value!=''){
+    						hirepurchaseArray.push({"hirepurchase_d":hirepurchase_d[i].value,"hirepurchase_v":hirepurchase_v[i].value});
+    					}
+    				} 
+    				liability.hirepurchase = hirepurchaseArray;
+    				
+    				//otherliability
+    				var otherliabilityArray = new Array();
+    				var otherliability_d = document.getElementsByName("otherliability_d");
+    				var otherliability_v = document.getElementsByName("otherliability_v");
+    				for(var i=0;i<otherliability_v.length;i++){
+    					if(otherliability_v[i].value!=''){
+    						otherliabilityArray.push({"otherliability_d":otherliability_d[i].value,"otherliability_v":otherliability_v[i].value});
+    					}
+    				} 
+    				liability.otherliability = otherliabilityArray;
+    				
+    				//loandrop
+    				var loandropArray = new Array();
+    				var loandrop_sel = document.getElementsByName("loandrop_sel");
+    				var loandrop_d = document.getElementsByName("loandrop_d");
+    				var loandrop_v = document.getElementsByName("loandrop_v");
+    				for(var i=0;i<loandrop_v.length;i++){
+    					if(loandrop_v[i].value!=''){
+    						loandropArray.push({"loandrop_sel":loandrop_sel[i].value,"loandrop_d":loandrop_d[i].value,"loandrop_v":loandrop_v[i].value});
+    					}
+    				} 
+    				liability.loandrop = loandropArray;
+    				
+    				var jsonLiability = JSON.stringify( liability );
+    				return jsonLiability;
+                }
+		function Asset(){
+                	var asset = {};
+    				var total_value = 0;
+    				var cash_d = $('#cash_d').val();
+    				var cash_v = $('#cash_v').val();
+    				var cash = {"cash_d":cash_d,"cash_v":cash_v};
+    				asset.cash = cash;
+    				total_value += b20(cash_v);
+    				//furniture
+    				var furniture_d = $('#furniture_d').val();
+    				var furniture_v = $('#furniture_v').val();
+    				var furniture = {"furniture_d":furniture_d,"furniture_v":furniture_v};
+    				asset.furniture = furniture;
+    				total_value += b20(furniture_v);
+    				
+    				
+    				//deposit
+    				var deposit_d = $('#deposit_d').val();
+    				var deposit_v = $('#deposit_v').val();
+    				var deposit = {"deposit_d":deposit_d,"deposit_v":deposit_v};
+    				asset.deposit = deposit;
+    				total_value += b20(deposit_v);
+    				//saving
+    				var savingArray = new Array();
+    				var saving_d = document.getElementsByName("saving_d");
+    				var saving_v = document.getElementsByName("saving_v");
+    				for(var i=0;i<saving_v.length;i++){
+    					if(saving_v[i].value!=''){
+    						savingArray.push({"saving_d":saving_d[i].value,"saving_v":saving_v[i].value});
+    						total_value += b20(saving_v[i].value);
+    					}
+    				} 
+    				asset.saving = savingArray;
+    				//investment
+    				var investmentArray = new Array();
+    				var investment_d = document.getElementsByName("investment_d");
+    				var investment_v = document.getElementsByName("investment_v");
+    				for(var i=0;i<investment_v.length;i++){
+    					if(investment_v[i].value!=''){
+    						investmentArray.push({"investment_d":investment_d[i].value,"investment_v":investment_v[i].value});
+    						total_value += b20(investment_v[i].value);
+    					}
+    				} 
+    				asset.investment = investmentArray;
+    				
+    				//kiwisaver
+    				var kiwisaverArray = new Array();
+    				var kiwisaver_d = document.getElementsByName("kiwisaver_d");
+    				var kiwisaver_v = document.getElementsByName("kiwisaver_v");
+    				for(var i=0;i<kiwisaver_v.length;i++){
+    					if(kiwisaver_v[i].value!=''){
+    						kiwisaverArray.push({"kiwisaver_d":kiwisaver_d[i].value,"kiwisaver_v":kiwisaver_v[i].value});
+    						total_value += b20(kiwisaver_v[i].value);
+    					}
+    				} 
+    				asset.kiwisaver = kiwisaverArray;
+    				
+    				//otherasset
+    				var otherassetArray = new Array();
+    				var otherasset_d = document.getElementsByName("otherasset_d");
+    				var otherasset_v = document.getElementsByName("otherasset_v");
+    				for(var i=0;i<otherasset_v.length;i++){
+    					if(otherasset_v[i].value!=''){
+    						otherassetArray.push({"otherasset_d":otherasset_d[i].value,"otherasset_v":otherasset_v[i].value});
+    						total_value += b20(otherasset_v[i].value);
+    					}
+    				} 
+    				asset.otherasset = otherassetArray;
+    				
+    				//businessown
+    				var businessownArray = new Array();
+    				var businessown_d = document.getElementsByName("businessown_d");
+    				var businessown_v = document.getElementsByName("businessown_v");
+    				for(var i=0;i<businessown_v.length;i++){
+    					if(businessown_v[i].value!=''){
+    						businessownArray.push({"businessown_d":businessown_d[i].value,"businessown_v":businessown_v[i].value});
+    						total_value += b20(businessown_v[i].value);
+    					}
+    				} 
+    				asset.businessown = businessownArray;
+    				
+    				//property
+    				var propertyArray = new Array();
+    				var property_d = document.getElementsByName("property_d");
+    				var property_v = document.getElementsByName("property_v");
+    				for(var i=0;i<property_v.length;i++){
+    					if(property_v[i].value!=''){
+    						propertyArray.push({"property_d":property_d[i].value,"property_v":property_v[i].value});
+    						total_value += b20(property_v[i].value);
+    					}
+    				} 
+    				asset.property = propertyArray;
+    				
+    				//vehicle
+    				var vehicleArray = new Array();
+    				var vehicle_d = document.getElementsByName("vehicle_d");
+    				var vehicle_v = document.getElementsByName("vehicle_v");
+    				for(var i=0;i<vehicle_v.length;i++){
+    					if(vehicle_v[i].value!=''){
+    						vehicleArray.push({"vehicle_d":vehicle_d[i].value,"vehicle_v":vehicle_v[i].value});
+    						total_value += b20(vehicle_v[i].value);
+    					}
+    				} 
+    				asset.vehicle = vehicleArray;
+    				$('#total_value').html(total_value); 
+    				$('#total_v').val(total_value);
+    				asset.total_value = total_value;
+    				//alert(total_value)
+    				var jsonAsset = JSON.stringify( asset );
+    				return jsonAsset;
+                }			
+function SaveApp(method){
+				
+
+				var appid=$('#appid').val();
+				var applicants_ids = $('#app_ids').val();
+				var url = "/application/";
+				if(method=='add')url+="save";
+				else url+="update";
+				
+				var checklist = new Map();
+				for(var i=1;i<21;i++){
+					var key = $('#doc'+i).attr("name");
+					var value = $('#doc'+i).val();
+					checklist.set(key,value);
+				}
+				var documents = strMapToJson(checklist);
+
+				if(applicants_ids==''){
+					mlayer.open({
+					    content: 'Please add an applicant.',
+					    btn: 'Got it'
+					  });
+				}
+				else{
+					var noteArray = new Array();
+					var notes = document.getElementsByName("note");
+					for(var i=0;i<notes.length;i++){
+						if(notes[i].value!=''){
+							noteArray.push(notes[i].value);
+						}
+					} 
+					var jsonNote = JSON.stringify( noteArray );
+					
+					var application_no=$('#application_no').val();
+					var application_date=$('#application_date').val();
+					var adviser_name=$('#adviser_name').val();
+					var adviser_email=$('#adviser_email').val();
+					var adviser_contact_number=$('#adviser_contact_number').val();
+					
+					var lender=$('#lender').val();
+					var lending_amount_required=$('#lending_amount_required').val();
+					var purposes=$('#lending_purpose').val();
+					var purposeArr=[];
+					for(value in purposes){
+						purposeArr.push(value);
+			        }
+			        var lending_purpose = JSON.stringify(purposeArr);
+					var purpose=$('#purpose').val();
+					var LVR=$('#LVR').val();
+					var finance_date=$('#finance_date').val();
+					var settlement_date=$('#settlement_date').val();
+					var borrower=$('#borrower').val();
+					var security_holder=$('#security_holder').val();
+					var UMI=$('#UMI').val();
+					var existing_loan_amount=$('#existing_loan_amount').val();
+					var total_loan_amount=$('#total_loan_amount').val();
+					
+					var propertyArray = new Array();
+					var security_property = document.getElementsByName("security_property");
+					var security_bank = document.getElementsByName("security_bank");
+					var security_owner = document.getElementsByName("security_owner");
+					var security_property_type = document.getElementsByName("security_property_type");
+					var security_property_use = document.getElementsByName("security_property_use");
+					var security_property_value = document.getElementsByName("security_property_value");
+					for(var i=0;i<security_property.length;i++){
+						if(security_property[i].value!=''){
+							propertyArray.push({"property":security_property[i].value,"bank":security_bank[i].value,
+								"owner":security_owner[i].value,"property_type":security_property_type[i].value,
+								"use":security_property_use[i].value,"value":security_property_value[i].value});
+						}
+					} 
+					var jsonProperty = JSON.stringify( propertyArray );
+					
+					var jsonAsset = Asset();
+					var jsonLiability = Liability();
+					
+					var jsonMonthIncome = MonthIncome();
+					var jsonMonthIncomefr = MonthIncomefr();
+					var jsonMonthExpend = MonthExpend();
+					$.post(url, {"applicants_ids":applicants_ids,"application.id":appid,
+						"application.application_no":application_no,"application_date":application_date,
+						"application.adviser_name":adviser_name,"application.adviser_email":adviser_email,
+						"application.adviser_contact_number":adviser_contact_number,
+						"application.lender":lender,"application.lending_amount_required":lending_amount_required,
+						"application.lending_purpose":lending_purpose,"application.purpose":purpose,
+						"application.LVR":LVR,"finance_date":finance_date,
+						"settlement_date":settlement_date,"application.borrower":borrower,
+						"application.security_holder":security_holder,"application.UMI":UMI,
+						"application.existing_loan_amount":existing_loan_amount,"application.total_loan_amount":total_loan_amount,
+						"application.security":jsonProperty,
+						"application.asset":jsonAsset,
+						"application.liability":jsonLiability,
+						"application.monthincome":jsonMonthIncome,
+						"application.monthincome_from_rent":jsonMonthIncomefr,
+						"application.monthexpend":jsonMonthExpend,
+						"application.note":jsonNote,
+						"application.documents":documents}, function(data) {
+						if(data.code==1){
+						 	mlayer.open({
+							    content: 'Fail',
+							    btn: 'Got it'
+							  });
+							return false;
+						}
+						else{ 
+							mlayer.open({
+							    content: 'Success',
+							    btn: 'Got it',
+							    yes: function(){
+							    	location.href="/application";
+							      }
+							  });
+						}
+						return false;
+					}, "json"); 
+				}
+				
+				return false;
+	
+
+}
+</script>
+
+<script>
+layui.use('upload', function(){
+  var $ = layui.jquery
+  ,upload = layui.upload;
+  
+  //拖拽上传
+  upload.render({
+    elem: '#up1'
+    ,url: '/file/'
+    ,accept: 'file'
+    ,exts: 'pdf|jpg' 
+    ,done: function(res){
+    	if(res.code==1){
+    		$('#doc1').val(res.url);
+    		$('#up1').html('<img src="/f/i/check.png">');
+    	      //alert($('#doc1').attr("name"));
+    	}
+    }
+  });
+  upload.render({
+	    elem: '#up2'
+	    ,url: '/file/'
+	    ,accept: 'file'
+	    ,exts: 'pdf|jpg' 
+	    ,done: function(res){
+	    	if(res.code==1){
+	    		$('#doc2').val(res.url);
+	    		$('#up2').html('<img src="/f/i/check.png">');
+	    	}
+	    }
+	  });
+  upload.render({
+	    elem: '#up3'
+	    ,url: '/file/'
+	    ,accept: 'file'
+	    ,exts: 'pdf|jpg' 
+	    ,done: function(res){
+	    	if(res.code==1){
+	    		$('#doc3').val(res.url);
+	    		$('#up3').html('<img src="/f/i/check.png">');
+	    	}
+	    }
+	  });
+  upload.render({
+	    elem: '#up4'
+	    ,url: '/file/'
+	    ,accept: 'file'
+	    ,exts: 'pdf|jpg' 
+	    ,done: function(res){
+	    	if(res.code==1){
+	    		$('#doc4').val(res.url);
+	    		$('#up4').html('<img src="/f/i/check.png">');
+	    	}
+	    }
+	  });
+  
+  upload.render({
+	    elem: '#up5'
+	    ,url: '/file/'
+	    ,accept: 'file'
+	    ,exts: 'pdf|jpg' 
+	    ,done: function(res){
+	    	if(res.code==1){
+	    		$('#doc5').val(res.url);
+	    		$('#up5').html('<img src="/f/i/check.png">');
+	    	      //alert($('#doc1').attr("name"));
+	    	}
+	    }
+	  });
+	  upload.render({
+		    elem: '#up6'
+		    ,url: '/file/'
+		    ,accept: 'file'
+		    ,exts: 'pdf|jpg' 
+		    ,done: function(res){
+		    	if(res.code==1){
+		    		$('#doc6').val(res.url);
+		    		$('#up6').html('<img src="/f/i/check.png">');
+		    	}
+		    }
+		  });
+	  upload.render({
+		    elem: '#up7'
+		    ,url: '/file/'
+		    ,accept: 'file'
+		    ,exts: 'pdf|jpg' 
+		    ,done: function(res){
+		    	if(res.code==1){
+		    		$('#doc7').val(res.url);
+		    		$('#up7').html('<img src="/f/i/check.png">');
+		    	}
+		    }
+		  });
+	  upload.render({
+		    elem: '#up8'
+		    ,url: '/file/'
+		    ,accept: 'file'
+		    ,exts: 'pdf|jpg' 
+		    ,done: function(res){
+		    	if(res.code==1){
+		    		$('#doc8').val(res.url);
+		    		$('#up8').html('<img src="/f/i/check.png">');
+		    	}
+		    }
+		  });
+	  
+	  upload.render({
+		    elem: '#up9'
+		    ,url: '/file/'
+		    ,accept: 'file'
+		    ,exts: 'pdf|jpg' 
+		    ,done: function(res){
+		    	if(res.code==1){
+		    		$('#doc9').val(res.url);
+		    		$('#up9').html('<img src="/f/i/check.png">');
+		    	      //alert($('#doc1').attr("name"));
+		    	}
+		    }
+		  });
+		  upload.render({
+			    elem: '#up10'
+			    ,url: '/file/'
+			    ,accept: 'file'
+			    ,exts: 'pdf|jpg' 
+			    ,done: function(res){
+			    	if(res.code==1){
+			    		$('#doc10').val(res.url);
+			    		$('#up10').html('<img src="/f/i/check.png">');
+			    	}
+			    }
+			  });
+		  upload.render({
+			    elem: '#up11'
+			    ,url: '/file/'
+			    ,accept: 'file'
+			    ,exts: 'pdf|jpg' 
+			    ,done: function(res){
+			    	if(res.code==1){
+			    		$('#doc11').val(res.url);
+			    		$('#up11').html('<img src="/f/i/check.png">');
+			    	}
+			    }
+			  });
+		  upload.render({
+			    elem: '#up12'
+			    ,url: '/file/'
+			    ,accept: 'file'
+			    ,exts: 'pdf|jpg' 
+			    ,done: function(res){
+			    	if(res.code==1){
+			    		$('#doc12').val(res.url);
+			    		$('#up12').html('<img src="/f/i/check.png">');
+			    	}
+			    }
+			  });
+		  
+		  upload.render({
+			    elem: '#up13'
+			    ,url: '/file/'
+			    ,accept: 'file'
+			    ,exts: 'pdf|jpg' 
+			    ,done: function(res){
+			    	if(res.code==1){
+			    		$('#doc13').val(res.url);
+			    		$('#up13').html('<img src="/f/i/check.png">');
+			    	      //alert($('#doc1').attr("name"));
+			    	}
+			    }
+			  });
+			  upload.render({
+				    elem: '#up14'
+				    ,url: '/file/'
+				    ,accept: 'file'
+				    ,exts: 'pdf|jpg' 
+				    ,done: function(res){
+				    	if(res.code==1){
+				    		$('#doc14').val(res.url);
+				    		$('#up14').html('<img src="/f/i/check.png">');
+				    	}
+				    }
+				  });
+			  upload.render({
+				    elem: '#up15'
+				    ,url: '/file/'
+				    ,accept: 'file'
+				    ,exts: 'pdf|jpg' 
+				    ,done: function(res){
+				    	if(res.code==1){
+				    		$('#doc15').val(res.url);
+				    		$('#up15').html('<img src="/f/i/check.png">');
+				    	}
+				    }
+				  });
+			  upload.render({
+				    elem: '#up16'
+				    ,url: '/file/'
+				    ,accept: 'file'
+				    ,exts: 'pdf|jpg' 
+				    ,done: function(res){
+				    	if(res.code==1){
+				    		$('#doc16').val(res.url);
+				    		$('#up16').html('<img src="/f/i/check.png">');
+				    	}
+				    }
+				  });
+			  
+			  upload.render({
+				    elem: '#up17'
+				    ,url: '/file/'
+				    ,accept: 'file'
+				    ,exts: 'pdf|jpg' 
+				    ,done: function(res){
+				    	if(res.code==1){
+				    		$('#doc17').val(res.url);
+				    		$('#up17').html('<img src="/f/i/check.png">');
+				    	      //alert($('#doc1').attr("name"));
+				    	}
+				    }
+				  });
+				  upload.render({
+					    elem: '#up18'
+					    ,url: '/file/'
+					    ,accept: 'file'
+					    ,exts: 'pdf|jpg' 
+					    ,done: function(res){
+					    	if(res.code==1){
+					    		$('#doc18').val(res.url);
+					    		$('#up18').html('<img src="/f/i/check.png">');
+					    	}
+					    }
+					  });
+				  upload.render({
+					    elem: '#up19'
+					    ,url: '/file/'
+					    ,accept: 'file'
+					    ,exts: 'pdf|jpg' 
+					    ,done: function(res){
+					    	if(res.code==1){
+					    		$('#doc19').val(res.url);
+					    		$('#up19').html('<img src="/f/i/check.png">');
+					    	}
+					    }
+					  });
+				  upload.render({
+					    elem: '#up20'
+					    ,url: '/file/'
+					    ,accept: 'file'
+					    ,exts: 'pdf|jpg' 
+					    ,done: function(res){
+					    	if(res.code==1){
+					    		$('#doc20').val(res.url);
+					    		$('#up20').html('<img src="/f/i/check.png">');
+					    	}
+					    }
+					  });
+		 
+  
+});
+function setIframeHeight(iframe) {
+	if (iframe) {
+		var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+		if (iframeWin.document.body) {
+			iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+		}
+	}
+};
+
+window.onload = function() { 
+	var monthincome = '${(application.monthincome)!}';
+	var monthincomefr = '${(application.monthincome_from_rent)!}';
+	var monthexpend = '${(application.monthexpend)!}';
+	setMonthincome(monthincome); 
+	setMonthincomefr(monthincomefr); 
+	setMonthexpend(monthexpend); 
+	
+}; 
+</script>
+
+</@layout>

@@ -1,0 +1,13 @@
+<ul class="slide_list">
+  <li> <a href="/gsjj" id="gsjj1">公司简介</a> </li>
+  <li> <a href="/mtxw" id="mtxw1">媒体新闻</a> </li>
+  <li> <a href="/qywh" id="qywh1">企业文化</a> </li>
+</ul>
+              
+<script type="text/javascript">
+$(document).ready(function(){
+	var channelPath = $.trim("${(channel.path)!}");
+	//解决方案左侧导航  选中栏目效果
+	$("#"+channelPath+"1").attr("class","active");
+});
+</script>

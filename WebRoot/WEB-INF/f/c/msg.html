@@ -1,0 +1,45 @@
+<#include "/WEB-INF/f/c/_l.html" />
+<@layout>
+<div class="am-g">
+  <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+    <br>
+	<div data-am-widget="list_news" class="am-list-news am-list-news-default">
+  <!--列表标题-->
+  <div class="am-list-news-hd am-cf">
+    <!--带更多链接-->
+    	<a><h2>${I18N.getText("sysinfo")}</h2></a>
+  </div>
+  <div class="am-list-news-bd">
+    <ul class="am-list">
+      <li class="am-g">
+        <a class="am-list-item-hd ">
+        <#if (code==1)>
+    	<img src="/f/i/ok.png"/>
+    	<#else>
+    	<img src="/f/i/info.png"/>
+    	</#if>${msg!}</a>
+      </li>
+    </ul>
+  </div>
+  <br/>
+  <!--更多在底部-->
+  <#if (code==1)>
+    	<div class="am-list-news-ft">
+    <a class="am-list-news-more am-btn am-btn-default " href="/m">${I18N.getText("member_center")} &raquo;</a>
+  </div>
+    	<#else>
+    	<div class="am-list-news-ft">
+    <a class="am-list-news-more am-btn am-btn-default " href="javascript:history.go(-1);">${I18N.getText("back_prev")} &raquo;</a>
+  </div>
+    	</#if>
+    	<br/>
+  <div class="am-list-news-ft">
+    <a class="am-list-news-more am-btn am-btn-default " href="/">${I18N.getText("back_index")} &raquo;</a>
+  </div>
+  <br/>
+</div>
+
+    
+  </div>
+</div>
+</@layout>

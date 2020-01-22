@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>${I18N.getText("title")}</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="stylesheet" href="/f/assets/css/amazeui.min.css"/>
+  <style>
+    @media only screen and (min-width: 641px) {
+      .am-offcanvas {
+        display: block;
+        position: static;
+        background: none;
+      }
+
+      .am-offcanvas-bar {
+        position: static;
+        width: auto;
+        background: none;
+        -webkit-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+      }
+      .am-offcanvas-bar:after {
+        content: none;
+      }
+
+    }
+
+    @media only screen and (max-width: 640px) {
+      .am-offcanvas-bar .am-nav>li>a {
+        color:#ccc;
+        border-radius: 0;
+        border-top: 1px solid rgba(0,0,0,.3);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.05)
+      }
+
+      .am-offcanvas-bar .am-nav>li>a:hover {
+        background: #404040;
+        color: #fff
+      }
+
+      .am-offcanvas-bar .am-nav>li.am-nav-header {
+        color: #777;
+        background: #404040;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+        text-shadow: 0 1px 0 rgba(0,0,0,.5);
+        border-top: 1px solid rgba(0,0,0,.3);
+        font-weight: 400;
+        font-size: 75%
+      }
+
+      .am-offcanvas-bar .am-nav>li.am-active>a {
+        background: #1a1a1a;
+        color: #fff;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,.3)
+      }
+
+      .am-offcanvas-bar .am-nav>li+li {
+        margin-top: 0;
+      }
+    }
+
+    .my-head {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .my-button {
+      position: fixed;
+      top: 0;
+      right: 0;
+      border-radius: 0;
+    }
+    .my-sidebar {
+      padding-right: 0;
+      border-right: 1px solid #eeeeee;
+    }
+
+    .my-footer {
+      border-top: 1px solid #eeeeee;
+      padding: 10px 0;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .am-list-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  
+}
+.am-article-meta {
+  font-size: 1.8rem;
+  line-height: 1.5;
+  color: #999999;
+}
+  </style>
+</head>
+<body>
+<header class="am-g my-head">
+  <div class="am-u-sm-12 am-article">
+    <h1 class="am-article-title">${(content.title)!}</h1>
+    <p class="am-article-meta">
+    <#if content.author??>
+    ${(content.author)!}
+    <#else>
+    ${(creator_name)!}
+    </#if>
+    </p>
+  </div>
+</header>
+<hr class="am-article-divider"/>
+<div class="am-g am-g-fixed">
+  <div class="am-u-md-9 am-u-md-push-3">
+    <div class="am-g">
+      <div class="am-u-sm-11 am-u-sm-centered">
+        <div class="am-cf am-article">
+          
+            <#if content.txt??>
+          ${(content.txt)!}
+          <#else>
+          	暂无内容
+          </#if>
+          
+        </div>
+        <hr/>
+        <ul class="am-comments-list">
+        <#list comments as a>
+          <li class="am-comment">
+            <a href="/owner/${a.uid!}">
+              <img src="${a.avatar!}" alt="" class="am-comment-avatar" width="48" height="48">
+            </a>
+            <div class="am-comment-main">
+              <header class="am-comment-hd">
+                <div class="am-comment-meta">
+                  <a href="/owner/${a.uid!}" class="am-comment-author">${a.nick}</a> 评论于 <time>${a.release_date?string('yyyy-MM-dd HH:mm:ss')}</time>
+                </div>
+              </header>
+              <div class="am-comment-bd">
+                <p>${a.txt}</p>
+              </div>
+            </div>
+          </li>
+          </#list>
+          <#if session?? && session.user??>
+          <li class="am-comment">
+            <a href="#link-to-user-home">
+              <img src="${(session.user.avatar)!}" alt="" class="am-comment-avatar" width="48" height="48">
+            </a>
+            <div class="am-comment-main">
+              
+              <div class="am-comment-bd">
+                <p><input type="text" id="commentTxt" placeholder="评论内容" class="am-form-field am-round"/>
+                <input type="hidden" value="${(content.id)!}" id="articleId">
+      			<input type="hidden" value="${(session.user.id)!}" id="userId">
+                </p>
+              </div>
+              <div class="am-comment-bd">
+                <p><button type="button" id="comment" class="am-btn am-btn-success am-round">发表评论</button></p>
+              </div>
+            </div>
+          </li>
+          <#else>
+          <li class="am-comment">
+          	
+            <img src="/f/i/noavatar.png" alt="" class="am-comment-avatar" width="48" height="48">
+            
+            <div class="am-comment-main">
+              <div class="am-comment-bd">
+                <p>请<a href="/l">登录</a>后发表评论</p>
+              </div>
+            </div>
+          </li>
+          </#if>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!--alert start-->
+      <div class="am-modal am-modal-alert" id="alert">
+  		<div class="am-modal-dialog">
+    		<div class="am-modal-bd" id="myalert">
+      
+    		</div>
+    		<div class="am-modal-footer">
+      			<span class="am-modal-btn" data-am-modal-confirm>知道了</span>
+    		</div>
+  		</div>
+	  </div>
+	  <!--alert end-->
+
+  <div class="am-u-md-3 am-u-md-pull-9 my-sidebar">
+    <div class="am-offcanvas" id="sidebar">
+      <div class="am-offcanvas-bar">
+        <a href="/owner/${content.creator}">
+        <img src="${owner.avatar!}" alt="" class="am-list-avatar" width="48" height="48">
+        </a>
+        <ul class="am-nav">
+          <li><a href="/owner/${content.creator}">Owner homepage</a></li>
+          <li class="am-nav-header">Blog</li>
+          
+		  
+		  <li><a href="/">Home page</a></li>	
+		  <#if session??&&session.user??>	
+		  <li><a href="/logout">Logout</a></li>	
+		  </#if>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <a href="#sidebar" class="am-btn am-btn-sm am-btn-success am-icon-bars am-show-sm-only my-button" data-am-offcanvas><span class="am-sr-only">侧栏导航</span></a>
+</div>
+<footer class="my-footer">
+  <p><small>© Copyright 2019. </small>Fynco</p>
+</footer>
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="/f/assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="/f/assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="/f/assets/js/amazeui.min.js"></script>
+<script>
+var $modal = $('#alert');
+$('#comment').bind('click', function () {
+		var cid=$('#articleId').val();
+		var uid=$('#userId').val();
+		var ctxt=$('#commentTxt').val();
+		if(uid==''){
+		 	$('#myalert').text("请登录后发表评论。^-^");
+			$modal.modal();
+		}
+		else{
+			if(ctxt==''){
+		 		$('#myalert').text("请填写评论内容。^-^");
+				$modal.modal();
+			}
+			else{
+        	$.post("/comment", {cid:cid,uid:uid,txt:ctxt}, function(data) {
+				if(data.code>0){
+				 	$('#myalert').text(data.msg);
+					$modal.modal({
+						onConfirm: function(options) {
+						
+          location.reload();
+          
+        }
+					});
+					
+				}
+				else{
+					$('#myalert').text("未知错误，请联系系统管理员。^-^");
+					$modal.modal();
+				}
+			}, "json");
+			}
+		}
+    });
+    </script>
+
+<script src="/js/vs.js"></script>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+<script type="text/javascript">
+	vlstatInitLE(returnCitySN);
+</script>
+</body>
+</html>

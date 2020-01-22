@@ -1,0 +1,52 @@
+<ul class="slide_list">
+             <li>
+             <a href="/glxxhzhfw" id="glxxhzhfw1" title="管理信息化综合服务">管理信息化综合服务</a>
+             <ul>
+             <@cms_content_list typeId='1' count='10' orderBy='1' channelOption='2' channelId='209'>
+				<#list tag_list as a>
+		      		<li id="${(a.id)!}"><a href="/${a.path}-${a.id}" title="${(a.title)!}"><@text_cut s=a.title len="12" append=".."/></a> </li>
+		       </#list>
+			</@cms_content_list>
+                    </ul>
+            </li>
+            <li>
+             <a href="/dzswztjjfa" id="dzswztjjfa1" title="电子商务整体解决方案">电子商务整体解决方案</a>
+             <ul>
+                 <@cms_content_list typeId='1' count='10' orderBy='1' channelOption='2' channelId='210'>
+				<#list tag_list as a>
+		      		<li id="${(a.id)!}"><a href="/${a.path}-${a.id}" title="${(a.title)!}"><@text_cut s=a.title len="12" append=".."/></a> </li>
+		       </#list>
+			</@cms_content_list>
+            </ul>
+            </li>
+              <li>
+           <a href="/ydyyjjfa" id="ydyyjjfa1" title="移动应用解决方案">移动应用解决方案</a>
+           <ul>
+               <@cms_content_list typeId='1' count='10' orderBy='1' channelOption='2' channelId='211'>
+				<#list tag_list as a>
+      			<li id="${(a.id)!}"><a href="/${a.path}-${a.id}" title="${(a.title)!}"><@text_cut s=a.title len="12" append=".."/></a> </li>
+		       </#list>
+			</@cms_content_list>
+                    </ul>
+                </li>
+            </ul>
+              
+<script type="text/javascript">
+$(document).ready(function(){
+	var channelPath = $.trim("${(channel.path)!}");
+	if(channelPath=="glxxhzhfw"){
+		window.location.hash = "#hash1";
+	}else if(channelPath=="dzswztjjfa"){
+		window.location.hash = "#hash2";
+	}else if(channelPath=="ydyyjjfa"){
+		window.location.hash = "#hash3";
+	}
+	//解决方案左侧导航  选中栏目效果
+	$("#"+channelPath+"1").attr("class","active");
+	//解决方案左侧导航  选中栏目下文章效果
+	var contentId = $.trim("${(content.id)!}");
+	if(contentId!=null && contentId!=""){
+		$("#"+contentId).find("a").attr("class","active");
+	}
+});
+</script>

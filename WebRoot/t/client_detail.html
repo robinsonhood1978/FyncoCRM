@@ -1,0 +1,1356 @@
+<#include "/t/${layout}" />
+<@layout>
+                <div class="mdk-drawer-layout__content page">
+
+<#if ilay==0>
+
+                    <div class="container-fluid  page__heading-container">
+                        <div class="page__heading">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="#"><i class="material-icons icon-20pt">home</i></a></li>
+                                    <li class="breadcrumb-item">Clients</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Clients</li>
+                                </ol>
+                            </nav>
+                            <h1 class="m-0">Client Details</h1>
+                        </div>
+                    </div>
+
+</#if>
+
+
+                    <div class="container-fluid page__container">
+                        <div class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">General Information</strong></p>
+                                    <p class="text-muted">Edit the client general information.</p>
+                                    <#if type!=2>
+                                    <div class="embed-responsive embed-responsive-1by1">
+									  <iframe id="iframe_avatar" class="embed-responsive-item" src="/add_avatar2?url=${(client.avatar)!}" allowfullscreen></iframe>
+									</div>  
+									<div class="row">
+									<div class="col">
+									<div style="text-align:center;" class="form-group">
+									<button id="edit_avatar" type="button" class="btn btn-primary btn-rounded">Edit Avatar</button>
+									</div>
+									</div>
+									</div>
+									</#if>
+                                </div>
+                                <div class="col-lg-8 card-form__body card-body">
+                                	<div class="row">
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Title</label><br/>
+                                                ${(client.title)!}
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Gender</label><br/>
+                                                <#assign gender = ["Female","Male","Unknown"]/>
+                                                ${gender[client.gender]}
+                                            </div>
+                                        </div>
+                                    </div>
+                                 	<div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">First name</label><br/>
+                                                ${(client.first_name)!}
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Last name</label><br/>
+                                                ${(client.last_name)!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Preferred Name</label><br/>
+                                                ${(client.prefered_name)!}
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                             <div class="form-group">
+		                                        <label for="birthday">Date of Birth</label><br/>
+		                                        <#if client??&&client.birthday??>${(client.birthday)?string('dd/MM/yyyy')!}</#if>
+		                                    </div>
+                                        </div>
+                                    </div>
+                                   <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Personal Email</label>
+                                                 <div id="divemail">
+                                                	
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Work Email</label><br/>
+                                                ${(client.work_email)!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Mobile</label>
+                                                
+                                                <div id="mobiles">
+                                                	
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Work Phone</label><br/>
+                                                ${(client.work_phone)!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="row">
+                                        
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Home Phone</label><br/>
+                                                ${(client.home_phone)!}
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                       		<div class="form-group">
+                                                <label for="lname">Wechat</label><br/>
+                                                ${(client.wechat)!}
+                                            </div>
+ 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Address</label>
+                                               
+                                                <div id="addresses">
+                                                	
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Comments</label><br/>
+                                                ${(client.comments)!}
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+ 						<div class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">Main Information</strong></p>
+                                    <p class="text-muted">Edit the client detailed information.</p>
+                                </div>
+                                <div class="col-lg-8 card-form__body card-body">
+                                 	<div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">No. of Dependants</label><br/>
+                                                ${(client.dependants_number)!}
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label>Age of Dependants</label><br/>
+                                                <div id="dependants_age"></div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">New Zealand Residency</label><br/>
+                                                <#assign residency_nz=["None","Permanent Resident","New Zealand Citizenship"]/>
+                                                ${residency_nz[client.residency_nz]}
+                                                  </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Marital Status</label><br/>
+                                                <#assign marital_status=["Married","Single","De Facto","Other"]/>
+                                                ${marital_status[client.marital_status]}
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Current Residential Address (Address client are currently residing)</label><br/>
+                                                ${(client.current_residential_address)!}
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Time Stayed:</label>
+                                                <div class="row">
+	                                                <div class="col">
+			                                            <div class="form-group">
+			                                                <label>Year(s)</label>
+			                                                <br/>${(client.time_stayed_years)!}
+			                                            </div>
+				                                     </div>
+			                                        <div class="col">
+			                                            <div class="form-group">
+			                                                <label>Month(s)</label>
+			                                                <br/>${(client.time_stayed_months)!}
+			                                            </div>
+			                                        </div>
+                                                </div>
+                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Previous Residential Address (If client have stayed at current address for less than 3 years)</label>
+                                                <br/>${(client.previous_residential_address)!}
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Time Stayed:(Address client are currently residing)</label>
+                                                <div class="row">
+	                                                <div class="col">
+			                                            <div class="form-group">
+			                                                <label>Year(s)</label>
+			                                                <br/>${(client.p_time_stayed_years)!}
+			                                            </div>
+				                                     </div>
+			                                        <div class="col">
+			                                            <div class="form-group">
+			                                                <label>Month(s)</label>
+			                                                <br/>${(client.p_time_stayed_months)!}
+			                                            </div>
+			                                        </div>
+                                                </div>
+                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Postal Address (If different from residential address)</label>
+                                                <br/>${(client.postal_address)!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Current Living Situation</label><br/>
+                                                <#assign current_living_situation=["Renting","Living in own home","Boarding","Other"]/>
+                                                ${current_living_situation[client.current_living_situation]}
+                                                  </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                
+                                           </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">Employment</strong></p>
+                                    <p class="text-muted">Edit the client detailed employment information.</p>
+                                </div>
+                                <div class="col-lg-8 card-form__body card-body">
+                                 	<div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Source of Income </label>
+                                                <div id="source_of_income"></div>
+                                        	</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label>Gross Income</label><br/>
+                                                ${(client.gross_income)!}
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                   <div id="CE">
+	                                	<div id="curemploy">
+	                                	<div id="curemploy_[curemploy_index]">
+                                    
+                                    <div class="row">
+                                    <div class="col">
+                                            <div class="card-header bg-white d-flex align-items-center">
+				                               <p><strong class="headings-color">Current Employment</strong></p>
+				                                
+				                            </div>
+                                    </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label>Current Employer</label>
+                                                <div name="curcompany"></div>
+                                            </div>
+                                        </div>
+                                        
+	                                     
+                                    </div>
+                                    
+                                    
+                                    <div class="row">
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label>Job title</label>
+                                                <div name="curoccupation"></div>
+                                            </div>
+	                                     </div>
+	                                     
+                                       <div class="col">
+                                            <div class="form-group">
+                                                <label>Length of time with this employer</label>
+                                                <div name="curduration"></div>
+                                            </div>
+	                                     </div>
+                                      
+                                    </div>
+                                    
+                                    		
+                                           		
+                                    </div>
+                                    </div>
+                                        
+	                                     
+                                    </div>
+                                    
+                                    <#if type==2>
+                                    
+                                                <label for="fname">Previous Employment (If you were employed for less than 3 years at your current company)</label>
+                                               <div id="previous_employment">
+                                               	<div id="employ">
+                                               		
+	                                               <div id="employ_[employ_index]">
+			                                               <div class="row">
+		                                    <div class="col">
+		                                            <div class="card-header bg-white d-flex align-items-center">
+						                               <p><strong class="headings-color">Previous Employment</strong></p>
+						                                
+						                            </div>
+				                                    </div>
+				                                    </div>
+				                                    <div class="row">
+				                                       <div class="col">
+				                                            <div class="form-group">
+				                                                <label>Previous Employer</label><br/>
+				                                                <div name="p_company_name"></div>
+				                                            </div>
+					                                     </div>
+					                                     </div>
+					                                      <div class="row">
+					                                      <div class="col">
+				                                            <div class="form-group">
+				                                                <label>Job title</label><br/>
+				                                                <div name="p_job_title"></div>
+				                                            </div>
+				                                        </div>
+				                                        <div class="col">
+				                                            <div class="form-group">
+				                                                <label>Length of time with this employer</label><br/>
+				                                                <div name="p_time_stayed"></div>
+				                                            </div>
+				                                        </div>
+				                                        <!-- div class="d-flex ml-auto">
+				                                        	<div class="form-group">
+				                                        	<label></label>
+				                                    			<div style="display:none" onclick="RemoveEmploy('[employ_index]')" id="removeEmploy">
+				                                                <i class="material-icons">remove_circle_outline</i>
+				                                           		
+				                                           		</div>
+				                                           		</div>
+				                                		</div-->
+				                                    </div>
+				                                    </div>
+				                                    </div>
+			                                    </div>
+			                                  
+                                           
+                                    </#if>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <#if type!=2>
+                        <div class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">Property</strong></p>
+                                    <p class="text-muted">Edit the client detailed property information.</p>
+                                </div>
+                                <div class="col-lg-8 card-form__body card-body">
+                                	<div id="security">
+	                                	<div id="property">
+	                                	<div id="property_[property_index]">
+	                                		<div class="card-header bg-white d-flex align-items-center">
+				                               <p><strong class="headings-color">Property Information</strong></p>
+				                               
+				                            </div>
+		                                 	<div class="row">
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <label for="fname">Property Address</label><br/>
+		                                                <div name="security_property"></div>
+		                                        	</div>
+		                                        </div>
+		                                        
+		                                    </div>
+		                                    <div class="row">
+		                                       <div class="col">
+		                                            <div class="form-group">
+		                                                <label>Bank</label><br/>
+		                                                <div name="security_bank"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <label>Owner</label><br/>
+		                                                <div name="security_owner"></div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    <div class="row">
+		                                       <div class="col">
+		                                            <div class="form-group">
+		                                                <label>Property Type</label><br/>
+		                                                <div name="security_property_type"></div>
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <label>Use</label><br/>
+		                                                <div name="security_property_use"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <label>Value</label><br/>
+		                                                <div name="security_property_value"></div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+	                                    </div>
+                                    </div>
+                                    </div>
+                                   
+                                    
+                                   
+                                   
+                                    
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        </#if>
+                        <#if type!=2>
+                        <div class="card card-form">
+                            <div class="row no-gutters">
+                             
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">Loan Structure</strong></p>
+                                    <p class="text-muted">Edit the loan information.</p>
+                                    
+                                </div>
+                                
+                                <div class="col-lg-8 card-form__body card-body">
+                                <div id="loans">
+	                                	<div id="loan">
+	                                	<div id="loan_[node_index]">
+	                                	<div class="card-header bg-white d-flex align-items-center">
+                               <p><strong class="headings-color">Loan Information</strong></p>
+                                
+                            </div>
+                                	<div class="row">
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Bank</label><br/>
+                                                <div name="loan_bank"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Customer NO.</label><br/>
+                                                <div name="loan_customer_no"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                 	<div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Borrowing Entity</label><br/>
+                                                <div name="loan_borrowing_entity"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Loan Amount</label><br/>
+                                                <div name="loan_amount"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Loan Account NO.</label><br/>
+                                                <div name="loan_account_no"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                             <div class="form-group">
+		                                        <label for="loan_effective_date">Effective Date</label><br/>
+		                                        <div name="loan_effective_date"></div>
+		                                    </div>
+                                        </div>
+                                    </div>
+                                   <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Now Rate Period</label>
+                                               
+                                                <div name="loan_now_rate_period"></div>
+		                                           
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Review Date</label>
+                                                <div name="loan_review_date"></div>
+		                                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                   <div class="row">
+                                   		<div class="col">
+                                            <div class="form-group">
+                                                <label for="loan_interest_rate">Reminder Date</label>
+                                                <div name="loan_reminder_days"></div>
+                                            </div>
+                                        </div>
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label for="loan_interest_rate">Interest Rate</label>
+                                                <div name="loan_interest_rate"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                            <input type="hidden" class="form-control" name="task_id" value="" >
+                                                <label for="fname">Notes</label><br/>
+                                                <div name="loan_notes"></div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+			                                   
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                            </div>
+                            </div>
+                        </div>
+                        </#if>
+                        <#if type!=2>
+                        <div class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">Notes</strong></p>
+                                   
+                                </div>
+                                <div class="col-lg-8 card-form__body card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Description</label><br/>
+                                                ${(client.description)!}
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+
+                                </div>
+                                
+                                
+                            </div>
+                        </div>
+                        </#if>
+
+                        
+                        <div class="text-right mb-5">
+                        	<input type="hidden" id="clientid" value="${(client.id)!}">
+                        	<input type="hidden" id="oldtasks" value="">
+                        	<input type="hidden" id="type" value="${(type)!}">
+                        	<input type="hidden" id="iframe" value="${(iframe)!}">
+                        	<input type="hidden" id="tb" value="${(tb)!}">
+                        	<input type="hidden" id="ilay" value="${(ilay)!}">
+                        	 <input type="hidden" id="avatar_url" value="${(client.avatar)!}">
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- // END drawer-layout__content -->
+                <script>
+                var client_avatar = '${(client.avatar)!}';
+                function Remove(id){
+                	$('#loan_'+id).remove();
+                }
+                function RemoveEmploy(id){
+                	$('#employ_'+id).remove();
+                }
+                function RemoveCurEmploy(id){
+                	$('#curemploy_'+id).remove();
+                }
+                function RemoveProperty(id){
+                	$('#property_'+id).remove();
+                }
+                function RemoveMobile(id){
+                	$('#divmobile_'+id).remove();
+                }
+                function RemoveEmail(id){
+                	$('#divemail_'+id).remove();
+                }
+                function RemoveAddress(id){
+                	$('#divaddress_'+id).remove();
+                }
+                function d2sd(effective_date,months){
+                	//moment.locale('en-NZ'); 
+                	return moment(effective_date, "DD/MM/YYYY").add(months, 'months').format('DD/MM/YYYY');
+                }
+                String.prototype.replaceAll = function(search, replacement) {
+            	    var target = this;
+            	    return target.split(search).join(replacement);
+            	};
+                function parseDom(arg) {
+
+                	var objE = document.createElement("div");
+
+                	objE.innerHTML = "<div>"+arg+"</div>";
+
+                	return objE.childNodes;
+
+                }
+function CalReview(node_index){
+	
+	if(node_index=='[node_index]'){
+		var effective_date = $('#loan_effective_date_0').val();
+		if(effective_date!=''){
+			var months = $('#loan_now_rate_period_0').val();
+			$('#loan_review_date_0').val(d2sd(effective_date,months));
+		}
+		else{
+			$('#loan_review_date_0').val('');
+		}
+	}
+	else{
+		var effective_date = $('#loan_effective_date_'+node_index).val();
+		if(effective_date!=''){
+			var months = $('#loan_now_rate_period_'+node_index).val();
+			$('#loan_review_date_'+node_index).val(d2sd(effective_date,months));
+		}
+		else{
+			$('#loan_review_date_'+node_index).val('');
+		}
+	}
+		
+}
+                $(function () { 
+                	function copyNode(nodeid){
+                		var node_index = document.getElementsByName("loan_effective_date").length;
+                		var property_index = document.getElementsByName("security_property").length;
+                		var curemploy_index = document.getElementsByName("curcompany").length;
+                		var employ_index = document.getElementsByName("p_company_name").length;
+                		
+                		var mobile_index = document.getElementsByName("mobile").length;
+                		var email_index = document.getElementsByName("email").length;
+                		var address_index = document.getElementsByName("address").length;
+                		var sourceNode = document.getElementById(nodeid); // 获得被克隆的节点对象 
+                		var clonedNode = sourceNode.cloneNode(true); // 克隆节点 
+                		//console.log(sourceNode.innerHTML)
+                		//console.log('--------------------')
+                		$node = $(clonedNode);
+                		$node.find('button[id="bt_mobile"]').css("display","block");
+                		$node.find('div[id="divmobile"]').attr("id","divmobile_"+mobile_index);
+                		$node.find('button[id="bt_email"]').css("display","block");
+                		$node.find('div[id="divemail"]').attr("id","divemail_"+email_index);
+                		$node.find('button[id="bt_address"]').css("display","block");
+                		$node.find('div[id="divaddress"]').attr("id","divaddress_"+address_index);
+                		$node.find('div[id="removeloan"]').css("display","block");
+                		$node.find('div[id="removeProperty"]').css("display","block");
+                		$node.find('div[id="removeEmploy"]').css("display","block");
+                		$node.find('div[id="removeCurEmploy"]').css("display","block");
+                		$node.find('input[name="loan_effective_date"]').attr("id","loan_effective_date_"+node_index);
+                		$node.find('select[name="loan_now_rate_period"]').attr("id","loan_now_rate_period_"+node_index);
+                		$node.find('input[name="loan_review_date"]').attr("id","loan_review_date_"+node_index);
+                		$node.find('input[name="task_id"]').val(0);
+                		var html = $node.html().replaceAll('[node_index]',node_index);  
+                		html = html.replaceAll('[property_index]',property_index);  
+                		html = html.replaceAll('[curemploy_index]',curemploy_index);  
+                		html = html.replaceAll('[employ_index]',employ_index);  
+                		html = html.replaceAll('[mobile_index]',mobile_index);  
+                		html = html.replaceAll('[email_index]',email_index); 
+                		html = html.replaceAll('[address_index]',address_index); 
+                		//console.log(html)
+                		var newnode = parseDom(html);
+                		sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点 
+                	}
+                	$("#edit_avatar").on('click',function(e){
+                		var url = '/add_avatar3?url='+client_avatar;
+                		layer.open({
+                			type: 2,
+                			title: 'Edit client avatar',
+                			fixed: false, //不固定
+                			maxmin: true,
+                		    shadeClose: true, //点击遮罩关闭层
+                			area: ['60%', '85%'],
+                			content: url ,
+                			success:function(layero,index){
+                	        },
+                	        end:function(){
+                	        	document.getElementById('iframe_avatar').contentWindow.document.getElementById('profile-pic').src=$('#avatar_url').val();
+                	        	//alert($('#avatar_url').val());
+                	        }
+                		});
+                	});
+                	$("#add_mobile").on('click',function(e){
+                		//$('#mobiles').append($('#inputmobile').html());
+                		copyNode("inputmobile");
+                	});
+                	$("#add_email").on('click',function(e){
+                		copyNode("inputemail");
+                	});
+                	$("#add_address").on('click',function(e){
+                		copyNode("inputaddress");
+                	});
+                	$("#addloan").on('click',function(e){
+                		copyNode("loan");
+                	});
+                	
+                	$("#add_curemploy").on('click',function(e){
+                		copyNode("curemploy");
+                	});
+                	$("#addnew").on('click',function(e){
+                		copyNode("employ");
+                	});
+                	$("#addproperty").on('click',function(e){
+                		copyNode("property");
+                	});
+                	
+                	if('${method}'=='view'){
+                		var arr = JSON.parse('${(client.personal_email)!}');
+                		var email = arr.join("<br/>");
+                		$('#divemail').html(email);
+                		
+                		var mobilesArr = JSON.parse('${(client.mobile)!}');
+                		var mobiles = mobilesArr.join("<br/>");
+                		$('#mobiles').html(mobiles);
+                		
+                		var addressesarr = JSON.parse('${(client.address)!}');
+                		var addresses = addressesarr.join("<br/>");
+                		$('#addresses').html(addresses);
+                		
+                		var dependants_age = String(JSON.parse('${(client.dependants_age)!}'));
+                		$('#dependants_age').html(dependants_age);
+                		
+                		var source_of_income = String(JSON.parse('${(client.source_of_income)!}'));
+                		$('#source_of_income').html(source_of_income);
+                		
+                		var curemployment = '${(client.current_employment)!}';
+	                	if(curemployment!=''){
+		                	var curemploymentArray = JSON.parse(curemployment);
+		                	for(var i=1;i<curemploymentArray.length;i++){
+		                		copyNode("curemploy");
+		                	}
+		                	var curcompany = document.getElementsByName("curcompany");
+		    				var curoccupation = document.getElementsByName("curoccupation");
+		    				var curduration = document.getElementsByName("curduration");
+		    				for(var i=0;i<curemploymentArray.length;i++){
+		    					curcompany[i].innerHTML=curemploymentArray[i]['curcompany'];
+		    					curoccupation[i].innerHTML=curemploymentArray[i]['curoccupation'];
+		    					curduration[i].innerHTML=curemploymentArray[i]['curduration'];
+		    				}  
+	                	} 
+	                	
+	                	var employment = '${(client.previous_employment)!}';
+	                	if(employment!=''){
+		                	var employmentArray = JSON.parse(employment);
+		                	for(var i=1;i<employmentArray.length;i++){
+		                		copyNode("employ");
+		                	}
+		                	var p_company_name = document.getElementsByName("p_company_name");
+		    				var p_time_stayed = document.getElementsByName("p_time_stayed");
+		    				var p_job_title = document.getElementsByName("p_job_title");
+		    				for(var i=0;i<employmentArray.length;i++){
+		    					p_company_name[i].innerHTML=employmentArray[i]['company_name'];
+		    					p_time_stayed[i].innerHTML=employmentArray[i]['time_stayed'];
+		    					p_job_title[i].innerHTML=employmentArray[i]['job_title'];
+		    				}  
+	                	} 
+	                	var property = '${(client.property)!}';
+	                	if(property!=''){
+		                	var propertyArray = JSON.parse(property);
+		                	for(var i=1;i<propertyArray.length;i++){
+		                		copyNode("property");
+		                	}
+		                	var security_property = document.getElementsByName("security_property");
+		                	var security_bank = document.getElementsByName("security_bank");
+		                	var security_owner = document.getElementsByName("security_owner");
+		    				var security_property_type = document.getElementsByName("security_property_type");
+		    				var security_property_use = document.getElementsByName("security_property_use");
+		    				var security_property_value = document.getElementsByName("security_property_value");
+		    				for(var i=0;i<propertyArray.length;i++){
+		    					security_property[i].innerHTML=propertyArray[i]['property'];
+		    					security_bank[i].innerHTML=propertyArray[i]['bank'];
+		    					security_owner[i].innerHTML=propertyArray[i]['owner'];
+		    					security_property_type[i].innerHTML=propertyArray[i]['property_type'];
+		    					security_property_use[i].innerHTML=propertyArray[i]['use'];
+		    					security_property_value[i].innerHTML=propertyArray[i]['value'];
+		    				}  
+	                	} 
+	                	
+	                	var loan = '${(client.loan)!}';
+	                	
+	                	var oldTaskIdsArr = new Array();
+	                	if(loan!=''){
+	                		
+		                	var loanArray = JSON.parse(loan);
+		                	for(var i=1;i<loanArray.length;i++){
+		                		copyNode("loan");
+		                	}
+		                	
+		                	var loan_bank = document.getElementsByName("loan_bank");
+		    				var loan_customer_no = document.getElementsByName("loan_customer_no");
+		    				var loan_borrowing_entity = document.getElementsByName("loan_borrowing_entity");
+		    				var loan_amount = document.getElementsByName("loan_amount");
+		    				var loan_account_no = document.getElementsByName("loan_account_no");
+		    				var loan_effective_date = document.getElementsByName("loan_effective_date");
+		    				var loan_now_rate_period = document.getElementsByName("loan_now_rate_period");
+		    				var loan_review_date = document.getElementsByName("loan_review_date");
+		    				var loan_reminder_days = document.getElementsByName("loan_reminder_days");
+		    				var loan_interest_rate = document.getElementsByName("loan_interest_rate");
+		    				var loan_notes = document.getElementsByName("loan_notes");
+		    				var task_id = document.getElementsByName("task_id");
+		    				
+		    				var map = new Map();
+		    				map.set("6","6 months");
+		    				map.set("12","1 year");
+		    				map.set("12","18 months");
+		    				map.set("24","2 years");
+		    				map.set("36","3 years");
+		    				map.set("48","4 years");
+		    				map.set("60","5 years");
+		    				var reminder_days = new Map();
+		    				reminder_days.set("30","1 months before Review Date");
+		    				reminder_days.set("21","3 weeks before Review Date");
+		    				reminder_days.set("14","2 weeks before Review Date");
+		    				reminder_days.set("7","1 week before Review Date");
+		    				for(var i=0;i<loanArray.length;i++){
+		    					loan_bank[i].innerHTML=loanArray[i]['loan_bank'];
+		    					loan_customer_no[i].innerHTML=loanArray[i]['loan_customer_no'];
+		    					loan_borrowing_entity[i].innerHTML=loanArray[i]['loan_borrowing_entity'];
+		    					loan_amount[i].innerHTML=loanArray[i]['loan_amount'];
+		    					loan_account_no[i].innerHTML=loanArray[i]['loan_account_no'];
+		    					loan_effective_date[i].innerHTML=loanArray[i]['loan_effective_date'];
+		    					loan_now_rate_period[i].innerHTML=map.get(loanArray[i]['loan_now_rate_period']);
+		    					loan_review_date[i].innerHTML=loanArray[i]['loan_review_date'];
+		    					loan_reminder_days[i].innerHTML=reminder_days.get(loanArray[i]['loan_reminder_days']);
+		    					loan_interest_rate[i].innerHTML=loanArray[i]['loan_interest_rate'];
+		    					loan_notes[i].innerHTML=loanArray[i]['loan_notes'];
+		    					task_id[i].innerHTML=loanArray[i]['task_id'];
+		    					oldTaskIdsArr.push(loanArray[i]['task_id']);
+		    				}  
+		    				if(oldTaskIdsArr.length>0)
+		                		$('#oldtasks').val(String(oldTaskIdsArr));
+	                	} 
+                		
+                	}
+                	if('${method}'=='edit'){
+	                	var gender = '${(client.gender)!}';
+	                	$('#gender').val(gender).trigger('change');
+	                	var residency_nz = '${(client.residency_nz)!}';
+	                	$('#residency_nz').val(residency_nz).trigger('change');
+	                	var marital_status = '${(client.marital_status)!}';
+	                	$('#marital_status').val(marital_status).trigger('change');
+	                	var current_living_situation = '${(client.current_living_situation)!}';
+	                	$('#current_living_situation').val(current_living_situation).trigger('change');
+	                	
+	                	var source_of_income = '${(client.source_of_income)!}';
+	                	$('#source_of_income').val(source_of_income).trigger('change');
+	                	var ages = '${(client.dependants_age)!}';
+	                	if(ages!=''){
+		                	var ageArray = JSON.parse(ages);
+		                	var names = document.getElementsByName("dependants_age");
+		    				for(var i=0;i<ageArray.length;i++){
+		    					names[i].value=ageArray[i];
+		    				} 
+		                	
+	                	} 
+	                	
+	                	var mobiles = '${(client.mobile)!}';
+	                	if(mobiles!=''){
+		                	var mobileArray = JSON.parse(mobiles);
+		                	for(var i=1;i<mobileArray.length;i++){
+		                		copyNode("inputmobile");
+		                	}
+		                	var mobile = document.getElementsByName("mobile");
+		    				for(var i=0;i<mobileArray.length;i++){
+		    					mobile[i].value=mobileArray[i];
+		    				}  
+	                	} 
+	                	
+	                	var emails = '${(client.personal_email)!}';
+	                	if(emails!=''){
+		                	var emailArray = JSON.parse(emails);
+		                	for(var i=1;i<emailArray.length;i++){
+		                		copyNode("inputemail");
+		                	}
+		                	var email = document.getElementsByName("email");
+		    				for(var i=0;i<emailArray.length;i++){
+		    					email[i].value=emailArray[i];
+		    				}  
+	                	} 
+	                	var addresses = '${(client.address)!}';
+	                	if(addresses!=''){
+		                	var addressArray = JSON.parse(addresses);
+		                	for(var i=1;i<addressArray.length;i++){
+		                		copyNode("inputaddress");
+		                	}
+		                	var address = document.getElementsByName("address");
+		    				for(var i=0;i<addressArray.length;i++){
+		    					address[i].value=addressArray[i];
+		    				}  
+	                	} 
+	                	
+	                	var curemployment = '${(client.current_employment)!}';
+	                	if(curemployment!=''){
+		                	var curemploymentArray = JSON.parse(curemployment);
+		                	for(var i=1;i<curemploymentArray.length;i++){
+		                		copyNode("curemploy");
+		                	}
+		                	var curcompany = document.getElementsByName("curcompany");
+		    				var curoccupation = document.getElementsByName("curoccupation");
+		    				var curduration = document.getElementsByName("curduration");
+		    				for(var i=0;i<curemploymentArray.length;i++){
+		    					curcompany[i].value=curemploymentArray[i]['curcompany'];
+		    					curoccupation[i].value=curemploymentArray[i]['curoccupation'];
+		    					curduration[i].value=curemploymentArray[i]['curduration'];
+		    				}  
+	                	} 
+	                	
+	                	var employment = '${(client.previous_employment)!}';
+	                	if(employment!=''){
+		                	var employmentArray = JSON.parse(employment);
+		                	for(var i=1;i<employmentArray.length;i++){
+		                		copyNode("employ");
+		                	}
+		                	var p_company_name = document.getElementsByName("p_company_name");
+		    				var p_time_stayed = document.getElementsByName("p_time_stayed");
+		    				var p_job_title = document.getElementsByName("p_job_title");
+		    				for(var i=0;i<employmentArray.length;i++){
+		    					p_company_name[i].value=employmentArray[i]['company_name'];
+		    					p_time_stayed[i].value=employmentArray[i]['time_stayed'];
+		    					p_job_title[i].value=employmentArray[i]['job_title'];
+		    				}  
+	                	} 
+	                	
+	                	var property = '${(client.property)!}';
+	                	if(property!=''){
+		                	var propertyArray = JSON.parse(property);
+		                	for(var i=1;i<propertyArray.length;i++){
+		                		copyNode("property");
+		                	}
+		                	var security_property = document.getElementsByName("security_property");
+		                	var security_bank = document.getElementsByName("security_bank");
+		                	var security_owner = document.getElementsByName("security_owner");
+		    				var security_property_type = document.getElementsByName("security_property_type");
+		    				var security_property_use = document.getElementsByName("security_property_use");
+		    				var security_property_value = document.getElementsByName("security_property_value");
+		    				for(var i=0;i<propertyArray.length;i++){
+		    					security_property[i].value=propertyArray[i]['property'];
+		    					security_bank[i].value=propertyArray[i]['bank'];
+		    					security_owner[i].value=propertyArray[i]['owner'];
+		    					security_property_type[i].value=propertyArray[i]['property_type'];
+		    					security_property_use[i].value=propertyArray[i]['use'];
+		    					security_property_value[i].value=propertyArray[i]['value'];
+		    				}  
+	                	} 
+	                	
+	                	var loan = '${(client.loan)!}';
+	                	var oldTaskIdsArr = new Array();
+	                	if(loan!=''){
+		                	var loanArray = JSON.parse(loan);
+		                	for(var i=1;i<loanArray.length;i++){
+		                		copyNode("loan");
+		                	}
+		                	var loan_bank = document.getElementsByName("loan_bank");
+		    				var loan_customer_no = document.getElementsByName("loan_customer_no");
+		    				var loan_borrowing_entity = document.getElementsByName("loan_borrowing_entity");
+		    				var loan_amount = document.getElementsByName("loan_amount");
+		    				var loan_account_no = document.getElementsByName("loan_account_no");
+		    				var loan_effective_date = document.getElementsByName("loan_effective_date");
+		    				var loan_now_rate_period = document.getElementsByName("loan_now_rate_period");
+		    				var loan_review_date = document.getElementsByName("loan_review_date");
+		    				var loan_reminder_days = document.getElementsByName("loan_reminder_days");
+		    				var loan_interest_rate = document.getElementsByName("loan_interest_rate");
+		    				var loan_notes = document.getElementsByName("loan_notes");
+		    				var task_id = document.getElementsByName("task_id");
+		    				for(var i=0;i<loanArray.length;i++){
+		    					loan_bank[i].value=loanArray[i]['loan_bank'];
+		    					loan_customer_no[i].value=loanArray[i]['loan_customer_no'];
+		    					loan_borrowing_entity[i].value=loanArray[i]['loan_borrowing_entity'];
+		    					loan_amount[i].value=loanArray[i]['loan_amount'];
+		    					loan_account_no[i].value=loanArray[i]['loan_account_no'];
+		    					loan_effective_date[i].value=loanArray[i]['loan_effective_date'];
+		    					loan_now_rate_period[i].value=loanArray[i]['loan_now_rate_period'];
+		    					loan_review_date[i].value=loanArray[i]['loan_review_date'];
+		    					loan_reminder_days[i].value=loanArray[i]['loan_reminder_days'];
+		    					loan_interest_rate[i].value=loanArray[i]['loan_interest_rate'];
+		    					loan_notes[i].value=loanArray[i]['loan_notes'];
+		    					task_id[i].value=loanArray[i]['task_id'];
+		    					oldTaskIdsArr.push(loanArray[i]['task_id']);
+		    				}  
+		    				if(oldTaskIdsArr.length>0)
+		                		$('#oldtasks').val(String(oldTaskIdsArr));
+	                	} 
+                	}
+                })
+                //jQuery(function($){
+                	
+                //});
+function SaveClient(method){
+				var title=$('#title').val();
+				var gender=$('#gender').val();
+				var first_name=$('#first_name').val();
+				var last_name=$('#last_name').val();
+				var prefered_name=$('#prefered_name').val();
+				var birthday = $('#birthday').val();
+				var work_phone=$('#work_phone').val();
+				var description=$('#description').val();
+				var mobileArr=[];
+		        $("input[name='mobile']").each(function(){
+		        	mobileArr.push($(this).val());
+		        })
+		        var mobile = JSON.stringify(mobileArr);
+		        
+		        var emailArr=[];
+		        $("input[name='email']").each(function(){
+		        	emailArr.push($(this).val());
+		        })
+		        var email = JSON.stringify(emailArr);
+		        
+		        var addressArr=[];
+		        $("input[name='address']").each(function(){
+		        	addressArr.push($(this).val());
+		        })
+		        var address = JSON.stringify(addressArr);
+		        
+				var home_phone=$('#home_phone').val();
+				var wechat=$('#wechat').val();
+				
+				var work_email=$('#work_email').val();
+				var comments=$('#comments').val();
+				var clientid=$('#clientid').val();
+				var oldtasks=$('#oldtasks').val();
+				//var avatar=document.getElementById('iframe_avatar').contentWindow.document.getElementById('avatar_url').value;
+				var avatar = $('#avatar_url').val();
+				var type=$('#type').val();
+				var ilay=$('#ilay').val();
+				var iframe=$('#iframe').val();
+				var tb=$('#tb').val();
+				var url = "/client/";
+				if(method=='add')url+="save";
+				else url+="update";
+				
+				//var dependants_age = $('#dependants_age').val();
+				var ageArray = new Array();
+				var names = document.getElementsByName("dependants_age");
+				
+				for(var i=0;i<names.length;i++){
+				//alert(names[i].value); //这个值就是你要的
+					if(names[i].value!='')
+						ageArray.push(names[i].value);
+				} 
+				//alert(ageArray);
+				var jsonStr = JSON.stringify( ageArray );
+				
+				
+				
+				var dependants_number=$('#dependants_number').val();
+				var residency_nz=$('#residency_nz').val();
+				var marital_status=$('#marital_status').val();
+				var current_residential_address=$('#current_residential_address').val();
+				var time_stayed_years=$('#time_stayed_years').val();
+				var time_stayed_months=$('#time_stayed_months').val();
+				var previous_residential_address=$('#previous_residential_address').val();
+				var p_time_stayed_years=$('#p_time_stayed_years').val();
+				var p_time_stayed_months=$('#p_time_stayed_months').val();
+				var postal_address=$('#postal_address').val();
+				var current_living_situation=$('#current_living_situation').val();
+				
+				var source_of_income=$('#source_of_income').val();
+				var occupation=$('#occupation').val();
+				var company=$('#company').val();
+				var duration=$('#duration').val();
+				var gross_income=$('#gross_income').val();
+				
+				var curemployArray = new Array();
+				var curcompany = document.getElementsByName("curcompany");
+				var curoccupation = document.getElementsByName("curoccupation");
+				var curduration = document.getElementsByName("curduration");
+				for(var i=0;i<curcompany.length;i++){
+					if(curcompany[i].value!=''){
+						curemployArray.push({"curcompany":curcompany[i].value,
+							"curoccupation":curoccupation[i].value
+							,"curduration":curduration[i].value});
+					}
+				} 
+				var jsonCurEmploy = JSON.stringify( curemployArray );
+				
+				var employArray = new Array();
+				var p_company_name = document.getElementsByName("p_company_name");
+				var p_time_stayed = document.getElementsByName("p_time_stayed");
+				var p_job_title = document.getElementsByName("p_job_title");
+				for(var i=0;i<p_company_name.length;i++){
+					if(p_company_name[i].value!=''){
+						employArray.push({"company_name":p_company_name[i].value,
+							"time_stayed":p_time_stayed[i].value,
+							"job_title":p_job_title[i].value});
+					}
+				} 
+				//alert(employArray);
+				var jsonEmploy = JSON.stringify( employArray );
+				//alert(jsonEmploy);
+				
+				var propertyArray = new Array();
+				var security_property = document.getElementsByName("security_property");
+				var security_bank = document.getElementsByName("security_bank");
+				var security_owner = document.getElementsByName("security_owner");
+				var security_property_type = document.getElementsByName("security_property_type");
+				var security_property_use = document.getElementsByName("security_property_use");
+				var security_property_value = document.getElementsByName("security_property_value");
+				for(var i=0;i<security_property.length;i++){
+					if(security_property[i].value!=''){
+						propertyArray.push({"property":security_property[i].value,"bank":security_bank[i].value,
+							"owner":security_owner[i].value,"property_type":security_property_type[i].value,
+							"use":security_property_use[i].value,"value":security_property_value[i].value});
+					}
+				} 
+				var jsonProperty = JSON.stringify( propertyArray );
+				
+				
+				var loanArray = new Array();
+				var loan_bank = document.getElementsByName("loan_bank");
+				var loan_customer_no = document.getElementsByName("loan_customer_no");
+				var loan_borrowing_entity = document.getElementsByName("loan_borrowing_entity");
+				var loan_amount = document.getElementsByName("loan_amount");
+				var loan_account_no = document.getElementsByName("loan_account_no");
+				var loan_effective_date = document.getElementsByName("loan_effective_date");
+				var loan_now_rate_period = document.getElementsByName("loan_now_rate_period");
+				var loan_review_date = document.getElementsByName("loan_review_date");
+				var loan_reminder_days = document.getElementsByName("loan_reminder_days");
+				var loan_interest_rate = document.getElementsByName("loan_interest_rate");
+				var loan_notes = document.getElementsByName("loan_notes");
+				var task_id = document.getElementsByName("task_id");
+				var newtasks = new Array();
+				for(var i=0;i<loan_bank.length;i++){
+					if(loan_bank[i].value!=''){
+						loanArray.push({"loan_bank":loan_bank[i].value,"loan_customer_no":loan_customer_no[i].value,
+							"loan_borrowing_entity":loan_borrowing_entity[i].value,"loan_amount":loan_amount[i].value,
+							"loan_account_no":loan_account_no[i].value,"loan_effective_date":loan_effective_date[i].value,
+							"loan_now_rate_period":loan_now_rate_period[i].value,"loan_review_date":loan_review_date[i].value,
+							"loan_reminder_days":loan_reminder_days[i].value,"loan_interest_rate":loan_interest_rate[i].value,
+							"loan_notes":loan_notes[i].value,"task_id":task_id[i].value});
+						newtasks.push(task_id[i].value);
+					}
+				} 
+				var jsonLoan = JSON.stringify( loanArray );
+				
+				var oldstr = $('#oldtasks').val();
+				var delset = new Set();
+				if(oldstr!=''){
+					var old = oldstr.split(",");
+					var oldset = new Set(old);
+	 				var newset = new Set(newtasks);
+	 				
+		
+	 				for (var x of oldset) {
+	 					if(newset.has(x)){
+	 					}
+	 					else{
+	 						delset.add(x);
+	 					}
+	 				}
+				}
+ 				var deltasks ='';
+ 				if(delset.size>0){
+ 					deltasks =  String(Array.from(delset));
+ 				}
+				
+				$.post(url, {"client.id":clientid,"client.avatar":avatar,"client.type":type,"client.title":title,"client.gender":gender,
+					"client.first_name":first_name,"client.last_name":last_name,"client.prefered_name":prefered_name,
+					"birthday":birthday,"client.work_phone":work_phone,
+					"client.mobile":mobile,"client.address":address,
+					"client.home_phone":home_phone,"client.wechat":wechat,
+					"client.personal_email":email,"client.work_email":work_email,
+					"client.comments":comments,"client.dependants_number":dependants_number,"client.dependants_age":jsonStr,
+					"client.residency_nz":residency_nz,
+					"client.marital_status":marital_status,"client.current_residential_address":current_residential_address,
+					"client.time_stayed_years":time_stayed_years,"client.time_stayed_months":time_stayed_months,
+					"client.previous_residential_address":previous_residential_address,
+					"client.p_time_stayed_years":p_time_stayed_years,"client.p_time_stayed_months":p_time_stayed_months,
+					"client.postal_address":postal_address,"client.current_living_situation":current_living_situation,
+					"client.source_of_income":source_of_income,
+					"client.occupation":occupation,"client.company":company,
+					"client.duration":duration,"client.gross_income":gross_income,
+					"client.current_employment":jsonCurEmploy,
+					"client.previous_employment":jsonEmploy,
+					"client.property":jsonProperty,
+					"client.description":description,
+					"client.loan":jsonLoan,"oldtasks":oldtasks,"deltasks":deltasks}, function(data) {
+					if(data.code==1){
+					 	mlayer.open({
+						    content: 'Fail',
+						    btn: 'Got it'
+						  });
+						return false;
+					}
+					else{ 
+						//sessionStorage.setItem("fynco_email", vemail); 
+						if(ilay==0){
+							mlayer.open({
+							    content: 'Success',
+							    btn: 'Got it',
+							    yes: function(){
+							    	location.href="/client";
+							      }
+							  }); 
+						}
+						else{
+							if(iframe==0){
+								var a = parent.$("#app_ids").val();
+								var b = new Array();
+								b.push(data.id);
+					 			if(a==''){
+					 				//alert("b:"+String(b));
+					 				var s = String(b);
+					 				parent.$("#minus_ids").val(b);
+					 				parent.$("#app_ids").val(s);
+					 			}
+					 			else{
+					 				var union = a.split(",");
+					 				var unionset = new Set(union);
+					 				var addset = new Set(b);
+
+					 				for (var x of addset) {
+					 					if(unionset.has(x)){
+					 						addset.delete(x);
+					 					}
+					 					else{
+					 						unionset.add(x);
+					 					}
+					 				}
+
+									let minus = Array.from(addset);
+									union = Array.from(unionset);
+						 				
+					 				parent.$("#minus_ids").val(minus);
+					 				parent.$("#app_ids").val(String(union));
+					 				//alert("minus:"+minus)
+					 				//alert(union)
+					 			}
+								
+								
+								
+								
+								
+								
+								
+								
+								var index = parent.layer.getFrameIndex(window.name);
+								/* if(parent.$("#app_ids").val()==''){
+									parent.$("#app_ids").val(data.id);
+								}
+								else{
+									var ids = new Set(parent.$("#app_ids").val().split(','));
+									ids.add(data.id);
+									parent.$("#app_ids").val(String(Array.from(ids)));
+								} */
+								
+								//alert(parent.$("#app_ids").val());
+					 	        parent.layer.close(index);
+							}
+							else if(iframe==1){
+								mlayer.open({
+								    content: 'Success',
+								    btn: 'Got it',
+								    yes: function(){
+								    	mlayer.closeAll();
+								    	parent.window.NewApplicantSucc(data.id,tb);
+								    	
+								      }
+								  });
+							}
+						}
+					}
+					return false;
+				}, "json"); 
+				return false;
+	
+
+}
+</script>
+</@layout>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>北京京诚智合科技有限公司</title>
+    <link href="/f/css/1.css"rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/f/js/jquery-1.js"></script>
+    <script src="/f/js/wk_inc.js" language="javascript"></script>
+</head>
+<style>
+.word_01 img{margin-left:0}
+</style>
+<body>
+<div class="top fn-clear">
+    <#include "../include/header.html"/>
+</div>
+<div class="main_cnt02">
+    <div class="content fn-clear">
+        <div class="location"><a href="/" title="首页" class="home">首页</a><a href="/jjfa" title="解决方案"><span>解决方案</span></a> </div>
+        <div class="content_main">
+            <div class="content_left">
+                <#include "../include/jjfa_left.html"/>
+            </div>
+            <div class="content_right">
+            <@cms_content_list typeId='1' count='10' orderBy='8' channelOption='2' channelId='211'>
+            	<#list tag_list as a>
+	                <div id="ydyyjjfa${(a.id)!}">
+	                <h1>${(a.title)!}</h1>
+	                ${a.txt!}
+                
+<!--	                <@cms_content_list typeId='1' count='10' orderBy='2' channelOption='1' channelId='200' append='...' dateFormat='MM-dd' excludeId=content.id>-->
+<!--	                <#if tag_list?? && tag_list?size gt 0>-->
+<!--	                <h2 class="h_title">产品应用与服务</h2>-->
+<!--	                <ul class="list_slide">-->
+<!--	    				<#list tag_list as a>-->
+<!--	           				<li>-->
+<!--	                        <a href="/${a.path}-${a.id}" title="${(a.title)!}"><@text_cut s=a.title len='40' append=append/></a>-->
+<!--	                        <p><@text_cut s=txt len='100' append=append/></p>-->
+<!--	                    </li>-->
+<!--	        			</#list>-->
+<!--	                </ul>-->
+<!--	                </#if>-->
+<!--	                </@cms_content_list>-->
+	            	</div>
+	            	<br/>
+            	</#list>
+            </@cms_content_list>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer fn-clear">
+    <#include "../include/footer.html"/>
+</div>
+</body>
+</html>

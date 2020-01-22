@@ -1,0 +1,404 @@
+<#macro layout>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Fynco CRM</title>
+
+    <!-- Prevent the demo from appearing in search engines -->
+    <meta name="robots" content="noindex">
+
+    <!-- Simplebar -->
+    <link type="text/css" href="/t/assets/vendor/simplebar.min.css" rel="stylesheet">
+
+    <!-- App CSS -->
+    <link type="text/css" href="/t/assets/css/app.css" rel="stylesheet">
+    <link type="text/css" href="/t/assets/css/app.rtl.css" rel="stylesheet">
+
+    <!-- Material Design Icons -->
+    <link type="text/css" href="/t/assets/css/vendor-material-icons.css" rel="stylesheet">
+    <link type="text/css" href="/t/assets/css/vendor-material-icons.rtl.css" rel="stylesheet">
+
+    <!-- Font Awesome FREE Icons -->
+    <link type="text/css" href="/t/assets/css/vendor-fontawesome-free.css" rel="stylesheet">
+    <link type="text/css" href="/t/assets/css/vendor-fontawesome-free.rtl.css" rel="stylesheet">
+
+    <!-- Flatpickr -->
+    <link type="text/css" href="/t/assets/css/vendor-flatpickr.css" rel="stylesheet">
+    <link type="text/css" href="/t/assets/css/vendor-flatpickr.rtl.css" rel="stylesheet">
+    <link type="text/css" href="/t/assets/css/vendor-flatpickr-airbnb.css" rel="stylesheet">
+    <link type="text/css" href="/t/assets/css/vendor-flatpickr-airbnb.rtl.css" rel="stylesheet">
+
+    <!-- Vector Maps -->
+    <link type="text/css" href="/t/assets/vendor/jqvmap/jqvmap.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="/cj/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/cj/croppie.min.css">
+
+<style type="text/css">
+.nounderline, .violet{
+    color: #7c4dff !important;
+}
+.btn-dark {
+    background-color: #7c4dff !important;
+    border-color: #7c4dff !important;
+}
+.btn-dark .file-upload {
+    width: 100%;
+    padding: 10px 0px;
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+.profile-img img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}    
+</style>
+
+
+
+
+
+
+	 <!-- jQuery -->
+    <script src="/t/assets/vendor/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="/t/assets/vendor/popper.min.js"></script>
+    <script src="/t/assets/vendor/bootstrap.min.js"></script>
+
+    <!-- Simplebar -->
+    <script src="/t/assets/vendor/simplebar.min.js"></script>
+
+    <!-- DOM Factory -->
+    <script src="/t/assets/vendor/dom-factory.js"></script>
+
+    <!-- MDK -->
+    <script src="/t/assets/vendor/material-design-kit.js"></script>
+
+    <!-- App -->
+    <script src="/t/assets/js/toggle-check-all.js"></script>
+    <script src="/t/assets/js/check-selected-row.js"></script>
+    <script src="/t/assets/js/dropdown.js"></script>
+    <script src="/t/assets/js/sidebar-mini.js"></script>
+    <script src="/t/assets/js/app.js"></script>
+
+    <!-- App Settings (safe to remove) -->
+    <script src="/t/assets/js/app-settings.js"></script>
+
+
+
+    <!-- Flatpickr -->
+    <script src="/t/assets/vendor/flatpickr/flatpickr.min.js"></script>
+    <script src="/t/assets/js/flatpickr.js"></script>
+
+    <!-- Global Settings -->
+    <script src="/t/assets/js/settings.js"></script>
+
+
+    <!-- Vector Maps -->
+    <script src="/t/assets/vendor/jqvmap/jquery.vmap.min.js"></script>
+    <script src="/t/assets/vendor/jqvmap/maps/jquery.vmap.world.js"></script>
+    <script src="/t/assets/js/vector-maps.js"></script>
+    
+    <!-- Fynco -->
+    <script src="/f/assets/js/md5.min.js"></script>
+	<script src="/f/assets/js/base64.min.js"></script>
+	<script src="/f/assets/js/layer.js"></script>
+	<script src="/f/assets/js/js.cookie.min.js"></script>
+	<script src="/f/assets/js/fynco.js"></script>
+	
+	
+
+	
+
+</head>
+
+<body class="layout-default">
+
+
+    <div class="preloader"></div>
+
+    <!-- Header Layout -->
+    <div class="mdk-header-layout js-mdk-header-layout">
+
+        <!-- Header -->
+
+        <div id="header" class="mdk-header js-mdk-header m-0" data-fixed>
+            <div class="mdk-header__content">
+
+                <div class="navbar navbar-expand-sm navbar-main navbar-dark bg-dark  pr-0" id="navbar" data-primary>
+                    <div class="container-fluid p-0">
+
+                        <!-- Navbar toggler -->
+
+                        <button class="navbar-toggler navbar-toggler-right d-block d-md-none" type="button" data-toggle="sidebar">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+
+                        <!-- Navbar Brand -->
+                        <a href="/" class="navbar-brand ">
+                            <img class="navbar-brand-icon" src="/t/assets/images/stack-logo-white.svg" width="22" alt="Stack">
+                            <span>Fynco CRM</span>
+                        </a>
+
+
+
+
+                        
+
+
+                        <ul class="nav navbar-nav ml-auto d-none d-md-flex">
+                            
+                            <li class="nav-item dropdown">
+                                <a href="#notifications_menu" class="nav-link dropdown-toggle" data-toggle="dropdown" data-caret="false">
+                                    <i class="material-icons nav-icon navbar-notifications-indicator">notifications</i>
+                                </a>
+                                <div id="notifications_menu" class="dropdown-menu dropdown-menu-right navbar-notifications-menu">
+                                    <div class="dropdown-item d-flex align-items-center py-2">
+                                        <span class="flex navbar-notifications-menu__title m-0">Notifications</span>
+                                        
+                                    </div>
+                                    <div class="navbar-notifications-menu__content" data-simplebar>
+                                        <div class="py-2">
+								<#list ns as n>
+                                            <div class="dropdown-item d-flex">
+                                                <div class="mr-3">
+                                                    <div class="avatar avatar-sm" style="width: 32px; height: 32px;">
+                                                        <img src="${n.avatar!}" alt="Avatar" class="avatar-img rounded-circle">
+                                                    </div>
+                                                </div>
+                                                <div class="flex">
+                                                    ${n.first_name!}&nbsp;${n.last_name!}&nbsp;&nbsp;<a href="/${n.ntype!}/detail/${n.link_id!}">&nbsp;${n.title}&nbsp;</a> <br>
+                                                    <a href="/${n.ntype!}"><small class="text-muted">[${n.ntype!}]</small></a>
+                                                </div>
+                                            </div>
+                                    </#list>
+                                           
+                                        </div>
+                                    </div>
+                                   <a href="/notification" class="dropdown-item text-center navbar-notifications-menu__footer">View All</a>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul class="nav navbar-nav d-none d-sm-flex border-left navbar-height align-items-center">
+                            <li class="nav-item dropdown">
+                                <a href="#account_menu" class="nav-link dropdown-toggle" data-toggle="dropdown" data-caret="false">
+                                <#assign av='/t/assets/images/avatar/dfavatar.png'>
+                                <#assign uname=session.user.first_name+' '+session.user.last_name>
+                                	<#if session.user.avatar?? && session.user.avatar!=''>
+                                	<#assign av=session.user.avatar>
+                                	</#if>
+                                    <img src="${av}" class="rounded-circle" width="32" alt="Frontted">
+                                    <span class="ml-1 d-flex-inline">
+                                        <span class="text-light">${uname!}</span>
+                                    </span>
+                                </a>
+                                <div id="account_menu" class="dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item active" href="/">Dashboard</a>
+                                    <a class="dropdown-item" href="/person">My Profile</a>
+                                    <a class="dropdown-item" href="/pwd">Change Password</a>
+                                    <a class="dropdown-item" href="/setemail">Email Setting</a>
+                                    <a class="dropdown-item" href="/avatar">Upload Avatar</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/logout">Logout</a>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- // END Header -->
+
+        <!-- Header Layout Content -->
+        <div class="mdk-header-layout__content">
+
+            <div class="mdk-drawer-layout js-mdk-drawer-layout" data-push data-responsive-width="992px">
+                <#nested>
+                
+
+                <div class="mdk-drawer  js-mdk-drawer" id="default-drawer" data-align="start">
+                    <div class="mdk-drawer__content">
+                        <div class="sidebar sidebar-light sidebar-left simplebar" data-simplebar>
+                            <div class="d-flex align-items-center sidebar-p-a border-bottom sidebar-account">
+                                <a href="profile.html" class="flex d-flex align-items-center text-underline-0 text-body">
+                                    <span class="avatar mr-3">
+                                        <img src="${av}" alt="avatar" class="avatar-img rounded-circle">
+                                    </span>
+                                    <span class="flex d-flex flex-column">
+                                        <strong>${uname!}</strong>
+                                        <small class="text-muted text-uppercase"></small>
+                                    </span>
+                                </a>
+                                <div class="dropdown ml-auto">
+                                    <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        
+                                        <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item active" href="/">Dashboard</a>
+                                    <a class="dropdown-item" href="/person">My Profile</a>
+                                    <a class="dropdown-item" href="/pwd">Change Password</a>
+                                    <a class="dropdown-item" href="/setemail">Email Setting</a>
+                                    <a class="dropdown-item" href="/avatar">Upload Avatar</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/logout">Logout</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sidebar-heading sidebar-m-t">Menu</div>
+                            <ul class="sidebar-menu">
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button" data-toggle="collapse" href="#dashboards_menu">
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">dvr</i>
+                                        <span class="sidebar-menu-text">Dashboards</span>
+                                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                    </a>
+                                    <ul class="sidebar-submenu collapse" id="dashboards_menu">
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button" href="/">
+                                                <span class="sidebar-menu-text">Default</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="sidebar-menu-item <#if ap=='/announcement/'|| ap=='/notification/'||ap=='/calendar/'>active open</#if>">
+                                    <a class="sidebar-menu-button" data-toggle="collapse" href="#apps_menu">
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">slideshow</i>
+                                        <span class="sidebar-menu-text">Mortgage Hub</span>
+                                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                    </a>
+                                    <ul class="sidebar-submenu collapse show " id="apps_menu">
+                                        <li class="sidebar-menu-item <#if ap=='/announcement/'>active</#if>">
+                                            <a class="sidebar-menu-button" href="/announcement">
+                                                <span class="sidebar-menu-text">Announcements</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item <#if ap=='/notification/'>active</#if>">
+                                            <a class="sidebar-menu-button" href="/notification">
+                                                <span class="sidebar-menu-text">Notifications</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item <#if ap=='/calendar/'>active</#if>">
+                                            <a class="sidebar-menu-button" href="/calendar">
+                                                <span class="sidebar-menu-text">Calender</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button" href="">
+                                                <span class="sidebar-menu-text">Tasks</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button" href="app-chat.html">
+                                                <span class="sidebar-menu-text">Performance</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="sidebar-menu-item <#if ap=='/lead/'|| ap=='/client/' || ap=='/application/' || ap=='/email/'>active open</#if>">
+                                    <a class="sidebar-menu-button" data-toggle="collapse" href="#pages_menu">
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">description</i>
+                                        <span class="sidebar-menu-text">Clients</span>
+                                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                    </a>
+                                    <ul class="sidebar-submenu collapse" id="pages_menu">
+                                        <li class="sidebar-menu-item <#if ap=='/lead/'>active</#if>">
+                                            <a class="sidebar-menu-button" href="/lead">
+                                                <span class="sidebar-menu-text">Leads</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item <#if ap=='/application/'>active</#if>">
+                                            <a class="sidebar-menu-button" href="/application">
+                                                <span class="sidebar-menu-text">Applications</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button" href="pricing.html">
+                                                <span class="sidebar-menu-text">Limbo</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button" href="edit-account.html">
+                                                <span class="sidebar-menu-text">Settled Applications</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item <#if ap=='/client/'>active</#if>">
+                                            <a class="sidebar-menu-button" href="/client">
+                                                <span class="sidebar-menu-text">Client Database</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item <#if ap=='/email/'>active</#if>">
+                                            <a class="sidebar-menu-button" href="/email">
+                                                <span class="sidebar-menu-text">Email</span>
+                                            </a>
+                                        </li>
+                                        
+                                    </ul>
+                                </li>
+
+                                <!-- li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button" data-toggle="collapse" href="#layouts_menu">
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">view_compact</i>
+                                        <span class="sidebar-menu-text">Layouts</span>
+                                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                    </a>
+                                    <ul class="sidebar-submenu collapse" id="layouts_menu">
+                                        <li class="sidebar-menu-item active">
+                                            <a class="sidebar-menu-button" href="app-fullcalendar.html">
+                                                <span class="sidebar-menu-text">Default</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button" href="fluid-app-fullcalendar.html">
+                                                <span class="sidebar-menu-text">Full Width Navs</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button" href="fixed-app-fullcalendar.html">
+                                                <span class="sidebar-menu-text">Fixed Navs</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button" href="mini-app-fullcalendar.html">
+                                                <span class="sidebar-menu-text">Mini Sidebar + Navs</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li -->
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- // END drawer-layout -->
+
+        </div>
+        <!-- // END header-layout__content -->
+
+    </div>
+    <!-- // END header-layout -->
+
+
+   
+</body>
+
+</html>
+</#macro>

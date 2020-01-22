@@ -1,0 +1,199 @@
+<#include "/t/_l.html" />
+<@layout>
+                <div class="mdk-drawer-layout__content page">
+
+
+
+                    <div class="container-fluid  page__heading-container">
+                        <div class="page__heading">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="#"><i class="material-icons icon-20pt">home</i></a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Account</li>
+                                </ol>
+                            </nav>
+                            <h1 class="m-0">My Profile</h1>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="container-fluid page__container">
+                        <div class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">Basic Information</strong></p>
+                                    <p class="text-muted">Edit your account details and settings.</p>
+                                </div>
+                                <div class="col-lg-8 card-form__body card-body">
+                                 	<div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">First name</label>
+                                                <input type="text" class="form-control" name="user.first_name" id="first_name" value="${(session.user.first_name)!}">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Last name</label>
+                                                <input type="text" class="form-control" name="user.last_name" id="last_name" value="${(session.user.last_name)!}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Preferred Name</label>
+                                                <input type="text" class="form-control" name="user.prefered_name" id="prefered_name" value="${(session.user.prefered_name)!}" >
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Work Phone</label>
+                                                <input type="text" class="form-control" name="user.work_phone" id="work_phone" value="${(session.user.work_phone)!}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Mobile</label>
+                                                <input class="form-control" type="tel" name="user.mobile" id="mobile" pattern="[0-9]*" placeholder="Input your mobile" value="${(session.user.mobile)!}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Title</label>
+                                                <input type="text" class="form-control" name="user.title" id="title" value="${(session.user.title)!}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Department</label>
+                                                <input type="text" class="form-control" name="user.department" id="department" value="${(session.user.department)!}">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Employee Number</label>
+                                                <input type="text" class="form-control" name="user.employee_number" id="employee_number" value="${(session.user.employee_number)!}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Office Location</label>
+                                                <input type="text" class="form-control" name="user.office_location" id="office_location" value="${(session.user.office_location)!}">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card card-form">
+                            <div class="row no-gutters">
+                                
+                                <div class="col-lg-8 card-form__body card-body">
+                                 	<div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Email account</label>
+                                                <input type="text" class="form-control" id="sendmail_account" value="${(session.user.sendmail_account)!}">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Email password</label>
+                                                <input type="password" class="form-control" id="sendmail_password" value="${(session.user.sendmail_password)!}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">Sending Mail Setting</strong></p>
+                                    <p class="text-muted">Edit your email account and password to send email.</p>
+                                </div>
+                            </div>
+                        </div>
+
+ 
+
+                        
+                        <div class="text-right mb-5">
+                            <button class="btn btn-success" onClick="return Mod();">Save</button>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- // END drawer-layout__content -->
+                <script>
+function Mod(){
+	var vmobile=$('#mobile').val();
+	if(vmobile!=''){
+			$.post("/mobile", {mobile:vmobile}, function(data) {
+			if(data.code>0){
+				mlayer.open({
+				    content: data.msg,
+				    btn: 'Got it'
+				  });
+				return false;
+			}
+			else{
+				var first_name=$('#first_name').val();
+				var last_name=$('#last_name').val();
+				var prefered_name=$('#prefered_name').val();
+				var work_phone=$('#work_phone').val();
+				var mobile=$('#mobile').val();
+				var title=$('#title').val();
+				var department=$('#department').val();
+				var employee_number=$('#employee_number').val();
+				var office_location=$('#office_location').val();
+				var sendmail_account=$('#sendmail_account').val();
+				var sendmail_password=$('#sendmail_password').val();
+
+				$.post("/m/jupinfo", {"user.first_name":first_name,"user.last_name":last_name,"user.prefered_name":prefered_name,
+					"user.work_phone":work_phone,"user.mobile":mobile,"user.title":title,"user.department":department,
+					"user.employee_number":employee_number,"user.office_location":office_location,
+					"user.sendmail_account":sendmail_account,"user.sendmail_password":sendmail_password}, function(data) {
+					if(data.code==1){
+					 	mlayer.open({
+						    content: data.msg,
+						    btn: 'Got it'
+						  });
+						return false;
+					}
+					else{ 
+						//sessionStorage.setItem("fynco_email", vemail); 
+						mlayer.open({
+						    content: 'Success',
+						    btn: 'Got it',
+						    yes: function(){
+						    	location.href="/";
+						      }
+						  });
+					}
+					return false;
+				}, "json");
+				return false;
+			}
+		}, "json");
+	}
+	
+
+}
+</script>
+<script src="/f/assets/js/layer.js"></script>
+<script src="/f/assets/js/mobile/mlayer.js"></script>
+</@layout>

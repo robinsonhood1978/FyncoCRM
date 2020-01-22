@@ -1,0 +1,72 @@
+<#include "/admin/common/_layout.html"/>
+<@layout>
+<#include "/admin/visit/top.html"/>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="table-layout:fixed;">
+  <tr>
+    <td height="25" background="/images/right_10.gif" style="border-top:solid 1px #b2cdd2; border-bottom:solid 1px #b2cdd2 "><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="25"  style="width:5px;">&nbsp;</td>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+          <td width="25" height="20" ><div align="center"><img src="/images/index.gif" width="14" height="14" /></div></td>
+            <td width="135" height="20" align="left" ><span class="STYLE1">访问记录列表</span></td>
+            <td width="600" height="20" align="center" >
+<#if resultMsg??>
+  	<span class="STYLE1"><font color="blue">${resultMsg!}</font></span>
+  </#if></td>
+
+           
+
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#a8c7ce">
+      <tr>
+        <td width="5%" height="20" bgcolor="d3eaef" class="STYLE10"><div align="center">
+          <input type="checkbox" onclick='Pn.checkbox("ids",this.checked)' />
+        </div></td>
+        <td width="20%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">UA</span></div></td>
+        <td width="10%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">IP</span></div></td>
+        <td width="3%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">CID</span></div></td>
+        <td width="7%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">CNAME</span></div></td>
+        <td width="5%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">refurl</span></div></td>
+        <td width="7%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">url</span></div></td>        
+        <td width="3%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">ScreenX</span></div></td>
+        <td width="3%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">ScreenY</span></div></td>
+        <td width="3%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">OS</span></div></td>
+        <td width="3%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">Browser</span></div></td>
+      	<td width="10%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">Visit Time</span></div></td>      
+      </tr>
+      <form id="tableForm" method="post">
+        <#list visitPage.getList() as x>
+  <tr>
+        <td height="20" bgcolor="#FFFFFF"><div align="center">
+          <input type="checkbox" name="ids" value="${x.id}" />
+        </div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center"><span class="STYLE19">${x.ua!}</span></div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${x.ip}</div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${x.cid!}</div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${x.cname!}</div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${x.refurl!}</div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${x.url}</div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${x.screenX!}</div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${x.screenY!}</div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${x.os!}</div></td>     
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${x.brower!}</div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${x.visit_time!}</div></td>
+  </tr>
+  </#list>
+  </form>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="30"><#include "/admin/common/_paginate.html" />
+	<@paginate currentPage=visitPage.pageNumber totalPage=visitPage.totalPage totalRow=visitPage.totalRow actionUrl="/admin/visit/" urlParas="-${baseId!}"/></td>
+  </tr>
+</table>
+</@layout>

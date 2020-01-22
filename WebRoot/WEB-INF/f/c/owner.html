@@ -1,0 +1,42 @@
+<#include "head.html"/>
+<br/>
+<br/>
+<div class="am-g am-g-fixed blog-g-fixed">
+  <div class="am-u-md-8">
+   <hr class="am-article-divider blog-hr">
+    <section class="am-panel am-panel-default">
+        <div class="am-panel-hd">Articles Catalogue</div>
+        <ul class="am-list blog-list">
+        <#list articles as a>
+          <li><a href="/${a.path}-${a.id}">${a.title}</a></li>
+          </#list>
+          
+        </ul>
+      </section>
+
+
+  </div>
+
+  <div class="am-u-md-4 blog-sidebar">
+    <div class="am-panel-group">
+    <hr>
+      <section class="am-panel am-panel-default">
+        <div class="am-panel-hd">Master</div>
+        <#if owner.avatar??>
+        <div class="owner-panel-hd am-text-center">
+        	<p><img src="${(owner.avatar)!}" alt="" class="owner-avatar" width="150" height="150"></p>
+        </div>
+        </#if>
+        <div class="am-panel-bd">
+          <p><#if owner?? && owner.intro??>${(owner.intro)!}</#if></p>
+        </div>
+      </section>
+      
+
+      
+    </div>
+  </div>
+
+</div>
+
+<#include "footer.html"/>

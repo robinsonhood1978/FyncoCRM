@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+   	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>北京京诚智合科技有限公司</title>
+	<link href="/f/css/1.css"rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/f/js/jquery-1.js"></script>
+    <script src="/f/js/wk_inc.js" language="javascript"></script>
+</head>
+<script type="text/javascript">
+//function fun_imgShow(objLiId,imgPath){
+//	if(imgPath!=null && $.trim(imgPath) && typeof(imgPath)=="undefined"){
+//		$("#"+objLiId).find("img").attr("src",imgPath);
+//	}
+//}
+
+function fun_imgShow(objLiId,bgcolor){
+	if(bgcolor!=null && $.trim(bgcolor)){
+		$("#"+objLiId).css("background",bgcolor);
+	}
+}
+</script>
+<body>
+<div class="top fn-clear">
+    <#include "../include/header.html"/>
+</div>
+<div class="main_cnt02">
+    <div class="content fn-clear">
+        <div class="location"><a href="/" title="首页" class="home">首页</a><a href="/jjfa" title="解决方案"><span>解决方案</span></a> </div>
+        <div class="content_main">
+            <div class="content_left">
+                <#include "../include/jjfa_left.html"/>
+            </div>
+            <div class="content_right">
+                <p class="mg_b">从小微企业、中型企业、大集团企业到超大型集团企业，金网解决方案可以帮助中国企业从成长到成熟各阶段提高运营效益。从前端到后端，从制造到服务，从OA、协同、信息、管理到供应链，金网能帮助各行各业的企业提高协作效率、运营效益、应对市场快速变化的决策能力，以及在行业范围的核心竞争力。</p>
+                <div id="hash1">
+                <h3 class="title_h3 mg_b">管理信息化综合服务解决方案</h3>
+                <ul class="show_list fn-clear">
+                <@cms_content_list typeId='1' count='10' orderBy='8' channelOption='2' channelId='209'>
+					<#list tag_list as a>
+					<#if a_index%2==0>
+			      	<li id="contentLi_${a.id}" onclick="javascript:window.location.href='/${a.path}-${a.id}'" onmouseover="fun_imgShow(this.id,'#d9f0ff');" onmouseout="fun_imgShow(this.id,'#f2f2f2');">
+                        <img class="fn-left" src="${(a.title_img)!}" alt="${(a.title)!}" title="${(a.title)!}">
+                        <div class="fn-right content_list_div">
+                            <h3><a href="/${a.path}-${a.id}" title="${(a.title)!}"><@text_cut s=a.title len="20" append=".."/></a> </h3>
+                            <@text_cut s=a.description len="45" append="..."/>
+                        </div>
+                    </li>
+                    <#else>
+                    <li id="contentLi_${a.id}" class="mg_rn" onclick="javascript:window.location.href='/${a.path}-${a.id}'" onmouseover="fun_imgShow(this.id,'#d9f0ff');"  onmouseout="fun_imgShow(this.id,'#f2f2f2');">
+                        <img class="fn-left" src="${(a.title_img)!}" alt="${(a.title)!}" title="${(a.title)!}">
+                        <div class="fn-right content_list_div">
+                            <h3><a href="/${a.path}-${a.id}" title="${(a.title)!}"><@text_cut s=a.title len="20" append=".."/></a> </h3>
+                            <@text_cut s=a.description len="45" append="..."/>
+                        </div>
+                    </li>
+                    </#if>
+			       </#list>
+				</@cms_content_list>
+                </ul>
+                </div>
+                
+                <div id="hash2">
+                <h3 class="title_h3 mg_b">电子商务整体解决方案</h3>
+                <ul class="show_list fn-clear">
+                <@cms_content_list typeId='1' count='10' orderBy='8' channelOption='2' channelId='210'>
+					<#list tag_list as a>
+					<#if a_index%2==0>
+			      	<li id="contentLi_${a.id}" onclick="javascript:window.location.href='/${a.path}-${a.id}'"  onmouseover="fun_imgShow(this.id,'#d9f0ff');" onmouseout="fun_imgShow(this.id,'#f2f2f2');">
+                        <img class="fn-left" src="${(a.title_img)!}" alt="${(a.title)!}" title="${(a.title)!}">
+                        <div class="fn-right content_list_div">
+                            <h3><a href="/${a.path}-${a.id}" title="${(a.title)!}"><@text_cut s=a.title len="20" append=".."/></a> </h3>
+                            <@text_cut s=a.description len="45" append="..."/>
+                        </div>
+                    </li>
+                    <#else>
+                    <li id="contentLi_${a.id}" class="mg_rn" onclick="javascript:window.location.href='/${a.path}-${a.id}'"  onmouseover="fun_imgShow(this.id,'#d9f0ff');" onmouseout="fun_imgShow(this.id,'#f2f2f2');">
+                        <img class="fn-left" src="${(a.title_img)!}" alt="${(a.title)!}" title="${(a.title)!}">
+                        <div class="fn-right content_list_div">
+                            <h3><a href="/${a.path}-${a.id}" title="${(a.title)!}"><@text_cut s=a.title len="20" append=".."/></a> </h3>
+                            <@text_cut s=a.description len="50" append="..."/>
+                        </div>
+                    </li>
+                    </#if>
+			       </#list>
+				</@cms_content_list>
+                </ul>
+                </div>
+               
+               <div id="hash3">
+                <h3 class="title_h3 mg_b">移动应用解决方案</h3>
+                <ul class="show_list fn-clear">
+                    <@cms_content_list typeId='1' count='10' orderBy='8' channelOption='2' channelId='211'>
+					<#list tag_list as a>
+					<#if a_index%2==0>
+			      	<li id="contentLi_${a.id}" onclick="javascript:window.location.href='/${a.path}-${a.id}'"  onmouseover="fun_imgShow(this.id,'#d9f0ff');" onmouseout="fun_imgShow(this.id,'#f2f2f2');">
+                        <img class="fn-left" src="${(a.title_img)!}" alt="${(a.title)!}" title="${(a.title)!}">
+                        <div class="fn-right content_list_div">
+                            <h3><a href="/${a.path}-${a.id}" title="${(a.title)!}"><@text_cut s=a.title len="20" append=".."/></a> </h3>
+                            <@text_cut s=a.description len="50" append="..."/>
+                        </div>
+                    </li>
+                    <#else>
+                    <li id="contentLi_${a.id}" class="mg_rn" onclick="javascript:window.location.href='/${a.path}-${a.id}'"  onmouseover="fun_imgShow(this.id,'#d9f0ff');" onmouseout="fun_imgShow(this.id,'#f2f2f2');">
+                        <img class="fn-left" src="${(a.title_img)!}" alt="${(a.title)!}" title="${(a.title)!}">
+                        <div class="fn-right content_list_div">
+                            <h3><a href="/${a.path}-${a.id}" title="${(a.title)!}"><@text_cut s=a.title len="20" append=".."/></a> </h3>
+                            <@text_cut s=a.description len="50" append="..."/>
+                        </div>
+                    </li>
+                    </#if>
+			       </#list>
+				</@cms_content_list>
+                </ul>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer  fn-clear">
+    <#include "../include/footer.html"/>
+</div>
+</body>
+</html>

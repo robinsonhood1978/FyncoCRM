@@ -1,0 +1,146 @@
+<#include "/t/_c.html" />
+<@layout>
+
+                <div class="mdk-drawer-layout__content page">
+
+
+					<div class="container-fluid page__container">
+                        <div class="page__heading d-flex align-items-center">
+                            <div class="flex">
+                                <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="#"><i class="material-icons icon-20pt">home</i></a></li>
+                                    <li class="breadcrumb-item">Mortgage Hub</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Announcements</li>
+                                </ol>
+                            </nav>
+                            <h1 class="m-0">Announcement</h1>
+                            </div>
+                            <a href="javascript:void(0)" onclick="New();" class="btn btn-success ml-3">New Announcement</a>
+                        </div>
+                    </div>
+                    
+
+
+
+
+                    <div class="container-fluid page__container">
+                        <div class="stories-cards mb-4">
+
+<#list ans as x>
+                            <div class="card stories-card">
+                                <div class="stories-card__content d-flex align-items-center flex-wrap">
+                                    <div class="avatar avatar-lg mr-3">
+                                        <a href="/announcement/detail/${x.id}"><img src="${x.title_img}" alt="avatar" class="avatar-img rounded"></a>
+                                    </div>
+                                    <div class="stories-card__title flex">
+                                        <h5 class="card-title m-0"><a href="/announcement/detail/${x.id}" class="headings-color">${x.title}</a></h5>
+                                        <small class="text-dark-gray">${x.viewer_num} viewers</small>
+                                    </div>
+                                    <div class="d-flex align-items-center flex-column flex-sm-row stories-card__meta">
+                                        <div class="mr-3 text-dark-gray text-uppercase stories-card__tag d-flex align-items-center">
+                                            <i class="material-icons text-muted-light mr-1">folder_open</i> ${x.channel_name}
+                                        </div>
+                                        <div class="mr-3 text-dark-gray stories-card__date">
+                                            <small>${x.release_date?string.long}</small>
+                                        </div>
+                                        <div class="media mr-2 ml-sm-auto align-items-center">
+                                            <div class="media-left mr-2 avatar-group">
+                                            
+                                            <#if x.avatars??>
+                                            <#assign names=x.usernames?split(",")>
+											<#list x.avatars?split(",") as av>
+												<#if av_index gt 2>
+												<#break>
+												</#if>
+                                                <div class="avatar avatar-xs" data-toggle="tooltip" data-placement="top" title="${names[av_index]}">
+                                                    <img src="${av}" alt="Avatar" class="avatar-img rounded-circle">
+                                                </div>
+                                            </#list>
+                                            </#if>
+
+
+
+                                            </div>
+                                            <#if x.usernum gt 0>
+                                            <div class="media-body">
+												
+                                                <span class="text-body">+${x.usernum} more</span>
+
+                                            </div>
+                                            </#if>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown ml-auto">
+                                        <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="/announcement/detail/${x.id}" class="dropdown-item">View</a>
+    
+                                            <div class="dropdown-divider"></div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+</#list>
+
+
+                        </div>
+
+
+
+                       
+                    </div>
+
+
+                </div>
+                <!-- // END drawer-layout__content -->
+                
+<script>
+                function New(){
+                	var url = '/announcement/add';
+                	layer.open({
+                		type: 2,
+                		title: 'Add an announcement',
+                		fixed: false, //不固定
+                		maxmin: true,
+                	    shadeClose: true, //点击遮罩关闭层
+                		area: ['60%', '80%'],
+                		content: url ,
+                		success:function(layero,index){
+                        },
+                        end:function(){
+                			//alert(1)
+                        }
+                	});
+                }
+                function DoubleClick(id,type,link_id){
+                	if(type=='1')
+                		View(id);
+                	else
+                		location.href='/announcement/detail/'+link_id;
+                }
+                function View(id){
+                	//alert(id)
+                	var url = '/notification/detail?id='+id;
+            		layer.open({
+            			type: 2,
+            			title: 'Notification Details',
+            			fixed: false, //不固定
+            			maxmin: true,
+            		    shadeClose: true, //点击遮罩关闭层
+            			area: ['60%', '85%'],
+            			content: url ,
+            			success:function(layero,index){
+            	        },
+            	        end:function(){
+            	        	//ShowApplicant();
+            	        }
+            		});
+                }
+                </script>			
+<script src="/f/assets/js/layer.js"></script>
+<script src="/f/assets/js/mobile/mlayer.js"></script>
+</@layout>

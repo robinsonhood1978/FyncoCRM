@@ -1,0 +1,86 @@
+<#include "/t/_l.html" />
+<@layout>
+
+                <div class="mdk-drawer-layout__content page">
+
+					<div class="container-fluid  page__heading-container">
+                        <div class="page__heading">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="#"><i class="material-icons icon-20pt">home</i></a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Notifications</li>
+                                </ol>
+                            </nav>
+                            <h1 class="m-0">Announcement</h1>
+                        </div>
+                    </div>
+
+
+                    <div class="hero-banner bg-primary-dark d-flex flex-row align-items-center" style="height:100px;">
+                        <div class="container-fluid page__container">
+                            <div class="d-flex flex-column">
+
+                                <h1 class="text-white mb-0">${(content.title)!}</h1>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid page__container">
+                        <div class="row">
+                            <div class="col-md-4 order-12">
+                                <div class="card card-margin-md-negative-40">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item bg-light">
+                                            <a href="#" class="flex d-flex align-items-center text-body text-underline-0">
+                                                <span class="avatar mr-3">
+                                                    <img src="${author.avatar}" alt="avatar" class="avatar-img rounded-circle">
+                                                </span>
+                                                <span class="flex d-flex flex-column">
+                                                    <strong>${(creator_name)!}</strong>
+                                                    <small class="text-muted text-uppercase">AUTHOR</small>
+                                                </span>
+                                            </a>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <strong>${views} people</strong> <span class="text-muted">read it</span>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="page__heading">
+                                </div>
+
+                                <div class="card">
+		                            <div class="card-header card-header-large bg-white">
+		                                <h4 class="card-header__title"></h4>
+		                            </div>
+		                            <div class="card-body">
+		                                <p>
+		                                <#if content.txt??>
+          ${(content.txt)!}
+          <#else>
+          	No content
+          </#if>
+		                                </p>
+		                                <div class="row align-items-end">
+		                                   
+		                                </div>
+		                                <div class="row align-items-end">
+		                                    
+		                                   
+		                                </div>
+		                            </div>
+                        </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- // END drawer-layout__content -->
+</@layout>

@@ -1,0 +1,102 @@
+<#macro layout>
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>${I18N.getText("title")}</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="stylesheet" href="/f/assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="/f/assets/css/admin.css">
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="/f/assets/js/amazeui.ie8polyfill.min.js"></script>
+<script src="/f/assets/js/polyfill/rem.min.js"></script>
+<script src="/f/assets/js/polyfill/respond.min.js"></script>
+<script src="/f/assets/js/amazeui.legacy.min.js"></script>
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="/f/assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="/f/assets/js/amazeui.min.js"></script>
+<script src="/f/assets/js/md5.min.js"></script>
+<script src="/f/assets/js/base64.min.js"></script>
+<script src="/f/assets/js/layer.js"></script>
+<script src="/f/assets/js/js.cookie.min.js"></script>
+  <style>
+    .footer p {
+      color: #7f8c8d;
+      margin: 0;
+      padding: 15px 0;
+      text-align: center;
+      background: #2d3e50;
+    }
+    
+  </style>
+</head>
+<body>
+<header id="amz-header" class="am-topbar am-topbar-fixed-top">
+  <div class="am-container">
+    
+      <a href="/"><img src="/images/logo.jpg" class="am-topbar-brand" alt="fyncologo"></a>
+
+
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-secondary am-show-sm-only"
+            data-am-collapse="{target: '#collapse-head'}"><span class="am-sr-only">${I18N.getText("switch")}</span> <span
+        class="am-icon-bars"></span></button>
+
+    <div class="am-collapse am-topbar-collapse" id="collapse-head">
+      <ul class="am-nav am-nav-pills am-topbar-nav">
+        <li class="am-active"><a href="/">${I18N.getText("home")}</a></li>
+        <!-- li><a href="/news">${I18N.getText("news")}</a></li>
+        <li><a href="/blog">${I18N.getText("blog")}</a></li>
+        <li class="am-dropdown" data-am-dropdown>
+          <a class="am-dropdown-toggle" data-am-dropdown-toggle href="/know">
+          ${I18N.getText("learn")}<span class="am-icon-caret-down"></span>
+          </a>
+          <ul class="am-dropdown-content">
+            
+            <li><a href="/know-37">${I18N.getText("howitworks")}</a></li>
+            <li><a href="/know-38">${I18N.getText("save")}</a></li>
+            <li><a href="/know">${I18N.getText("faqs")}</a></li>
+          </ul>
+        </li-->
+      </ul>
+	  <#if session?? && session.user??>
+	  <div class="am-topbar-right">
+        <a href="/logout" class="am-btn am-btn-secondary am-topbar-btn am-btn-sm am-round"><span class="am-icon-power-off"></span> ${I18N.getText("logout")}</a>
+      </div>
+	  <div class="am-topbar-right">
+        <a href="/m" class="am-btn am-btn-primary am-topbar-btn am-btn-sm am-round"><span class="am-icon-home"></span> ${I18N.getText("mcenter")}</a>
+      </div>
+	  <#else>
+      <!-- div class="am-topbar-right">
+        <a href="/r" class="am-btn am-btn-secondary am-topbar-btn am-btn-sm am-round"><span class="am-icon-pencil"></span> ${I18N.getText("signup")}</a>
+      </div-->
+
+      <div class="am-topbar-right">
+        <a href="/l" class="am-btn am-btn-primary am-topbar-btn am-btn-sm am-round"><span class="am-icon-user"></span> ${I18N.getText("login")}</a>
+      </div>
+      </#if>
+    </div>
+  </div>
+</header>
+<#nested>
+
+
+<footer class="footer">
+  <p>© 2019 <a href="/">Fynco</a> </p>
+</footer>
+<!-- script src="/js/vs.js"></script-->
+<!-- script src="http://pv.sohu.com/cityjson?ie=utf-8"></script-->
+<script type="text/javascript">
+	//vlstatInitLE(returnCitySN);
+</script>
+</body>
+</html>
+</#macro>

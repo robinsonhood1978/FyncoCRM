@@ -1,0 +1,407 @@
+<#include "/WEB-INF/m/_m.html" />
+<@layout>
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="am-cf am-padding">
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">${I18N.getText("kaihu_apply")}</strong></div>
+      <br/><p>Please confirm that your registration information is correct and enter personal data - > registration information for modification.</p>
+    </div>
+
+    <div class="am-g">
+
+      <div class="am-u-sm-12 am-u-md-4 am-u-md-push-8">
+        
+
+      </div>
+
+      <div class="am-u-sm-12 am-u-md-10 am-u-md-pull-2">
+        <form id="myform" class="am-form am-form-horizontal" method="post" action="/m/save_kaihu" onSubmit="return Reg();">
+          <div class="am-form-group am-form-inline">
+            <label for="name" class="am-u-sm-3 am-form-label">Name</label>
+            <div class="am-u-sm-4">
+              <input type="text" name="user.name" id="name" value="${(session.user.name)!}" placeholder="Name" required>
+            </div>
+            <label for="name" class="am-u-sm-2 am-form-label">Alias</label>
+            <div class="am-u-sm-3">
+              <input type="text" name="user.alias" id="alias" value="${(session.user.alias)!}" placeholder="Alias">
+            </div>
+          </div>
+		 
+		 <div class="am-form-group">
+            <label for="birthday" class="am-u-sm-3 am-form-label">Birthday</label>
+            <div class="am-u-sm-9">
+            <div class="am-form-group am-form-inline">
+            	<div class="am-u-sm-4"><select id="dobday" required></select></div>
+            	<div class="am-u-sm-4"><select id="dobmonth" required></select></div>
+            	<div class="am-u-sm-4"><select id="dobyear" required></select></div>
+			</div>
+            </div>
+          </div>
+          
+          <div class="am-form-group">
+		      <label for="validID" class="am-u-sm-3 am-form-label">Valid ID</label>
+		      <div class="am-u-sm-9">
+			      <select name="user.valid_id" id="validID">
+			      	<option value="0">Passport</option>
+			        <option value="1">Identity Card</option>
+			        <option value="2">Driving license</option>
+			      </select>
+		      </div>
+		      
+		    </div>
+		    
+          <div class="am-form-group">
+            <label for="uid" class="am-u-sm-3 am-form-label">Valid ID Number</label>
+            <div class="am-u-sm-9">
+              <input type="text" name="user.uid" id="uid" placeholder="Valid ID Number" value="${(session.user.uid)!}" required>
+            </div>
+          </div>
+		  
+		  <div id="frontID" class="am-form-group">
+            <label for="uidphoto" class="am-u-sm-3 am-form-label">Front of valid ID</label>
+            <div class="am-u-sm-9">
+              <div class="am-form-group am-form-file" id="uid_upload">
+			  <button type="button" class="am-btn am-btn-success am-btn-sm">
+			    <i class="am-icon-cloud-upload"></i> Choose file</button>
+			  <input id="uidphoto" type="file" multiple>
+			</div>
+			<div id="uid-preview"><#if (session.user.uid_pic)??><img id='img-uid-preview' src='${(session.user.uid_pic)!}' class='am-img-responsive'/></#if></div>
+            </div>
+          </div>
+          
+          <div id="backID" class="am-form-group">
+            <label for="back_uidphoto" class="am-u-sm-3 am-form-label">Back of valid ID</label>
+            <div class="am-u-sm-9">
+              <div class="am-form-group am-form-file" id="back_uid_upload">
+			  <button type="button" class="am-btn am-btn-success am-btn-sm">
+			    <i class="am-icon-cloud-upload"></i> Choose file</button>
+			  <input id="back_uidphoto" type="file" multiple>
+			</div>
+			<div id="back-uid-preview"><#if (session.user.back_uid_pic)??><img id='img-back-uid-preview' src='${(session.user.back_uid_pic)!}' class='am-img-responsive'/></#if></div>
+            </div>
+          </div>
+          
+
+          <div class="am-form-group">
+            <label for="bankcardphoto" class="am-u-sm-3 am-form-label">Face Photo</label>
+            <div class="am-u-sm-9">
+              <div class="am-form-group am-form-file" id="face_upload">
+				  <button type="button" class="am-btn am-btn-success am-btn-sm">
+				    <i class="am-icon-cloud-upload"></i> Choose file</button>
+				  <input id="facephoto" type="file" multiple>
+				</div>
+				<div id="face-preview"><#if (session.user.face_pic)??><img id='img-face-preview' src='${(session.user.face_pic)!}' class='am-img-responsive'/></#if></div>
+			  </div>
+          </div>
+
+          <div class="am-form-group">
+            <label for="address" class="am-u-sm-3 am-form-label">Address</label>
+            <div class="am-u-sm-9">
+              <input type="text" name="user.address" id="address" value="${(session.user.address)!}" placeholder="Address" required>
+            </div>
+          </div>
+          
+          <div class="am-form-group">
+            <label for="bankcardphoto" class="am-u-sm-3 am-form-label">Address Proof</label>
+            <div class="am-u-sm-9">
+              <div class="am-form-group am-form-file" id="address_proof_upload">
+				  <button type="button" class="am-btn am-btn-success am-btn-sm">
+				    <i class="am-icon-cloud-upload"></i> Choose file</button>
+				  <input id="addressproof" type="file" multiple>
+				</div>
+				<div id="address-proof-preview"><#if (session.user.address_proof)??><img id='img-address-proof-preview' src='${(session.user.address_proof)!}' class='am-img-responsive'/></#if></div>
+			  </div>
+          </div>
+          
+          <div class="am-form-group">
+            <label for="skype" class="am-u-sm-3 am-form-label">Skype</label>
+            <div class="am-u-sm-9">
+              <input type="text" name="user.skype" id="skype" value="${(session.user.skype)!}">
+            </div>
+          </div>
+          
+          <div class="am-form-group">
+            <label for="whatsapp" class="am-u-sm-3 am-form-label">WhatsApp</label>
+            <div class="am-u-sm-9">
+              <input type="text" name="user.whatsapp" id="whatsapp" value="${(session.user.whatsapp)!}">
+            </div>
+          </div>
+          
+          <div class="am-form-group">
+            <label for="wechat" class="am-u-sm-3 am-form-label">Wechat</label>
+            <div class="am-u-sm-9">
+              <input type="text" name="user.wechat" id="wechat" value="${(session.user.wechat)!}">
+            </div>
+          </div>
+          
+          <div class="am-form-group">
+            <div class="am-u-sm-9 am-u-sm-push-3">
+            	<input type="hidden" value="0" id="invalid">
+      			<input type="hidden" value="" id="msg">
+      			<input type="hidden" value="${(session.user.kaihu_status)!}" id="kaihu">
+      			<input name="vid" type="hidden" value="${(session.user.valid_id)!}" id="vid">
+      			<input name="user.uid_pic" type="hidden" value="${(session.user.uid_pic)!}" id="uid_pic">
+      			<input name="user.birthday" type="hidden" value="${(session.user.birthday)!}" id="birthday">
+      			<input name="user.back_uid_pic" type="hidden" value="${(session.user.back_uid_pic)!}" id="back_uid_pic">
+      			<input name="user.face_pic"  type="hidden" value="${(session.user.face_pic)!}" id="face_pic">
+      			<input name="user.address_proof"  type="hidden" value="${(session.user.address_proof)!}" id="address_proof">
+              <button id="save" type="submit" class="am-btn am-btn-primary">Save</button>
+            </div>
+          </div>
+          <!--alert start-->
+      <div class="am-modal am-modal-alert" id="pwd-alert">
+  		<div class="am-modal-dialog">
+    		<div class="am-modal-bd" id="myalert">
+      
+    		</div>
+    		<div class="am-modal-footer">
+      			<span class="am-modal-btn">Got it</span>
+    		</div>
+  		</div>
+	  </div>
+	  <!--alert end-->
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- content end -->
+<script>
+var $modal = $('#pwd-alert');
+var kaihu = $('#kaihu').val();
+if(kaihu==2){
+	$('#save').hide();
+	$("#myform").attr('action','#'); 
+	//$('#myform').attr('disabled',true);
+}
+$(function () { 
+	$.dobPicker({
+		daySelector: '#dobday', /* Required */
+		monthSelector: '#dobmonth', /* Required */
+		yearSelector: '#dobyear', /* Required */
+		dayDefault: 'Day', /* Optional */
+		monthDefault: 'Month', /* Optional */
+		yearDefault: 'Year', /* Optional */
+		minimumAge: 12, /* Optional */
+		maximumAge: 80 /* Optional */
+	});
+	var birthday = $('#birthday').val();
+	if(birthday!=''){
+		var arr = birthday.split("-");
+		var year = arr[0];
+		var month = arr[1];
+		var day = arr[2];
+		if(month<10)month='0'+month;
+		if(day<10)day='0'+day;
+		
+		//alert(year+':'+month+':'+day);
+		$('#dobday').val(day);
+		$('#dobmonth').val(month);
+		$('#dobyear').val(year);
+	}
+	var validId = $('#vid').val();
+	$('#validID').val(validId);
+	if($('#validID').val()=='0')
+		$("#backID").hide();
+	
+	$('#uid').blur(function(){
+		var vuid=$('#uid').val();
+		var validId = $('#validID').val();
+		if(vuid!=''){
+  			$.post("/uid", {uid:vuid,validId:validId}, function(data) {
+				if(data.code>0){
+				 	$('#invalid').val(data.code);
+				 	$('#msg').val(data.msg);
+				 	$('#myalert').text(data.msg);
+					$modal.modal();
+				}
+				else{
+					$('#invalid').val(0);
+				}
+			}, "json");
+		}
+	});
+	
+	$('#skype').blur(function(){
+		var vskype=$('#skype').val();
+		if(vskype!=''){
+  			$.post("/skype", {skype:vskype}, function(data) {
+				if(data.code>0){
+				 	$('#invalid').val(data.code);
+				 	$('#msg').val(data.msg);
+				 	$('#myalert').text(data.msg);
+					$modal.modal();
+				}
+				else{
+					$('#invalid').val(0);
+				}
+			}, "json");
+		}
+	});
+	$('#whatsapp').blur(function(){
+		var vwhatsapp=$('#whatsapp').val();
+		if(vwhatsapp!=''){
+  			$.post("/whatsapp", {whatsapp:vwhatsapp}, function(data) {
+				if(data.code>0){
+				 	$('#invalid').val(data.code);
+				 	$('#msg').val(data.msg);
+				 	$('#myalert').text(data.msg);
+					$modal.modal();
+				}
+				else{
+					$('#invalid').val(0);
+				}
+			}, "json");
+		}
+	});
+	$('#wechat').blur(function(){
+		var vwechat=$('#wechat').val();
+		if(vwechat!=''){
+  			$.post("/wechat", {wechat:vwechat}, function(data) {
+				if(data.code>0){
+				 	$('#invalid').val(data.code);
+				 	$('#msg').val(data.msg);
+				 	$('#myalert').text(data.msg);
+					$modal.modal();
+				}
+				else{
+					$('#invalid').val(0);
+				}
+			}, "json");
+		}
+	});
+	
+	$( "#validID" ).change(function() {
+		if($( "#validID" ).val()=='0'){
+			$("#backID").hide();
+		}
+		else{
+			$("#backID").show();
+		}
+		var vuid=$('#uid').val();
+		var validId = $('#validID').val();
+		if(vuid!=''){
+  			$.post("/uid", {uid:vuid,validId:validId}, function(data) {
+				if(data.code>0){
+				 	$('#invalid').val(data.code);
+				 	$('#msg').val(data.msg);
+				 	$('#myalert').text(data.msg);
+					$modal.modal();
+				}
+				else{
+					$('#invalid').val(0);
+				}
+			}, "json");
+		}
+	});
+})
+function Reg(){
+		var birthday = $('#dobyear').val()+"-"+$('#dobmonth').val()+"-"+$('#dobday').val();
+		$('#birthday').val(birthday);
+		
+		if($('#skype').val().trim()==''&& $('#whatsapp').val().trim()=='' && $('#wechat').val().trim()==''){
+			$('#myalert').text("Please at least input your skype or whatsapp or wechat");
+			$modal.modal();
+			return false;
+		}
+		if($('#face_pic').val()==''){
+			$('#myalert').text("Please upload your face photo.");
+			$modal.modal();
+			return false;
+		}
+		if($('#uid_pic').val()==''){
+			$('#myalert').text("Please upload your front of valid ID.");
+			$modal.modal();
+			return false;
+		}
+		if(($('#validID').val()=='1'||$('#validID').val()=='2')&& $('#back_uid_pic').val()==''){
+			$('#myalert').text("Please upload your back of valid ID.");
+			$modal.modal();
+			return false;
+		}
+		if($('#invalid').val()>0){
+			$('#myalert').text($('#msg').val());
+			$modal.modal();
+			return false;
+		}
+		else
+			return true; 
+}
+//建立一個可存取到該file的url
+function getObjectURL(file) {
+	var url = null ; 
+	if (window.createObjectURL!=undefined) { // basic
+		url = window.createObjectURL(file) ;
+	} else if (window.URL!=undefined) { // mozilla(firefox)
+		url = window.URL.createObjectURL(file) ;
+	} else if (window.webkitURL!=undefined) { // webkit or chrome
+		url = window.webkitURL.createObjectURL(file) ;
+	}
+	return url ;
+}
+</script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+
+    <script type="text/javascript" src="/js/dmuploader.min.js"></script>
+
+    <script type="text/javascript">
+      // Upload Plugin itself
+      $('#uid_upload').dmUploader({
+        url: '/m/file',
+        dataType: 'json',
+        allowedTypes: 'image/*',
+        onUploadSuccess: function(id, data){
+          $('#uid-preview').html("<img id='img-uid-preview' class='am-img-responsive'/>");
+			$("#img-uid-preview").attr("src", data.url) ;
+	  		$('#uid_pic').val(data.url);
+        },
+        
+        onFallbackMode: function(message){
+          alert('Browser not supported(do something else here!): ' + message);
+        }
+      });
+      $('#back_uid_upload').dmUploader({
+          url: '/m/file',
+          dataType: 'json',
+          allowedTypes: 'image/*',
+          onUploadSuccess: function(id, data){
+            $('#back-uid-preview').html("<img id='img-back-uid-preview' class='am-img-responsive'/>");
+  			$("#img-back-uid-preview").attr("src", data.url) ;
+  	  		$('#back_uid_pic').val(data.url);
+          },
+          
+          onFallbackMode: function(message){
+            alert('Browser not supported(do something else here!): ' + message);
+          }
+        });
+      $('#face_upload').dmUploader({
+        url: '/m/file',
+        dataType: 'json',
+        allowedTypes: 'image/*',
+        onUploadSuccess: function(id, data){
+          $('#face-preview').html("<img id='img-face-preview' class='am-img-responsive'/>");
+			$("#img-face-preview").attr("src", data.url) ;
+	  		$('#face_pic').val(data.url);
+        },
+        
+        onFallbackMode: function(message){
+          alert('Browser not supported(do something else here!): ' + message);
+        }
+      });
+      
+      $('#address_proof_upload').dmUploader({
+          url: '/m/file',
+          dataType: 'json',
+          allowedTypes: 'image/*',
+          onUploadSuccess: function(id, data){
+            $('#address-proof-preview').html("<img id='img-address-proof-preview' class='am-img-responsive'/>");
+  			$("#img-address-proof-preview").attr("src", data.url) ;
+  	  		$('#address_proof').val(data.url);
+          },
+          
+          onFallbackMode: function(message){
+            alert('Browser not supported(do something else here!): ' + message);
+          }
+        });
+    </script>
+
+</@layout>

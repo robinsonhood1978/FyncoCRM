@@ -1,0 +1,157 @@
+<#include "/t/_s.html" />
+<@layout>
+                <div class="mdk-drawer-layout__content page">
+
+
+
+                    <div class="container-fluid  page__heading-container">
+                        <div class="page__heading">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="#"><i class="material-icons icon-20pt">home</i></a></li>
+                                    <li class="breadcrumb-item">Mortgage Hub</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Tasks</li>
+                                </ol>
+                            </nav>
+                            <h3 class="m-0">Task Details</h3>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="container-fluid page__container">
+                        <div class="card card-form">
+                            <div class="row no-gutters">
+                                <#setting locale="en">
+                                <div class="col-lg-8 card-form__body card-body bg-white">
+                                	<div class="row">
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label for="title">Title</label>
+                                                <br/>
+                                                <span>${(task.title)!}</span>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                 	
+                                    <div class="row">
+                                    	
+                                        <div class="col">
+                                             <div class="form-group">
+		                                        <label for="due_date">Due Date</label>
+		                                        <br/>
+		                                        ${task.due_date?string('dd/MM/yyyy hh:mm a')}
+		                                    </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="reminder">Reminder Time</label>
+                                                <br/>
+                                                ${(task.reminder_days)!} days before the due date
+		                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                       
+                                    
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Task Description</label><br/>
+                                                <br/>
+                                                ${(task.description)!}
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+ 
+
+                        
+                        <div class="text-right mb-5">
+                        
+                            <button class="btn btn-success" onClick="CloseLayer();">Close</button>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- // END drawer-layout__content -->
+                <script>
+                Date.prototype.Format = function (fmt) { // author: meizz
+                    var o = {
+                        "M+": this.getMonth() + 1, // 月份
+                        "d+": this.getDate(), // 日
+                        "h+": this.getHours(), // 小时
+                        "m+": this.getMinutes(), // 分
+                        "s+": this.getSeconds(), // 秒
+                        "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
+                        "S": this.getMilliseconds() // 毫秒
+                    };
+                    if (/(y+)/.test(fmt))
+                        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                    for (var k in o)
+                        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                            return fmt;
+                }
+                var nowdate = new Date().Format("yyyy-MM-dd hh:mm:ss"); 
+                $(function () { 
+                	if('${method}'=='edit'){
+                		var reminder = '${(task.reminder_days)!}';
+                    	$('#reminder').val(reminder).trigger('change');
+                    	//$("#gender").select2();
+                	}
+                	
+                })
+                function CloseLayer(){
+                	var index = parent.layer.getFrameIndex(window.name);
+		 	        parent.layer.close(index);
+                }
+function SaveTask(method){
+				var title=$('#title').val();
+				var due_date=$('#due_date').val()+":00";
+				var reminder=$('#reminder').val();
+				var description=$('#description').val();
+				var taskid = $('#taskid').val();
+
+				var url = "/task/";
+				if(method=='add')url+="save";
+				else url+="update";
+
+				$.post(url, {"task.id":taskid,"task.title":title,
+					"task.reminder_days":reminder,"task.due_date":due_date,
+					"task.description":description}, function(data) {
+					if(data.code==1){
+					 	mlayer.open({
+						    content: 'Fail',
+						    btn: 'Got it'
+						  });
+						return false;
+					}
+					else{ 
+						mlayer.open({
+						    content: 'Success',
+						    btn: 'Got it',
+						    yes: function(){
+						    	window.parent.location.reload(); 
+						    	var index = parent.layer.getFrameIndex(window.name);
+					 	        parent.layer.close(index);
+						      }
+						  });
+					}
+					return false;
+				}, "json"); 
+				return false;
+	
+
+}
+</script>
+<script src="/f/assets/js/layer.js"></script>
+<script src="/f/assets/js/mobile/mlayer.js"></script>
+</@layout>

@@ -1,0 +1,106 @@
+<#include "/admin/common/_layout.html" />
+<@layout>
+<div class="box-positon">
+	<div class="rpos">当前位置: 会员管理 - 账户管理</div>
+	<form class="ropt">
+		<input type="submit" value="返回列表" onclick="this.form.action='/admin/user';" class="return-button"/>
+	</form>
+	<div class="clear"></div>
+</div>
+<div class="body-box">
+	<form action="/admin/user/save_account" method="post">
+		<table width="100%" class="pn-ftable" cellpadding="2" cellspacing="1" border="0">
+<tr>
+<td width="12%" class="pn-flabel pn-flabel-h">客户姓名:</td>
+<td colspan="1" width="20%" class="pn-fcontent">
+${(user.name)!}</td>
+<td width="12%" class="pn-flabel pn-flabel-h">手机号:</td>
+<td colspan="3" width="20%" class="pn-fcontent">
+${(user.mobile)!}</td>
+
+</tr>
+<tr>
+<td class="pn-fcontent" height="30" colspan="6">账户信息</td>
+</tr>
+<tr>
+<td class="pn-flabel pn-flabel-h">储蓄账户币种1:</td><td colspan="1" class="pn-fcontent">
+	<select name="user.save_cy1" id="save_cy1">
+		<#list cyList as c>
+			<option value="${c.code!}">${c.name!}</option>
+		</#list>
+	</select>
+</td>
+<td class="pn-flabel pn-flabel-h">金额:</td>
+<td colspan="3" class="pn-fcontent">
+<input id="save_cy1_amount" type="number" step="0.01" maxlength="50" name="user.save_cy1_amount" value="${(user.save_cy1_amount)!}" maxlength="50"/>
+</td></tr>
+<tr>
+<td class="pn-flabel pn-flabel-h">储蓄账户币种2:</td><td colspan="1" class="pn-fcontent">
+	<select name="user.save_cy2" id="save_cy2">
+		<#list cyList as c>
+			<option value="${c.code!}">${c.name!}</option>
+		</#list>
+	</select>
+</td>
+<td class="pn-flabel pn-flabel-h">金额:</td>
+<td colspan="3" class="pn-fcontent">
+<input id="save_cy2_amount" type="number" step="0.01" maxlength="50" name="user.save_cy2_amount" value="${(user.save_cy2_amount)!}" maxlength="50"/>
+</td></tr>
+<tr><td class="pn-flabel pn-flabel-h">比特币账户:</td>
+<td colspan="5" class="pn-fcontent">
+<input id="save_bitcoin_amount" type="number" step="0.01" maxlength="50" name="user.save_bitcoin_amount" value="${(user.save_bitcoin_amount)!}" maxlength="50"/>
+</td>
+</tr>
+<tr><td colspan="6" class="pn-fbutton">
+<input type="hidden" name="user.id" value="${(user.id)!}" />
+<input id="submit_one" type="submit" value="提交" class="submit"/> &nbsp; <input type="reset" value="重置" class="reset"/></td>
+</tr></table>
+<script>
+
+$(function () { 
+	var trade_id = $('#trade_id').val();
+	
+	if(trade_id==''){
+		
+		$('#save_cy1_amount').val(0);
+		$('#save_cy2_amount').val(0);
+		$('#save_bitcoin_amount').val(0);
+		$('#save_cy1').val("NZD");
+		$('#save_cy2').val("CNY");
+	}
+	else{
+		$('#save_cy1_amount').val("${(user.save_cy1_amount)!}");
+		$('#save_cy2_amount').val("${(user.save_cy2_amount)!}");
+		$('#save_bitcoin_amount').val("${(user.save_bitcoin_amount)!}");
+		$('#save_cy1').val("${(user.save_cy1)!}");
+		$('#save_cy2').val("${(user.save_cy2)!}");
+	}
+	
+	
+	$("#submit_one").click(function(){
+		if($('#pay_total').val().trim()==''||$('#withdraw_total').val().trim()==''
+				||$('#pay_md1_amount').val().trim()==''
+				||$('#withdraw_md1_amount').val().trim()==''){
+			alert("非法输入");
+	    	return false;
+		}
+		else{
+			var boo = 0;
+			var msg = "";
+			if(boo==1){
+				alert(msg);
+				return false;
+			}
+			else{
+				return true;	
+			}
+			
+		}
+	}); 
+	
+})
+
+</script>
+	</form>
+</div>
+</@layout>

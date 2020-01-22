@@ -1,0 +1,34 @@
+<#include "../c/head.html"/>
+<div class="am-g my-head">
+  <div class="am-u-sm-12 am-article">
+    <h1 class="am-article-title">${(content.title)!}</h1>
+    <p class="am-article-meta">
+    <#if content.author??>
+    ${(content.author)!}
+    </#if>
+    </p>
+    
+  </div>
+</div>
+
+<div class="am-g am-g-fixed">
+  <div class="am-u-md-12">
+    <div class="am-g">
+      <div class="am-u-sm-11 am-u-sm-centered">
+      	
+        <div class="am-cf am-article">
+          
+		    <#if content.description??>
+		    <p class="am-article-lead">
+		    ${(content.description)!}
+		    </p>
+		    </#if>
+		  
+		    <hr class="am-article-divider"/>
+          ${(content.txt)!}
+          <hr class="am-article-divider"/>
+        </div>
+      </div>
+    </div>
+  </div>
+<#include "../c/foot.html"/>

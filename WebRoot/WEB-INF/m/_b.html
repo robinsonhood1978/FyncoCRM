@@ -1,0 +1,134 @@
+<#macro layout>
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>${I18N.getText("title")}</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <!-- bootstrap & fontawesome -->
+		<link rel="stylesheet" href="/ace/assets/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/ace/assets/font-awesome/4.2.0/css/font-awesome.min.css" />
+
+		<!-- text fonts -->
+		<link rel="stylesheet" href="/ace/assets/fonts/fonts.googleapis.com.css" />
+
+		<!-- ace styles -->
+		<link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+
+		<!--[if lte IE 9]>
+			<link rel="stylesheet" href="/ace/assets/css/ace-part2.min.css" class="ace-main-stylesheet" />
+		<![endif]-->
+
+		<!--[if lte IE 9]>
+		  <link rel="stylesheet" href="/ace/assets/css/ace-ie.min.css" />
+		<![endif]-->
+
+		<!-- inline styles related to this page -->
+
+		<!-- ace settings handler -->
+		<script src="/ace/assets/js/ace-extra.min.js"></script>
+
+		<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+		<!--[if lte IE 8]>
+		<script src="/ace/assets/js/html5shiv.min.js"></script>
+		<script src="/ace/assets/js/respond.min.js"></script>
+		<![endif]-->
+  <link rel="stylesheet" href="/f/assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="/f/assets/css/admin.css">
+  <link rel="stylesheet" href="/css/simple-demo.css" rel="stylesheet" />
+  <!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="/f/assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="/f/assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="/f/assets/js/amazeui.min.js"></script>
+  <style>
+    .ufooter p {
+      color: #7f8c8d;
+      margin: 0;
+      padding: 15px 0;
+      text-align: center;
+      background: #2d3e50;
+    }
+  </style>
+</head>
+<body>
+<header class="am-topbar admin-header">
+  <div class="am-topbar-brand">
+    <strong><a href="/">Fynco</a></strong> <small>Member Center</small>
+  </div>
+
+  <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+  <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+    <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+      <li class="am-dropdown" data-am-dropdown>
+        <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+          <span class="am-icon-users"></span> ${(session.user.nick)!} <span class="am-icon-caret-down"></span>
+        </a>
+        <ul class="am-dropdown-content">
+          <li><a href="/m/person"><span class="am-icon-user"></span> information</a></li>
+          <li><a href="/m/avatar"><span class="am-icon-cog"></span> avatar</a></li>
+          <li><a href="/logout"><span class="am-icon-power-off"></span> logout</a></li>
+        </ul>
+      </li>
+   </ul>
+  </div>
+</header>
+<div class="am-cf admin-main">
+  <!-- sidebar start -->
+  <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+    <div class="am-offcanvas-bar admin-offcanvas-bar">
+      <ul class="am-list admin-sidebar-list">
+        <li><a href="/m"><span class="am-icon-home"></span> My trading records</a></li>
+        <li><a href="/m/blogs"><span class="am-icon-home"></span> My blog</a></li>
+        <li><a href="/m/write"><span class="am-icon-pencil-square-o"></span> Write a blog</a></li>
+        <li><a href="/m/kaihu"><span class="am-icon-th"></span> Application for opening an account</a></li>
+        <li class="admin-parent">
+          <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> Personal Data <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+          <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+          	<li><a href="/m/balance"><span class="am-icon-usd"></span> Account Balance</a></li>
+            <li><a href="/m/person" class="am-cf"><span class="am-icon-check"></span> Register Information<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+            <li><a href="/m/avatar"><span class="am-icon-puzzle-piece"></span> Upload Avatar</a></li>
+            <li><a href="/m/pwd"><span class="am-icon-calendar"></span> Password Modification</a></li>
+          </ul>
+        </li>
+        
+        <li><a href="/logout"><span class="am-icon-sign-out"></span> Logout</a></li>
+      </ul>
+
+      <div class="am-panel am-panel-default admin-sidebar-panel">
+        <div class="am-panel-bd">
+          <p><span class="am-icon-bookmark"></span> Buy, Sell & Save Bitcoin</p>
+          <p>Buy Bitcoin in New Zealand effortlessly</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- sidebar end -->
+<#nested>
+
+</div>
+
+<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+<footer class="ufooter">
+  <p>© 2019 <a href="/">Fynco</a> </p>
+</footer>
+
+
+</body>
+</html>
+</#macro>

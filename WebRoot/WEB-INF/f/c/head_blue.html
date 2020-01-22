@@ -1,0 +1,183 @@
+<!doctype html>
+<!--[if lte IE 7 ]><html class="no-js ie lte7 lte8 lte9 widgets"><![endif]-->
+<!--[if IE 8 ]><html class="no-js ie ie8 lte8 lte9 widgets"><![endif]-->
+<!--[if IE 9 ]><html class="no-js ie ie9 lte9 widgets"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html class="no-js widgets"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="邮人网，以前沿、深度为己任的一流邮币资讯及邮界博客平台。">
+<meta name="keywords" content="邮人网, 邮人, 邮票, 艺交所, 中艺, 中国艺交所, 邮币卡, 邮币卡电子盘, 邮币资讯, 邮票博客, 邮票知识">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>中国艺交所-邮人网</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<meta name="apple-mobile-web-app-title" content="邮人网"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="stylesheet" href="/f/assets/css/amazeui.min.css"/>
+<link rel="stylesheet" href="/f/assets/css/amaze.min.css">
+<!-- jqPagination styles -->
+		<link rel="stylesheet" href="/css/jqpagination.css" />
+		<script src="/js/jquery.jqpagination.min.js"></script>
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="/f/assets/js/amazeui.ie8polyfill.min.js"></script>
+<script src="/f/assets/js/polyfill/rem.min.js"></script>
+<script src="/f/assets/js/polyfill/respond.min.js"></script>
+<script src="/f/assets/js/amazeui.legacy.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="/f/assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="/f/assets/js/amazeui.min.js"></script>
+
+<style>
+    .footer p {
+      color: #7f8c8d;
+      margin: 0;
+      padding: 15px 0;
+      text-align: center;
+      background: #2d3e50;
+    }
+    h3 {
+      font-weight:200;
+    }
+    .owner-panel-hd {
+  padding: 0.6rem 8rem;
+  border-bottom: 1px solid transparent;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+    .owner-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  font-size: 1.3rem;
+  top: -1.1rem;
+}
+    .am-list-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  position: absolute;
+  right: 1px;
+  font-size: 1.3rem;
+  top: -1.1rem;
+}
+    @media only screen and (min-width: 1200px) {
+      .blog-g-fixed {
+        max-width: 1200px;
+      }
+    }
+
+    @media only screen and (min-width: 641px) {
+      .blog-sidebar {
+        font-size: 1.4rem;
+      }
+    }
+
+    .blog-main {
+      padding: 20px 0;
+    }
+
+    .blog-title {
+      margin: 10px 0 20px 0;
+    }
+
+    .blog-meta {
+      font-size: 14px;
+      margin: 10px 0 20px 0;
+      color: #222;
+    }
+
+    .blog-meta a {
+      color: #27ae60;
+    }
+
+    .blog-pagination a {
+      font-size: 1.4rem;
+    }
+
+    .blog-team li {
+      padding: 4px;
+    }
+
+    .blog-team img {
+      margin-bottom: 0;
+    }
+
+    .blog-content img,
+    .blog-team img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .blog-footer {
+      padding: 10px 0;
+      text-align: center;
+    }
+  </style>
+</head>
+<body class="" data-amui="2.x">
+<!--[if lte IE 9 ]>
+<div class="am-alert am-alert-danger ie-warning" data-am-alert>
+  <button type="button" class="am-close">&times;</button>
+  <div class="am-container">
+    365 安全卫士提醒：你的浏览器太古董了，<a
+    href="http://browsehappy.com/" target="_blank">还不速速换一个</a>！</div></div>
+<![endif]-->
+<header id="amz-header" class="am-topbar am-topbar-fixed-top">
+  <div class="am-container">
+    
+      <a href="/"><img src="/images/logo.png" class="am-topbar-brand"></a>
+
+
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-secondary am-show-sm-only"
+            data-am-collapse="{target: '#collapse-head'}"><span class="am-sr-only">${I18N.getText("switch")}</span> <span
+        class="am-icon-bars"></span></button>
+
+    <div class="am-collapse am-topbar-collapse" id="collapse-head">
+      <ul class="am-nav am-nav-pills am-topbar-nav">
+        <li class="am-active"><a href="/">${I18N.getText("home")}</a></li>
+        <li><a href="/">${I18N.getText("about")}</a></li>
+        <li><a href="/info">${I18N.getText("news")}</a></li>
+        <li><a href="/kaihu">${I18N.getText("blog")}</a></li>
+        <li class="am-dropdown" data-am-dropdown>
+          <a class="am-dropdown-toggle" data-am-dropdown-toggle href="/know">
+          ${I18N.getText("learn")}<span class="am-icon-caret-down"></span>
+          </a>
+          <ul class="am-dropdown-content">
+            
+            <li><a href="/yp">${I18N.getText("howitworks")}</a></li>
+            <li><a href="/jnb">${I18N.getText("save")}</a></li>
+            <li><a href="/jnc">${I18N.getText("buy")}</a></li>
+            <li><a href="/xxz">${I18N.getText("sell")}</a></li>
+            <li><a href="/xxz">${I18N.getText("faqs")}</a></li>
+          </ul>
+        </li>
+      </ul>
+	  <#if session?? && session.user??>
+	  <div class="am-topbar-right">
+        <a href="/logout" class="am-btn am-btn-secondary am-topbar-btn am-btn-sm am-round"><span class="am-icon-power-off"></span> ${I18N.getText("logout")}</a>
+      </div>
+	  <div class="am-topbar-right">
+        <a href="/m" class="am-btn am-btn-primary am-topbar-btn am-btn-sm am-round"><span class="am-icon-home"></span> ${I18N.getText("mcenter")}</a>
+      </div>
+	  <#else>
+      <div class="am-topbar-right">
+        <a href="/r" class="am-btn am-btn-secondary am-topbar-btn am-btn-sm am-round"><span class="am-icon-pencil"></span> ${I18N.getText("signup")}</a>
+      </div>
+
+      <div class="am-topbar-right">
+        <a href="/l" class="am-btn am-btn-primary am-topbar-btn am-btn-sm am-round"><span class="am-icon-user"></span> ${I18N.getText("login")}</a>
+      </div>
+      </#if>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,103 @@
+<#include "/WEB-INF/m/_m.html" />
+<@layout>
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="am-cf am-padding">
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">Password modification</strong></div>
+    </div>
+
+    <hr/>
+
+    <div class="am-g">
+
+      <div class="am-u-sm-12 am-u-md-4 am-u-md-push-8">
+        
+
+      </div>
+
+      <div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4">
+        <form class="am-form am-form-horizontal">
+          <div class="am-form-group">
+            <label for="oldpwd" class="am-u-sm-3 am-form-label">Old password</label>
+            <div class="am-u-sm-9">
+              <input type="password" name="user.oldpwd" minlength="5" id="oldpwd" value="" required>
+            </div>
+          </div>
+
+          <div class="am-form-group">
+            <label for="pwd" class="am-u-sm-3 am-form-label">New password</label>
+            <div class="am-u-sm-9">
+              <input type="password" name="user.pwd" id="pwd" minlength="6" value="" required>
+            </div>
+          </div>
+
+          <div class="am-form-group">
+            <label for="pwd2" class="am-u-sm-3 am-form-label">Repeat new password</label>
+            <div class="am-u-sm-9">
+              <input type="password" name="pwd2" id="pwd2" minlength="6" value="" required>
+            </div>
+          </div>
+
+
+          <div class="am-form-group">
+            <div class="am-u-sm-9 am-u-sm-push-3">
+            	<input type="hidden" value="0" id="invalid">
+      			<input type="hidden" value="" id="msg">
+              <button type="button" class="am-btn am-btn-primary" onClick="return Reg();">Save</button>
+            </div>
+          </div>
+          <!--alert start-->
+      <div class="am-modal am-modal-alert" id="pwd-alert">
+  		<div class="am-modal-dialog">
+    		<div class="am-modal-bd" id="myalert">
+      
+    		</div>
+    		<div class="am-modal-footer">
+      			<span class="am-modal-btn">Got it</span>
+    		</div>
+  		</div>
+	  </div>
+	  <!--alert end-->
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- content end -->
+<script>
+var $modal = $('#pwd-alert');
+function Reg(){
+	if($('#pwd').val()==$('#pwd2').val()){
+
+			var oldpwd=$('#oldpwd').val();
+			var pwd=$('#pwd').val();
+			oldpwd=Base64.encode(md5(oldpwd));
+			console.log(oldpwd);
+			pwd=Base64.encode(md5(pwd));
+			console.log(pwd)
+			$.post("/m/juppwd", {"user.oldpwd":oldpwd,"user.pwd":pwd}, function(data) {
+				if(data.code==1){
+				 	layer.open({
+					    content: data.msg,
+					    btn: 'Got it'
+					  });
+				}
+				else{ 
+					//sessionStorage.setItem("fynco_email", vemail); 
+					layer.open({
+					    content: 'Success',
+					    btn: 'Got it',
+					    yes: function(){
+					    	location.href="/m";
+					      }
+					  });
+				}
+			}, "json");
+	}
+	else{
+		$('#myalert').text('The password you entered twice is inconsistent^-^');
+		$modal.modal();
+	}
+	return false;
+}
+</script>
+</@layout>

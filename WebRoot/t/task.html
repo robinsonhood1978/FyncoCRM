@@ -1,0 +1,343 @@
+<#include "/t/_c.html" />
+<@layout>
+<div class="mdk-drawer-layout__content page">
+
+
+				
+
+					<div class="container-fluid page__container">
+                        <div class="page__heading d-flex align-items-center">
+                            <div class="flex">
+                                <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="#"><i class="material-icons icon-20pt">home</i></a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Tasks</li>
+                                </ol>
+                            </nav>
+                            <h1 class="m-0">Tasks</h1>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+
+
+                    <div class="container-fluid page__container">
+						<div class="trello-container">
+                        <div class="trello-board container-fluid page__container">
+                        <div class="row">
+                        <div class="col-md">
+                            <div class="trello-board__tasks" >
+                                <div class="card bg-light border">
+                                    <div class="card-header card-header-sm bg-white">
+                                        <h4 class="card-header__title">MY TASKS</h4>
+                                    </div>
+                                    <div class="card-body p-2">
+                                        <div class="trello-board__tasks-list card-list" id="trello-tasks-1">
+                                        <#setting locale="en">
+                                        <#list tasks as x>
+                                            <div ondblclick="DoubleClick('${x.id}');" id="task_${x.id}" class="trello-board__tasks-item card shadow-none border">
+                                                <div class="p-3">
+                                                     <div class="m-0 d-flex align-items-center">
+                                                        <strong>${x.title}</strong>
+                                                         
+                                                         
+                                                         <#if x.status==0>
+                                                         <span class="badge badge-info ml-auto">UNDONE</span>
+                                                         <#else>
+                                                         <span class="badge badge-success ml-auto">COMPLETED</span>
+                                                         </#if>
+                                                         
+                                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
+			                                        <div class="dropdown-menu dropdown-menu-right">
+			                                        <a href="javascript:void(0)" onclick="View('${x.id}');" class="dropdown-item">View</a>
+			                                            <a href="javascript:void(0)" onclick="Edit('${x.id}');" class="dropdown-item">Edit</a>
+			                                             <a href="javascript:void(0)" onclick="Complete('${x.id}');" class="dropdown-item">Complete</a>
+			    
+			                                            <div class="dropdown-divider"></div>
+			                                           <a href="javascript:void(0)" onclick="Del('${x.id}');" class="dropdown-item">Delete</a>
+			                                        </div>
+			                                         </div>
+                                                      
+                                                         
+
+                                                    <p class="d-flex align-items-center mb-2">
+                                                        <i class="material-icons icon-16pt mr-2 text-muted">folder_open</i>
+                                                        <span class="text-muted mr-3">Created:</span><span class="badge badge-light-gray text-muted mr-3">${x.create_time?string('dd/MM/yyyy')}</span>
+                                                        <i class="material-icons icon-16pt mr-2 text-muted">comment</i>
+                                                        <span class="text-muted mr-3">Due:</span><span class="badge badge-warning text-muted mr-3">${x.due_date?string('dd/MM/yyyy hh:mm a')}</span>
+                                                    </p>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                       </#list>
+                                            
+                                            
+                                            
+                                            <div>
+                                              
+                                            </div>
+
+
+
+                                        </div>
+                                        
+                                        
+                                        <a href="javascript:void(0)" onclick="AddTask();" class="btn btn-light btn-block mt-2">+ Add New Task</a>
+                                    </div>
+                                </div>
+                            </div>
+                      </div>
+                      <div class="col-md">
+                            <div class="trello-board__tasks">
+                                <div class="card bg-light border">
+                                    <div class="card-header card-header-sm bg-white">
+                                        <h4 class="card-header__title">REFIX</h4>
+                                    </div>
+                                    <div class="card-body p-2">
+                                        <div class="trello-board__tasks-list card-list" id="trello-tasks-2">
+
+                                            <#list refixs as x>
+                                            <div ondblclick="DoubleClick('${x.id}');" id="task_${x.id}" class="trello-board__tasks-item card shadow-none border">
+                                                <div class="p-3">
+                                                     <div class="m-0 d-flex align-items-center">
+                                                        <strong>${x.title}</strong>
+                                                         
+                                                         
+                                                         <#if x.status==0>
+                                                         <span class="badge badge-info ml-auto">UNDONE</span>
+                                                         <#else>
+                                                         <span class="badge badge-success ml-auto">COMPLETED</span>
+                                                         </#if>
+                                                         
+                                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
+			                                        <div class="dropdown-menu dropdown-menu-right">
+			                                        <a href="javascript:void(0)" onclick="View('${x.id}');" class="dropdown-item">View</a>
+			                                            <a href="javascript:void(0)" onclick="EditRefix('${(x.client_id)!}');" class="dropdown-item">Edit</a>
+			                                             <a href="javascript:void(0)" onclick="Complete('${x.id}');" class="dropdown-item">Complete</a>
+			    
+			                                            <div class="dropdown-divider"></div>
+			                                           <a href="javascript:void(0)" onclick="DelRefix('${x.id}');" class="dropdown-item">Delete</a>
+			                                        </div>
+			                                         </div>
+                                                      
+                                                         
+
+                                                    <p class="d-flex align-items-center mb-2">
+                                                        <i class="material-icons icon-16pt mr-2 text-muted">folder_open</i>
+                                                        <span class="text-muted mr-3">Refix Due:</span><span class="badge badge-light-gray text-muted mr-3">${x.due_date?string('dd/MM/yyyy')}</span>
+                                                        <i class="material-icons icon-16pt mr-2 text-muted">comment</i>
+                                                        <span class="text-muted mr-3">Reminder:</span><span class="badge badge-warning text-muted mr-3">set to ${x.reminder_days} days</span>
+                                                    </p>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                       </#list>
+
+
+
+                                        </div>
+                                        <a href="javascript:void(0)" onclick="AddRefix();"  class="btn btn-light btn-block mt-2">+ Add New Refix Client</a>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                           </div> 
+                        </div>
+                    </div>
+                        
+                        	
+                            
+                    </div>
+
+
+
+                </div>
+                <!-- // END drawer-layout__content -->		
+                <script>
+                function EditRefix(client_id){
+                	var url = '/client/editrefix/'+client_id;
+                	layer.open({
+                		type: 2,
+                		title: 'Edit a refix client',
+                		fixed: false, //不固定
+                		maxmin: true,
+                	    shadeClose: true, //点击遮罩关闭层
+                		area: ['60%', '80%'],
+                		content: url ,
+                		success:function(layero,index){
+                        },
+                        end:function(){
+                			//alert(1)
+                        }
+                	});
+                }
+                function AddRefix(){
+                	var url = '/client/addrefix';
+                	layer.open({
+                		type: 2,
+                		title: 'Add a new refix client',
+                		fixed: false, //不固定
+                		maxmin: true,
+                	    shadeClose: true, //点击遮罩关闭层
+                		area: ['60%', '80%'],
+                		content: url ,
+                		success:function(layero,index){
+                        },
+                        end:function(){
+                			//alert(1)
+                        }
+                	});
+                }
+				function Complete(id){
+                	mlayer.open({
+                	    content: 'You want to mark it as completed, all changes cannot be rolled back. Are you sure?'
+                	    ,btn: ['Yes', 'No']
+                	    ,yes: function(index){
+                	    	var url = "/task/complete/"+id;
+                	    	$.get(url, function(data) {
+        						if(data==0){
+        						 	mlayer.open({
+        							    content: 'Fail',
+        							    btn: 'Got it'
+        							  });
+        						}
+        						else{ 
+        							mlayer.open({
+        							    content: 'Action succeed',
+        							    btn: 'Got it',
+        							    yes: function(index){
+        							    	window.location.reload(),
+        							    	mlayer.close(index)
+        							      }
+        							    
+        							  });
+                        	    	
+        						} 						
+        					}, "json"); 
+                	    }
+                	  });
+                }
+                function Edit(id){
+                	//alert(id)
+                	var url = '/task/edit/'+id;
+                	layer.open({
+                		type: 2,
+                		title: 'Edit a Task',
+                		fixed: false, //不固定
+                		maxmin: true,
+                	    shadeClose: true, //点击遮罩关闭层
+                		area: ['60%', '80%'],
+                		content: url ,
+                		success:function(layero,index){
+                        },
+                        end:function(){
+                			//alert(1)
+                        }
+                	});
+                }
+                function Del(id){
+                	
+                	mlayer.open({
+                	    content: 'You want to delete it, all changes cannot be rolled back. Are you sure?'
+                	    ,btn: ['Yes', 'No']
+                	    ,yes: function(index){
+                	    	var url = "/task/del/"+id;
+                	    	$.get(url, function(data) {
+        						if(data==0){
+        						 	mlayer.open({
+        							    content: 'Fail',
+        							    btn: 'Got it'
+        							  });
+        						}
+        						else{ 
+        							mlayer.open({
+        							    content: 'Action succeed',
+        							    btn: 'Got it',
+        							    yes: function(index){
+        							    	$('#task_'+id).remove();
+                                	    	mlayer.close(index);
+        							    }
+        							  });
+        							
+        						} 						
+        					}, "json"); 
+                	    }
+                	  });
+                }
+				function DelRefix(id){
+                	
+                	mlayer.open({
+                	    content: 'You want to delete it, all changes cannot be rolled back. Are you sure?'
+                	    ,btn: ['Yes', 'No']
+                	    ,yes: function(index){
+                	    	var url = "/task/delrefix/"+id;
+                	    	$.get(url, function(data) {
+        						if(data==0){
+        						 	mlayer.open({
+        							    content: 'Fail',
+        							    btn: 'Got it'
+        							  });
+        						}
+        						else{ 
+        							mlayer.open({
+        							    content: 'Action succeed',
+        							    btn: 'Got it',
+        							    yes: function(index){
+        							    	$('#task_'+id).remove();
+                                	    	mlayer.close(index);
+        							    }
+        							  });
+        							
+        						} 						
+        					}, "json"); 
+                	    }
+                	  });
+                }
+                function AddTask(){
+                	var url = '/task/add';
+                	layer.open({
+                		type: 2,
+                		title: 'Add a Task',
+                		fixed: false, //不固定
+                		maxmin: true,
+                	    shadeClose: true, //点击遮罩关闭层
+                		area: ['60%', '80%'],
+                		content: url ,
+                		success:function(layero,index){
+                        },
+                        end:function(){
+                			//alert(1)
+                        }
+                	});
+                }
+                function DoubleClick(id){
+                	View(id);
+                }
+                function View(id){
+                	//alert(id)
+                	var url = '/task/detail?id='+id;
+            		layer.open({
+            			type: 2,
+            			title: 'Task Details',
+            			fixed: false, //不固定
+            			maxmin: true,
+            		    shadeClose: true, //点击遮罩关闭层
+            			area: ['60%', '85%'],
+            			content: url ,
+            			success:function(layero,index){
+            	        },
+            	        end:function(){
+            	        	//ShowApplicant();
+            	        }
+            		});
+                }
+                </script>			
+<script src="/f/assets/js/layer.js"></script>
+<script src="/f/assets/js/mobile/mlayer.js"></script>
+</@layout>

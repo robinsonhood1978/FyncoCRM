@@ -1,0 +1,84 @@
+<#include "/t/_c.html" />
+<@layout>
+                <div class="mdk-drawer-layout__content page">
+
+
+
+                    <div class="container-fluid page__heading-container">
+                        <div class="page__heading d-flex align-items-center">
+                            <div class="flex">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb mb-0">
+                                        <li class="breadcrumb-item"><a href="/"><i class="material-icons icon-20pt">home</i></a></li>
+                                        <li class="breadcrumb-item">Mortgage Hub</li>
+                                        <li class="breadcrumb-item active" aria-current="page">Event Calendar</li>
+                                    </ol>
+                                </nav>
+                                <h1 class="m-0">Event Calendar</h1>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="container-fluid page__container">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <div class="card card-body">
+                                    <div id="calendar" data-toggle="fullcalendar"></div>
+                                </div>
+                            </div> <!-- end col -->
+                            <div class="col-lg-3">
+                                <div>
+                                   <div class="external-event bg-danger" data-class="bg-danger">
+                                        <i class="mr-2 material-icons">drag_handle</i>
+                                        <span class="external-event__title">Meeting</span>
+                                    </div>
+                                    <div class="external-event bg-success" data-class="bg-success">
+                                        <i class="mr-2 material-icons">drag_handle</i>
+                                        <span class="external-event__title">Interview</span>
+                                    </div>
+                                    <div class="external-event bg-primary" data-class="bg-info">
+                                        <i class="mr-2 material-icons">drag_handle</i>
+                                        <span class="external-event__title">Appointment</span>
+                                    </div>
+                                    <div class="external-event bg-info" data-class="bg-info">
+                                        <i class="mr-2 material-icons">drag_handle</i>
+                                        <span class="external-event__title">Event</span>
+                                    </div>
+                                    <div class="external-event bg-dark" data-class="bg-warning">
+                                        <i class="mr-2 material-icons">drag_handle</i>
+                                        <span class="external-event__title">Activity</span>
+                                    </div>
+                                    <div class="external-event bg-warning" data-class="bg-warning">
+                                        <i class="mr-2 material-icons">drag_handle</i>
+                                        <span class="external-event__title">Other</span>
+                                    </div>
+                                    
+                                </div>
+
+                                
+                            </div> <!-- end col-->
+
+                            
+                        </div> <!-- end row -->
+                    </div>
+
+
+
+                </div>
+                <!-- // END drawer-layout__content -->
+<script>
+//prompt层
+/* 
+layer.prompt({title: '输入任何口令，并确认', formType: 1}, function(pass, index){
+  layer.close(index);
+  layer.prompt({title: '随便写点啥，并确认', formType: 2}, function(text, index){
+    layer.close(index);
+    layer.msg('演示完毕！您的口令：'+ pass +'<br>您最后写下了：'+text);
+  });
+}); */
+</script>
+</@layout>

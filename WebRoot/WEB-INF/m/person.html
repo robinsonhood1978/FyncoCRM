@@ -1,0 +1,163 @@
+<#include "/WEB-INF/m/_m.html" />
+<@layout>
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="am-cf am-padding">
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">Personal Data</strong></div>
+    </div>
+
+    <hr/>
+
+    <div class="am-g">
+
+      <div class="am-u-sm-12 am-u-md-4 am-u-md-push-8">
+        
+
+      </div>
+
+      <div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4">
+        <form class="am-form am-form-horizontal">
+          <div class="am-form-group">
+            <label for="first_name" class="am-u-sm-3 am-form-label">First Name</label>
+            <div class="am-u-sm-9">
+              <input type="text" name="user.first_name" id="first_name" value="${(session.user.first_name)!}" >
+            </div>
+          </div>
+          
+          <div class="am-form-group">
+            <label for="last_name" class="am-u-sm-3 am-form-label">Last Name</label>
+            <div class="am-u-sm-9">
+              <input type="text" name="user.last_name" id="last_name" value="${(session.user.last_name)!}" >
+            </div>
+          </div>
+          
+          <div class="am-form-group">
+            <label for="prefered_name" class="am-u-sm-3 am-form-label">Preferred Name</label>
+            <div class="am-u-sm-9">
+              <input type="text" name="user.prefered_name" id="prefered_name" value="${(session.user.prefered_name)!}" >
+            </div>
+          </div>
+
+          <div class="am-form-group">
+            <label for="work_phone" class="am-u-sm-3 am-form-label">Work Phone</label>
+            <div class="am-u-sm-9">
+              <input type="text" name="user.work_phone" id="work_phone" value="${(session.user.work_phone)!}">
+            </div>
+          </div>
+          
+          <div class="am-form-group">
+            <label for="mobile" class="am-u-sm-3 am-form-label">Mobile</label>
+            <div class="am-u-sm-9">
+              <input type="tel" name="user.mobile" id="mobile" pattern="[0-9]*" placeholder="Input your mobile" value="${(session.user.mobile)!}" required>
+            </div>
+          </div>
+
+          <div class="am-form-group">
+            <label for="title" class="am-u-sm-3 am-form-label">Title</label>
+            <div class="am-u-sm-9">
+              <input type="text" name="user.title" id="title" value="${(session.user.title)!}">
+            </div>
+          </div>
+          <div class="am-form-group">
+            <label for="department" class="am-u-sm-3 am-form-label">Department</label>
+            <div class="am-u-sm-9">
+              <input type="text" name="user.department" id="department" value="${(session.user.department)!}">
+            </div>
+          </div>
+          <div class="am-form-group">
+            <label for="employee_number" class="am-u-sm-3 am-form-label">Employee Number</label>
+            <div class="am-u-sm-9">
+              <input type="text" name="user.employee_number" id="employee_number" value="${(session.user.employee_number)!}">
+            </div>
+          </div>
+          <div class="am-form-group">
+            <label for="office_location" class="am-u-sm-3 am-form-label">Office Location</label>
+            <div class="am-u-sm-9">
+              <input type="text" name="user.office_location" id="office_location" value="${(session.user.office_location)!}">
+            </div>
+          </div>
+
+          <div class="am-form-group">
+            <div class="am-u-sm-9 am-u-sm-push-3">
+            	<input type="hidden" value="0" id="invalid">
+      			<input type="hidden" value="" id="msg">
+              <button type="button" class="am-btn am-btn-primary" onClick="return Mod();">Save</button>
+            </div>
+          </div>
+          <!--alert start-->
+      <div class="am-modal am-modal-alert" id="pwd-alert">
+  		<div class="am-modal-dialog">
+    		<div class="am-modal-bd" id="myalert">
+      
+    		</div>
+    		<div class="am-modal-footer">
+      			<span class="am-modal-btn">Got it</span>
+    		</div>
+  		</div>
+	  </div>
+	  <!--alert end-->
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- content end -->
+<script>
+var $modal = $('#pwd-alert');
+$(function () { 
+	$('#mobile').blur(function(){
+		var vmobile=$('#mobile').val();
+		if(vmobile!=''){
+  			$.post("/mobile", {mobile:vmobile}, function(data) {
+				if(data.code>0){
+				 	$('#invalid').val(data.code);
+				 	$('#msg').val(data.msg);
+				 	$('#myalert').text(data.msg);
+					$modal.modal();
+				}
+				else{
+					$('#invalid').val(0);
+				}
+			}, "json");
+		}
+	});
+})
+function Mod(){
+	var first_name=$('#first_name').val();
+	var last_name=$('#last_name').val();
+	var prefered_name=$('#prefered_name').val();
+	var work_phone=$('#work_phone').val();
+	var mobile=$('#mobile').val();
+	var title=$('#title').val();
+	var department=$('#department').val();
+	var employee_number=$('#employee_number').val();
+	var office_location=$('#office_location').val();
+
+	$.post("/m/jupinfo", {"user.first_name":first_name,"user.last_name":last_name,"user.prefered_name":prefered_name,
+		"user.work_phone":work_phone,"user.mobile":mobile,"user.title":title,"user.department":department,
+		"user.employee_number":employee_number,"user.office_location":office_location}, function(data) {
+		if(data.code==1){
+		 	$('#invalid').val(data.code);
+		 	$('#msg').val(data.msg);
+		 	layer.open({
+			    content: data.msg,
+			    btn: 'Got it'
+			  });
+			return false;
+		}
+		else{ 
+			//sessionStorage.setItem("fynco_email", vemail); 
+			layer.open({
+			    content: 'Success',
+			    btn: 'Got it',
+			    yes: function(){
+			    	location.href="/m";
+			      }
+			  });
+		}
+		return false;
+	}, "json");
+	return false;
+
+}
+</script>
+</@layout>

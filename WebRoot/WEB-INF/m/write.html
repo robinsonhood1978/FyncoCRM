@@ -1,0 +1,287 @@
+<#include "/WEB-INF/m/_b.html" />
+<@layout>
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="am-cf am-padding">
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">Write a blog</strong></div>
+    </div>
+
+    <hr/>
+
+    <div class="am-g">
+
+      <div class="am-u-sm-12 am-u-md-4 am-u-md-push-8">
+        
+
+      </div>
+
+      <div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4">
+        <form class="am-form am-form-horizontal" method="post" action="/m/publish" onSubmit="return Check();">
+          <!-- div class="am-form-group">
+          <div class="am-alert am-alert-success" data-am-alert id="ctg_msg">
+  <button type="button" class="am-close">&times;</button>
+  <p>请选择发表栏目^-^</p>
+</div>
+              <select name="content.channel_id" id="ctg" data-am-selected="{btnWidth: '40%', btnStyle: 'second'}" placeholder="选择发表栏目">
+              <option selected value="22">Blog</option>
+      </select>
+          </div -->
+
+         
+          <div class="am-form-group">
+            
+              <input type="text" name="content.title" id="title" placeholder="title" value="" required>
+            
+          </div>
+          
+           <div class="am-form-group">
+            
+              <input type="text" name="content.author" id="author" placeholder="author" value="">
+            
+          </div>
+		
+          <div class="am-form-group"> 
+          <div class="am-alert am-alert-success" data-am-alert id="txt_msg">
+  <button type="button" class="am-close">&times;</button>
+  <p>content^-^</p>
+</div>
+              <div class="wysiwyg-editor" id="editor1"></div>
+          </div>
+
+
+          <div class="am-form-group">
+            <div class="am-u-sm-9 am-u-sm-push-3">
+            	<input type="hidden" value="0" id="invalid">
+      			<input type="hidden" value="" id="msg">
+      			<input name="content.txt" type="hidden" value="" id="txt">
+      			<input name="content.channel_id" type="hidden" value="22">
+              <button type="submit" class="am-btn am-btn-primary" id="publish"> Publish </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- content end -->
+  
+  <!-- basic scripts -->
+
+		<!--[if !IE]> -->
+		<script src="/ace/assets/js/jquery.2.1.1.min.js"></script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script src="/ace/assets/js/jquery.1.11.1.min.js"></script>
+<![endif]-->
+
+		<!--[if !IE]> -->
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='/ace/assets/js/jquery.min.js'>"+"<"+"/script>");
+		</script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='/ace/assets/js/jquery1x.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+		<script type="text/javascript">
+			if('ontouchstart' in document.documentElement) document.write("<script src='/ace/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+		</script>
+		<script src="/ace/assets/js/bootstrap.min.js"></script>
+
+		<!-- page specific plugin scripts -->
+
+		<script src="/ace/assets/js/jquery.hotkeys.min.js"></script>
+		<script src="/ace/assets/js/bootstrap-wysiwyg.min.js"></script>
+
+		<!-- ace scripts -->
+		<script src="/ace/assets/js/ace-elements.min.js"></script>
+		<script src="/ace/assets/js/ace.min.js"></script>
+
+		<!-- inline scripts related to this page -->
+		<script type="text/javascript">
+			jQuery(function($){
+			
+			
+			$('#ctg_msg').hide();
+			$('#txt_msg').hide();
+	$('#publish').bind('click', function () {
+        //$("#txt").val($("#editor1").html().trim().replace(/img src/g,'img class="am-img-responsive" src').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'));
+        $("#txt").val($("#editor1").html().trim().replace(/img src/g,'img class="am-img-responsive" src'));
+    });
+	function showErrorAlert (reason, detail) {
+		var msg='';
+		if (reason==='unsupported-file-type') { msg = "Unsupported format " +detail; }
+		else {
+			//console.log("error uploading file", reason, detail);
+		}
+		$('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'+ 
+		 '<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');
+	}
+
+	//$('#editor1').ace_wysiwyg();//this will create the default editor will all buttons
+
+	//but we want to change a few buttons colors for the third style
+	$('#editor1').ace_wysiwyg({
+		toolbar:
+		[
+			'font',
+			null,
+			'fontSize',
+			null,
+			{name:'bold', className:'btn-info'},
+			{name:'italic', className:'btn-info'},
+			{name:'strikethrough', className:'btn-info'},
+			{name:'underline', className:'btn-info'},
+			null,
+			{name:'insertunorderedlist', className:'btn-success'},
+			{name:'insertorderedlist', className:'btn-success'},
+			{name:'outdent', className:'btn-purple'},
+			{name:'indent', className:'btn-purple'},
+			null,
+			{name:'justifyleft', className:'btn-primary'},
+			{name:'justifycenter', className:'btn-primary'},
+			{name:'justifyright', className:'btn-primary'},
+			{name:'justifyfull', className:'btn-inverse'},
+			null,
+			{name:'createLink', className:'btn-pink'},
+			{name:'unlink', className:'btn-pink'},
+			null,
+			{name:'insertImage', className:'btn-success'},
+			null,
+			'foreColor',
+			null,
+			{name:'undo', className:'btn-grey'},
+			{name:'redo', className:'btn-grey'}
+		],
+		'wysiwyg': {
+			fileUploadError: showErrorAlert
+		}
+	}).prev().addClass('wysiwyg-style2');
+
+	
+	/**
+	//make the editor have all the available height
+	$(window).on('resize.editor', function() {
+		var offset = $('#editor1').parent().offset();
+		var winHeight =  $(this).height();
+		
+		$('#editor1').css({'height':winHeight - offset.top - 10, 'max-height': 'none'});
+	}).triggerHandler('resize.editor');
+	*/
+	
+
+	
+	
+
+
+	$('[data-toggle="buttons"] .btn').on('click', function(e){
+		var target = $(this).find('input[type=radio]');
+		var which = parseInt(target.val());
+		var toolbar = $('#editor1').prev().get(0);
+		if(which >= 1 && which <= 4) {
+			toolbar.className = toolbar.className.replace(/wysiwyg\-style(1|2)/g , '');
+			if(which == 1) $(toolbar).addClass('wysiwyg-style1');
+			else if(which == 2) $(toolbar).addClass('wysiwyg-style2');
+			if(which == 4) {
+				$(toolbar).find('.btn-group > .btn').addClass('btn-white btn-round');
+			} else $(toolbar).find('.btn-group > .btn-white').removeClass('btn-white btn-round');
+		}
+	});
+
+
+	
+
+	//RESIZE IMAGE
+	
+	//Add Image Resize Functionality to Chrome and Safari
+	//webkit browsers don't have image resize functionality when content is editable
+	//so let's add something using jQuery UI resizable
+	//another option would be opening a dialog for user to enter dimensions.
+	if ( typeof jQuery.ui !== 'undefined' && ace.vars['webkit'] ) {
+		
+		var lastResizableImg = null;
+		function destroyResizable() {
+			if(lastResizableImg == null) return;
+			lastResizableImg.resizable( "destroy" );
+			lastResizableImg.removeData('resizable');
+			lastResizableImg = null;
+		}
+
+		var enableImageResize = function() {
+			$('.wysiwyg-editor')
+			.on('mousedown', function(e) {
+				var target = $(e.target);
+				if( e.target instanceof HTMLImageElement ) {
+					if( !target.data('resizable') ) {
+						target.resizable({
+							aspectRatio: e.target.width / e.target.height,
+						});
+						target.data('resizable', true);
+						
+						if( lastResizableImg != null ) {
+							//disable previous resizable image
+							lastResizableImg.resizable( "destroy" );
+							lastResizableImg.removeData('resizable');
+						}
+						lastResizableImg = target;
+					}
+				}
+			})
+			.on('click', function(e) {
+				if( lastResizableImg != null && !(e.target instanceof HTMLImageElement) ) {
+					destroyResizable();
+				}
+			})
+			.on('keydown', function() {
+				destroyResizable();
+			});
+	    }
+
+		enableImageResize();
+
+		/**
+		//or we can load the jQuery UI dynamically only if needed
+		if (typeof jQuery.ui !== 'undefined') enableImageResize();
+		else {//load jQuery UI if not loaded
+			//in Ace demo dist will be replaced by correct assets path
+			$.getScript("/ace/assets/js/jquery-ui.custom.min.js", function(data, textStatus, jqxhr) {
+				enableImageResize()
+			});
+		}
+		*/
+	}
+
+
+});
+		</script>
+<script>
+<#if content?? && content.channel_id??>
+				var channelId = "${content.channel_id}";
+				$("#ctg").val(channelId);
+			</#if>
+<#if content?? && (content.txt)??>
+				$('#editor1').html('${content.txt}');
+			</#if>
+function Check(){
+	if($('#ctg').val()==''){
+		$('#ctg_msg').show();
+		return false;
+	}
+	else{
+		$('#ctg_msg').hide();
+		if($('#editor1').html().trim()==''){
+			$('#txt_msg').show();
+			return false;
+		}
+		else{
+			$('#txt_msg').hide();
+			return true;
+		}
+	}
+}
+</script>
+</@layout>

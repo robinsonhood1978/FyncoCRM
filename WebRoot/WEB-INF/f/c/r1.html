@@ -1,0 +1,148 @@
+<#include "/WEB-INF/f/c/_l.html" />
+<@layout>
+<div class="am-g">
+  <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+    <br>
+    <div>
+    	<h3>加入邮人</h3>
+    	<hr>
+    </div>
+
+
+    <form method="post" action="/rs" class="am-form" id="doc" onSubmit="return Reg();" >
+    <fieldset>
+      <div class="am-form-group">
+      <label for="nick">昵称/用户名:</label>
+      <input type="text" name="user.nick" id="nick" minlength="3" placeholder="输入昵称/用户名（至少 3 个字符）" data-foolish-msg="请输入正确的昵称" value="" required>
+      </div>
+      <div class="am-form-group">
+      <label for="mobile">手机:</label>
+      <input type="text" name="user.mobile" id="mobile" pattern="^1((3|5|8){1}\d{1}|70)\d{8}$" placeholder="请输入您的手机号码" value="" required>
+      </div>
+      <div class="am-form-group">
+      <label for="qq">QQ:</label>
+      <input type="text" name="user.qq" id="qq" pattern="^\d{5,}$" value="" placeholder="请输入您的QQ号码" required>
+      </div>
+      <div class="am-form-group">
+      <label for="email">Email:</label>
+      <input type="email" name="user.email" id="email" value="" placeholder="请输入您的Email" required>
+      </div>
+      <div class="am-form-group">
+      <label for="pwd">密码:</label>
+      <input type="password" name="user.pwd" id="pwd" minlength="6" placeholder="输入至少 6 位的密码" value="" required>
+      </div>
+      <div class="am-form-group">
+      <label for="pwd2">密码确认:</label>
+      <input type="password" name="pwd2" id="pwd2" minlength="6" value="" placeholder="请与上面输入的值一致" required>
+      </div>
+      <div class="am-cf">
+      	<input type="hidden" value="0" id="invalid">
+      	<input type="hidden" value="" id="msg">
+        <input type="submit" name="" value="注 册" class="am-btn am-btn-primary am-btn-sm am-fl">
+      </div>
+      <!--alert start-->
+      <div class="am-modal am-modal-alert" tabindex="-1" id="pwd-alert">
+  		<div class="am-modal-dialog">
+    		<div class="am-modal-bd" id="myalert">
+      
+    		</div>
+    		<div class="am-modal-footer">
+      			<span class="am-modal-btn">知道了</span>
+    		</div>
+  		</div>
+	  </div>
+	  <!--alert end-->
+    </fieldset>
+    </form>
+  </div>
+</div>
+<script>
+var $modal = $('#pwd-alert');
+$(function () { 
+	$('#mobile').blur(function(){
+		var vmobile=$('#mobile').val();
+		if(vmobile!=''){
+  			$.post("/mobile", {mobile:vmobile}, function(data) {
+				if(data.code>0){
+				 	$('#invalid').val(data.code);
+				 	$('#msg').val(data.msg);
+				 	$('#mobile').focus();
+				 	$('#myalert').text(data.msg);
+					$modal.modal();
+				}
+				else{
+					$('#invalid').val(0);
+				}
+			}, "json");
+		}
+	});
+	$('#qq').blur(function(){
+		var vqq=$('#qq').val();
+		if(vqq!=''){
+  			$.post("/qq", {qq:vqq}, function(data) {
+				if(data.code>0){
+				 	$('#invalid').val(data.code);
+				 	$('#msg').val(data.msg);
+				 	$('#qq').focus();
+				 	$('#myalert').text(data.msg);
+					$modal.modal();
+				}
+				else{
+					$('#invalid').val(0);
+				}
+			}, "json");
+		}
+	});
+	$('#email').blur(function(){
+		var vemail=$('#email').val();
+		if(vemail!=''){
+  			$.post("/email", {email:vemail}, function(data) {
+				if(data.code>0){
+				 	$('#invalid').val(data.code);
+				 	$('#msg').val(data.msg);
+				 	$('#email').focus();
+				 	$('#myalert').text(data.msg);
+					$modal.modal();
+				}
+				else{
+					$('#invalid').val(0);
+				}
+			}, "json");
+		}
+	});
+	$('#nick').blur(function(){
+		var vnick=$('#nick').val();
+		if(vnick!=''){
+  			$.post("/nick", {nick:vnick}, function(data) {
+				if(data.code>0){
+				 	$('#invalid').val(data.code);
+				 	$('#msg').val(data.msg);
+				 	$('#nick').focus();
+				 	$('#myalert').text(data.msg);
+					$modal.modal();
+				}
+				else{
+					$('#invalid').val(0);
+				}
+			}, "json");
+		}
+	});
+})
+function Reg(){
+	if($('#pwd').val()==$('#pwd2').val()){
+		if($('#invalid').val()>0){
+			$('#myalert').text($('#msg').val());
+			$modal.modal();
+			return false;
+		}
+		else
+			return true;
+	}
+	else{
+		$('#myalert').text('您两次输入的密码不一致^-^');
+		$modal.modal();
+		return false;
+	}
+}
+</script>
+</@layout>

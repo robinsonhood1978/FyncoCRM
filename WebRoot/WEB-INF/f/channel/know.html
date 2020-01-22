@@ -1,0 +1,35 @@
+<#include "../c/head.html"/>
+<div class="amz-banner">
+<div class="amz-container" data-am-scrollspy="{animation: 'scale-up', repeat: false}">
+<h1>邮币知识</h1>
+</div>
+</div>
+<section class="" id="amz-main" data-tag="cpt-divider">
+<div class="am-g am-g-fixed">
+<div class="col-md-3 am-u-md-3">
+<div id="amz-offcanvas" class="am-offcanvas doc-offcanvas">
+<section class="amz-sidebar am-offcanvas-bar">
+<ul class="am-nav">
+<li class="am-nav-header" class="am-active">中国</li>
+<li><a href="/yp">邮票</a></li>
+<li><a href="/jnb">纪念币</a></li>
+<li><a href="/jnc">纪念钞</a></li>
+<li><a href="/xxz">小型张</a></li>
+</ul>
+</section>
+<div class="amz-pager">
+<a href="#up" class="am-icon-caret-up" data-rel="scrollUp"></a> 
+<a href="#down" class="am-icon-caret-down" data-rel="scrollDown"></a>
+</div>
+</div>
+</div>
+<div class="col-md-9 am-u-md-9">
+<@cms_content_list channelId='${channel.id}' channelOption='1' typeId='1' count='500' orderBy ='2'>
+	                    <#list tag_list as a>
+<h3><a href="/${a.path}-${a.id}">${a.title}</a></h3>
+<hr>
+                </#list>
+              </@cms_content_list>
+
+</div></div></section>
+<#include "../c/foot.html"/>

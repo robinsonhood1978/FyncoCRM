@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>北京京诚智合科技有限公司</title>
+	<link href="/f/css/1.css"rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/f/js/jquery-1.js"></script>
+    <script src="/f/js/wk_inc.js" language="javascript"></script>
+</head>
+
+<body>
+<div class="top fn-clear">
+  <#include "../include/header.html"/>
+</div>
+<div class="main_cnt04">
+  <div class="content fn-clear">
+    <div class="location"><a href="/" title="首页" class="home">首页</a><a><span>联系我们</span></a></div>
+    <div class="content_main">
+      <div class="news">
+        <div class="pd_sm"> <img src="/f/i/call_title.jpg" alt="">
+          <div class="word_02">
+          	如果您有意见或对任何产品信息发布有问题，请随时与我们联系。<br/>
+          	您的宝贵意见是我们进步的动力！
+          </div>
+        </div>
+      </div>
+      <div class="tit_bg">
+        <div class="tit_bg01">联系方式</div>
+      </div>
+      <div class="news_01">
+        <div class="info_01">
+          <@cms_content_list typeId='1' count='1' orderBy='8' channelOption='2' channelId=channel.id>
+			<#list tag_list as a>
+			${(a.txt)!}
+	        </#list>
+		</@cms_content_list>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<div class="footer fn-clear">
+  <#include "../include/footer.html"/>
+</div>
+</body>
+</html>

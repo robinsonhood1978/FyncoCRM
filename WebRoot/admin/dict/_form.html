@@ -1,0 +1,26 @@
+<table width="100%" class="pn-ftable" cellpadding="2" cellspacing="1" border="0">
+<tr><td width="12%" class="pn-flabel pn-flabel-h"><span class="pn-frequired">*</span>字典名称:</td>
+<td width="38%" class="pn-fcontent">
+<input type="text" size="50" maxlength="100" name="dict.name" value="${(dict.name)!}" maxlength="100"/>${nameMsg!}</td>
+</tr>
+<tr><td width="12%" class="pn-flabel pn-flabel-h"><span class="pn-frequired">*</span>字典值:</td>
+<td width="38%" class="pn-fcontent">
+<input type="text" size="50" maxlength="100" name="dict.ename" value="${(dict.ename)!}" maxlength="100"/>${enameMsg!}</td>
+</tr>
+<tr><td width="12%" class="pn-flabel pn-flabel-h"><span class="pn-frequired">*</span>类别编码:</td>
+<td width="38%" class="pn-fcontent">
+${(base.code)!}
+<input type="hidden" size="50" maxlength="100" name="dict.code" value="${(base.code)!}" maxlength="100"/>${codeMsg!}</td>
+</tr>
+<tr><td width="12%" class="pn-flabel pn-flabel-h"><span class="pn-frequired">*</span>类别名称:</td>
+<td width="38%" class="pn-fcontent">
+${(base.name)!}
+<input type="hidden" size="50" maxlength="100" name="dict.fname" value="${(base.name)!}" maxlength="100"/>${fnameMsg!}</td>
+</tr>
+<tr><td colspan="2" class="pn-fbutton">
+<input type="hidden" name="dict.id" value="${(dict.id)!}" />
+<input type="hidden" name="base.code" value="${(base.code)!}" />
+<input type="hidden" name="base.id" value="${(base.id)!}" />
+<img src="/images/bc.gif" width="62" height="18" onClick="$('#myForm').submit();"/> <img src="/images/cz.gif" width="62" height="18" onClick="history.go(-1);"/>
+</td>
+</tr></table>

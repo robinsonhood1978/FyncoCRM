@@ -1,0 +1,83 @@
+<#include "/WEB-INF/m/_m.html" />
+<@layout>
+<!-- jqPagination styles -->
+		<link rel="stylesheet" href="/css/jqpagination.css" />
+		<script src="/js/jquery.jqpagination.min.js"></script>
+  <!-- content start -->
+  <div class="admin-content">
+
+    <div class="am-cf am-padding">
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">My trading records</strong></div>
+    </div>
+
+    <div class="am-g">
+      <div class="am-u-sm-12">
+        <form class="am-form">
+          <table class="am-table am-table-striped am-table-hover table-main">
+            <thead>
+              <tr>
+                <th class="table-title">trade#</th><th class="table-type">Trade Details</th>
+                <th class="table-date am-hide-sm-only">Timestamp</th><th class="table-set">Operation</th>
+              </tr>
+          </thead>
+          <tbody>
+          <#if contentPage.getList()?? && contentPage.getList()?size gt 0>
+        <#list contentPage.getList() as x>
+            <tr>
+              <td><a href="/m/tview?id=${x.id}">${x.trade_no!}</a></td>
+              <td>${x.pay_cy!}:${x.pay_total} - ${x.withdraw_cy}:${x.withdraw_total}</td>
+              <td class="am-hide-sm-only">${x.create_time}</td>
+              <td>
+                <div class="am-dropdown" data-am-dropdown>
+                <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>
+                <ul class="am-dropdown-content">
+                  <li><a href="/m/edit?id=${x.id}">View</a></li>
+                </ul>
+              </div>
+              </td>
+            </tr>
+            </#list>
+  <#else>
+  	<tr><td colspan="5" align="center"><font color="green">No trading record.</font></td></tr>
+  </#if>
+  <tr>
+          </tbody>
+        </table>
+        <hr />
+        <div class="am-cf">
+ <div class="am-fr">
+        <div class="gigantic pagination">
+			    <a href="#" class="first" data-action="first">&laquo;</a>
+			    <a href="#" class="previous" data-action="previous">&lsaquo;</a>
+			    <input type="text" readonly="readonly" data-max-page="${contentPage.totalPage}" />
+			    <a href="#" class="next" data-action="next">&rsaquo;</a>
+			    <a href="#" class="last" data-action="last">&raquo;</a>
+			</div>
+			</div>
+</div>
+          <#include "/WEB-INF/m/_paginate.html" />
+	<!--@paginate currentPage=contentPage.pageNumber totalPage=contentPage.totalPage totalRow=contentPage.totalRow actionUrl="/m?pageNum=" urlParas=""/-->
+        </form>
+      </div>
+
+    </div>
+  </div>
+  <script>
+$(function () { 
+	$('.btn-loading-example').click(function () {
+  
+	});
+	$('.pagination').jqPagination({
+  link_string : '/m?pageNum={page_number}',
+  current_page: ${contentPage.pageNumber}, //设置当前页 默认为1
+  max_page : ${contentPage.totalPage}, //设置最大页 默认为1
+  page_string : '{current_page}/{max_page}',
+  paged : function(page) {
+      location.href="/m?pageNum="+page;
+      }
+});
+})
+
+</script>
+  <!-- content end -->
+</@layout>

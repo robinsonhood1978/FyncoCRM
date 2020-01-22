@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>北京京诚智合科技有限公司</title>
+    <link href="/f/css/1.css"rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/f/js/jquery-1.js"></script>
+    <script src="/f/js/wk_inc.js" language="javascript"></script>
+<style>
+    .list_slide div.link_list{color:#333;margin:0 10px;}
+</style>
+</head>
+
+<body>
+<div class="top fn-clear">
+    <#include "../include/header.html"/>
+</div>
+<div class="main_cnt">
+    <div class="content fn-clear">
+        <div class="location">
+        	<div class="location"><a href="/" title="首页" class="home">首页</a><a href="/gsjj" title="关于智合"><span>关于智合</span></a> <span>公司简介</span></div>
+        </div>
+        <div class="content_main">
+            <div class="content_left">
+                <#include "../include/gyjw_left.html"/>
+            </div>
+            <div class="content_right">
+            <@cms_content_list typeId='1' count='1' orderBy='8' channelOption='2' channelId=channel.id>
+				<#list tag_list as a>
+		        	<h1>${(a.title)!}</h1>
+                	${(a.txt)!}
+		        </#list>
+			</@cms_content_list>
+                
+                <br/>
+                <h2 class="h_title">合作伙伴</h2>
+                <ul class="list_slide fn-clear">
+    				<@cms_friendlink count='20'>
+				      <#list tag_list as a>
+				        <li class="fn-left" style="border:none;white-space: nowrap;">
+
+				        	<div class="link_list">${(a.name)!}&nbsp;&nbsp;&#124;</div>
+				        </li>
+				      </#list>
+					</@cms_friendlink>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer fn-clear">
+    <#include "../include/footer.html"/>
+</div>
+</body>
+</html>

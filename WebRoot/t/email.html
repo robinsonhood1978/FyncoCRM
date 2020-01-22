@@ -1,0 +1,312 @@
+<#include "/t/_c.html" />
+<@layout>
+                <div class="mdk-drawer-layout__content page">
+                    <div class="app-chat-container">
+                        <div class="row h-100 m-0">
+                            <div class="col-lg-4 py-3 px-0 d-none d-lg-flex flex-column h-100">
+                                <div class="search-form form-control-rounded search-form--light mx-3">
+                                    <input type="text" class="form-control" placeholder="What are you looking for?" id="searchSample02">
+                                    <button class="btn" type="button" role="button"><i class="material-icons">search</i></button>
+                                </div>
+
+                                <div class="flex pt-3 d-flex flex-column">
+                                    <div data-simplebar class="h-100">
+
+                                        <div id="mails" class="list-group list-group-flush" style="position: relative; z-index: 0;">
+
+                                            
+
+                                          <div id="tmail" style="display:none;">
+                                          	<div id="[divid]" onclick="ShowDetail('[divid]');">
+	                                            <div class="list-group-item d-flex align-items-start border-right-3 border-right-primary">
+	                                                <div class="mr-3 d-flex flex-column align-items-center">
+	                                                    <a href="#" class="avatar avatar-xs mb-2">
+	                                                        <img src="[avatar]" alt="Avatar" class="avatar-img rounded-circle">
+	                                                    </a>
+	                                                    <a href=""><i class="material-icons icon-16pt">star</i></a>
+	                                                </div>
+	                                                <div class="flex">
+	                                                    <p class="m-0">
+	                                                        <span class="d-flex align-items-center mb-1">
+	                                                            <a href="#" class="text-dark-gray"><strong>[name]</strong></a>
+	                                                            <small class="ml-auto text-muted">[send_date]</small>
+	                                                        </span>
+	                                                        <span class="d-flex align-items-end">
+	                                                            <span class="flex mr-3">
+	                                                                <strong class="text-body mb-1">[subject]</strong><br>
+	                                                                <small class="text-muted" style="max-height: 2.5rem; overflow: hidden; position: relative; display: inline-block;">[content] ..</small>
+	                                                            </span>
+	                                                            <a href="" class="d-flex align-items-center mb-1">
+	                                                                <small class="text-muted mr-1">0</small>
+	                                                                <i class="material-icons icon-16pt">attachment</i>
+	                                                            </a>
+	                                                        </span>
+	                                                    </p>
+	                                                </div>
+	                                            </div>
+	                                          </div>
+                                          </div>
+
+                                           
+
+                                            
+
+                                            
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="border-top pt-3 px-3 text-center">
+                                    <a href="javascript:void(0)" onclick="SendMail();" class="btn btn-primary">Create Message</a>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-8 py-3 px-4 bg-white border-left d-flex flex-column">
+                                <div class="flex d-flex flex-column">
+                                    <div data-simplebar class="h-100">
+                                    	<div id="fdetail">
+                                    	<div id="detail" style="display:none;">
+                                    	<div id="[detail_div]">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <a href="#" class="avatar avatar-sm mr-3">
+                                                <img src="[avatar]" alt="Avatar" class="avatar-img rounded-circle">
+                                            </a>
+                                            <div class="flex">
+                                                <p class="m-0">
+                                                    <span class="d-flex align-items-center">
+                                                        <a href="#" class="text-dark-gray"><strong>[name]</strong></a>
+                                                        <small class="ml-auto text-muted">[send_date]</small>
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <h1 class="h4 flex">[subject]</h1>
+                                            <div class="d-flex align-items-center">
+                                                <a href="javascript:void(0)" onclick="ReplyMail();" class="text-dark-gray">
+                                                    <i class="material-icons">reply</i>
+                                                </a>
+                                                <a href="" class="text-dark-gray ml-2">
+                                                    <i class="material-icons">print</i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex mr-3">
+                                                [content1]
+                                            </div>
+                                            
+                                            <div class="text-center ml-3">
+                                                <a href="" class="d-flex flex-column mb-3">
+                                                    <i class="material-icons">star</i>
+                                                    <small class="text-muted">Starred</small>
+                                                </a>
+
+                                                <a href="" class="d-flex flex-column">
+                                                    <i class="material-icons">attachment</i>
+                                                    <small class="text-muted">0 Attachments</small>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="border-top pt-3 px-3 text-center">
+                                	<input type="hidden" id="to_address">
+                                	<input type="hidden" id="origin_content">
+                                    Click here to <a class="btn btn-link px-0" href="javascript:void(0)" onclick="ReplyMail();">Reply</a> or <a class="btn btn-link px-0" href="javascript:void(0)" onclick="ForwardMail();">Forward</a> this message.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- // END drawer-layout__content -->
+
+                <script>
+                String.prototype.replaceAll = function(search, replacement) {
+            	    var target = this;
+            	    return target.split(search).join(replacement);
+            	};
+            	var pre = '-1';
+function ShowDetail(divid){
+	//alert(divid)
+	var foot = divid.split("_")[1];
+	if(pre!=divid){
+		$('#'+pre).remove();
+		pre='detail_'+foot;
+	}
+	var detail = $('#detail').html(); 
+	var subject = mails[foot]['subject'];
+	var name = mails[foot]['sender_showname']==null?'':mails[foot]['sender_showname'];
+	var sender_addr = mails[foot]['sender_address'];
+	
+	var sender_address = new Array();
+
+	sender_address.push(sender_addr);
+
+	var addr = String(Array.from(new Set(sender_address)));
+	//alert(addr)
+	var emails;
+	$.ajaxSettings.async = false;
+	$.post("/email/avatar", {"mails":addr},function(data){
+		emails=data;
+		//alert(JSON.stringify(emails))
+	});
+	var avatar=emails[sender_addr];
+	if(avatar=='')avatar='/t/assets/images/avatar/dfavatar.png';
+	
+	var send_date = mails[foot]['send_date'];
+	var content1 = mails[foot]['content'][0];
+	var content2 = mails[foot]['content'][1];
+	if (typeof(content2) == "undefined")
+	{
+	    content2='';
+	}
+	else{
+		content1=content2;
+		content2='';
+	}
+	$('#to_address').val(sender_address);
+	$('#origin_content').val(content1);
+	//console.log(detail.replace('[subject]',subject))
+	var html = detail.replace('[avatar]',avatar).replace('[detail_div]','detail_'+foot).replace('[subject]',subject).replace('[name]',name).replace('[send_date]',send_date).replace('[content1]',content1);
+	$('#fdetail').append(html);
+}
+var tmail = $('#tmail').html();
+//alert(tmail)
+var mails;
+function ForwardMail(){
+	//var to = $('#to_address').val();
+	var content = $('#origin_content').val();
+	content = content.replace(/[\r\n]/g,"");   
+	//alert(to)
+	//alert(content)
+	$.post('/email_content', {"email_content":content}, function(data) {
+						if(data.code==1){
+						 	mlayer.open({
+							    content: 'Fail',
+							    btn: 'Got it'
+							  });
+							return false;
+						}
+						else{ 
+							var url = '/amail?t=';
+							layer.open({
+								type: 2,
+								title: 'Write an Email',
+								fixed: false, //不固定
+								maxmin: true,
+							    shadeClose: true, //点击遮罩关闭层
+								area: ['80%', '80%'],
+								content: url ,
+								success:function(layero,index){
+						        },
+						        end:function(){
+									//alert(1)
+						        }
+							}); 
+						}
+						return false;
+					}, "json"); 
+}
+function ReplyMail(){
+	var to = $('#to_address').val();
+	var content = $('#origin_content').val();
+	content = content.replace(/[\r\n]/g,"");   
+	//alert(to)
+	//alert(content)
+	$.post('/email_content', {"email_content":content}, function(data) {
+						if(data.code==1){
+						 	mlayer.open({
+							    content: 'Fail',
+							    btn: 'Got it'
+							  });
+							return false;
+						}
+						else{ 
+							var url = '/amail?t='+to;
+							layer.open({
+								type: 2,
+								title: 'Write an Email',
+								fixed: false, //不固定
+								maxmin: true,
+							    shadeClose: true, //点击遮罩关闭层
+								area: ['80%', '80%'],
+								content: url ,
+								success:function(layero,index){
+						        },
+						        end:function(){
+									//alert(1)
+						        }
+							}); 
+						}
+						return false;
+					}, "json"); 
+}
+function SendMail(){
+	var url = '/amail?t=';
+	layer.open({
+		type: 2,
+		title: 'Write an Email',
+		fixed: false, //不固定
+		maxmin: true,
+	    shadeClose: true, //点击遮罩关闭层
+		area: ['80%', '80%'],
+		content: url ,
+		success:function(layero,index){
+        },
+        end:function(){
+			//alert(1)
+        }
+	});
+}
+$(function () { 
+	
+	var index = mlayer.open({
+	    type: 2
+	    ,content: 'Loading...'
+	  });
+	//
+
+	$.get("/email/mails", function(data){
+	    //alert(JSON.stringify(data))
+	    console.log(data);
+	    mails = data.list;
+	    var emails ;
+	    if(mails.length>0){
+	    	var sender_address = new Array();
+	    	for(var mail of mails){
+	    		sender_address.push(mail['sender_address']);
+	    	}
+	    	var addr = String(Array.from(new Set(sender_address)));
+	    	//alert(addr)
+	    	$.ajaxSettings.async = false;
+	    	$.post("/email/avatar", {"mails":addr},function(data){
+	    		emails=data;
+	    		//alert(JSON.stringify(emails))
+	    	});
+	    	$.ajaxSettings.async = true;
+	    	var i=0;
+		    for(var mail of mails){
+		    	//alert(JSON.stringify(mail))
+		    	var sender = mail['sender_address'];
+		    	var avatar=emails[sender];
+		    	//if(avatar=='')avatar='/t/assets/images/avatar/dfavatar.png';
+		    	$(tmail.replaceAll('[divid]','div_'+i).replace('[avatar]',avatar).replace('[name]',mail['sender_showname']==null?'':mail['sender_showname']).replace('[send_date]',mail['send_date']).replace('[subject]',mail['subject']).replace('[content]',mail['content'][0])).appendTo($('#mails'));
+		    	i++;
+		    }
+	    }
+	    
+	    mlayer.close(index);
+	  });
+})
+</script>			
+<script src="/f/assets/js/layer.js"></script>
+<script src="/f/assets/js/mobile/mlayer.js"></script>
+</@layout>
