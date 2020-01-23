@@ -184,14 +184,14 @@
                                             <div class="form-group">
                                                 <label for="fname">New Zealand Residency</label><br/>
                                                 <#assign residency_nz=["None","Permanent Resident","New Zealand Citizenship"]/>
-                                                ${residency_nz[client.residency_nz]}
+                                                ${(residency_nz[client.residency_nz])!}
                                                   </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="lname">Marital Status</label><br/>
                                                 <#assign marital_status=["Married","Single","De Facto","Other"]/>
-                                                ${marital_status[client.marital_status]}
+                                                ${(marital_status[client.marital_status])!}
                                             </div>
                                         </div>
                                     </div>
@@ -270,7 +270,7 @@
                                             <div class="form-group">
                                                 <label for="fname">Current Living Situation</label><br/>
                                                 <#assign current_living_situation=["Renting","Living in own home","Boarding","Other"]/>
-                                                ${current_living_situation[client.current_living_situation]}
+                                                ${(current_living_situation[client.current_living_situation])!}
                                                   </div>
                                         </div>
                                         <div class="col">

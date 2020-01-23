@@ -8,6 +8,8 @@ import com.cms.admin.user.User;
 import com.cms.front.entity.Application;
 import com.cms.util.DateFmt;
 import com.jfinal.aop.Before;
+import com.jfinal.aop.ClearInterceptor;
+import com.jfinal.aop.ClearLayer;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
@@ -52,8 +54,18 @@ public class ApplicationController extends Controller {
 	public void add() {
 		render("/t/addapplication.html");
 	}
+	
 	public void view() {
-		int id = getParaToInt();
+		int id = getParaToInt("id");
+		String layout = "c";
+		int ilay = 0;
+		
+		if(getPara("l")!=null) {
+			layout = getPara("l");
+			ilay = 1;
+		}
+		setAttr("layout","_"+layout+".html");
+		setAttr("ilay",ilay);
 		setAttr("application",Application.dao.findById(id));
 		setAttr("clients",Db.queryStr("select group_concat(client_id) clientlist from application_client where application_id=?",id));
 		render("/t/application_detail.html");

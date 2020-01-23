@@ -1491,8 +1491,7 @@
 	<div id="applicant_mifr_card_[applicant_id]" class="card card-form">
                             <div class="row no-gutters">
                                 <div class="card-header card-header-sm bg-white">
-                                        <h6 id="applicant_name" class="card-header__title">[applicant_name]</h6>
-                                        <input type="hidden" name="mifr_applicantname_[applicant_id]" value="[applicant_name]">
+                                        <h6 id="applicant_name" class="card-header__title"></h6>
                                     </div>
                                 <div class="col-lg-12 card-form__body">
                                    			<div class="row">
@@ -1533,9 +1532,9 @@
 		                                            </div>
 		                                        </div>
 		                                    </div>
-<div id="monthincomesfr_[applicant_id]">
-                                                <div id="monthincomefr_[applicant_id]">
-                                                <div id="monthincomefr_[applicant_id]_[monthincomefr_index]">
+<div id="monthincomesfr">
+                                                <div id="monthincomefr">
+                                                <div id="monthincomefr_[monthincomefr_index]">
                                                 
                                                    <div class="row">
                                                    <div style="width:5%">
@@ -1543,9 +1542,9 @@
 		                                               <div class="custom-control custom-checkbox">
 		                                               <label></label><br/>
 		                                               		
-                                                            <i id="add_monthincomefr_[applicant_id]" onclick="AddMonthincomefr('[applicant_id]')" class="material-icons">add_circle_outline</i>
+                                                            <i id="add_monthincomefr" onclick="AddMonthincomefr()" class="material-icons">add_circle_outline</i>
                                                           
-                                                            <i style="display:none" onclick="RemoveMonthincomefr('[monthincomefr_index]','[applicant_id]')" id="minus_monthincomefr_[applicant_id]" class="material-icons">remove_circle_outline</i>
+                                                            <i style="display:none" onclick="RemoveMonthincomefr('[monthincomefr_index]')" id="minus_monthincomefr" class="material-icons">remove_circle_outline</i>
                                                         
                                                         </div>
 		                                            </div>
@@ -1555,7 +1554,7 @@
 		                                               
                                                       
                                                 
-                                                <select name="monthincomefr_income_[applicant_id]" style="display:inline-block;"  class="form-control">
+                                                <select name="monthincomefr_income" style="display:inline-block;"  class="form-control">
 				                                    <option value="Rental Income">Rental Income</option>
 				                                    <option value="Boarder Income">Boarder Income</option>
 				                                    <option value="Other">Other</option>
@@ -1567,13 +1566,13 @@
 			                                     <div class="col">
 		                                            <div class="form-group">
 		             
-		                                                <input type="text" class="form-control" name="monthincomefr_description_[applicant_id]" placeholder="Property address, owner, existing/proposed, property use etc." value="">
+		                                                <input type="text" class="form-control" name="monthincomefr_description" placeholder="Property address, owner, existing/proposed, property use etc." value="">
 		                                            </div>
 			                                     </div>
 		             
 		                                        <div class="col">
 		                                            <div class="form-group">
-		                                                <input type="text" class="form-control" name="monthincomefr_net_[applicant_id]" value="">
+		                                                <input type="text" class="form-control" name="monthincomefr_net" value="">
 		                                            </div>
 		                                        </div>
 		                                        <div style="width:4%;">
@@ -1615,11 +1614,10 @@
                                    
 <div id="miexdivs">
 <div id="miexdiv" style="display:none;" >
-	<div id="applicant_miex_card_[applicant_id]" class="card card-form">
+	<div id="applicant_miex_card" class="card card-form">
                             <div class="row no-gutters">
                                 <div class="card-header card-header-sm bg-white">
-                                        <h6 id="applicant_name" class="card-header__title">[applicant_name]</h6>
-                                        <input type="hidden" name="miex_applicantname_[applicant_id]" value="[applicant_name]">
+                                        <h6 id="applicant_name" class="card-header__title"></h6>
                                     </div>
                                 <div class="col-lg-12 card-form__body">
                                    			<div class="row">
@@ -1660,9 +1658,9 @@
 		                                            </div>
 		                                        </div>
 		                                    </div>
-<div id="monthexpend_[applicant_id]">
-                                                <div id="monthexpend_[applicant_id]">
-                                                <div id="monthexpend_[applicant_id]_[monthexpend_index]">
+<div id="monthexpend">
+                                                <div id="monthexpend">
+                                                <div id="monthexpend_[monthexpend_index]">
                                                 
                                                    <div class="row">
                                                    <div style="width:5%">
@@ -1670,16 +1668,16 @@
 		                                               <div class="custom-control custom-checkbox">
 		                                               <label></label><br/>
 		                                               		
-                                                            <i id="add_monthexpend_[applicant_id]" onclick="AddMonthexpend('[applicant_id]')" class="material-icons">add_circle_outline</i>
+                                                            <i id="add_monthexpend" onclick="AddMonthexpend()" class="material-icons">add_circle_outline</i>
                                                           
-                                                            <i style="display:none" onclick="RemoveMonthexpend('[monthexpend_index]','[applicant_id]')" id="minus_monthexpend_[applicant_id]" class="material-icons">remove_circle_outline</i>
+                                                            <i style="display:none" onclick="RemoveMonthexpend('[monthexpend_index]')" id="minus_monthexpend" class="material-icons">remove_circle_outline</i>
                                                         
                                                         </div>
 		                                            </div>
 			                                     </div>
 			                                     <div class="col">
 		                                            <div class="form-group">
-                                                <select name="monthexpend_expend_[applicant_id]" style="display:inline-block;"  class="form-control">
+                                                <select name="monthexpend_expend" style="display:inline-block;"  class="form-control">
 				                                    <option value="New Mortgage Proposed">New Mortgage Proposed</option>
 				                                    <option value="Existing Mortgage">Existing Mortgage</option>
 				                                    <option value="Credit Card">Credit Card</option>
@@ -1707,13 +1705,13 @@
 			                                     <div class="col">
 		                                            <div class="form-group">
 		             
-		                                                <input type="text" class="form-control" name="monthexpend_description_[applicant_id]" placeholder="Property address, owner, existing/proposed, property use etc." value="">
+		                                                <input type="text" class="form-control" name="monthexpend_description" placeholder="Property address, owner, existing/proposed, property use etc." value="">
 		                                            </div>
 			                                     </div>
 		             
 		                                        <div class="col">
 		                                            <div class="form-group">
-		                                                <input type="text" class="form-control" name="monthexpend_expense_[applicant_id]" value="">
+		                                                <input type="text" class="form-control" name="monthexpend_expense" value="">
 		                                            </div>
 		                                        </div>
 		                                        <div style="width:4%;">
@@ -2165,63 +2163,34 @@
     				return jsonMonthincome;
                 }
                 function MonthIncomefr(){
-                	var monthincomefr = [];
-                	var clientids = $("#app_ids").val();
-                	var idArray = clientids.split(",");
-                	
-                	for(var j=0;j<idArray.length;j++){
-                		var appid = idArray[j];
-                		var applicantOb = {};
-                		//monthincome
-        				var monthincomefrArray = new Array();
-        				var monthincome_income = document.getElementsByName("monthincomefr_income_"+appid);
-        				var monthincome_description = document.getElementsByName("monthincomefr_description_"+appid);
-        				var monthincome_net = document.getElementsByName("monthincomefr_net_"+appid);
-        				for(var i=0;i<monthincome_income.length;i++){
-        					if(monthincome_income[i].value!=''){
-        						monthincomefrArray.push({"monthincomefr_income":monthincome_income[i].value,
-        							"monthincomefr_description":monthincome_description[i].value,
-        							"monthincomefr_net":monthincome_net[i].value});
-        					}
-        				} 
-        				applicantOb.applicantid=appid;
-        				var applicantName= document.getElementsByName("applicantname_"+appid)[0].value;
-        				applicantOb.applicant_name = applicantName;
-        				applicantOb.monthincome = monthincomefrArray; 
-        				monthincomefr.push(applicantOb);
-                	}
-
-    				var jsonMonthincomefr = JSON.stringify( monthincomefr );
+       				var monthincomefrArray = [];
+       				var monthincome_income = document.getElementsByName("monthincomefr_income");
+       				var monthincome_description = document.getElementsByName("monthincomefr_description");
+       				var monthincome_net = document.getElementsByName("monthincomefr_net");
+       				for(var i=0;i<monthincome_income.length;i++){
+       					if(monthincome_income[i].value!=''){
+       						monthincomefrArray.push({"monthincomefr_income":monthincome_income[i].value,
+       							"monthincomefr_description":monthincome_description[i].value,
+       							"monthincomefr_net":monthincome_net[i].value});
+       					}
+       				} 
+    				var jsonMonthincomefr = JSON.stringify( monthincomefrArray );
     				return jsonMonthincomefr;
                 }	
                 function MonthExpend(){
-                	var monthexpend = [];
-                	var clientids = $("#app_ids").val();
-                	var idArray = clientids.split(",");
                 	
-                	for(var j=0;j<idArray.length;j++){
-                		var appid = idArray[j];
-                		var applicantOb = {};
-                		//monthincome
-        				var monthexpendArray = new Array();
-        				var monthincome_expend = document.getElementsByName("monthexpend_expend_"+appid);
-        				var monthincome_description = document.getElementsByName("monthexpend_description_"+appid);
-        				var monthincome_expense = document.getElementsByName("monthexpend_expense_"+appid);
-        				for(var i=0;i<monthincome_expend.length;i++){
-        					if(monthincome_expend[i].value!=''){
-        						monthexpendArray.push({"monthexpend_expend":monthincome_expend[i].value,
-        							"monthexpend_description":monthincome_description[i].value,
-        							"monthexpend_expense":monthincome_expense[i].value});
-        					}
-        				} 
-        				applicantOb.applicantid=appid;
-        				var applicantName= document.getElementsByName("applicantname_"+appid)[0].value;
-        				applicantOb.applicant_name = applicantName;
-        				applicantOb.monthexpend = monthexpendArray; 
-        				monthexpend.push(applicantOb);
-                	}
-
-    				var jsonMonthexpend = JSON.stringify( monthexpend );
+       				var monthexpendArray = [];
+       				var monthincome_expend = document.getElementsByName("monthexpend_expend");
+       				var monthincome_description = document.getElementsByName("monthexpend_description");
+       				var monthincome_expense = document.getElementsByName("monthexpend_expense");
+       				for(var i=0;i<monthincome_expend.length;i++){
+       					if(monthincome_expend[i].value!=''){
+       						monthexpendArray.push({"monthexpend_expend":monthincome_expend[i].value,
+       							"monthexpend_description":monthincome_description[i].value,
+       							"monthexpend_expense":monthincome_expense[i].value});
+       					}
+       				} 
+    				var jsonMonthexpend = JSON.stringify( monthexpendArray );
     				return jsonMonthexpend;
                 }	
                 function RemoveMonthincome(id,applicantid){
@@ -2236,11 +2205,11 @@
                 function AddMonthincome(id){
                 	copyApplicantInfo("monthincome",id);
                 }
-                function AddMonthincomefr(id){
-                	copyApplicantInfo("monthincomefr",id);
+                function AddMonthincomefr(){
+                	copyApplicantInfo2("monthincomefr");
                 }
                 function AddMonthexpend(id){
-                	copyApplicantInfo("monthexpend",id);
+                	copyApplicantInfo2("monthexpend");
                 }
 	function copyApplicantInfo(nodeid,applicantid){
 		
@@ -2272,6 +2241,32 @@
             		var newnode = parseDom(html);
             		sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点  
             	}
+	function copyApplicantInfo2(nodeid){
+		
+		var sourceNode = document.getElementById(nodeid); // 获得被克隆的节点对象 
+		
+		var clonedNode = sourceNode.cloneNode(true); // 克隆节点 
+
+		$node = $(clonedNode);
+		
+		var monthincomefr_index = document.getElementsByName("monthincomefr_income").length;
+		var monthexpend_index = document.getElementsByName("monthexpend_expend").length;
+		
+		
+		
+		$node.find('i[id="add_monthincomefr"]').css("display","none");
+		$node.find('i[id="minus_monthincomefr"]').css("display","block");
+		
+		$node.find('i[id="add_monthexpend"]').css("display","none");
+		$node.find('i[id="minus_monthexpend"]').css("display","block");
+
+		var html = $node.html();
+		html = html.replaceAll('[monthincomefr_index]',monthincomefr_index);  
+		html = html.replaceAll('[monthexpend_index]',monthexpend_index);  
+		
+		var newnode = parseDom(html);
+		sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点  
+	}
                 function RemoveProperty(id){
                 	$('#property_'+id).remove();
                 }
@@ -2492,18 +2487,20 @@
                 function ShowApplicant(){
                 	var clientids = $("#minus_ids").val();
     				if(clientids.length>0){
-    					$('#applicantmi_txt').css("display","block");
-    					$('#applicantmifr_txt').css("display","block");
-    					$('#applicantmiex_txt').css("display","block");
+    					
     					$.post("/client/get_applicants", {"ids":clientids}, function(data) {
         					if(data.code==0){
         						//console.log(data.data);
         						//alert(data.data);
+        						$('#applicantmi_txt').css("display","block");
+		    					$('#applicantmifr_txt').css("display","block");
+		    					$('#applicantmiex_txt').css("display","block");
+		    					$('#mifrdiv').css("display","block");
+        						$('#miexdiv').css("display","block");
         						var applicants = data.data;
         						var html = $('#applicant').html();
         						var mihtml = $('#midiv').html();
-        						var mifrhtml = $('#mifrdiv').html();
-        						var miexhtml = $('#miexdiv').html();
+        						
         						
         						for(var i = 0, len = applicants.length; i < len; i++){
         							var pic = '/t/assets/images/avatar/dfavatar.png';
@@ -2514,10 +2511,10 @@
         						    $('#applicants').append(newhtml);
         						    var newmihtml = mihtml.replaceAll('[applicant_id]',applicants[i]['id']).replaceAll('[applicant_name]',name);
         						    $('#midivs').append(newmihtml);
-        						    var newmifrhtml = mifrhtml.replaceAll('[applicant_id]',applicants[i]['id']).replaceAll('[applicant_name]',name);
+        						   /*  var newmifrhtml = mifrhtml.replaceAll('[applicant_id]',applicants[i]['id']).replaceAll('[applicant_name]',name);
         						    $('#mifrdivs').append(newmifrhtml);
         						    var newmiexhtml = miexhtml.replaceAll('[applicant_id]',applicants[i]['id']).replaceAll('[applicant_name]',name);
-        						    $('#miexdivs').append(newmiexhtml);
+        						    $('#miexdivs').append(newmiexhtml); */
         						}
         						
         						///t/assets/images/stories/256_rsz_clem-onojeghuo-193397-unsplash.jpg
@@ -2633,52 +2630,43 @@
 				}
 				function setMonthincomefr(monthincome){
                 	if(monthincome!=''){
-                		//monthincome
-	    				var miArray = JSON.parse(monthincome);
-	    				for(var j=0;j<miArray.length;j++){
-	    					var applicantOb = miArray[j];
-	    					var applicatid = applicantOb.applicantid;
-	    					var monthincomeArray = applicantOb.monthincome;
+                		
+    					var monthincomeArray = JSON.parse(monthincome);
 
-	                		for(var i=1;i<monthincomeArray.length;i++){
-
-	                			copyApplicantInfo("monthincomefr",applicatid);
-		                	}
-	                		
-		                	var monthincome_income = document.getElementsByName("monthincomefr_income_"+applicatid);
-		                	var monthincome_description = document.getElementsByName("monthincomefr_description_"+applicatid);
-		                	var monthincome_net = document.getElementsByName("monthincomefr_net_"+applicatid);
-		    				for(var i=0;i<monthincomeArray.length;i++){
-		    					monthincome_income[i].value=monthincomeArray[i]['monthincomefr_income'];
-		    					monthincome_description[i].value=monthincomeArray[i]['monthincomefr_description'];
-		    					monthincome_net[i].value=monthincomeArray[i]['monthincomefr_net'];
-		    				} 
+                		for(var i=1;i<monthincomeArray.length;i++){
+                			copyApplicantInfo2("monthincomefr");
 	                	}
+                		
+	                	var monthincome_income = document.getElementsByName("monthincomefr_income");
+	                	var monthincome_description = document.getElementsByName("monthincomefr_description");
+	                	var monthincome_net = document.getElementsByName("monthincomefr_net");
+	    				for(var i=0;i<monthincomeArray.length;i++){
+	    					monthincome_income[i].value=monthincomeArray[i]['monthincomefr_income'];
+	    					monthincome_description[i].value=monthincomeArray[i]['monthincomefr_description'];
+	    					monthincome_net[i].value=monthincomeArray[i]['monthincomefr_net'];
+	    				} 
+	                	
                 	}  
 				}
 				function setMonthexpend(monthexpend){
                 	if(monthexpend!=''){
-                		//monthincome
-	    				var miArray = JSON.parse(monthexpend);
-	    				for(var j=0;j<miArray.length;j++){
-	    					var applicantOb = miArray[j];
-	    					var applicatid = applicantOb.applicantid;
-	    					var monthexpendArray = applicantOb.monthexpend;
+                		
+	    					var monthexpendArray = JSON.parse(monthexpend);
 
 	                		for(var i=1;i<monthexpendArray.length;i++){
 
-	                			copyApplicantInfo("monthexpend",applicatid);
+	                			copyApplicantInfo2("monthexpend");
 		                	}
 	                		
-		                	var monthexpend_expend = document.getElementsByName("monthexpend_expend_"+applicatid);
-		                	var monthexpend_description = document.getElementsByName("monthexpend_description_"+applicatid);
-		                	var monthexpend_expense = document.getElementsByName("monthexpend_expense_"+applicatid);
+		                	var monthexpend_expend = document.getElementsByName("monthexpend_expend");
+		                	var monthexpend_description = document.getElementsByName("monthexpend_description");
+		                	var monthexpend_expense = document.getElementsByName("monthexpend_expense");
 		    				for(var i=0;i<monthexpendArray.length;i++){
 		    					monthexpend_expend[i].value=monthexpendArray[i]['monthexpend_expend'];
 		    					monthexpend_description[i].value=monthexpendArray[i]['monthexpend_description'];
 		    					monthexpend_expense[i].value=monthexpendArray[i]['monthexpend_expense'];
 		    				} 
-	                	}
+	                	
                 	}  
 				}
 				if('${method}'=='add'){

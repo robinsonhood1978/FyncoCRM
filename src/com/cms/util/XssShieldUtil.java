@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 
 /** * 处理非法字符 * * @author 单红宇(365384722) * @myblog http://blog.csdn.net/catoop/ * @create 2015年9月18日 */
 public class XssShieldUtil {

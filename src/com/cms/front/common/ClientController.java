@@ -13,6 +13,8 @@ import com.cms.front.entity.Client;
 import com.cms.front.entity.Task;
 import com.cms.util.DateFmt;
 import com.jfinal.aop.Before;
+import com.jfinal.aop.ClearInterceptor;
+import com.jfinal.aop.ClearLayer;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
@@ -33,6 +35,7 @@ public class ClientController extends Controller {
 	public void addrefix() {
 		render("/t/addrefix.html");
 	}
+	@ClearInterceptor(ClearLayer.ALL)
 	public void get_applicants() {
 		String ids = getPara("ids");
 		int code = 0;

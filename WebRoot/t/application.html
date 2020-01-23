@@ -79,7 +79,7 @@
                                     <form id="tableForm" method="post">
                                     <tbody class="list" id="staff">
 <#list contentPage.getList() as x>
-                                        <tr>
+                                        <tr ondblclick="DoubleClick('${x.id}');">
 
                                             <td>
                                                 <div class="custom-control custom-checkbox">
@@ -114,7 +114,7 @@
                                             <td>
                                             <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
 	                                        <div class="dropdown-menu dropdown-menu-right">
-	                                        	<a href="/application/view/${x.id}" class="dropdown-item">View</a>
+	                                        	<a href="/application/view?id=${x.id}" class="dropdown-item">View</a>
 	                                        	 <a href="/application/edit/${x.id}" class="dropdown-item">Edit</a>
 	                                            <a href="/application/del/${x.id}" class="dropdown-item">Delete</a>
 	    
@@ -145,6 +145,27 @@
                 </div>
                 <!-- // END drawer-layout__content -->		
 <script>
+function DoubleClick(id){
+	View(id);
+}
+function View(id){
+	//alert(id)
+	var url = '/application/view?l=s&id='+id;
+	layer.open({
+		type: 2,
+		title: 'Application Details',
+		fixed: false, //不固定
+		maxmin: true,
+	    shadeClose: true, //点击遮罩关闭层
+		area: ['60%', '85%'],
+		content: url ,
+		success:function(layero,index){
+        },
+        end:function(){
+        	//ShowApplicant();
+        }
+	});
+}
 $(function () { 
 	var field = '${session.application_field!}';
 	if(field!='')
