@@ -942,7 +942,47 @@
                                                 </div>
                                                 </div>
                                                 </div>                             
+<div id="otherliabilitys">
+                                                <div id="otherliability">
+                                                <div id="otherliability_[otherliability_index]">
                                                 
+                                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                               
+		                                            </div>
+			                                     </div>
+			                                     <div style="width:25%">
+		                                            <div class="form-group">
+		                                               <div id="txt_otherliability" class="custom-control custom-checkbox">
+                                                            <label></label>
+                                                        Other Liabilities
+                                                        </div>
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="otherliability_d"></div>
+		                                            </div>
+			                                     </div>
+			                                     
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <div name="otherliability_v"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                                   
+                                                
+                                                </div>
+                                                </div>
+                                                </div>                                                      
                                                 
                                                     <div class="row">
                                                    <div style="width:5%">
@@ -1151,6 +1191,12 @@
 		                                                <div name="storecard_d"></div>
 		                                            </div>
 			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="storecard_l"></div>
+		                                            </div>
+			                                     </div>
 		                                        <div class="col">
 		                                            <div class="form-group">
 		                                                <div name="storecard_v"></div>
@@ -1255,52 +1301,7 @@
                                                 </div>
                                                 </div>
                                                 </div>       
-<div id="otherliabilitys">
-                                                <div id="otherliability">
-                                                <div id="otherliability_[otherliability_index]">
-                                                
-                                                   <div class="row">
-                                                   <div style="width:5%">
-		                                            <div class="form-group">
-		                                               
-		                                            </div>
-			                                     </div>
-			                                     <div style="width:25%">
-		                                            <div class="form-group">
-		                                               <div id="txt_otherliability" class="custom-control custom-checkbox">
-                                                            <label></label>
-                                                        Other Liabilities
-                                                        </div>
-		                                            </div>
-			                                     </div>
-		                                       <div class="col">
-		                                            <div class="form-group">
-		             
-		                                                <div name="otherliability_d"></div>
-		                                            </div>
-			                                     </div>
-			                                     <div class="col">
-		                                            <div class="form-group">
-		             
-		                                                <div name="otherliability_c"></div>
-		                                            </div>
-			                                     </div>
-		                                        <div class="col">
-		                                            <div class="form-group">
-		                                                <div name="otherliability_v"></div>
-		                                            </div>
-		                                        </div>
-		                                        <div style="width:4%;">
-		                                            <div class="form-group">
-		                                            <label>&nbsp;</label>
-		                                            </div>
-		                                        </div>
-		                                    </div>
-                                                   
-                                                
-                                                </div>
-                                                </div>
-                                                </div>                              
+                        
                                    
                                    
 		                                    
@@ -2877,11 +2878,9 @@
 	                		copyTr("otherliability");
 	                	}
 	                	var otherliability_d = document.getElementsByName("otherliability_d");
-	                	var otherliability_c = document.getElementsByName("otherliability_c");
 	                	var otherliability_v = document.getElementsByName("otherliability_v");
 	    				for(var i=0;i<otherliabilityArray.length;i++){
-	    					otherliability_d[i].innerHTML=otherliabilityArray[i]['provider'];
-	    					otherliability_c[i].innerHTML=otherliabilityArray[i]['monthly_cost'];
+	    					otherliability_d[i].innerHTML=otherliabilityArray[i]['description'];
 	    					otherliability_v[i].innerHTML=otherliabilityArray[i]['balance'];
 	    				} 
 	    				
@@ -3035,10 +3034,10 @@
                 	var doc = '${(application.documents)!}';
                 	var documents = jsonToStrMap(doc);
                 	
-                	for(var i=1;i<documents.size;i++){
+                	for(var i=1;i<=documents.size;i++){
     					var key = $('#doc'+i).attr("name");
-    					$('#doc'+i).val(documents.get(key));
-    					if(documents.get(key)!='')
+    					$('#doc'+i).val(documents.get(key).url);
+    					if(documents.get(key).url!='')
     						$('#up'+i).html('<img src="/f/i/check.png">');
     				}
                 	

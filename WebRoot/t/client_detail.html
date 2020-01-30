@@ -645,6 +645,7 @@
                 </div>
                 <!-- // END drawer-layout__content -->
                 <script>
+                var view_type=$('#type').val();
                 var client_avatar = '${(client.avatar)!}';
                 function Remove(id){
                 	$('#loan_'+id).remove();
@@ -798,13 +799,17 @@ function CalReview(node_index){
                 		var mobilesArr = JSON.parse('${(client.mobile)!}');
                 		var mobiles = mobilesArr.join("<br/>");
                 		$('#mobiles').html(mobiles);
+                		if('${(client.address)!}'!=''){
+                			var addressesarr = JSON.parse('${(client.address)!}');
+                    		var addresses = addressesarr.join("<br/>");
+                    		$('#addresses').html(addresses);
+                		}
                 		
-                		var addressesarr = JSON.parse('${(client.address)!}');
-                		var addresses = addressesarr.join("<br/>");
-                		$('#addresses').html(addresses);
+                		if('${(client.dependants_age)!}'!=''){
+                			var dependants_age = String(JSON.parse('${(client.dependants_age)!}'));
+                    		$('#dependants_age').html(dependants_age);
+                		}
                 		
-                		var dependants_age = String(JSON.parse('${(client.dependants_age)!}'));
-                		$('#dependants_age').html(dependants_age);
                 		
                 		var source_of_income = String(JSON.parse('${(client.source_of_income)!}'));
                 		$('#source_of_income').html(source_of_income);
@@ -865,7 +870,7 @@ function CalReview(node_index){
 	                	var loan = '${(client.loan)!}';
 	                	
 	                	var oldTaskIdsArr = new Array();
-	                	if(loan!=''){
+	                	if(loan!=''&& view_type!='2'){
 	                		
 		                	var loanArray = JSON.parse(loan);
 		                	for(var i=1;i<loanArray.length;i++){
@@ -898,6 +903,7 @@ function CalReview(node_index){
 		    				reminder_days.set("21","3 weeks before Review Date");
 		    				reminder_days.set("14","2 weeks before Review Date");
 		    				reminder_days.set("7","1 week before Review Date");
+		    				
 		    				for(var i=0;i<loanArray.length;i++){
 		    					loan_bank[i].innerHTML=loanArray[i]['loan_bank'];
 		    					loan_customer_no[i].innerHTML=loanArray[i]['loan_customer_no'];
