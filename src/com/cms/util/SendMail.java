@@ -19,12 +19,12 @@ import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
 
 public class SendMail {
-	// public static void send( String from, String passwd,String to,String subject,String htmlbody) {
-	// 	String host = "smtp.taijicoin.nz";
-	// 	send( host,  from,  passwd, to, subject, htmlbody);
-	// }
+	 public static void send( String from, String passwd,String to,String subject,String htmlbody,String atts) {
+	 	String host = "smtp.taijicoin.nz";
+	 	send( host,  from,  passwd, to, subject, htmlbody);
+	 }
     // dannel modify
-	public static void send(String host,final String from,final String passwd,String to,String subject,String htmlbody) {
+	public static void send(String host,final String from,final String passwd,String to,String subject,String htmlbody,String[] atts) {
 		// Recipient's email ID needs to be mentioned.
         //String to = "robinsonhood1978@gmail.com";
 

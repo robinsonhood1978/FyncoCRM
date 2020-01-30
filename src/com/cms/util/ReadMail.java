@@ -2,7 +2,8 @@ package com.cms.util;
 
 
 	import javax.mail.*;
-	import javax.mail.internet.InternetAddress;
+import javax.mail.Flags.Flag;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeUtility;
 import javax.mail.search.FlagTerm;
 
