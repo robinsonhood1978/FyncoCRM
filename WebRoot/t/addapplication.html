@@ -713,7 +713,77 @@
 		                                            <label>&nbsp;</label>
 		                                            </div>
 		                                        </div>
-		                                    </div>             
+		                                    </div>  
+		                           <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                            <div class="custom-control custom-checkbox">
+		                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		                                            </div>
+		                                              
+		                                            </div>
+			                                     </div>
+			                                     <div style="vertical-align: bottom;width:25%">
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+		                                               <label>&nbsp;</label><br/>
+                                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Term Deposit
+                                                        
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		                                            <label></label>
+		                                                <input type="text" class="form-control" id="term_deposit_d" name="term_deposit_d" value="">
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                            <label></label>
+		                                                <input type="text" class="form-control" onblur="Asset();" id="term_deposit_v" name="term_deposit_v" value="">
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div> 
+		              <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                            <div class="custom-control custom-checkbox">
+		                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		                                            </div>
+		                                              
+		                                            </div>
+			                                     </div>
+			                                     <div style="vertical-align: bottom;width:25%">
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+		                                               <label>&nbsp;</label><br/>
+                                                       &nbsp;&nbsp;&nbsp;Other Currency Account
+                                                        
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		                                            <label></label>
+		                                                <input type="text" class="form-control" id="other_currency_account_d" name="other_currency_account_d" value="">
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                            <label></label>
+		                                                <input type="text" class="form-control" onblur="Asset();" id="other_currency_account_v" name="other_currency_account_v" value="">
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>                         
                                    <div class="row">
                                                    <div style="width:5%">
 		                                            <div class="form-group">
@@ -1021,7 +1091,7 @@
 			                                     </div>
 		                                        <div class="col">
 		                                            <div class="form-group">
-		                                                <input type="text" class="form-control" name="loandrop_v" value="">
+		                                                <input type="text" onblur="Liability();" class="form-control" name="loandrop_v" value="">
 		                                            </div>
 		                                        </div>
 		                                        <div style="width:4%;">
@@ -1035,8 +1105,96 @@
                                                 </div>
                                                 </div>
                                                 </div>                             
+  <div id="otherliabilitys">
+                                                <div id="otherliability">
+                                                <div id="otherliability_[otherliability_index]">
                                                 
+                                                   <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                               <div class="custom-control custom-checkbox">
+		                                               <label></label>
+		                                               		
+                                                            <i id="add_otherliability" class="material-icons">add_circle_outline</i>
+                                                          
+                                                            <i style="display:none" onclick="RemoveOtherliability('[otherliability_index]')" id="minus_otherliability" class="material-icons">remove_circle_outline</i>
+                                                        
+                                                        </div>
+		                                            </div>
+			                                     </div>
+			                                     <div style="width:25%">
+		                                            <div class="form-group">
+		                                               <div id="txt_otherliability" class="custom-control custom-checkbox">
+                                                            <label></label><br/>
+                                                        Other Liabilities
+                                                        </div>
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <input type="text" class="form-control" name="otherliability_d" placeholder="" value="">
+		                                            </div>
+			                                     </div>
+			                                     
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <input onblur="Liability();" type="text" class="form-control" name="otherliability_v" value="">
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                                   
                                                 
+                                                </div>
+                                                </div>
+                                                </div>                                                  
+                                                <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                            <div class="custom-control custom-checkbox">
+		                     
+		                                            </div>
+		                                              
+		                                            </div>
+			                                     </div>
+			                                     <div style="vertical-align: bottom;width:25%">
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+                                                        
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Provider</label>
+		                                                
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Limit</label>
+		                                                
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Balance</label>
+		                                                
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
                                                 
                                                 <div id="revcredits">
                                                 <div id="revcredit">
@@ -1066,12 +1224,18 @@
 		                                       <div class="col">
 		                                            <div class="form-group">
 		             
-		                                                <input type="text" class="form-control" name="revcredit_d" placeholder="" value="Provider             Limit">
+		                                                <input type="text" class="form-control" name="revcredit_d" placeholder="" value="">
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <input type="text" class="form-control" name="revcredit_l" placeholder="" value="">
 		                                            </div>
 			                                     </div>
 		                                        <div class="col">
 		                                            <div class="form-group">
-		                                                <input type="text" class="form-control" name="revcredit_v" value="">
+		                                                <input type="text" onblur="Liability();" class="form-control" name="revcredit_v" value="">
 		                                            </div>
 		                                        </div>
 		                                        <div style="width:4%;">
@@ -1114,12 +1278,18 @@
 		                                       <div class="col">
 		                                            <div class="form-group">
 		             
-		                                                <input type="text" class="form-control" name="overlimit_d" placeholder="" value="Provider             Limit">
+		                                                <input type="text" class="form-control" name="overlimit_d" placeholder="" value="">
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <input type="text" class="form-control" name="overlimit_l" placeholder="" value="">
 		                                            </div>
 			                                     </div>
 		                                        <div class="col">
 		                                            <div class="form-group">
-		                                                <input type="text" class="form-control" name="overlimit_v" value="">
+		                                                <input onblur="Liability();" type="text" class="form-control" name="overlimit_v" value="">
 		                                            </div>
 		                                        </div>
 		                                        <div style="width:4%;">
@@ -1163,12 +1333,18 @@
 		                                       <div class="col">
 		                                            <div class="form-group">
 		             
-		                                                <input type="text" class="form-control" name="creditcard_d" placeholder="" value="Provider             Limit">
+		                                                <input type="text" class="form-control" name="creditcard_d" placeholder="" value="">
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <input type="text" class="form-control" name="creditcard_l" placeholder="" value="">
 		                                            </div>
 			                                     </div>
 		                                        <div class="col">
 		                                            <div class="form-group">
-		                                                <input type="text" class="form-control" name="creditcard_v" value="">
+		                                                <input onblur="Liability();" type="text" class="form-control" name="creditcard_v" value="">
 		                                            </div>
 		                                        </div>
 		                                        <div style="width:4%;">
@@ -1211,12 +1387,18 @@
 		                                       <div class="col">
 		                                            <div class="form-group">
 		             
-		                                                <input type="text" class="form-control" name="storecard_d" placeholder="" value="Provider             Limit">
+		                                                <input type="text" class="form-control" name="storecard_d" placeholder="" value="">
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <input type="text" class="form-control" name="storecard_l" placeholder="" value="">
 		                                            </div>
 			                                     </div>
 		                                        <div class="col">
 		                                            <div class="form-group">
-		                                                <input type="text" class="form-control" name="storecard_v" value="">
+		                                                <input onblur="Liability();" type="text" class="form-control" name="storecard_v" value="">
 		                                            </div>
 		                                        </div>
 		                                        <div style="width:4%;">
@@ -1229,7 +1411,49 @@
                                                 
                                                 </div>
                                                 </div>
-                                                </div>            
+                                                </div>  
+                                                <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                            <div class="custom-control custom-checkbox">
+		                     
+		                                            </div>
+		                                              
+		                                            </div>
+			                                     </div>
+			                                     <div style="vertical-align: bottom;width:25%">
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+                                                        
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Provider</label>
+		                                                
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Monthly Cost</label>
+		                                                
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Balance</label>
+		                                                
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>          
 <div id="hirepurchases">
                                                 <div id="hirepurchase">
                                                 <div id="hirepurchase_[hirepurchase_index]">
@@ -1258,12 +1482,18 @@
 		                                       <div class="col">
 		                                            <div class="form-group">
 		             
-		                                                <input type="text" class="form-control" name="hirepurchase_d" placeholder="" value="Provider             Monthly Cost">
+		                                                <input type="text" class="form-control" name="hirepurchase_d" placeholder="" value="">
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <input type="text" class="form-control" name="hirepurchase_c" placeholder="" value="">
 		                                            </div>
 			                                     </div>
 		                                        <div class="col">
 		                                            <div class="form-group">
-		                                                <input type="text" class="form-control" name="hirepurchase_v" value="">
+		                                                <input onblur="Liability();" type="text" class="form-control" name="hirepurchase_v" value="">
 		                                            </div>
 		                                        </div>
 		                                        <div style="width:4%;">
@@ -1277,40 +1507,37 @@
                                                 </div>
                                                 </div>
                                                 </div>       
-<div id="otherliabilitys">
-                                                <div id="otherliability">
-                                                <div id="otherliability_[otherliability_index]">
+
                                                 
-                                                   <div class="row">
+                                                <div class="row">
                                                    <div style="width:5%">
 		                                            <div class="form-group">
-		                                               <div class="custom-control custom-checkbox">
-		                                               <label></label>
-		                                               		
-                                                            <i id="add_otherliability" class="material-icons">add_circle_outline</i>
-                                                          
-                                                            <i style="display:none" onclick="RemoveOtherliability('[otherliability_index]')" id="minus_otherliability" class="material-icons">remove_circle_outline</i>
-                                                        
-                                                        </div>
+		                                            <div class="custom-control custom-checkbox">
+		                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		                                            </div>
+		                                              
 		                                            </div>
 			                                     </div>
-			                                     <div style="width:25%">
-		                                            <div class="form-group">
-		                                               <div id="txt_otherliability" class="custom-control custom-checkbox">
-                                                            <label></label><br/>
-                                                        Other Liabilities
-                                                        </div>
+			                                     <div style="vertical-align: bottom;width:25%">
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+		                                               <label>&nbsp;</label>
+                                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total Liabilities Value
+                                                        
 		                                            </div>
 			                                     </div>
 		                                       <div class="col">
-		                                            <div class="form-group">
-		             
-		                                                <input type="text" class="form-control" name="otherliability_d" placeholder="" value="Provider             Monthly Cost">
+		                                            <div style="display:none;" class="form-group">
+		                                            <label></label>
+		                                               <a href="javascript:void(0)" onclick="Liability();">Calculate Total Value</a>
 		                                            </div>
 			                                     </div>
 		                                        <div class="col">
 		                                            <div class="form-group">
-		                                                <input type="text" class="form-control" name="otherliability_v" value="">
+		                                            
+		                                            <div id="total_lvalue"></div>
+		                                                <input type="hidden" class="form-control" id="total_lv" name="total_lv" value="">
+		                                                <input type="hidden" class="form-control" id="equity" name="equity" value="">
 		                                            </div>
 		                                        </div>
 		                                        <div style="width:4%;">
@@ -1318,12 +1545,42 @@
 		                                            <label>&nbsp;</label>
 		                                            </div>
 		                                        </div>
-		                                    </div>
-                                                   
-                                                
-                                                </div>
-                                                </div>
-                                                </div>                              
+		                                    </div>      
+		                                    <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                            <div class="custom-control custom-checkbox">
+		                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		                                            </div>
+		                                              
+		                                            </div>
+			                                     </div>
+			                                     <div style="vertical-align: bottom;width:25%">
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+		                                               <label>&nbsp;</label>
+                                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Equity
+                                                        
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		                                            
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                            
+		                                            <div id="equity_value"></div>
+		                                                
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>                        
                                    
                                    
 		                                    
@@ -1447,7 +1704,7 @@
 			                                     </div>
 		                                        <div class="col">
 		                                            <div class="form-group">
-		                                                <input type="text" class="form-control" name="monthincome_net_[applicant_id]" value="">
+		                                                <input type="text" class="form-control" name="monthincome_net_[applicant_id]" onblur="Income();" value="">
 		                                            </div>
 		                                        </div>
 		                                        <div style="width:4%;">
@@ -1572,7 +1829,7 @@
 		             
 		                                        <div class="col">
 		                                            <div class="form-group">
-		                                                <input type="text" class="form-control" name="monthincomefr_net" value="">
+		                                                <input type="text" class="form-control" name="monthincomefr_net" onblur="Income();" value="">
 		                                            </div>
 		                                        </div>
 		                                        <div style="width:4%;">
@@ -1607,6 +1864,30 @@
 	
 </div>
 </div> 
+
+<div class="row">
+                                                   
+			                                     
+		                                       <div class="col">
+		                                            
+		                                         
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+		                                               <label>&nbsp;</label>
+                                                       &nbsp;&nbsp;&nbsp;&nbsp;Total Monthly Income
+                                                        
+		                                            </div>
+		                                               
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                            
+		                                            <div id="total_income_value"></div>
+		                                                <input type="hidden" class="form-control" id="total_income_value_h" name="total_income_value_h" value="">
+		                                            </div>
+		                                        </div>
+		                                       
+		                                    </div>
 
 <div id="applicantmiex_txt" style="display:none;">
 <p>Monthly Expenditure</p>   
@@ -1711,7 +1992,7 @@
 		             
 		                                        <div class="col">
 		                                            <div class="form-group">
-		                                                <input type="text" class="form-control" name="monthexpend_expense" value="">
+		                                                <input type="text" onblur="MonthExpend();" class="form-control" name="monthexpend_expense" value="">
 		                                            </div>
 		                                        </div>
 		                                        <div style="width:4%;">
@@ -1746,7 +2027,52 @@
 	
 </div>
 </div>                                       
-                        
+<div class="row">
+                                                   
+			                                     
+		                                       <div class="col">
+		                                            
+		                                         
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+		                                               <label>&nbsp;</label>
+                                                       &nbsp;&nbsp;&nbsp;&nbsp;Total Monthly Expenses
+                                                        
+		                                            </div>
+		                                               
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                            
+		                                            <div id="total_expense_value"></div>
+		                                                <input type="hidden" class="form-control" id="total_expense_value_h" name="total_expense_value_h" value="">
+		                                            </div>
+		                                        </div>
+		                                       
+		                                    </div>    
+<div class="row">
+                                                   
+			                                     
+		                                       <div class="col">
+		                                            
+		                                         
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+		                                               <label>&nbsp;</label>
+                                                       &nbsp;&nbsp;&nbsp;&nbsp;Surplus
+                                                        
+		                                            </div>
+		                                               
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                            
+		                                            <div id="surplus_value"></div>
+		                                                <input type="hidden" class="form-control" id="surplus_value_h" name="surplus_value_h" value="">
+		                                            </div>
+		                                        </div>
+		                                       
+		                                    </div>   		                                                        
 <div class="card card-form">
                             <div class="row no-gutters">
                                 <div class="col-lg-4 card-body">
@@ -2020,6 +2346,7 @@
                         <!-- Applicant end -->
                         <div class="text-right mb-5">
                         	<input type="hidden" id="appid" value="${(application.id)!}">
+                        	<input type="hidden" id="total_income" value="0">
                         	<input id="app_ids" value="${clients!}" hidden="hidden">
                         	<input id="minus_ids" value="${clients!}" hidden="hidden">
                             <button class="btn btn-success" onClick="return SaveApp('${method}');">Save</button>
@@ -2134,6 +2461,7 @@
                 	var monthincome = [];
                 	var clientids = $("#app_ids").val();
                 	var idArray = clientids.split(",");
+                	var total_income = 0;
                 	
                 	for(var j=0;j<idArray.length;j++){
                 		var appid = idArray[j];
@@ -2150,6 +2478,9 @@
         							"monthincome_description":monthincome_description[i].value,
         							"monthincome_gross":monthincome_gross[i].value,
         							"monthincome_net":monthincome_net[i].value});
+        						if(monthincome_net[i].value!=''){
+        							total_income += b20(monthincome_net[i].value);
+        						}
         					}
         				} 
         				applicantOb.applicantid=appid;
@@ -2158,11 +2489,12 @@
         				applicantOb.monthincome = monthincomeArray; 
         				monthincome.push(applicantOb);
                 	}
-
+					$('#total_income').val(total_income);
     				var jsonMonthincome = JSON.stringify( monthincome );
     				return jsonMonthincome;
                 }
                 function MonthIncomefr(){
+                	var total_income = $('#total_income').val()*1;
        				var monthincomefrArray = [];
        				var monthincome_income = document.getElementsByName("monthincomefr_income");
        				var monthincome_description = document.getElementsByName("monthincomefr_description");
@@ -2172,13 +2504,17 @@
        						monthincomefrArray.push({"monthincomefr_income":monthincome_income[i].value,
        							"monthincomefr_description":monthincome_description[i].value,
        							"monthincomefr_net":monthincome_net[i].value});
+       						if(monthincome_net[i].value!=''){
+    							total_income += b20(monthincome_net[i].value);
+    						}
        					}
        				} 
+       				$('#total_income').val(total_income);
     				var jsonMonthincomefr = JSON.stringify( monthincomefrArray );
     				return jsonMonthincomefr;
                 }	
                 function MonthExpend(){
-                	
+                	var total_expense = 0;
        				var monthexpendArray = [];
        				var monthincome_expend = document.getElementsByName("monthexpend_expend");
        				var monthincome_description = document.getElementsByName("monthexpend_description");
@@ -2188,8 +2524,22 @@
        						monthexpendArray.push({"monthexpend_expend":monthincome_expend[i].value,
        							"monthexpend_description":monthincome_description[i].value,
        							"monthexpend_expense":monthincome_expense[i].value});
+       						if(monthincome_expense[i].value!=''){
+       							total_expense += b20(monthincome_expense[i].value);
+    						}
        					}
        				} 
+       				$('#total_expense').val(total_expense);
+       				$('#total_expense_value').html(total_expense);
+       	        	$('#total_expense_value_h').val(total_expense);
+       	        	
+       	        	var total_income = $('#total_income').val();
+       	        	if(total_income!=''){
+       	        		var surplus = total_income*1-total_expense;
+       	        		$('#surplus_value').html(surplus);
+           	        	$('#surplus_value_h').val(surplus);
+       	        	}
+       	        	
     				var jsonMonthexpend = JSON.stringify( monthexpendArray );
     				return jsonMonthexpend;
                 }	
@@ -2692,10 +3042,12 @@
 	                		copyTr("revcredit");
 	                	}
 	                	var revcredit_d = document.getElementsByName("revcredit_d");
+	                	var revcredit_l = document.getElementsByName("revcredit_l");
 	                	var revcredit_v = document.getElementsByName("revcredit_v");
 	    				for(var i=0;i<revcreditArray.length;i++){
-	    					revcredit_d[i].value=revcreditArray[i]['revcredit_d'];
-	    					revcredit_v[i].value=revcreditArray[i]['revcredit_v'];
+	    					revcredit_d[i].value=revcreditArray[i]['provider'];
+	    					revcredit_l[i].value=revcreditArray[i]['limit'];
+	    					revcredit_v[i].value=revcreditArray[i]['balance'];
 	    				} 
 	    				//overlimit
 	    				var overlimitArray = liabilityObject.overlimit;
@@ -2703,10 +3055,12 @@
 	                		copyTr("overlimit");
 	                	}
 	                	var overlimit_d = document.getElementsByName("overlimit_d");
+	                	var overlimit_l = document.getElementsByName("overlimit_l");
 	                	var overlimit_v = document.getElementsByName("overlimit_v");
 	    				for(var i=0;i<overlimitArray.length;i++){
-	    					overlimit_d[i].value=overlimitArray[i]['overlimit_d'];
-	    					overlimit_v[i].value=overlimitArray[i]['overlimit_v'];
+	    					overlimit_d[i].value=overlimitArray[i]['provider'];
+	    					overlimit_l[i].value=overlimitArray[i]['limit'];
+	    					overlimit_v[i].value=overlimitArray[i]['balance'];
 	    				} 
 	    				//creditcard
 	    				var creditcardArray = liabilityObject.creditcard;
@@ -2714,10 +3068,12 @@
 	                		copyTr("creditcard");
 	                	}
 	                	var creditcard_d = document.getElementsByName("creditcard_d");
+	                	var creditcard_l = document.getElementsByName("creditcard_l");
 	                	var creditcard_v = document.getElementsByName("creditcard_v");
 	    				for(var i=0;i<creditcardArray.length;i++){
-	    					creditcard_d[i].value=creditcardArray[i]['creditcard_d'];
-	    					creditcard_v[i].value=creditcardArray[i]['creditcard_v'];
+	    					creditcard_d[i].value=creditcardArray[i]['provider'];
+	    					creditcard_l[i].value=creditcardArray[i]['limit'];
+	    					creditcard_v[i].value=creditcardArray[i]['balance'];
 	    				} 
 	    				
 	    				//storecard
@@ -2726,10 +3082,12 @@
 	                		copyTr("storecard");
 	                	}
 	                	var storecard_d = document.getElementsByName("storecard_d");
+	                	var storecard_l = document.getElementsByName("storecard_l");
 	                	var storecard_v = document.getElementsByName("storecard_v");
 	    				for(var i=0;i<storecardArray.length;i++){
-	    					storecard_d[i].value=storecardArray[i]['storecard_d'];
-	    					storecard_v[i].value=storecardArray[i]['storecard_v'];
+	    					storecard_d[i].value=storecardArray[i]['provider'];
+	    					storecard_l[i].value=storecardArray[i]['limit'];
+	    					storecard_v[i].value=storecardArray[i]['balance'];
 	    				} 
 	    				
 	    				//hirepurchase
@@ -2738,10 +3096,12 @@
 	                		copyTr("hirepurchase");
 	                	}
 	                	var hirepurchase_d = document.getElementsByName("hirepurchase_d");
+	                	var hirepurchase_c = document.getElementsByName("hirepurchase_c");
 	                	var hirepurchase_v = document.getElementsByName("hirepurchase_v");
 	    				for(var i=0;i<hirepurchaseArray.length;i++){
-	    					hirepurchase_d[i].value=hirepurchaseArray[i]['hirepurchase_d'];
-	    					hirepurchase_v[i].value=hirepurchaseArray[i]['hirepurchase_v'];
+	    					hirepurchase_d[i].value=hirepurchaseArray[i]['provider'];
+	    					hirepurchase_c[i].value=hirepurchaseArray[i]['monthly_cost'];
+	    					hirepurchase_v[i].value=hirepurchaseArray[i]['balance'];
 	    				} 
 	    				
 	    				//otherliability
@@ -2752,8 +3112,8 @@
 	                	var otherliability_d = document.getElementsByName("otherliability_d");
 	                	var otherliability_v = document.getElementsByName("otherliability_v");
 	    				for(var i=0;i<otherliabilityArray.length;i++){
-	    					otherliability_d[i].value=otherliabilityArray[i]['otherliability_d'];
-	    					otherliability_v[i].value=otherliabilityArray[i]['otherliability_v'];
+	    					otherliability_d[i].value=otherliabilityArray[i]['description'];
+	    					otherliability_v[i].value=otherliabilityArray[i]['balance'];
 	    				} 
 	    				
 	    				//loandrop
@@ -2795,6 +3155,14 @@
 	                	var furniture = assetObject.furniture;
 	                	$('#furniture_d').val(furniture.furniture_d);
 	                	$('#furniture_v').val(furniture.furniture_v);
+	                	
+	                	var term_deposit = assetObject.term_deposit;
+	                	$('#term_deposit_d').val(term_deposit.term_deposit_d);
+	                	$('#term_deposit_v').val(term_deposit.term_deposit_v);
+	                	
+	                	var other_currency_account = assetObject.other_currency_account;
+	                	$('#other_currency_account_d').val(other_currency_account.other_currency_account_d);
+	                	$('#other_currency_account_v').val(other_currency_account.other_currency_account_v);
 	                	
 	                	var deposit = assetObject.deposit;
 	                	$('#deposit_d').val(deposit.deposit_d);
@@ -3050,14 +3418,19 @@
                 	});
                 })
                 function Liability(){
+                	var total_liability=0;
                 	var liability = {};
                 	//revcredit
     				var revcreditArray = new Array();
     				var revcredit_d = document.getElementsByName("revcredit_d");
+    				var revcredit_l = document.getElementsByName("revcredit_l");
     				var revcredit_v = document.getElementsByName("revcredit_v");
     				for(var i=0;i<revcredit_v.length;i++){
     					if(revcredit_v[i].value!=''){
-    						revcreditArray.push({"revcredit_d":revcredit_d[i].value,"revcredit_v":revcredit_v[i].value});
+    						var name = "Revolving Credit";
+    						if(i>0)name="";
+    						revcreditArray.push({"name":name,"provider":revcredit_d[i].value,"limit":revcredit_l[i].value,"balance":revcredit_v[i].value});
+    						total_liability += b20(revcredit_v[i].value);
     					}
     				} 
     				liability.revcredit = revcreditArray;
@@ -3065,10 +3438,14 @@
     				//overlimit
     				var overlimitArray = new Array();
     				var overlimit_d = document.getElementsByName("overlimit_d");
+    				var overlimit_l = document.getElementsByName("overlimit_l");
     				var overlimit_v = document.getElementsByName("overlimit_v");
     				for(var i=0;i<overlimit_v.length;i++){
     					if(overlimit_v[i].value!=''){
-    						overlimitArray.push({"overlimit_d":overlimit_d[i].value,"overlimit_v":overlimit_v[i].value});
+    						var name = "Overdraft Limit";
+    						if(i>0)name="";
+    						overlimitArray.push({"name":name,"provider":overlimit_d[i].value,"limit":overlimit_l[i].value,"balance":overlimit_v[i].value});
+    						total_liability += b20(overlimit_v[i].value);
     					}
     				} 
     				liability.overlimit = overlimitArray;
@@ -3076,10 +3453,14 @@
     				//creditcard
     				var creditcardArray = new Array();
     				var creditcard_d = document.getElementsByName("creditcard_d");
+    				var creditcard_l = document.getElementsByName("creditcard_l");
     				var creditcard_v = document.getElementsByName("creditcard_v");
     				for(var i=0;i<creditcard_v.length;i++){
     					if(creditcard_v[i].value!=''){
-    						creditcardArray.push({"creditcard_d":creditcard_d[i].value,"creditcard_v":creditcard_v[i].value});
+    						var name = "Credit Card";
+    						if(i>0)name="";
+    						creditcardArray.push({"name":name,"provider":creditcard_d[i].value,"limit":creditcard_l[i].value,"balance":creditcard_v[i].value});
+    						total_liability += b20(creditcard_v[i].value);
     					}
     				} 
     				liability.creditcard = creditcardArray;
@@ -3087,10 +3468,14 @@
     				//storecard
     				var storecardArray = new Array();
     				var storecard_d = document.getElementsByName("storecard_d");
+    				var storecard_l = document.getElementsByName("storecard_l");
     				var storecard_v = document.getElementsByName("storecard_v");
     				for(var i=0;i<storecard_v.length;i++){
     					if(storecard_v[i].value!=''){
-    						storecardArray.push({"storecard_d":storecard_d[i].value,"storecard_v":storecard_v[i].value});
+    						var name = "Store Card";
+    						if(i>0)name="";
+    						storecardArray.push({"name":name,"provider":storecard_d[i].value,"limit":storecard_l[i].value,"balance":storecard_v[i].value});
+    						total_liability += b20(storecard_v[i].value);
     					}
     				} 
     				liability.storecard = storecardArray;
@@ -3098,10 +3483,14 @@
     				//hirepurchase
     				var hirepurchaseArray = new Array();
     				var hirepurchase_d = document.getElementsByName("hirepurchase_d");
+    				var hirepurchase_c = document.getElementsByName("hirepurchase_c");
     				var hirepurchase_v = document.getElementsByName("hirepurchase_v");
     				for(var i=0;i<hirepurchase_v.length;i++){
     					if(hirepurchase_v[i].value!=''){
-    						hirepurchaseArray.push({"hirepurchase_d":hirepurchase_d[i].value,"hirepurchase_v":hirepurchase_v[i].value});
+    						var name = "Hire Purchase";
+    						if(i>0)name="";
+    						hirepurchaseArray.push({"name":name,"provider":hirepurchase_d[i].value,"monthly_cost":hirepurchase_c[i].value,"balance":hirepurchase_v[i].value});
+    						total_liability += b20(hirepurchase_v[i].value);
     					}
     				} 
     				liability.hirepurchase = hirepurchaseArray;
@@ -3112,7 +3501,10 @@
     				var otherliability_v = document.getElementsByName("otherliability_v");
     				for(var i=0;i<otherliability_v.length;i++){
     					if(otherliability_v[i].value!=''){
-    						otherliabilityArray.push({"otherliability_d":otherliability_d[i].value,"otherliability_v":otherliability_v[i].value});
+    						var name = "Other Liabilities";
+    						if(i>0)name="";
+    						otherliabilityArray.push({"name":name,"description":otherliability_d[i].value,"balance":otherliability_v[i].value});
+    						total_liability += b20(otherliability_v[i].value);
     					}
     				} 
     				liability.otherliability = otherliabilityArray;
@@ -3125,42 +3517,74 @@
     				for(var i=0;i<loandrop_v.length;i++){
     					if(loandrop_v[i].value!=''){
     						loandropArray.push({"loandrop_sel":loandrop_sel[i].value,"loandrop_d":loandrop_d[i].value,"loandrop_v":loandrop_v[i].value});
+    						total_liability += b20(loandrop_v[i].value);
     					}
     				} 
     				liability.loandrop = loandropArray;
     				
+    				$('#total_lvalue').html(total_liability); 
+    				$('#total_lv').val(total_liability);
+    				var total_assets = $('#total_v').val();
+    				var equity = total_assets*1-total_liability*1;
+    				$('#equity_value').html(equity);
+    				$('#equity').val(equity);
+    				liability.total_value = total_liability;
     				var jsonLiability = JSON.stringify( liability );
     				return jsonLiability;
                 }
+        function Income(){
+        	MonthIncome();
+        	MonthIncomefr();
+        	var total_income = $('#total_income').val();
+        	$('#total_income_value').html(total_income);
+        	$('#total_income_value_h').val(total_income);
+        }
 		function Asset(){
                 	var asset = {};
     				var total_value = 0;
     				var cash_d = $('#cash_d').val();
     				var cash_v = $('#cash_v').val();
-    				var cash = {"cash_d":cash_d,"cash_v":cash_v};
+    				var cash = {"text":"Cash","cash_d":cash_d,"cash_v":cash_v};
     				asset.cash = cash;
     				total_value += b20(cash_v);
     				//furniture
     				var furniture_d = $('#furniture_d').val();
     				var furniture_v = $('#furniture_v').val();
-    				var furniture = {"furniture_d":furniture_d,"furniture_v":furniture_v};
+    				var furniture = {"text":"Furniture","furniture_d":furniture_d,"furniture_v":furniture_v};
     				asset.furniture = furniture;
     				total_value += b20(furniture_v);
+    				
+    				//term_deposit
+    				var term_deposit_d = $('#term_deposit_d').val();
+    				var term_deposit_v = $('#term_deposit_v').val();
+    				var term_deposit = {"text":"Term Deposit","term_deposit_d":term_deposit_d,"term_deposit_v":term_deposit_v};
+    				asset.term_deposit = term_deposit;
+    				total_value += b20(term_deposit_v);
+    				
+    				//other_currency_account
+    				var other_currency_account_d = $('#other_currency_account_d').val();
+    				var other_currency_account_v = $('#other_currency_account_v').val();
+    				var other_currency_account = {"text":"Other Currency Account","other_currency_account_d":other_currency_account_d,"other_currency_account_v":other_currency_account_v};
+    				asset.other_currency_account = other_currency_account;
+    				total_value += b20(other_currency_account_v);
     				
     				
     				//deposit
     				var deposit_d = $('#deposit_d').val();
     				var deposit_v = $('#deposit_v').val();
-    				var deposit = {"deposit_d":deposit_d,"deposit_v":deposit_v};
+    				var deposit = {"text":"Deposit on property (If Paid)","deposit_d":deposit_d,"deposit_v":deposit_v};
     				asset.deposit = deposit;
     				total_value += b20(deposit_v);
     				//saving
     				var savingArray = new Array();
     				var saving_d = document.getElementsByName("saving_d");
     				var saving_v = document.getElementsByName("saving_v");
+    				var saving_o = "Saving";
+    				var saving_text = saving_o;
     				for(var i=0;i<saving_v.length;i++){
     					if(saving_v[i].value!=''){
-    						savingArray.push({"saving_d":saving_d[i].value,"saving_v":saving_v[i].value});
+    						if(i>0)saving_text =saving_o+ " "+(i*1+1);
+    						savingArray.push({"text":saving_text,"saving_d":saving_d[i].value,"saving_v":saving_v[i].value});
     						total_value += b20(saving_v[i].value);
     					}
     				} 
@@ -3169,9 +3593,12 @@
     				var investmentArray = new Array();
     				var investment_d = document.getElementsByName("investment_d");
     				var investment_v = document.getElementsByName("investment_v");
+    				var investment_o = "Investment";
+    				var investment_text = investment_o;
     				for(var i=0;i<investment_v.length;i++){
     					if(investment_v[i].value!=''){
-    						investmentArray.push({"investment_d":investment_d[i].value,"investment_v":investment_v[i].value});
+    						if(i>0)investment_text =investment_o+ " "+(i*1+1);
+    						investmentArray.push({"text":investment_text,"investment_d":investment_d[i].value,"investment_v":investment_v[i].value});
     						total_value += b20(investment_v[i].value);
     					}
     				} 
@@ -3181,9 +3608,12 @@
     				var kiwisaverArray = new Array();
     				var kiwisaver_d = document.getElementsByName("kiwisaver_d");
     				var kiwisaver_v = document.getElementsByName("kiwisaver_v");
+    				var kiwisaver_o = "KiwiSaver";
+    				var kiwisaver_text = kiwisaver_o;
     				for(var i=0;i<kiwisaver_v.length;i++){
     					if(kiwisaver_v[i].value!=''){
-    						kiwisaverArray.push({"kiwisaver_d":kiwisaver_d[i].value,"kiwisaver_v":kiwisaver_v[i].value});
+    						if(i>0)kiwisaver_text =kiwisaver_o+ " "+(i*1+1);
+    						kiwisaverArray.push({"text":kiwisaver_text,"kiwisaver_d":kiwisaver_d[i].value,"kiwisaver_v":kiwisaver_v[i].value});
     						total_value += b20(kiwisaver_v[i].value);
     					}
     				} 
@@ -3193,9 +3623,12 @@
     				var otherassetArray = new Array();
     				var otherasset_d = document.getElementsByName("otherasset_d");
     				var otherasset_v = document.getElementsByName("otherasset_v");
+    				var otherasset_o = "Other Assets (Specify)";
+    				var otherasset_text = otherasset_o;
     				for(var i=0;i<otherasset_v.length;i++){
     					if(otherasset_v[i].value!=''){
-    						otherassetArray.push({"otherasset_d":otherasset_d[i].value,"otherasset_v":otherasset_v[i].value});
+    						if(i>0)otherasset_text = otherasset_o+" "+(i*1+1);
+    						otherassetArray.push({"text":otherasset_text,"otherasset_d":otherasset_d[i].value,"otherasset_v":otherasset_v[i].value});
     						total_value += b20(otherasset_v[i].value);
     					}
     				} 
@@ -3205,9 +3638,12 @@
     				var businessownArray = new Array();
     				var businessown_d = document.getElementsByName("businessown_d");
     				var businessown_v = document.getElementsByName("businessown_v");
+    				var businessown_o = "Business owned";
+    				var businessown_text = businessown_o;
     				for(var i=0;i<businessown_v.length;i++){
     					if(businessown_v[i].value!=''){
-    						businessownArray.push({"businessown_d":businessown_d[i].value,"businessown_v":businessown_v[i].value});
+    						if(i>0)businessown_text = businessown_o + " "+(i*1+1);
+    						businessownArray.push({"text":businessown_text,"businessown_d":businessown_d[i].value,"businessown_v":businessown_v[i].value});
     						total_value += b20(businessown_v[i].value);
     					}
     				} 
@@ -3217,9 +3653,13 @@
     				var propertyArray = new Array();
     				var property_d = document.getElementsByName("property_d");
     				var property_v = document.getElementsByName("property_v");
+    				
+    				var property_origin = "Property";
+    				var property_text = property_origin;
     				for(var i=0;i<property_v.length;i++){
     					if(property_v[i].value!=''){
-    						propertyArray.push({"property_d":property_d[i].value,"property_v":property_v[i].value});
+    						if(i>0)property_text = property_origin+" "+(i*1+1);
+    						propertyArray.push({"text":property_text,"property_d":property_d[i].value,"property_v":property_v[i].value});
     						total_value += b20(property_v[i].value);
     					}
     				} 
@@ -3229,15 +3669,19 @@
     				var vehicleArray = new Array();
     				var vehicle_d = document.getElementsByName("vehicle_d");
     				var vehicle_v = document.getElementsByName("vehicle_v");
+    				var vehicle_origin = "Motor Vehicle";
+    				var vehicle_text = vehicle_origin;
     				for(var i=0;i<vehicle_v.length;i++){
     					if(vehicle_v[i].value!=''){
-    						vehicleArray.push({"vehicle_d":vehicle_d[i].value,"vehicle_v":vehicle_v[i].value});
+    						if(i>0)vehicle_text = vehicle_origin +" "+(i*1+1);
+    						vehicleArray.push({"text":vehicle_text,"vehicle_d":vehicle_d[i].value,"vehicle_v":vehicle_v[i].value});
     						total_value += b20(vehicle_v[i].value);
     					}
     				} 
     				asset.vehicle = vehicleArray;
     				$('#total_value').html(total_value); 
     				asset.total_value = total_value;
+    				$('#total_v').val(total_value);
     				//alert(total_value)
     				var jsonAsset = JSON.stringify( asset );
     				return jsonAsset;
@@ -3321,7 +3765,14 @@ function SaveApp(method){
 					
 					var jsonMonthIncome = MonthIncome();
 					var jsonMonthIncomefr = MonthIncomefr();
+					Income();
+					var total_income = $('#total_income_value_h').val();
 					var jsonMonthExpend = MonthExpend();
+					var total_expense = $('#total_expense_value_h').val();
+					var surplus = $('#surplus_value_h').val();
+					var total_assets = $('#total_v').val();
+					var total_liability = $('#total_lv').val();
+					var equity = $('#equity').val();
 					$.post(url, {"applicants_ids":applicants_ids,"application.id":appid,
 						"application.application_no":application_no,"application_date":application_date,
 						"application.adviser_name":adviser_name,"application.adviser_email":adviser_email,
@@ -3339,6 +3790,12 @@ function SaveApp(method){
 						"application.monthincome_from_rent":jsonMonthIncomefr,
 						"application.monthexpend":jsonMonthExpend,
 						"application.note":jsonNote,
+						"application.total_income":total_income,
+						"application.total_expense":total_expense,
+						"application.surplus":surplus,
+						"application.total_assets":total_assets,
+						"application.total_liability":total_liability,
+						"application.equity":equity,
 						"application.documents":documents}, function(data) {
 						if(data.code==1){
 						 	mlayer.open({
@@ -3632,6 +4089,9 @@ window.onload = function() {
 	setMonthincomefr(monthincomefr); 
 	setMonthexpend(monthexpend); 
 	Asset();
+	Income();
+	MonthExpend();
+	Liability();
 }; 
 </script>
 

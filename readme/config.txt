@@ -1,0 +1,4 @@
+jdbcUrl = jdbc:mysql://fyncoserver.cwvh99gh8gui.ap-southeast-2.rds.amazonaws.com/fynco?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+user = admin
+password = fynco001
+devMode = true

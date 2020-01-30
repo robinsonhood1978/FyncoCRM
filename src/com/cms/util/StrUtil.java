@@ -1,11 +1,24 @@
 package com.cms.util;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StrUtil {
+	public static String formatString(double data) {
+        DecimalFormat df = new DecimalFormat("#,###.00"); 
+        return df.format(data);
+    }
+	public static String formatString(String data) {
+		String str = "";
+		if(data!=null&&!"".equals(data)) {
+			DecimalFormat df = new DecimalFormat("#,###.00"); 
+			str = df.format(Double.parseDouble(data));
+		}
+        return str;
+    }
 	public static String getRandom(int len) {
 	     int rs = (int) ((Math.random() * 9 + 1) * Math.pow(10, len - 1));
 	     return String.valueOf(rs);

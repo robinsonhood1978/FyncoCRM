@@ -944,7 +944,48 @@
                                                 </div>                             
                                                 
                                                 
-                                                
+                                                    <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                            <div class="custom-control custom-checkbox">
+		                     
+		                                            </div>
+		                                              
+		                                            </div>
+			                                     </div>
+			                                     <div style="vertical-align: bottom;width:25%">
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+                                                        
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Provider</label>
+		                                                
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Limit</label>
+		                                                
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Balance</label>
+		                                                
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>                                            
                                                 <div id="revcredits">
                                                 <div id="revcredit">
                                                 <div id="revcredit_[revcredit_index]">
@@ -967,6 +1008,12 @@
 		                                            <div class="form-group">
 		             
 		                                                <div name="revcredit_d"></div>
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="revcredit_l"></div>
 		                                            </div>
 			                                     </div>
 		                                        <div class="col">
@@ -1010,6 +1057,11 @@
 		                                                <div name="overlimit_d"></div>
 		                                            </div>
 			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		                                                <div name="overlimit_l"></div>
+		                                            </div>
+		                                        </div>
 		                                        <div class="col">
 		                                            <div class="form-group">
 		                                                <div name="overlimit_v"></div>
@@ -1050,6 +1102,12 @@
 		                                            <div class="form-group">
 		             
 		                                                <div name="creditcard_d"></div>
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="creditcard_l"></div>
 		                                            </div>
 			                                     </div>
 		                                        <div class="col">
@@ -1108,7 +1166,49 @@
                                                 
                                                 </div>
                                                 </div>
-                                                </div>            
+                                                </div>         
+                                                <div class="row">
+                                                   <div style="width:5%">
+		                                            <div class="form-group">
+		                                            <div class="custom-control custom-checkbox">
+		                     
+		                                            </div>
+		                                              
+		                                            </div>
+			                                     </div>
+			                                     <div style="vertical-align: bottom;width:25%">
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+                                                        
+		                                            </div>
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Provider</label>
+		                                                
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Monthly Cost</label>
+		                                                
+		                                            </div>
+			                                     </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                            <br/>
+		                                            <label>Balance</label>
+		                                                
+		                                            </div>
+		                                        </div>
+		                                        <div style="width:4%;">
+		                                            <div class="form-group">
+		                                            <label>&nbsp;</label>
+		                                            </div>
+		                                        </div>
+		                                    </div>         
 <div id="hirepurchases">
                                                 <div id="hirepurchase">
                                                 <div id="hirepurchase_[hirepurchase_index]">
@@ -1131,6 +1231,12 @@
 		                                            <div class="form-group">
 		             
 		                                                <div name="hirepurchase_d"></div>
+		                                            </div>
+			                                     </div>
+			                                      <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="hirepurchase_c"></div>
 		                                            </div>
 			                                     </div>
 		                                        <div class="col">
@@ -1171,6 +1277,12 @@
 		                                            <div class="form-group">
 		             
 		                                                <div name="otherliability_d"></div>
+		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            <div class="form-group">
+		             
+		                                                <div name="otherliability_c"></div>
 		                                            </div>
 			                                     </div>
 		                                        <div class="col">
@@ -1809,13 +1921,13 @@
                         <!-- Applicant start-->
                         
                    
-                        
+                        <div id="viewpdf" style="display:none;"><a id="pdf_url" href="#">View Pdf</a></div>
                         <!-- Applicant end -->
                         <div class="text-right mb-5">
                         	<input type="hidden" id="appid" value="${(application.id)!}">
                         	<input id="app_ids" value="${clients!}" hidden="hidden">
                         	<input id="minus_ids" value="${clients!}" hidden="hidden">
-                           
+                           <button class="btn btn-success" onClick="return SavePdf();">Save to PDF</button>
                         </div>
                     </div>
 
@@ -1823,6 +1935,47 @@
                 </div>
                 <!-- // END drawer-layout__content -->
                 <script>
+              //全局配置
+                /* $.ajaxSetup({
+                  layerIndex:-1, //保存当前请求对应的提示框index,用于后面关闭使用
+                  //在请求显示提示框
+                  beforeSend: function(jqXHR, settings) {
+                	  
+                      this.layerIndex = mindex;
+                  },
+                  //请求完毕后（不管成功还是失败），关闭提示框
+                  complete: function () {
+                      mlayer.close(this.layerIndex);
+                  },
+                  //请求失败时，弹出错误信息
+                  error: function (jqXHR, status, e) {
+                    mlayer.alert('数据请求失败，请后再试!');
+                  }
+                }); */
+                function SavePdf(){
+                	
+                	$.ajaxSettings.async = false;
+                	var appid = $('#appid').val();
+                	$.post("/application/pdf", {"id":appid}, function(data) {
+    					if(data.code==0){
+    						var url = data.url;
+    						$('#viewpdf').css("display","block");
+    						$('#pdf_url').attr("href",url);
+    						 mlayer.open({
+    						    content: 'Success',
+    						    btn: 'Got it'
+    						  });  
+    					}
+    					else{
+    						mlayer.open({
+    						    content: 'Fail',
+    						    btn: 'Got it'
+    						  }); 
+    					}
+    				}, "json");  
+                	$.ajaxSettings.async = true;
+                	
+                }
                 function copyApplicantInfo2(nodeid){
             		
             		var sourceNode = document.getElementById(nodeid); // 获得被克隆的节点对象 
@@ -2570,10 +2723,12 @@
 	                		copyTr("revcredit");
 	                	}
 	                	var revcredit_d = document.getElementsByName("revcredit_d");
+	                	var revcredit_l = document.getElementsByName("revcredit_l");
 	                	var revcredit_v = document.getElementsByName("revcredit_v");
 	    				for(var i=0;i<revcreditArray.length;i++){
-	    					revcredit_d[i].innerHTML=revcreditArray[i]['revcredit_d'];
-	    					revcredit_v[i].innerHTML=revcreditArray[i]['revcredit_v'];
+	    					revcredit_d[i].innerHTML=revcreditArray[i]['provider'];
+	    					revcredit_l[i].innerHTML=revcreditArray[i]['limit'];
+	    					revcredit_v[i].innerHTML=revcreditArray[i]['balance'];
 	    				} 
 	    				//overlimit
 	    				var overlimitArray = liabilityObject.overlimit;
@@ -2581,10 +2736,12 @@
 	                		copyTr("overlimit");
 	                	}
 	                	var overlimit_d = document.getElementsByName("overlimit_d");
+	                	var overlimit_l = document.getElementsByName("overlimit_l");
 	                	var overlimit_v = document.getElementsByName("overlimit_v");
 	    				for(var i=0;i<overlimitArray.length;i++){
-	    					overlimit_d[i].innerHTML=overlimitArray[i]['overlimit_d'];
-	    					overlimit_v[i].innerHTML=overlimitArray[i]['overlimit_v'];
+	    					overlimit_d[i].innerHTML=overlimitArray[i]['provider'];
+	    					overlimit_l[i].innerHTML=overlimitArray[i]['limit'];
+	    					overlimit_v[i].innerHTML=overlimitArray[i]['balance'];
 	    				} 
 	    				//creditcard
 	    				var creditcardArray = liabilityObject.creditcard;
@@ -2592,10 +2749,12 @@
 	                		copyTr("creditcard");
 	                	}
 	                	var creditcard_d = document.getElementsByName("creditcard_d");
+	                	var creditcard_l = document.getElementsByName("creditcard_l");
 	                	var creditcard_v = document.getElementsByName("creditcard_v");
 	    				for(var i=0;i<creditcardArray.length;i++){
-	    					creditcard_d[i].innerHTML=creditcardArray[i]['creditcard_d'];
-	    					creditcard_v[i].innerHTML=creditcardArray[i]['creditcard_v'];
+	    					creditcard_d[i].innerHTML=creditcardArray[i]['provider'];
+	    					creditcard_l[i].innerHTML=creditcardArray[i]['limit'];
+	    					creditcard_v[i].innerHTML=creditcardArray[i]['balance'];
 	    				} 
 	    				
 	    				//storecard
@@ -2604,10 +2763,12 @@
 	                		copyTr("storecard");
 	                	}
 	                	var storecard_d = document.getElementsByName("storecard_d");
+	                	var storecard_l = document.getElementsByName("storecard_l");
 	                	var storecard_v = document.getElementsByName("storecard_v");
 	    				for(var i=0;i<storecardArray.length;i++){
-	    					storecard_d[i].innerHTML=storecardArray[i]['storecard_d'];
-	    					storecard_v[i].innerHTML=storecardArray[i]['storecard_v'];
+	    					storecard_d[i].innerHTML=storecardArray[i]['provider'];
+	    					storecard_l[i].innerHTML=storecardArray[i]['limit'];
+	    					storecard_v[i].innerHTML=storecardArray[i]['balance'];
 	    				} 
 	    				
 	    				//hirepurchase
@@ -2616,10 +2777,12 @@
 	                		copyTr("hirepurchase");
 	                	}
 	                	var hirepurchase_d = document.getElementsByName("hirepurchase_d");
+	                	var hirepurchase_c = document.getElementsByName("hirepurchase_c");
 	                	var hirepurchase_v = document.getElementsByName("hirepurchase_v");
 	    				for(var i=0;i<hirepurchaseArray.length;i++){
-	    					hirepurchase_d[i].innerHTML=hirepurchaseArray[i]['hirepurchase_d'];
-	    					hirepurchase_v[i].innerHTML=hirepurchaseArray[i]['hirepurchase_v'];
+	    					hirepurchase_d[i].innerHTML=hirepurchaseArray[i]['provider'];
+	    					hirepurchase_c[i].innerHTML=hirepurchaseArray[i]['monthly_cost'];
+	    					hirepurchase_v[i].innerHTML=hirepurchaseArray[i]['balance'];
 	    				} 
 	    				
 	    				//otherliability
@@ -2628,10 +2791,12 @@
 	                		copyTr("otherliability");
 	                	}
 	                	var otherliability_d = document.getElementsByName("otherliability_d");
+	                	var otherliability_c = document.getElementsByName("otherliability_c");
 	                	var otherliability_v = document.getElementsByName("otherliability_v");
 	    				for(var i=0;i<otherliabilityArray.length;i++){
-	    					otherliability_d[i].innerHTML=otherliabilityArray[i]['otherliability_d'];
-	    					otherliability_v[i].innerHTML=otherliabilityArray[i]['otherliability_v'];
+	    					otherliability_d[i].innerHTML=otherliabilityArray[i]['provider'];
+	    					otherliability_c[i].innerHTML=otherliabilityArray[i]['monthly_cost'];
+	    					otherliability_v[i].innerHTML=otherliabilityArray[i]['balance'];
 	    				} 
 	    				
 	    				//loandrop

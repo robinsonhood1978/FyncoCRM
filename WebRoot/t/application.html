@@ -115,6 +115,7 @@
                                             <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
 	                                        <div class="dropdown-menu dropdown-menu-right">
 	                                        	<a href="/application/view?id=${x.id}" class="dropdown-item">View</a>
+	                                        	<a href="#" onclick="Move2NextStage('${x.id}','${status}');" class="dropdown-item">Move to the next stage</a>
 	                                        	 <a href="/application/edit/${x.id}" class="dropdown-item">Edit</a>
 	                                            <a href="/application/del/${x.id}" class="dropdown-item">Delete</a>
 	    
@@ -145,6 +146,27 @@
                 </div>
                 <!-- // END drawer-layout__content -->		
 <script>
+function Move2NextStage(id,status){
+	var next_status = status*1+1;
+	$.post("/application/changeStatus", {"id":id,"status":next_status}, function(data) {
+		if(data.code==1){
+		 	mlayer.open({
+			    content: 'Fail',
+			    btn: 'Got it'
+			  });
+		}
+		else{ 
+			//sessionStorage.setItem("fynco_email", vemail); 
+			mlayer.open({
+			    content: 'Success',
+			    btn: 'Got it',
+			    yes: function(){
+			    	location.reload();
+			      }
+			  });
+		}
+	}, "json"); 
+}
 function DoubleClick(id){
 	View(id);
 }

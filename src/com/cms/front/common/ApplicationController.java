@@ -6,7 +6,10 @@ import java.util.Map;
 
 import com.cms.admin.user.User;
 import com.cms.front.entity.Application;
+import com.cms.front.entity.Client;
 import com.cms.util.DateFmt;
+import com.cms.util.FileUtil;
+import com.cms.util.PdfUtil;
 import com.jfinal.aop.Before;
 import com.jfinal.aop.ClearInterceptor;
 import com.jfinal.aop.ClearLayer;
@@ -18,6 +21,7 @@ import com.jfinal.plugin.activerecord.Record;
 @Before(MInterceptor.class)
 public class ApplicationController extends Controller {
 	public void index() {
+		int status = getParaToInt("st");
 		//页数
 		int pageNum = 1;
 		if (getParaToInt("p") != null) {
@@ -39,7 +43,7 @@ public class ApplicationController extends Controller {
 		User u = getSessionAttr("user");
 		Page<Record> page = null;
 		// 当前页
-		StringBuffer sql =new StringBuffer("from application c where c.creator="+u.getInt("id"));
+		StringBuffer sql =new StringBuffer("from application c where c.status="+status+" and c.creator="+u.getInt("id"));
 		if(getSessionAttr("application_field")!=null) {
 			keyword = getSessionAttr("application_keyword");
 			field = getSessionAttr("application_field");
@@ -49,12 +53,61 @@ public class ApplicationController extends Controller {
 		
 		page = Db.paginate(pageNum, 10, "select c.*",sql.toString());
 		setAttr("contentPage", page);
+		setAttr("status", status);
 		render("/t/application.html");
 	}
 	public void add() {
 		render("/t/addapplication.html");
 	}
-	
+	public void pdf() throws Exception {
+		int id = getParaToInt("id");
+		int code=0;
+		String realPath = this.getRequest().getRealPath("/");
+		String dest1 = "/Users/robin/eclipse-workspace/Fynco/WebRoot/upload/sm_4.pdf";
+		String dest2 = "/Users/robin/eclipse-workspace/Fynco/WebRoot/upload/";
+		//String src = "/Users/robin/pdf/sm_1.pdf";
+		
+		//PdfUtil.pdf_1(dest1,Application.dao.findById(id));
+		String clients = Db.queryStr("select group_concat(client_id) clientids from application_client where application_id=?",id);
+		String[] cs = clients.split(",");
+		Client[] client = new Client[cs.length];
+		for(int i=0;i<cs.length;i++) {
+			client[i]=Client.dao.findById(cs[i]);
+		}
+		
+		//PdfUtil.pdf_2(dest2,client,Application.dao.findById(id));
+		//PdfUtil.pdf_4(dest1,Application.dao.findById(id));
+		Application app = Application.dao.findById(id);
+		String url = PdfUtil.pdf(realPath,client,app);
+		if(!"".equals(url)) {
+			//delete the old pdf,release the disk space
+			String old_url = app.getStr("pdf");
+			if(old_url!=null) {
+				FileUtil.deleteAll(realPath+old_url);
+			}
+			app.set("pdf", url).update();
+		}
+		else {
+			code=1;
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("code",code);
+		map.put("url",url);
+		renderJson(map);
+	}
+	public void changeStatus() {
+		int code=0;
+		int id = getParaToInt("id");
+		int status = getParaToInt("status");
+		int i = Db.update("update application set status=? where id=?",status,id);
+		
+		if(i==0) {
+			code=1;
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("code",code);
+		renderJson(map);
+	}
 	public void view() {
 		int id = getParaToInt("id");
 		String layout = "c";
