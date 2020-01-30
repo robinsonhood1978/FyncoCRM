@@ -100,7 +100,6 @@ public class CommonController extends Controller {
 		String host = u.getStr("mail_host");
 		String subject = getPara("email.subject");
 		String content = getPara("email.content");
-		String mail_host = u.getStr("mail_host");//dannel modify
 		String atts = getPara("atts");
 		String jatts = getPara("jatts");
 		//System.out.println(atts);
