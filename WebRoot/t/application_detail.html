@@ -1928,7 +1928,14 @@
                         	<input id="app_ids" value="${clients!}" hidden="hidden">
                         	<input id="minus_ids" value="${clients!}" hidden="hidden">
                            <button class="btn btn-success" onClick="return SavePdf();">Save to PDF</button>
-                           <button class="btn btn-success" onClick="return SendPdf2Client();">Send Application to Client</button>
+                           <button class="btn btn-success" onClick="SendPdf2Client('${(application.id)!}','${(application.pdf)!}');">Send Application to Client</button>
+                           <button class="btn btn-success" onClick="SendPdf2Bank('${(application.id)!}','${(application.pdf)!}');">Send All Documents to Bank</button>
+                           <#if application.status lt 5>
+                           <button class="btn btn-success" onClick="Move2NextStage('${(application.id)!}','${(application.status)!}');">Move to the Next Stage</button>
+                           </#if>
+                           <#if application.status gt 0>
+	                           <button class="btn btn-success" onClick="Back2PreStage('${(application.id)!}','${(application.status)!}');">Back to the previous stage</button>
+	                       </#if>
                         </div>
                     </div>
 
@@ -1936,24 +1943,83 @@
                 </div>
                 <!-- // END drawer-layout__content -->
                 <script>
-				function SendPdf2Client(){
-                	var appid = $('#appid').val();
-                	var url = '/amail';
-                	layer.open({
-                		type: 2,
-                		title: 'Write an Email',
-                		fixed: false, //不固定
-                		maxmin: true,
-                	    shadeClose: true, //点击遮罩关闭层
-                		area: ['80%', '80%'],
-                		content: url ,
-                		success:function(layero,index){
-                        },
-                        end:function(){
-                			//alert(1)
-                        }
-                	});
-                	
+                function SendPdf2Bank(id,pdf){
+                	if(pdf==''){
+                		mlayer.open({
+                		    content: 'Please generate the Pdf file at first!',
+                		    btn: 'Got it'
+                		  });
+                	}
+                	else{
+                		var url = '/amail?type=Send2Bank&appid='+id;
+                		layer.open({
+                			type: 2,
+                			title: 'Write an Email',
+                			fixed: false, //不固定
+                			maxmin: true,
+                		    shadeClose: true, //点击遮罩关闭层
+                			area: ['80%', '80%'],
+                			content: url ,
+                			success:function(layero,index){
+                	        },
+                	        end:function(){
+                				//alert(1)
+                	        }
+                		}); 
+                	}
+                }
+                function SendPdf2Client(id,pdf){
+                	if(pdf==''){
+                		mlayer.open({
+                		    content: 'Please generate the Pdf file at first!',
+                		    btn: 'Got it'
+                		  });
+                	}
+                	else{
+                		var url = '/amail?type=Send2ClientApplicationForm&appid='+id;
+                		layer.open({
+                			type: 2,
+                			title: 'Write an Email',
+                			fixed: false, //不固定
+                			maxmin: true,
+                		    shadeClose: true, //点击遮罩关闭层
+                			area: ['80%', '80%'],
+                			content: url ,
+                			success:function(layero,index){
+                	        },
+                	        end:function(){
+                				//alert(1)
+                	        }
+                		}); 
+                	}
+                }
+                function Move2NextStage(id,status){
+                	var status = status*1+1;
+                	postStatus(id,status);
+                }
+                function Back2PreStage(id,status){
+                	var status = status*1-1;
+                	postStatus(id,status);
+                }
+                function postStatus(id,status){
+                	$.post("/application/changeStatus", {"id":id,"status":status}, function(data) {
+                		if(data.code==1){
+                		 	mlayer.open({
+                			    content: 'Fail',
+                			    btn: 'Got it'
+                			  });
+                		}
+                		else{ 
+                			//sessionStorage.setItem("fynco_email", vemail); 
+                			mlayer.open({
+                			    content: 'Success',
+                			    btn: 'Got it',
+                			    yes: function(){
+                			    	location.reload();
+                			      }
+                			  });
+                		}
+                	}, "json"); 
                 }
               //全局配置
                 /* $.ajaxSetup({

@@ -115,6 +115,7 @@
                                             <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
 	                                        <div class="dropdown-menu dropdown-menu-right">
 	                                        	<a href="/application/view?id=${x.id}" class="dropdown-item">View</a>
+	                                        	<a href="#" onclick="SavePdf('${x.id}');" class="dropdown-item">Save to PDF</a>
 	                                        	<#if status=0 && x.pdf??>
 	                                        	<a href="#" onclick="SendPdf2Bank('${x.id}','${x.pdf!}');" class="dropdown-item">Send All Documents to Bank</a>
 	                                        	<a href="#" onclick="SendPdf2Client('${x.id}','${x.pdf!}');" class="dropdown-item">Send Application to Client</a>
@@ -155,6 +156,25 @@
                 </div>
                 <!-- // END drawer-layout__content -->		
 <script>
+function SavePdf(appid){
+	$.ajaxSettings.async = false;
+	$.post("/application/pdf", {"id":appid}, function(data) {
+		if(data.code==0){
+			 mlayer.open({
+			    content: 'Success',
+			    btn: 'Got it'
+			  });  
+		}
+		else{
+			mlayer.open({
+			    content: 'Fail',
+			    btn: 'Got it'
+			  }); 
+		}
+	}, "json");  
+	$.ajaxSettings.async = true;
+	
+}
 function SendPdf2Bank(id,pdf){
 	if(pdf==''){
 		mlayer.open({

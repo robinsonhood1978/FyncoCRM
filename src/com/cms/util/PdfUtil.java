@@ -1007,10 +1007,14 @@ public class PdfUtil {
         fields.get("adviser_email").setValue(app.getStr("adviser_email")).setFontSize(9);
         fields.get("adviser_name").setValue(app.getStr("adviser_name")).setFontSize(9);
         fields.get("adviser_contact_number").setValue(app.getStr("adviser_contact_number")).setFontSize(9);
-        fields.get("lender").setValue(app.getStr("lender")).setFontSize(9);
-        fields.get("lending_amount_required").setValue(StrUtil.formatString(app.getBigDecimal("lending_amount_required").doubleValue())).setFontSize(9);
-        fields.get("LVR").setValue(app.getStr("LVR")).setFontSize(9);
-        fields.get("UMI").setValue(app.getStr("UMI")).setFontSize(9);
+        fields.get("lender").setValue(StrUtil.null2Blank(app.getStr("lender"))).setFontSize(9);
+        String lar = "";
+        if(app.getBigDecimal("lending_amount_required")!=null) {
+        	lar = StrUtil.formatString(app.getBigDecimal("lending_amount_required").doubleValue());
+        }
+        fields.get("lending_amount_required").setValue(lar).setFontSize(9);
+        fields.get("LVR").setValue(StrUtil.null2Blank(app.getStr("LVR"))).setFontSize(9);
+        fields.get("UMI").setValue(StrUtil.null2Blank(app.getStr("UMI"))).setFontSize(9);
         fields.get("finance_date").setValue(DateFmt.formatDate(app.getDate("finance_date").toString(),"yyyy-MM-dd","dd/MM/yyyy")).setFontSize(9);
         fields.get("settlement_date").setValue(DateFmt.formatDate(app.getDate("settlement_date").toString(),"yyyy-MM-dd","dd/MM/yyyy")).setFontSize(9);
         fields.get("existing_loan_amount").setValue(StrUtil.formatString(app.getBigDecimal("existing_loan_amount").doubleValue())).setFontSize(9);
