@@ -42,6 +42,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
+                                        <div class="col">
                                             <div class="form-group">
                                                 <label for="fname">Preferred Name</label>
                                                 <input type="text" class="form-control" name="user.prefered_name" id="prefered_name" value="${(session.user.prefered_name)!}" >
@@ -116,22 +117,20 @@
                                                 <input type="password" class="form-control" id="sendmail_password" value="${(session.user.sendmail_password)!}">
                                             </div>
                                         </div>
-                                        <!--//deng modify Start-->
                                         <div class="col">
                                             <label for="fname">Host</label>
-                                                <select id="mail_host" data-toggle="select" data-minimum-results-for-search="-1" class="form-control">
-		                                            <option value="smtp.gmail.com" data-avatar-src="">
+                                                <select id="mail_host" class="form-control">
+		                                            <option value="smtp.gmail.com" >
 		                                                Gmail
 		                                            </option>
-		                                            <option value="smtp.office365.com" data-avatar-src="">
+		                                            <option value="smtp.office365.com">
 		                                                Outlook
 		                                            </option>
-		                                            <option value="other" data-avatar-src="">
+		                                            <option value="other">
 		                                                Unknown
 		                                            </option>
 		                                        </select>
                                         </div>
-                                        <!--//deng modify End-->
                                     </div>
                                     
                                 </div>
@@ -154,6 +153,11 @@
                 </div>
                 <!-- // END drawer-layout__content -->
                 <script>
+                var host = '${(session.user.mail_host)!}';
+                
+                if(host!=''){
+                	$('#mail_host').val(host);
+                }
 function Mod(){
 	var vmobile=$('#mobile').val();
 	if(vmobile!=''){
@@ -177,12 +181,12 @@ function Mod(){
 				var office_location=$('#office_location').val();
 				var sendmail_account=$('#sendmail_account').val();
 				var sendmail_password=$('#sendmail_password').val();
-                var mail_host=$('#mail_host').val();//deng modify
+				var mail_host=$('#mail_host').val();
 
 				$.post("/m/jupinfo", {"user.first_name":first_name,"user.last_name":last_name,"user.prefered_name":prefered_name,
 					"user.work_phone":work_phone,"user.mobile":mobile,"user.title":title,"user.department":department,
 					"user.employee_number":employee_number,"user.office_location":office_location,
-					"user.sendmail_account":sendmail_account,"user.sendmail_password":sendmail_password,"user.mail_host":mail_host}, function(data) {
+					"user.sendmail_account":sendmail_account,"user.sendmail_password":sendmail_password, "user.mail_host":mail_host}, function(data) {
 					if(data.code==1){
 					 	mlayer.open({
 						    content: data.msg,
