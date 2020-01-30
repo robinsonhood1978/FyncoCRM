@@ -277,14 +277,32 @@ import java.util.UUID;
 	            }
 	        }
 	    }
-	    public Map<String, Object> getMails(String username,String pass){
+		//dannel modify below:
+		public String hostConvertor(String mail_host) {
+	    	String host;
+			switch (mail_host) {
+			case "gmail":
+				host = "smtp.gmail.com";
+				break;
+			case "outlook":
+				host = "smtp.office365.com";
+				break;
+			default:
+				host = null;
+				break;
+			}
+	    	return host;
+		}
+	    public Map<String, Object> getMails(String mail_host,String username,String pass){
 	    	Map<String, Object> map = new HashMap<String, Object>();
 	    	ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+			String host = hostConvertor(mail_host);//get host dannel modify
 	        // 准备连接服务器的会话信息 
 	        Properties props = new Properties(); 
 	        props.setProperty("mail.store.protocol", "imap"); 
-	        props.setProperty("mail.imap.host", "mail.taijicoin.nz"); 
+	        // props.setProperty("mail.imap.host", "mail.taijicoin.nz"); 
 	        //props.setProperty("mail.imap.host", "imap.gmail.com"); 
+			props.setProperty("mail.imap.host", host);//dannel modify
 	        props.setProperty("mail.imap.port", "993");
 	        
 	        /**  QQ邮箱需要建立ssl连接 */
@@ -297,7 +315,8 @@ import java.util.UUID;
 	        try {
 	        // 创建Session实例对象 
 	        Session session = Session.getInstance(props);
-	        URLName urln = new URLName("imap", "mail.taijicoin.nz", 993, null,username,pass);
+			URLName urln = new URLName("imap", host, 993, null,username,pass);//dannel modify
+	        // URLName urln = new URLName("imap", "mail.taijicoin.nz", 993, null,username,pass);
 	        //URLName urln = new URLName("imap", "imap.gmail.com", 993, null,username,pass);
 	        // 创建IMAP协议的Store对象 
 	         store = session.getStore(urln);
@@ -309,7 +328,8 @@ import java.util.UUID;
 	        inbox.open(Folder.READ_WRITE); 
 
 	        // 获得收件箱的邮件列表 
-	        Message[] messages = inbox.getMessages(); 
+	        // Message[] messages = inbox.getMessages(); 
+			Message[] messages = inbox.search(new FlagTerm(new Flags(Flag.SEEN), false));//dannel modify for only shows unread mail inbox
 
 	        // 打印不同状态的邮件数量 
 	        System.out.println("收件箱中共" + messages.length + "封邮件!"); 
@@ -708,7 +728,7 @@ import java.util.UUID;
 //	    	String subject = "Welcome you to our house";
 //	    	String htmlbody = "hello,when will you come to my house?";
 	    	ReadMail mail = new ReadMail();
-	    	Map<String, Object> map = mail.getMails(from,passwd);
+	    	// Map<String, Object> map = mail.getMails(from,passwd);
 	    	//mail.recvMail(from, passwd);
 //	    	for (Message m : messages){
 //	    		

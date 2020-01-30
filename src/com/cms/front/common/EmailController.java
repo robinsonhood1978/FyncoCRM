@@ -33,14 +33,24 @@ public class EmailController extends Controller {
 		render("/t/email.html");
 	}
 	public void mails() {
-		String from = "robin@taijicoin.nz";
-    	String passwd = "111111";
-		//String from = "fynco.storage@gmail.com";
-    	//String passwd = "fynco321";
-//    	TestMail m = new TestMail();
-//    	m.read();
+// 		String from = "robin@taijicoin.nz";
+//     	String passwd = "111111";
+// 		//String from = "fynco.storage@gmail.com";
+//     	//String passwd = "fynco321";
+// //    	TestMail m = new TestMail();
+// //    	m.read();
+// 		ReadMail mail = new ReadMail();
+//     	Map<String, Object> map = mail.getMails(from,passwd);
+// 		renderJson(map);
+//dannel modify
+		User u = getSessionAttr("user");
+    	String from = u.getStr("sendmail_account");
+    	String passwd = u.getStr("sendmail_password");
+    	String mail_host = u.getStr("mail_host");
 		ReadMail mail = new ReadMail();
-    	Map<String, Object> map = mail.getMails(from,passwd);
+    	Map<String, Object> map = mail.getMails(mail_host,from,passwd);
+    	// System.out.println("888gdsajhdgj888");
+    	// System.out.println(from+"----"+passwd+"----"+mail_host);
 		renderJson(map);
 	}
 	public void add() {

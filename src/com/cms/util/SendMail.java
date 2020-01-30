@@ -11,10 +11,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class SendMail {
-	public static void send( String from, String passwd,String to,String subject,String htmlbody) {
-		String host = "smtp.taijicoin.nz";
-		send( host,  from,  passwd, to, subject, htmlbody);
-	}
+	// public static void send( String from, String passwd,String to,String subject,String htmlbody) {
+	// 	String host = "smtp.taijicoin.nz";
+	// 	send( host,  from,  passwd, to, subject, htmlbody);
+	// }
+    // dannel modify
 	public static void send(String host,final String from,final String passwd,String to,String subject,String htmlbody) {
 		// Recipient's email ID needs to be mentioned.
         //String to = "robinsonhood1978@gmail.com";
@@ -26,13 +27,14 @@ public class SendMail {
         //String host = "smtp.gmail.com";
 		//String host = "smtp.taijicoin.nz";
         // Get system properties
-        Properties properties = System.getProperties();
-
-        // Setup mail server
-        properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", "465");
-        properties.put("mail.smtp.ssl.enable", "true");
-        properties.put("mail.smtp.auth", "true");
+        // Properties properties = System.getProperties();
+        
+        // // Setup mail server
+        // properties.put("mail.smtp.host", host);
+        // properties.put("mail.smtp.port", "465");
+        // properties.put("mail.smtp.ssl.enable", "true");
+        // properties.put("mail.smtp.auth", "true");
+        Properties properties = hostSetUp(host);
 
         // Get the Session object.// and pass username and password
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
@@ -79,7 +81,35 @@ public class SendMail {
         }
 
 	}
-	
+    // dannel modify a new method below:
+	public static Properties hostSetUp(String mail_host) {
+		Properties properties = System.getProperties();
+		String host = null, port = null;
+		switch (mail_host) {
+		case "smtp.gmail.com":
+			host = "smtp.gmail.com";
+			port = "465";
+			properties.put("mail.smtp.ssl.enable", "true");
+			properties.put("mail.smtp.starttls.enable","false");
+			break;
+		case "smtp.office365.com":
+			host = "smtp.office365.com";
+			port = "587";
+			properties.put("mail.smtp.starttls.enable","true");
+			properties.put("mail.smtp.ssl.enable", "false");
+			break;
+		default:
+			break;
+		}
+		properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.port", port);
+//        properties.put("mail.smtp.starttls.enable","true");
+//        properties.put("mail.smtp.port", "465");
+//        properties.put("mail.smtp.ssl.enable", "true");
+        properties.put("mail.smtp.auth", "true");
+		return properties;
+	}
+
 	public static void send(String to,String verifycode,int type) {
 		// Recipient's email ID needs to be mentioned.
         //String to = "robinsonhood1978@gmail.com";

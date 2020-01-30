@@ -94,7 +94,8 @@ public class CommonController extends Controller {
 		String passwd = u.getStr("sendmail_password");
 		String subject = getPara("email.subject");
 		String content = getPara("email.content");
-		SendMail.send(from, passwd, to, subject, content);
+		String mail_host = u.getStr("mail_host");//dannel modify
+		SendMail.send(mail_host,from, passwd, to, subject, content);//dannel modify
 		boolean b = getModel(Email.class).set("status", 1)
 				.set("creator", u.getInt("id")).save();
 		if(b)code=0;
