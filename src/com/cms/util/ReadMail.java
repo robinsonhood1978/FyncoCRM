@@ -297,13 +297,13 @@ import java.util.UUID;
 	    public Map<String, Object> getMails(String mail_host,String username,String pass){
 	    	Map<String, Object> map = new HashMap<String, Object>();
 	    	ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-			String host = hostConvertor(mail_host);//get host dannel modify
+			//String host = hostConvertor(mail_host);//get host dannel modify
 	        // 准备连接服务器的会话信息 
 	        Properties props = new Properties(); 
 	        props.setProperty("mail.store.protocol", "imap"); 
 	        // props.setProperty("mail.imap.host", "mail.taijicoin.nz"); 
 	        //props.setProperty("mail.imap.host", "imap.gmail.com"); 
-			props.setProperty("mail.imap.host", host);//dannel modify
+			props.setProperty("mail.imap.host", mail_host);//dannel modify
 	        props.setProperty("mail.imap.port", "993");
 	        
 	        /**  QQ邮箱需要建立ssl连接 */
@@ -316,7 +316,7 @@ import java.util.UUID;
 	        try {
 	        // 创建Session实例对象 
 	        Session session = Session.getInstance(props);
-			URLName urln = new URLName("imap", host, 993, null,username,pass);//dannel modify
+			URLName urln = new URLName("imap", mail_host, 993, null,username,pass);//dannel modify
 	        // URLName urln = new URLName("imap", "mail.taijicoin.nz", 993, null,username,pass);
 	        //URLName urln = new URLName("imap", "imap.gmail.com", 993, null,username,pass);
 	        // 创建IMAP协议的Store对象 
