@@ -1,21 +1,30 @@
 package com.cms.util;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeUtility;
 
 public class SendMail {
-	public static void send( String from, String passwd,String to,String subject,String htmlbody) {
-		String host = "smtp.taijicoin.nz";
-		send( host,  from,  passwd, to, subject, htmlbody);
+	public static void send( String from, String passwd,String to,String subject,String htmlbody,String[] atts) {
+		//String host = "smtp.taijicoin.nz";
+		String host = "smtp.gmail.com";
+		send( host,  from,  passwd, to, subject, htmlbody,atts);
 	}
-	public static void send(String host,final String from,final String passwd,String to,String subject,String htmlbody) {
+	public static void send(String host,final String from,final String passwd,String to,String subject,String htmlbody,String[] atts)  {
 		// Recipient's email ID needs to be mentioned.
         //String to = "robinsonhood1978@gmail.com";
 
@@ -65,16 +74,36 @@ public class SendMail {
             // Now set the actual message
             //message.setText("This is actual message");
          // Send the actual HTML message.
-            message.setContent(htmlbody,"text/html");
+            //message.setContent(htmlbody,"text/html");
             
-            
+         // MimeMultipart类是一个容器类，包含MimeBodyPart类型的对象
+            Multipart multiPart = new MimeMultipart();
+            // 创建一个包含HTML内容的MimeBodyPart
+            BodyPart bodyPart = new MimeBodyPart();
+            // 设置html邮件消息内容
+            bodyPart.setContent(htmlbody, "text/html; charset=utf-8");
+            multiPart.addBodyPart(bodyPart);
+
+            //添加附件
+            if(atts.length != 0){
+                for(String attachFile : atts){
+                    bodyPart=new MimeBodyPart();  
+                    FileDataSource fds=new FileDataSource(attachFile); //得到数据源  
+                    bodyPart.setDataHandler(new DataHandler(fds)); //得到附件本身并放入BodyPart  
+                    bodyPart.setFileName(MimeUtility.encodeText(fds.getName()));  //得到文件名并编码（防止中文文件名乱码）同样放入BodyPart  
+                    multiPart.addBodyPart(bodyPart);  
+                }
+            }
+
+            // 设置邮件消息的主要内容
+            message.setContent(multiPart);
 
             System.out.println("sending...");
             // Send message
             Transport.send(message);
             
             System.out.println("Sent message successfully....");
-        } catch (MessagingException mex) {
+        } catch (MessagingException | UnsupportedEncodingException mex) {
             mex.printStackTrace();
         }
 
@@ -221,84 +250,9 @@ public class SendMail {
     	String passwd = "paulbob123";
     	String to = "robinsonhood1978@gmail.com";
     	String subject = "Welcome you to our house";
-    	String htmlbody = "<!DOCTYPE html>\n" + 
-    			"<html lang=\"en-NZ\">\n" + 
-    			"<head>\n" + 
-    			"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n" + 
-    			"<title>Hotshot- high speed broadband</title>\n" + 
-    			"</head>\n" + 
-    			"<body leftmargin=\"0\" marginwidth=\"0\" topmargin=\"0\" marginheight=\"0\" offset=\"0\" style=\"padding: 0;\">\n" + 
-    			"    <div id=\"wrapper\" dir=\"ltr\" style=\"background-color: #f7f7f7; margin: 0; padding: 70px 0; width: 100%; -webkit-text-size-adjust: none;\">\n" + 
-    			"      <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" height=\"100%\" width=\"100%\"><tr>\n" + 
-    			"<td align=\"center\" valign=\"top\">\n" + 
-    			"            <div id=\"template_header_image\">\n" + 
-    			"                          </div>\n" + 
-    			"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" id=\"template_container\" style=\"background-color: #ffffff; border: 1px solid #dedede; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); border-radius: 3px;\">\n" + 
-    			"<tr>\n" + 
-    			"<td align=\"center\" valign=\"top\">\n" + 
-    			"                  <!-- Header -->\n" + 
-    			"                  <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" id=\"template_header\" style='background-color: #eb5c24; color: #ffffff; border-bottom: 0; font-weight: bold; line-height: 100%; vertical-align: middle; font-family: \"Helvetica Neue\", Helvetica, Roboto, Arial, sans-serif; border-radius: 3px 3px 0 0;'><tr>\n" + 
-    			"<td id=\"header_wrapper\" style=\"padding: 36px 48px; display: block;\">\n" + 
-    			"                        <h1 style='font-family: \"Helvetica Neue\", Helvetica, Roboto, Arial, sans-serif; font-size: 30px; font-weight: 300; line-height: 150%; margin: 0; text-align: left; text-shadow: 0 1px 0 #ef7d50; color: #ffffff;'>Order Failed: #5725</h1>\n" + 
-    			"                      </td>\n" + 
-    			"                    </tr></table>\n" + 
-    			"<!-- End Header -->\n" + 
-    			"</td>\n" + 
-    			"              </tr>\n" + 
-    			"<tr>\n" + 
-    			"<td align=\"center\" valign=\"top\">\n" + 
-    			"                  <!-- Body -->\n" + 
-    			"                  <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" id=\"template_body\"><tr>\n" + 
-    			"<td valign=\"top\" id=\"body_content\" style=\"background-color: #ffffff;\">\n" + 
-    			"                        <!-- Content -->\n" + 
-    			"                        <table border=\"0\" cellpadding=\"20\" cellspacing=\"0\" width=\"100%\"><tr>\n" + 
-    			"<td valign=\"top\" style=\"padding: 48px 48px 0;\">\n" + 
-    			"                              <div id=\"body_content_inner\" style='color: #636363; font-family: \"Helvetica Neue\", Helvetica, Roboto, Arial, sans-serif; font-size: 14px; line-height: 150%; text-align: left;'>\n" + 
-    			"\n" + 
-    			"<p style=\"margin: 0 0 16px;\">Payment for order #5725 from test test has failed. The order was as follows:</p>\n" + 
-    			"\n" + 
-    			"\n" + 
-    			"<h2 style='color: #eb5c24; display: block; font-family: \"Helvetica Neue\", Helvetica, Roboto, Arial, sans-serif; font-size: 18px; font-weight: bold; line-height: 130%; margin: 0 0 18px; text-align: left;'>\n" + 
-    			"  <a class=\"link\" href=\"https://test3.hotshot.nz/wp-admin/post.php?post=5725&amp;action=edit\" style=\"font-weight: normal; text-decoration: underline; color: #eb5c24;\">[Order #5725]</a> (11/19/2019)</h2>\n" + 
-    			"\n" + 
-    			"<div style=\"margin-bottom: 40px;\">\n" + 
-    			"  \n" + 
-    			"</div>\n" + 
-    			"\n" + 
-    			"\n" + 
-    			"<p style=\"margin: 0 0 16px;\">\n" + 
-    			"Hopefully they’ll be back. Read more about <a href=\"https://docs.woocommerce.com/document/managing-orders/\" style=\"color: #eb5c24; font-weight: normal; text-decoration: underline;\">troubleshooting failed payments</a>.</p>\n" + 
-    			"                              </div>\n" + 
-    			"                            </td>\n" + 
-    			"                          </tr></table>\n" + 
-    			"<!-- End Content -->\n" + 
-    			"</td>\n" + 
-    			"                    </tr></table>\n" + 
-    			"<!-- End Body -->\n" + 
-    			"</td>\n" + 
-    			"              </tr>\n" + 
-    			"<tr>\n" + 
-    			"<td align=\"center\" valign=\"top\">\n" + 
-    			"                  <!-- Footer -->\n" + 
-    			"                  <table border=\"0\" cellpadding=\"10\" cellspacing=\"0\" width=\"600\" id=\"template_footer\"><tr>\n" + 
-    			"<td valign=\"top\" style=\"padding: 0; border-radius: 6px;\">\n" + 
-    			"                        <table border=\"0\" cellpadding=\"10\" cellspacing=\"0\" width=\"100%\"><tr>\n" + 
-    			"<td colspan=\"2\" valign=\"middle\" id=\"credit\" style='border-radius: 6px; border: 0; color: #f39d7c; font-family: \"Helvetica Neue\", Helvetica, Roboto, Arial, sans-serif; font-size: 12px; line-height: 125%; text-align: center; padding: 0 48px 48px 48px;'>\n" + 
-    			"                              <p>HotShot Broadband – Make Broadband Better</p>\n" + 
-    			"                            </td>\n" + 
-    			"                          </tr></table>\n" + 
-    			"</td>\n" + 
-    			"                    </tr></table>\n" + 
-    			"<!-- End Footer -->\n" + 
-    			"</td>\n" + 
-    			"              </tr>\n" + 
-    			"</table>\n" + 
-    			"</td>\n" + 
-    			"        </tr></table>\n" + 
-    			"</div>\n" + 
-    			"  </body>\n" + 
-    			"</html>";
-    	SendMail.send(host, from, passwd, to, subject, htmlbody);
+    	String htmlbody = "hehehaha";
+    	String[] atts = {"/Users/robin/eclipse-workspace/Fynco/WebRoot/upload/20200130/sm_30_202001301418023279.pdf"};
+    	SendMail.send(host, from, passwd, to, subject, htmlbody,atts);
     }
 
 }

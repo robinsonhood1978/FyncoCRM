@@ -45,10 +45,20 @@
               <div class="wysiwyg-editor" id="editor1"></div>
           </div>
 
+		<div class="am-form-group">
+            
+              Attachments: <br/>
+              <#list atts as att>
+              <a href="${att["att_file"]!}">${att["att_name"]!}</a>
+              </#list>
+            
+          </div>
 
           <div style="text-align:center;" class="am-form-group">
             
       			<input name="content.txt" type="hidden" value="" id="txt">
+      			<input name="atts" type="hidden" id="atts" value="${atts_str!}">
+      			<input name="jatts" type="hidden" id="jatts" value='${atts_jstr!}'>
               <button type="button" class="am-btn am-round am-btn-primary" id="sendmail" onclick="SendMail();"> Send Mail </button>
            
           </div>
@@ -255,6 +265,10 @@
 <script>
 
 $('#editor1').html('${(session.email_content)!}');
+var jatts = '${atts_jstr!}';
+var arr = JSON.parse(jatts);
+var str_arr = JSON.stringify(arr);
+//alert(str_arr)
 function SendMail(){
 	if($('#editor1').html().trim()==''){
 		mlayer.open({
@@ -267,11 +281,13 @@ function SendMail(){
 		var from = $('#from').val();
 		var subject = $('#subject').val();
 		var content = $('#editor1').html().trim();
-		alert(subject+":"+content)
+		var atts = $('#atts').val();
+		var jatts = $('#jatts').val();
+		//alert(jatts)
 		if(to!=''){
 			var url = "/sendmail";
 			$.post(url, {"email.receiver":to,"email.sender":from,
-				"email.subject":subject,"email.content":content}, function(data) {
+				"email.subject":subject,"email.content":content,"type":atts,"atts":atts,"jatts":jatts}, function(data) {
 				if(data.code==1){
 				 	mlayer.open({
 					    content: 'Fail',
@@ -291,7 +307,7 @@ function SendMail(){
 					
 				}
 			}, "json"); 
-		}
+		} 
 		
 	}
 }

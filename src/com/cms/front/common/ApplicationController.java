@@ -21,7 +21,10 @@ import com.jfinal.plugin.activerecord.Record;
 @Before(MInterceptor.class)
 public class ApplicationController extends Controller {
 	public void index() {
-		int status = getParaToInt("st");
+		int status = 0;
+		if(getPara("st")!=null) {
+			status = getParaToInt("st");
+		}
 		//页数
 		int pageNum = 1;
 		if (getParaToInt("p") != null) {
