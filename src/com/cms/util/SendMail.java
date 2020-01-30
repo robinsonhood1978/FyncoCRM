@@ -19,9 +19,9 @@ import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
 
 public class SendMail {
-	 public static void send( String from, String passwd,String to,String subject,String htmlbody,String atts) {
+	 public static void send( String from, String passwd,String to,String subject,String htmlbody,String[] atts) {
 	 	String host = "smtp.taijicoin.nz";
-	 	send( host,  from,  passwd, to, subject, htmlbody);
+	 	send( host,  from,  passwd, to, subject, htmlbody,atts);
 	 }
     // dannel modify
 	public static void send(String host,final String from,final String passwd,String to,String subject,String htmlbody,String[] atts) {

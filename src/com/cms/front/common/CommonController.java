@@ -101,8 +101,19 @@ public class CommonController extends Controller {
 		String subject = getPara("email.subject");
 		String content = getPara("email.content");
 		String mail_host = u.getStr("mail_host");//dannel modify
-		SendMail.send(mail_host,from, passwd, to, subject, content);//dannel modify
-		boolean b = getModel(Email.class).set("status", 1)
+		String atts = getPara("atts");
+		String jatts = getPara("jatts");
+		//System.out.println(atts);
+		//System.out.println(jatts);
+		String[] att_arr = atts.split(",");
+		String realPath = this.getRequest().getRealPath("/");
+		int i=0;
+		for(String att:att_arr) {
+			att_arr[i]=realPath+att;
+			i++;
+		}
+		SendMail.send(host,from, passwd, to, subject, content,att_arr);
+		boolean b = getModel(Email.class).set("status", 1).set("attachment", jatts)
 				.set("creator", u.getInt("id")).save();
 		if(b)code=0;
 		Map<String, Integer> map = new HashMap<String, Integer>();
