@@ -1928,6 +1928,7 @@
                         	<input id="app_ids" value="${clients!}" hidden="hidden">
                         	<input id="minus_ids" value="${clients!}" hidden="hidden">
                            <button class="btn btn-success" onClick="return SavePdf();">Save to PDF</button>
+                           <button class="btn btn-success" onClick="return SendPdf2Client();">Send Application to Client</button>
                         </div>
                     </div>
 
@@ -1935,6 +1936,25 @@
                 </div>
                 <!-- // END drawer-layout__content -->
                 <script>
+				function SendPdf2Client(){
+                	var appid = $('#appid').val();
+                	var url = '/amail';
+                	layer.open({
+                		type: 2,
+                		title: 'Write an Email',
+                		fixed: false, //不固定
+                		maxmin: true,
+                	    shadeClose: true, //点击遮罩关闭层
+                		area: ['80%', '80%'],
+                		content: url ,
+                		success:function(layero,index){
+                        },
+                        end:function(){
+                			//alert(1)
+                        }
+                	});
+                	
+                }
               //全局配置
                 /* $.ajaxSetup({
                   layerIndex:-1, //保存当前请求对应的提示框index,用于后面关闭使用

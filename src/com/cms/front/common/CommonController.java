@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -32,6 +33,10 @@ import com.jfinal.i18n.I18N;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.upload.UploadFile;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import com.cms.util.SimplePage;
 import com.cms.util.StrUtil;
 
@@ -92,6 +97,7 @@ public class CommonController extends Controller {
 		String to = getPara("email.receiver");
 		String from = getPara("email.sender");
 		String passwd = u.getStr("sendmail_password");
+		String host = u.getStr("mail_host");
 		String subject = getPara("email.subject");
 		String content = getPara("email.content");
 		String mail_host = u.getStr("mail_host");//dannel modify
@@ -105,9 +111,58 @@ public class CommonController extends Controller {
 	}
 	@Before(MInterceptor.class)
 	public void amail() {
-		String to = getPara("t");
-		System.out.println("to:"+to);
+		String to = "";
+		ArrayList<HashMap<String,String>> attachments = new ArrayList<HashMap<String,String>>();
+		if(getPara("t")!=null) {
+			to = getPara("t");
+		}
+		String atts = "";
+		if(getPara("type")!=null) {
+			String type=getPara("type");
+			if(type.equals("Send2ClientApplicationForm")) {
+				int appid = getParaToInt("appid");
+				String pdf = Application.dao.findById(appid).getStr("pdf");
+				if(pdf!=null) {
+					atts = pdf;
+					HashMap<String,String> map = new HashMap<String,String>();
+					map.put("att_name", "Application Form");
+					map.put("att_file", pdf);
+					attachments.add(map);
+				}
+			}
+			if(type.equals("Send2Bank")) {
+				int appid = getParaToInt("appid");
+				String documents = Application.dao.findById(appid).getStr("documents");
+				JSONObject obj = JSONObject.fromObject(documents);
+				Iterator iterator = obj.keys();
+		        int i=0;
+		        
+		        while(iterator.hasNext()){
+		        		
+		                String key = (String) iterator.next();
+		                Object value = obj.get(key);
+		                JSONObject valueObj = JSONObject.fromObject(value);
+		                if (!"".equals(valueObj.get("url").toString())) {
+		                	i++;
+		                	if(i>1)atts += ",";
+		                	atts += valueObj.get("url").toString();
+		                	HashMap<String,String> map = new HashMap<String,String>();
+							map.put("att_name", valueObj.get("name").toString());
+							map.put("att_file", valueObj.get("url").toString());
+							attachments.add(map);
+		                	System.out.println(i+":"+valueObj.get("url").toString());
+		                }
+		        }
+		        
+			}
+		}
+		//System.out.println("to:"+to);
 		setAttr("to",to);
+		setAttr("atts",attachments);
+		JSONArray arr = JSONArray.fromObject(attachments);
+		//System.out.println(arr.toString());
+		setAttr("atts_str",atts);
+		setAttr("atts_jstr",arr.toString());
 		render("/t/amail.html");
 	}
 	public void msg() {
