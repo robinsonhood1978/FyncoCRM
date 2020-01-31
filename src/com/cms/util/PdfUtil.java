@@ -681,7 +681,6 @@ public class PdfUtil {
 		        if(app[k].getInt("marital_status")!=null) {
 		        	ms = app[k].getInt("marital_status");
 		        }
-		        
 		        fields.get("app"+m+"_marital_status").setValue(marital_status[ms]).setFontSize(9);
 		        fields.get("app"+m+"_current_address").setValue(StrUtil.null2Blank(app[k].getStr("current_residential_address"))).setFontSize(9);
 		        fields.get("app"+m+"_current_address_ts_y").setValue(StrUtil.null2Blank(app[k].getInt("time_stayed_years"))).setFontSize(9);

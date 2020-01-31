@@ -50,5 +50,5 @@ public class FileUtil {
 	public static void deleteAll(String file) {
 		deleteAll(new File(file));
     }
-	
+
 }

@@ -19,6 +19,21 @@ import com.jfinal.plugin.activerecord.Record;
 
 @Before(MInterceptor.class)
 public class ApplicationController extends Controller {
+	public void view() {
+		int id = getParaToInt("id");
+		String layout = "c";
+		int ilay = 0;
+		
+		if(getPara("l")!=null) {
+			layout = getPara("l");
+			ilay = 1;
+		}
+		setAttr("layout","_"+layout+".html");
+		setAttr("ilay",ilay);
+		setAttr("application",Application.dao.findById(id));
+		setAttr("clients",Db.queryStr("select group_concat(client_id) clientlist from application_client where application_id=?",id));
+		render("/t/application_detail.html");
+	}
 	public void index() {
 		int status = 0;
 		if(getPara("st")!=null) {
@@ -121,21 +136,7 @@ public class ApplicationController extends Controller {
 		map.put("code",code);
 		renderJson(map);
 	}
-	public void view() {
-		int id = getParaToInt("id");
-		String layout = "c";
-		int ilay = 0;
-		
-		if(getPara("l")!=null) {
-			layout = getPara("l");
-			ilay = 1;
-		}
-		setAttr("layout","_"+layout+".html");
-		setAttr("ilay",ilay);
-		setAttr("application",Application.dao.findById(id));
-		setAttr("clients",Db.queryStr("select group_concat(client_id) clientlist from application_client where application_id=?",id));
-		render("/t/application_detail.html");
-	}
+	
 	public void edit() {
 		int id = getParaToInt();
 		setAttr("application",Application.dao.findById(id));

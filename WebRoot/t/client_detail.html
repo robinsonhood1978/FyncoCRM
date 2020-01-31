@@ -1597,13 +1597,14 @@ function documents(appid,doc){
 	}
 }
 window.onload = function() { 
+	<#if type!=2>
 	<#list apps as x>
 	var jsondoc = '${x["r"].documents!}';
 	var appid = '${x["r"].id}'
 	var doc = JSON.parse(jsondoc);
 	documents(appid,doc);
 	</#list>
-	
+	</#if>
 }; 
 </script>
 </@layout>
