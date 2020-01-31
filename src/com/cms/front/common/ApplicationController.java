@@ -22,13 +22,18 @@ import com.jfinal.plugin.activerecord.Record;
 public class ApplicationController extends Controller {
 	public void index() {
 		int status = 0;
-		if(getPara("st")!=null) {
+		if(getPara("st")!=null||status==0) {
 			status = getParaToInt("st");
+			setSessionAttr("application_status",status);
 		}
 		//页数
 		int pageNum = 1;
 		if (getParaToInt("p") != null) {
 			pageNum = getParaToInt("p");
+		}
+		if(pageNum>1) {
+			if(getSessionAttr("application_status")!=null)
+				status = getSessionAttr("application_status");
 		}
 		String keyword = getPara("keyword");
 		String field = getPara("field");
@@ -56,8 +61,6 @@ public class ApplicationController extends Controller {
 		
 		page = Db.paginate(pageNum, 10, "select c.*",sql.toString());
 		setAttr("contentPage", page);
-		System.out.println("status:"+status);
-		setAttr("status", status);
 		render("/t/application.html");
 	}
 	public void add() {

@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StrUtil {
-	public static String formatString(double data) {
+	public static String formatString(Double data) {
         DecimalFormat df = new DecimalFormat("#,###.00"); 
         return df.format(data);
     }

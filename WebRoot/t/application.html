@@ -116,15 +116,15 @@
 	                                        <div class="dropdown-menu dropdown-menu-right">
 	                                        	<a href="/application/view?id=${x.id}" class="dropdown-item">View</a>
 	                                        	<a href="#" onclick="SavePdf('${x.id}');" class="dropdown-item">Save to PDF</a>
-	                                        	<#if status=0 && x.pdf??>
+	                                        	<#if x.status=0 && x.pdf??>
 	                                        	<a href="#" onclick="SendPdf2Bank('${x.id}','${x.pdf!}');" class="dropdown-item">Send All Documents to Bank</a>
 	                                        	<a href="#" onclick="SendPdf2Client('${x.id}','${x.pdf!}');" class="dropdown-item">Send Application to Client</a>
 	                                        	</#if>
-	                                        	<#if status lt 5>
-	                                        	<a href="#" onclick="Move2NextStage('${x.id}','${status}');" class="dropdown-item">Move to the next stage</a>
+	                                        	<#if x.status lt 5>
+	                                        	<a href="#" onclick="Move2NextStage('${x.id}','${x.status}');" class="dropdown-item">Move to the next stage</a>
 	                                        	</#if>
-	                                        	<#if status gt 0>
-	                                        	<a href="#" onclick="Back2PreStage('${x.id}','${status}');" class="dropdown-item">Back to the previous stage</a>
+	                                        	<#if x.status gt 0>
+	                                        	<a href="#" onclick="Back2PreStage('${x.id}','${x.status}');" class="dropdown-item">Back to the previous stage</a>
 	                                        	</#if>
 	                                        	 <a href="/application/edit/${x.id}" class="dropdown-item">Edit</a>
 	                                            <a href="/application/del/${x.id}" class="dropdown-item">Delete</a>
