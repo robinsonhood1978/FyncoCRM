@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import com.cms.admin.channel.Channel;
@@ -489,6 +490,9 @@ public class CommonController extends Controller {
 	public void logout(){
 		// 删除session中的属性
 		removeSessionAttr("user");
+		HttpSession session = this.getRequest().getSession(false);
+		if (session != null)
+			session.invalidate();
 		//String furl = (getSessionAttr("furl")==null)?"/":getSessionAttr("furl").toString();
 		//redirect(furl);
 		forwardAction("/");

@@ -38,7 +38,7 @@ public class ApplicationController extends Controller {
 		int status = 0;
 		if(getPara("st")!=null) {
 			status = getParaToInt("st");
-			setSessionAttr("application_status",status);
+			//setSessionAttr("application_status",status);
 		}
 		//页数
 		int pageNum = 1;
@@ -46,8 +46,8 @@ public class ApplicationController extends Controller {
 			pageNum = getParaToInt("p");
 		}
 		
-		if(getPara("st")==null&&getSessionAttr("application_status")!=null)
-			status = getSessionAttr("application_status");
+//		if(getPara("st")==null&&getSessionAttr("application_status")!=null)
+//			status = getSessionAttr("application_status");
 		
 		String keyword = getPara("keyword");
 		String field = getPara("field");
@@ -75,6 +75,7 @@ public class ApplicationController extends Controller {
 		
 		page = Db.paginate(pageNum, 10, "select c.*",sql.toString());
 		setAttr("contentPage", page);
+		setAttr("status", status);
 		render("/t/application.html");
 	}
 	public void add() {

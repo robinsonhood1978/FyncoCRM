@@ -143,7 +143,7 @@
 
                             <div class="card-body text-right">
                             	<#include "/t/_paginate.html" />
-	<@paginate currentPage=contentPage.pageNumber pageSize=contentPage.pageSize totalPage=contentPage.totalPage totalRow=contentPage.totalRow actionUrl="/lead?p=" urlParas=""/>
+	<@paginate currentPage=contentPage.pageNumber pageSize=contentPage.pageSize totalPage=contentPage.totalPage totalRow=contentPage.totalRow actionUrl="/application?st=${status!}&p=" urlParas=""/>
                                 
                             </div>
 

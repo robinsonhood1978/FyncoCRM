@@ -32,7 +32,6 @@ public class SendMail {
 		properties.put("mail.smtp.host", smtp_host);
         properties.put("mail.smtp.port", port);
         properties.put("mail.smtp.auth", "true");
-
         // Get the Session object.// and pass username and password
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
 
