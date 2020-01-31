@@ -26,6 +26,7 @@ public class FileUtil {
          }
          return buffer.toString();  
 	}
+	
 	public static void deleteDir(File file) {
         if (file.isDirectory()) {
             for (File f : file.listFiles())

@@ -73,7 +73,7 @@ public class ApplicationController extends Controller {
 		}
 		
 		
-		page = Db.paginate(pageNum, 10, "select c.*",sql.toString());
+		page = Db.paginate(pageNum, 20, "select c.*",sql.toString());
 		setAttr("contentPage", page);
 		setAttr("status", status);
 		render("/t/application.html");

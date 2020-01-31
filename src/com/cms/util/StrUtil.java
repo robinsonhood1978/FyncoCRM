@@ -102,6 +102,7 @@ public class StrUtil {
 		}	
 		return route;
 	}
+	
 	 public static void main(String[] args) throws UnsupportedEncodingException {
 		 System.out.println(StrUtil.replaceBlank("just do it!"));
 	 }

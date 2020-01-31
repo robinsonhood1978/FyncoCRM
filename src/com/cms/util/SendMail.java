@@ -20,6 +20,7 @@ import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
 
 public class SendMail {
+	
 	public static void send(Map<String,Object> mailserver,final String from,final String passwd,String to,String subject,String htmlbody,String[] atts) {
         Properties properties = System.getProperties();
         

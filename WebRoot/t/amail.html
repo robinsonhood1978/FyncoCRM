@@ -17,9 +17,11 @@
 	            <div style="width:50%;display:inline;">
 	            <img alt="To" src="/f/i/to.jpg" height="30">
 	            <#if to??>
+	            <#if to!=''>
 	            <input style="width:40%" type="text" id="to" placeholder="To" value="${to!}" readonly="readonly">
 	            <#else>
 	            <input style="width:40%" type="text" id="to" placeholder="To" value="${to!}">
+	            </#if>
 	            </#if>
 	            </div>
 	            

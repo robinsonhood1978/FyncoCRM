@@ -604,7 +604,7 @@
                             </div>
                         </div>
                         </#if>
-                        <#if type!=2>
+                        <#if type!=2&& apps??>
                         <div class="card-header card-header-sm">
                                         <h6 id="applicant_name" class="card-header__title">Application History</h6>
                                     </div>
@@ -1597,7 +1597,7 @@ function documents(appid,doc){
 	}
 }
 window.onload = function() { 
-	<#if type!=2>
+	<#if type!=2&&apps??>
 	<#list apps as x>
 	var jsondoc = '${x["r"].documents!}';
 	var appid = '${x["r"].id}'
