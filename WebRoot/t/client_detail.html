@@ -605,31 +605,43 @@
                         </div>
                         </#if>
                         <#if type!=2>
+                        <div class="card-header card-header-sm">
+                                        <h6 id="applicant_name" class="card-header__title">Application History</h6>
+                                    </div>
                         <div class="card card-form">
                             <div class="row no-gutters">
-                                <div class="col-lg-4 card-body">
-                                    <p><strong class="headings-color">Application History</strong></p>
-                                </div>
-                                <div class="col-lg-8 card-form__body card-body">
-                                	
-	                                		<div class="card-header d-flex align-items-center">
-				                               <strong class="headings-color">Application Information</strong>
-				                            </div>
-		                                 	<div class="row">
-		                                        <div class="col">
-		                                            <div class="form-group">
-		                                                <label for="fname">Application Date</label><br/>
-		                                                <div name="application_date"></div>
-		                                        	</div>
-		                                        </div>
-		                                        <div class="col">
-		                                            <div class="form-group">
-		                                                <label for="fname">Purpose</label><br/>
-		                                                <div name="application_purpose"></div>
-		                                        	</div>
-		                                        </div>
-		                                    </div>
-		                                    <div class="card-header d-flex align-items-center">
+                                
+                                
+                                <div class="col-lg-12 card-form__body card-body">
+                                	<#list apps as x>
+	                                		<div class="card card-form">
+					                            <div class="row no-gutters">
+					                                
+					                                <div class="card-header card-header-sm bg-white">
+					                                        <h6 id="applicant_name" class="card-header__title">Application ${x_index+1}</h6>
+					                                    </div>
+					                                <div class="col-lg-12 card-form__body card-body">
+					                                	<div class="row">
+					                                        <div class="col">
+					                                            <div class="form-group">
+					                                                <label for="fname">Application Date</label><br/>
+					                                                <div name="application_date">${x["r"].application_date?string('dd/MM/yyyy')!}</div>
+					                                        	</div>
+					                                        </div>
+					                                        <div class="col">
+					                                            <div class="form-group">
+					                                                <label for="fname">Purpose</label><br/>
+					                                                <div name="application_purpose">${x["r"].purpose!}</div>
+					                                        	</div>
+					                                        </div>
+					                                        <div class="col">
+					                                            <div class="form-group">
+					                                                <label for="fname">Link to</label><br/>
+					                                                <#list x["clients"] as client><div><a href="/client/view?id=${client['id']}">${client["name"]}</a></div></#list>
+					                                        	</div>
+					                                        </div>
+					                                    </div>
+					                                    <div class="card-header d-flex align-items-center">
 				                               <strong class="headings-color">Documents</strong>
 				                            </div>
 		                                    
@@ -637,42 +649,22 @@
                                  	
                                         <div class="col">
                                             <div class="form-group">
-                                                
-                                                <input type="hidden" name="application_form" id="doc1">
-      											<div id="up1">
-												  
-												</div>
-												<label for="fname"><font size="1">Application Form</font></label>
+												<i id="application_form_${x['r'].id!}" style="font-size:14px;" class="material-icons">check_circle</i>&nbsp;&nbsp;<label for="fname"><font size="1">Application Form</font></label>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                
-                                                <input type="hidden" name="approval_letter" id="doc2">
-                                                <div id="up2">
-												  
-												</div>
-												<label for="lname">Approval Letter</label>
+                                            <i id="approval_letter_${x['r'].id!}" style="font-size:14px;" class="material-icons">check_circle</i>&nbsp;&nbsp;<label for="lname"><font size="1">Approval Letter</font></label>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                
-                                                <input type="hidden" name="appraisal" id="doc3">
-                                               <div id="up3">
-												  
-												</div>
-												<label for="fname">Appraisal</label>
+                                            <i id="appraisal_${x['r'].id!}" style="font-size:14px;" class="material-icons">check_circle</i>&nbsp;&nbsp;<label for="fname"><font size="1">Appraisal</font></label>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                
-                                                <input type="hidden" name="gifting_letter" id="doc4">
-                                                <div id="up4">
-												  
-												</div>
-												<label for="lname">Gifting Letter</label>
+                                            <i id="gifting_letter_${x['r'].id!}" style="font-size:14px;" class="material-icons">check_circle</i>&nbsp;&nbsp;<label for="lname"><font size="1">Gifting Letter</font></label>
                                             </div>
                                         </div>
                                     </div>
@@ -680,42 +672,22 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                
-                                                <input type="hidden" name="proof_of_identity" id="doc5">
-      											<div id="up5">
-												  
-												</div>
-												<label for="fname">Proof of Identity</label>
+                                            <i id="proof_of_identity_${x['r'].id!}" style="font-size:14px;" class="material-icons">check_circle</i>&nbsp;&nbsp;<label for="fname"><font size="1">Proof of Identity</font></label>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                
-                                                <input type="hidden" name="rate_lock_form" id="doc6">
-                                                <div id="up6">
-												  
-												</div>
-												<label for="lname">Rate Lock Form</label>
+                                            <i id="rate_lock_form_${x['r'].id!}" style="font-size:14px;" class="material-icons">check_circle</i>&nbsp;&nbsp;<label for="lname"><font size="1">Rate Lock Form</font></label>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                
-                                                <input type="hidden" name="sales_purchase_agreement" id="doc7">
-                                               <div id="up7">
-												  
-												</div>
-												<label for="fname">Sales Purchase Agreement</label>
+                                            <i id="sales_purchase_agreement_${x['r'].id!}" style="font-size:14px;" class="material-icons">check_circle</i>&nbsp;&nbsp;<label for="fname"><font size="1">Sales Purchase Agreement</font></label>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                
-                                                <input type="hidden" name="ird_summary" id="doc8">
-                                                <div id="up8">
-												  
-												</div>
-												<label for="lname">IRD Summary</label>
+                                            <i id="ird_summary_${x['r'].id!}" style="font-size:14px;" class="material-icons">check_circle</i>&nbsp;&nbsp;<label for="lname"><font size="1">IRD Summary</font></label>
                                             </div>
                                         </div>
                                     </div>
@@ -724,42 +696,22 @@
                                  	
                                         <div class="col">
                                             <div class="form-group">
-                                                
-                                                <input type="hidden" name="payslip" id="doc9">
-      											<div id="up9">
-												  
-												</div>
-												<label for="fname">Payslip</label>
+                                            <i id="payslip_${x['r'].id!}" style="font-size:14px;" class="material-icons">check_circle</i>&nbsp;&nbsp;<label for="fname"><font size="1">Payslip</font></label>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                
-                                                <input type="hidden" name="boarder_agreement" id="doc10">
-                                                <div id="up10">
-												  
-												</div>
-												<label for="lname">Boarder Agreement</label>
+                                            <i id="boarder_agreement_${x['r'].id!}" style="font-size:14px;" class="material-icons">check_circle</i>&nbsp;&nbsp;<label for="lname"><font size="1">Boarder Agreement</font></label>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                
-                                                <input type="hidden" name="valuation_report" id="doc11">
-                                               <div id="up11">
-												  
-												</div>
-												<label for="fname">Valuation Report</label>
+                                            <i id="valuation_report_${x['r'].id!}" style="font-size:14px;" class="material-icons">check_circle</i>&nbsp;&nbsp;<label for="fname"><font size="1">Valuation Report</font></label>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                
-                                                <input type="hidden" name="loan_statement" id="doc12">
-                                                <div id="up12">
-												  
-												</div>
-												<label for="lname">Loan Statement</label>
+                                            <i id="loan_statement_${x['r'].id!}" style="font-size:14px;" class="material-icons">check_circle</i>&nbsp;&nbsp;<label for="lname"><font size="1">Loan Statement</font></label>
                                             </div>
                                         </div>
                                     </div>
@@ -767,42 +719,22 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                
-                                                <input type="hidden" name="financial_report" id="doc13">
-      											<div id="up13">
-												  
-												</div>
-												<label for="fname">Financial Report</label>
+                                            <i id="financial_report_${x['r'].id!}" style="font-size:14px;" class="material-icons">check_circle</i>&nbsp;&nbsp;<label for="fname"><font size="1">Financial Report</font></label>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                
-                                                <input type="hidden" name="lease_agreement" id="doc14">
-                                                <div id="up14">
-												  
-												</div>
-												<label for="lname">Lease Agreement</label>
+                                            <i id="lease_agreement_${x['r'].id!}" style="font-size:14px;" class="material-icons">check_circle</i>&nbsp;&nbsp;<label for="lname"><font size="1">Lease Agreement</font></label>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                
-                                                <input type="hidden" name="building_report" id="doc15">
-                                               <div id="up15">
-												  
-												</div>
-												<label for="fname">Building Report</label>
+                                            <i id="building_report_${x['r'].id!}" style="font-size:14px;" class="material-icons">check_circle</i>&nbsp;&nbsp;<label for="fname"><font size="1">Building Report</font></label>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                
-                                                <input type="hidden" name="loan_agreement" id="doc16">
-                                                <div id="up16">
-												  
-												</div>
-												<label for="lname">Loan agreement</label>
+                                            <i id="loan_agreement_${x['r'].id!}" style="font-size:14px;" class="material-icons">check_circle</i>&nbsp;&nbsp;<label for="lname"><font size="1">Loan agreement</font></label>
                                             </div>
                                         </div>
                                     </div>
@@ -810,45 +742,30 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                
-                                                <input type="hidden" name="bank_statement" id="doc17">
-      											<div id="up17">
-												  
-												</div>
-												<label for="fname">Bank Statement</label>
+                                            <i id="bank_statement_${x['r'].id!}" style="font-size:14px;" class="material-icons">check_circle</i>&nbsp;&nbsp;<label for="fname"><font size="1">Bank Statement</font></label>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                
-                                                <input type="hidden" name="rental_agreement" id="doc18">
-                                                <div id="up18">
-												  
-												</div>
-												<label for="lname">Rental Agreement</label>
+                                            <i id="rental_agreement_${x['r'].id!}" style="font-size:14px;" class="material-icons">check_circle</i>&nbsp;&nbsp;<label for="lname"><font size="1">Rental Agreement</font></label>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                
-                                                <input type="hidden" name="support_letter" id="doc19">
-                                               <div id="up19">
-												  
-												</div>
-												<label for="fname">Support Letter</label>
+                                            <i id="support_letter_${x['r'].id!}" style="font-size:14px;" class="material-icons">check_circle</i>&nbsp;&nbsp;<label for="fname"><font size="1">Support Letter</font></label>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                
-                                                <input type="hidden" name="additional_files" id="doc20">
-                                                <div id="up20">
-												  
-												</div>
-												<label for="lname">Additional Files</label>
+                                            <i id="additional_files_${x['r'].id!}" style="font-size:14px;" class="material-icons">check_circle</i>&nbsp;&nbsp;<label for="lname"><font size="1">Additional Files</font></label>
                                             </div>
                                         </div>
                                     </div>
+					                                </div>
+					                            </div>
+					                        </div>
+		                                 	
+		                                    </#list>
 	                                    
                                    
                                     
@@ -888,6 +805,9 @@
 
                         
                         <div class="text-right mb-5">
+                        <input type="hidden" id="appids" value="${(appids)!}">
+                        <input type="hidden" id="jsonMap" value='${jsonMap}'>
+                        
                         	<input type="hidden" id="clientid" value="${(client.id)!}">
                         	<input type="hidden" id="oldtasks" value="">
                         	<input type="hidden" id="type" value="${(type)!}">
@@ -1615,5 +1535,86 @@ function SaveClient(method){
 	
 
 }
+function documents(appid,doc){
+	if(doc.application_form.url!=''){
+		$('#application_form_'+appid).css("color","green");
+	}
+	if(doc.approval_letter.url!=''){
+		$('#approval_letter_'+appid).css("color","green");
+	}
+	if(doc.appraisal.url!=''){
+		$('#appraisal_'+appid).css("color","green");
+	}
+	if(doc.gifting_letter.url!=''){
+		$('#gifting_letter_'+appid).css("color","green");
+	}
+	if(doc.proof_of_identity.url!=''){
+		$('#proof_of_identity_'+appid).css("color","green");
+	}
+	if(doc.rate_lock_form.url!=''){
+		$('#rate_lock_form_'+appid).css("color","green");
+	}
+	if(doc.sales_purchase_agreement.url!=''){
+		$('#sales_purchase_agreement_'+appid).css("color","green");
+	}
+	if(doc.ird_summary.url!=''){
+		$('#ird_summary_'+appid).css("color","green");
+	}
+	if(doc.payslip.url!=''){
+		$('#payslip_'+appid).css("color","green");
+	}
+	if(doc.boarder_agreement.url!=''){
+		$('#boarder_agreement_'+appid).css("color","green");
+	}
+	if(doc.valuation_report.url!=''){
+		$('#valuation_report_'+appid).css("color","green");
+	}
+	if(doc.loan_statement.url!=''){
+		$('#loan_statement_'+appid).css("color","green");
+	}
+	if(doc.financial_report.url!=''){
+		$('#financial_report_'+appid).css("color","green");
+	}
+	if(doc.lease_agreement.url!=''){
+		$('#lease_agreement_'+appid).css("color","green");
+	}
+	if(doc.building_report.url!=''){
+		$('#building_report_'+appid).css("color","green");
+	}
+	if(doc.loan_agreement.url!=''){
+		$('#loan_agreement_'+appid).css("color","green");
+	}
+	if(doc.bank_statement.url!=''){
+		$('#bank_statement_'+appid).css("color","green");
+	}
+	if(doc.rental_agreement.url!=''){
+		$('#rental_agreement_'+appid).css("color","green");
+	}
+	if(doc.support_letter.url!=''){
+		$('#support_letter_'+appid).css("color","green");
+	}
+	if(doc.additional_files.url!=''){
+		$('#additional_files_'+appid).css("color","green");
+	}
+}
+window.onload = function() { 
+	<#list apps as x>
+	var jsondoc = '${x["r"].documents!}';
+	var appid = '${x["r"].id}'
+	var doc = JSON.parse(jsondoc);
+	//alert(doc.application_form.url)
+	documents(appid,doc);
+	</#list>
+	//var jsonMap = '${jsonMap}';
+	//console.log(jsonMap)
+	//var documents = JSON.parse(jsonMap);
+	//console.log(documents)
+	/* var appids = $('#appids').val();
+	var appidArr = appids.split(",");
+	for(var i=0;i<appidArr.length;i++){
+		//alert(appidArr[i])
+	} */
+	
+}; 
 </script>
 </@layout>

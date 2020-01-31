@@ -2300,7 +2300,7 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 
-                                                <input type="hidden" rel="Rental Agreement" name="rental_agreement" id="doc18">
+                                                <input type="hidden" name="rental_agreement" id="doc18">
                                                 <div class="layui-upload-drag" id="up18">
 												  <i class="layui-icon">&#xe67c;</i>
 												</div>
@@ -3707,7 +3707,7 @@ function SaveApp(method){
 					checklist.set(key,check);
 				}
 				var documents = strMapToJson(checklist);
-alert(documents)
+//alert(documents)
 				if(applicants_ids==''){
 					mlayer.open({
 					    content: 'Please add an applicant.',

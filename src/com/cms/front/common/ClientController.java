@@ -1,5 +1,6 @@
 package com.cms.front.common;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -186,6 +187,31 @@ public class ClientController extends Controller {
 		setAttr("layout","_"+layout+".html");
 		setAttr("ilay",ilay);
 		setAttr("client",Client.dao.findById(id));
+		ArrayList<HashMap<String,Object>> arrlist = new ArrayList<HashMap<String,Object>>();
+		
+		List<Record> list = Db.find("select a.id,a.application_date,a.lending_purpose,a.purpose,a.documents "
+				+ "from application a left join application_client ac on a.id=ac.application_id "
+				+ "where ac.client_id=?",id);
+		String appids = "";
+		int i=0;
+		HashMap<String,Object> documentMap = new HashMap<String,Object>();
+		for(Record r:list) {
+			i++;
+			int appid = r.getInt("id");
+			if(i>1)appids+=",";
+			appids+=appid;
+			HashMap<String,Object> single = new HashMap<String,Object>();
+			List<Record> clients = Db.find("select c.id,concat(c.first_name,' ',c.last_name) name "
+					+ "from application_client ac join client c on ac.client_id=c.id where ac.application_id=?",appid);
+			single.put("r",r);
+			single.put("clients",clients);
+			arrlist.add(single);
+			documentMap.put("id_"+String.valueOf(appid), r.getStr("documents"));
+		}
+		JSONObject obj = JSONObject.fromObject(documentMap);
+		setAttr("jsonMap",obj.toString());
+		setAttr("apps",arrlist);
+		setAttr("appids",appids);
 		render("/t/client_detail.html");
 	}
 	public void edit() {

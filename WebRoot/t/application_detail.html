@@ -3157,7 +3157,12 @@ window.onload = function() {
 	setMonthincome(monthincome); 
 	setMonthincomefr(monthincomefr); 
 	setMonthexpend(monthexpend); 
-	
+	var pdf='${(application.pdf)!}';
+	if(pdf!=''){
+		$('#viewpdf').css("display","block");
+		$('#pdf_url').attr("href",pdf);
+	}
+		
 }; 
 </script>
 

@@ -316,7 +316,9 @@ public class PdfUtil {
     		}
     		else {
     			if(key2.indexOf("_v")>0) {
-    				fields2.get("assets_v").setValue(StrUtil.formatString(Double.parseDouble(value2))).setFontSize(10).setJustification(PdfFormField.ALIGN_RIGHT);
+    				if(!value2.equals("")) {
+    					fields2.get("assets_v").setValue(StrUtil.formatString(Double.parseDouble(value2))).setFontSize(10).setJustification(PdfFormField.ALIGN_RIGHT);
+    				}
     			}
     			else {
     				fields2.get("assets_d").setValue(value2).setFontSize(10).setJustification(PdfFormField.ALIGN_LEFT);
@@ -1015,11 +1017,19 @@ public class PdfUtil {
         fields.get("lending_amount_required").setValue(lar).setFontSize(9);
         fields.get("LVR").setValue(StrUtil.null2Blank(app.getStr("LVR"))).setFontSize(9);
         fields.get("UMI").setValue(StrUtil.null2Blank(app.getStr("UMI"))).setFontSize(9);
-        fields.get("finance_date").setValue(DateFmt.formatDate(app.getDate("finance_date").toString(),"yyyy-MM-dd","dd/MM/yyyy")).setFontSize(9);
-        fields.get("settlement_date").setValue(DateFmt.formatDate(app.getDate("settlement_date").toString(),"yyyy-MM-dd","dd/MM/yyyy")).setFontSize(9);
-        fields.get("existing_loan_amount").setValue(StrUtil.formatString(app.getBigDecimal("existing_loan_amount").doubleValue())).setFontSize(9);
-        fields.get("total_loan_amount").setValue(StrUtil.formatString(app.getBigDecimal("total_loan_amount").doubleValue())).setFontSize(9);
-        fields.get("purpose").setValue(lending_purpose+"\n"+app.getStr("purpose")).setFontSize(9);
+        if(app.getDate("finance_date")!=null) {
+        	fields.get("finance_date").setValue(DateFmt.formatDate(app.getDate("finance_date").toString(),"yyyy-MM-dd","dd/MM/yyyy")).setFontSize(9);
+        }
+        if(app.getDate("settlement_date")!=null) {
+        	fields.get("settlement_date").setValue(DateFmt.formatDate(app.getDate("settlement_date").toString(),"yyyy-MM-dd","dd/MM/yyyy")).setFontSize(9);
+        }
+        if(app.getBigDecimal("existing_loan_amount")!=null) {
+        	fields.get("existing_loan_amount").setValue(StrUtil.formatString(app.getBigDecimal("existing_loan_amount").doubleValue())).setFontSize(9);
+        }
+        if(app.getBigDecimal("total_loan_amount")!=null) {
+        	fields.get("total_loan_amount").setValue(StrUtil.formatString(app.getBigDecimal("total_loan_amount").doubleValue())).setFontSize(9);
+        }
+        fields.get("purpose").setValue(lending_purpose+"\n"+StrUtil.null2Blank(app.getStr("purpose"))).setFontSize(9);
         
         form.flattenFields();//设置表单域不可编辑       
         pdfDoc.close();

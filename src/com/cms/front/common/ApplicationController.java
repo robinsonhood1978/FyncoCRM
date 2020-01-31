@@ -1,6 +1,7 @@
 package com.cms.front.common;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -11,8 +12,6 @@ import com.cms.util.DateFmt;
 import com.cms.util.FileUtil;
 import com.cms.util.PdfUtil;
 import com.jfinal.aop.Before;
-import com.jfinal.aop.ClearInterceptor;
-import com.jfinal.aop.ClearLayer;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
@@ -22,7 +21,7 @@ import com.jfinal.plugin.activerecord.Record;
 public class ApplicationController extends Controller {
 	public void index() {
 		int status = 0;
-		if(getPara("st")!=null||status==0) {
+		if(getPara("st")!=null) {
 			status = getParaToInt("st");
 			setSessionAttr("application_status",status);
 		}
@@ -107,7 +106,14 @@ public class ApplicationController extends Controller {
 		int id = getParaToInt("id");
 		int status = getParaToInt("status");
 		int i = Db.update("update application set status=? where id=?",status,id);
-		
+		if(status==5) {
+			List<Record> clients = Db.find("select c.id "
+					+ "from application_client ac join client c on ac.client_id=c.id where ac.application_id=?",id);
+			for(Record client:clients) {
+				int clientid = client.getInt("id");
+				Db.update("update client set type=1 where id=?",clientid);
+			}
+		}
 		if(i==0) {
 			code=1;
 		}
