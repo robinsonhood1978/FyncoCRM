@@ -26,6 +26,138 @@ import java.util.UUID;
 	    private String cate = "E:/";
 	    private String name, pass;  //  邮箱地址 和 授权码
 
+	    public Map<String, Object> getMails(Map<String,Object> mailserver,String username,String pass){
+	    	Map<String, Object> map = new HashMap<String, Object>();
+	    	ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+	        // 准备连接服务器的会话信息 
+	        Properties props = new Properties(); 
+	        props.setProperty("mail.store.protocol", "imap"); 
+
+	        String imap_host = mailserver.get("imap_domain").toString();
+	        String imap_port = mailserver.get("imap_port").toString();
+			props.setProperty("mail.imap.host", imap_host);
+	        props.setProperty("mail.imap.port", imap_port);
+	        
+	        /**  QQ邮箱需要建立ssl连接 */
+	        props.setProperty("mail.imap.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+	        props.setProperty("mail.imap.socketFactory.fallback", "false");
+	        props.setProperty("mail.imap.starttls.enable","true");
+	        props.setProperty("mail.imap.socketFactory.port", imap_port);
+	        Store store = null;
+	        Folder inbox = null;
+	        try {
+	        // 创建Session实例对象 
+	        Session session = Session.getInstance(props);
+			URLName urln = new URLName("imap", imap_host, Integer.parseInt(imap_port), null,username,pass);//dannel modify
+	        // 创建IMAP协议的Store对象 
+	         store = session.getStore(urln);
+	        store.connect();
+
+	        // 获得收件箱 
+	         inbox = store.getFolder("INBOX"); 
+	        // 以读写模式打开收件箱 
+	        inbox.open(Folder.READ_WRITE); 
+
+	        // 获得收件箱的邮件列表 
+	        // Message[] messages = inbox.getMessages(); 
+			Message[] messages = inbox.search(new FlagTerm(new Flags(Flag.SEEN), false));//dannel modify for only shows unread mail inbox
+
+	        // 打印不同状态的邮件数量 
+	        System.out.println("收件箱中共" + messages.length + "封邮件!"); 
+	        System.out.println("收件箱中共" + inbox.getUnreadMessageCount() + "封未读邮件!"); 
+	        System.out.println("收件箱中共" + inbox.getNewMessageCount() + "封新邮件!"); 
+	        System.out.println("收件箱中共" + inbox.getDeletedMessageCount() + "封已删除邮件!"); 
+
+	        System.out.println("------------------------开始解析邮件----------------------------------"); 
+	        
+	        	map.put("total",messages.length);
+	            map.put("unread",inbox.getUnreadMessageCount());
+	            map.put("new",inbox.getNewMessageCount());
+	            System.out.println(messages.length);
+	            System.out.println(inbox.getUnreadMessageCount() + "封未读邮件！");
+	            System.out.println(inbox.getNewMessageCount() + "封新邮件!");
+	            System.out.println("你好，即将遍历消息内容！");
+	            BufferedReader reader = new BufferedReader(new InputStreamReader(
+	          	      System.in));
+	            for (Message m : messages){
+	            	
+	            	HashMap<String, Object> mp = new HashMap<String, Object>();
+	            	String isRead = "Unread";
+	                if (m.getFlags().contains(Flags.Flag.SEEN)){
+	                    isRead = "Seen";
+	                }
+	                mp.put("status", isRead);
+	                mp.put("send_date", m.getSentDate());
+	                Address[] froms = m.getFrom();
+	    	        if(froms != null) {
+	    	            //System.out.println("即将打印发件人地址。。。");
+	    	            InternetAddress addr = (InternetAddress)froms[0];
+	    	            //System.out.println("发件人地址:" + addr.getAddress());
+	    	            mp.put("sender_address", addr.getAddress());
+	    	            mp.put("sender_showname", addr.getPersonal());
+	    	            //System.out.println("发件人显示名:" + addr.getPersonal());
+	    	        }
+	    	        System.out.println("邮件主题:" + m.getSubject());
+	    	        mp.put("subject", m.getSubject());
+	    	        
+	    	        ArrayList<Object> ct = new ArrayList<Object>();
+	    	        Object o = m.getContent();
+	    	        if(o instanceof Multipart) {
+	    	            //System.out.println("Multipart");
+	    	            Multipart multipart = (Multipart) o ;
+	    	            //System.out.println("邮件共有" + multipart.getCount() + "部分组成");
+	    		        //System.out.println("即将一次处理各部分");
+	    		        // 依次处理各个部分
+	    		        for (int j = 0, n = multipart.getCount(); j < n; j++) {
+	    		            //System.out.println("处理第" + j + "部分");
+	    		            Part part = multipart.getBodyPart(j);//解包, 取出 MultiPart的各个部分, 每部分可能是邮件内容,
+	    		            // 也可能是另一个小包裹(MultipPart)
+	    		            // 判断此包裹内容是不是一个小包裹, 一般这一部分是 正文 Content-Type: multipart/alternative
+	    		            if (part.getContent() instanceof Multipart) {
+	    		                //System.out.println("此部分仍有小包裹，将迭代处理！");
+	    		                Multipart p = (Multipart) part.getContent();// 转成小包裹
+	    		                //递归迭代
+	    		                //reMultipart(p);
+	    		            } else {
+	    		            	ct.add(part.getContent());
+	    		            	if(part.getContentType().startsWith("TEXT/PLAIN")) {
+	    	    	            } else {
+	    	    	            }
+	    		            }
+	    		        }
+	    	        } else if (o instanceof Part){
+	    	            Part part = (Part) o;
+	    	            ct.add(part.getContent());
+	    	            if(part.getContentType().startsWith("TEXT/PLAIN")) {
+	    	            } else {
+	    	            }
+	    	        } else {
+	    	        	ct.add(m.getContent());
+	    	        }
+	    	        mp.put("content", ct);
+	    	        list.add(mp);
+	                
+	            }
+	            System.out.println("------------------------结束----------------------------------"); 
+	            map.put("list", list);
+
+	        } catch (MessagingException e) {
+	        	e.printStackTrace();
+	            // TODO Auto-generated catch block
+	        } finally{
+	            try {
+	                inbox.close(false);
+	                store.close();
+	            } catch (MessagingException e) {
+	            	e.printStackTrace();
+	                // TODO Auto-generated catch block
+	                //e.printStackTrace();
+	            }finally{
+	        		return map;
+	            }
+	        }
+
+	    } 
 	    public List<Object> getList() {
 	        return list;
 	    }

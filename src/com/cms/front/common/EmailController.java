@@ -15,6 +15,7 @@ import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.plugin.activerecord.Record;
 
 @Before(MInterceptor.class)
 public class EmailController extends Controller {
@@ -46,9 +47,10 @@ public class EmailController extends Controller {
 		User u = getSessionAttr("user");
     	String from = u.getStr("sendmail_account");
     	String passwd = u.getStr("sendmail_password");
-    	String mail_host = u.getStr("mail_host");
+    	String host = u.getStr("mail_host");
+    	Record r = Db.findFirst("select * from mailserver where name=?",host);
 		ReadMail mail = new ReadMail();
-    	Map<String, Object> map = mail.getMails(mail_host,from,passwd);
+    	Map<String, Object> map = mail.getMails(r.getColumns(),from,passwd);
     	// System.out.println("888gdsajhdgj888");
     	// System.out.println(from+"----"+passwd+"----"+mail_host);
 		renderJson(map);

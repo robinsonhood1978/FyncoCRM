@@ -111,7 +111,11 @@ public class CommonController extends Controller {
 			att_arr[i]=realPath+att;
 			i++;
 		}
-		SendMail.send(host,from, passwd, to, subject, content,att_arr);
+		Record r = Db.findFirst("select * from mailserver where name=?",host);
+		//JSONObject jr = JSONObject.fromObject(r.getColumns(););
+		
+		//System.out.println(jr.toString());
+		SendMail.send(r.getColumns(),from, passwd, to, subject, content,att_arr);
 		boolean b = getModel(Email.class).set("status", 1).set("attachment", jatts)
 				.set("creator", u.getInt("id")).save();
 		if(b)code=0;

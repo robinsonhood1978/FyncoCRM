@@ -1,6 +1,7 @@
 package com.cms.util;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -19,6 +20,86 @@ import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
 
 public class SendMail {
+	public static void send(Map<String,Object> mailserver,final String from,final String passwd,String to,String subject,String htmlbody,String[] atts) {
+        // Get system properties
+        Properties properties = System.getProperties();
+        
+        // Setup mail server
+        String smtp_host = mailserver.get("smtp_domain").toString();
+		String port = mailserver.get("send_port").toString();
+		String ssl_enable = mailserver.get("smtp_ssl_enable").toString().equals("1")?"true":"false";
+		String starttls_enable = mailserver.get("smtp_starttls_enable").toString().equals("1")?"true":"false";
+		properties.put("mail.smtp.ssl.enable", ssl_enable);
+		properties.put("mail.smtp.starttls.enable",starttls_enable);
+		properties.put("mail.smtp.host", smtp_host);
+        properties.put("mail.smtp.port", port);
+        properties.put("mail.smtp.auth", "true");
+
+        // Get the Session object.// and pass username and password
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+
+            protected PasswordAuthentication getPasswordAuthentication() {
+
+                //return new PasswordAuthentication("fynco.storage@gmail.com", "fynco321");
+            	return new PasswordAuthentication(from, passwd);
+
+            }
+
+        });
+
+        // Used to debug SMTP issues
+        session.setDebug(true);
+
+        try {
+            // Create a default MimeMessage object.
+            MimeMessage message = new MimeMessage(session);
+
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
+
+            // Set To: header field of the header.
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+            // Set Subject: header field
+            message.setSubject(subject);
+
+            // Now set the actual message
+            //message.setText("This is actual message");
+         // Send the actual HTML message.
+            //message.setContent(htmlbody,"text/html");
+            
+         // MimeMultipart类是一个容器类，包含MimeBodyPart类型的对象
+            Multipart multiPart = new MimeMultipart();
+            // 创建一个包含HTML内容的MimeBodyPart
+            BodyPart bodyPart = new MimeBodyPart();
+            // 设置html邮件消息内容
+            bodyPart.setContent(htmlbody, "text/html; charset=utf-8");
+            multiPart.addBodyPart(bodyPart);
+
+            //添加附件
+            if(atts.length != 0){
+                for(String attachFile : atts){
+                    bodyPart=new MimeBodyPart();  
+                    FileDataSource fds=new FileDataSource(attachFile); //得到数据源  
+                    bodyPart.setDataHandler(new DataHandler(fds)); //得到附件本身并放入BodyPart  
+                    bodyPart.setFileName(MimeUtility.encodeText(fds.getName()));  //得到文件名并编码（防止中文文件名乱码）同样放入BodyPart  
+                    multiPart.addBodyPart(bodyPart);  
+                }
+            }
+
+            // 设置邮件消息的主要内容
+            message.setContent(multiPart);
+
+            System.out.println("sending...");
+            // Send message
+            Transport.send(message);
+            
+            System.out.println("Sent message successfully....");
+        } catch (MessagingException | UnsupportedEncodingException mex) {
+            mex.printStackTrace();
+        }
+
+	}
 	 public static void send( String from, String passwd,String to,String subject,String htmlbody,String[] atts) {
 	 	String host = "smtp.taijicoin.nz";
 	 	send( host,  from,  passwd, to, subject, htmlbody,atts);
