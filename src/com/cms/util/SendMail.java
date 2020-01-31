@@ -22,6 +22,7 @@ import javax.mail.internet.MimeUtility;
 public class SendMail {
 	public static void send(Map<String,Object> mailserver,final String from,final String passwd,String to,String subject,String htmlbody,String[] atts) {
         Properties properties = System.getProperties();
+        
         // Setup mail server
         String smtp_host = mailserver.get("smtp_domain").toString();
 		String port = mailserver.get("send_port").toString();

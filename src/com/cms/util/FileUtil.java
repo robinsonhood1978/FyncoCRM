@@ -24,7 +24,6 @@ public class FileUtil {
          } catch (IOException e) {
              e.printStackTrace();
          }
-
          return buffer.toString();  
 	}
 	public static void deleteDir(File file) {
