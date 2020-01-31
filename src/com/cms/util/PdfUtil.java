@@ -664,7 +664,9 @@ public class PdfUtil {
 		        if(app[k].getDate("birthday")!=null) {
 		        	birthday = DateFmt.formatDate(app[k].getDate("birthday").toString(),"yyyy-MM-dd","dd/MM/yyyy");
 		        }
-		        fields.get("app"+m+"_title_d").setValue(app[k].getStr("title")).setFontSize(9);
+		        if(app[k].getStr("title")!=null) {
+		        	fields.get("app"+m+"_title_d").setValue(app[k].getStr("title")).setFontSize(9);
+		        }
 		        fields.get("app"+m+"_dob").setValue(birthday).setFontSize(9);
 		        fields.get("app"+m+"_gender").setValue(gender[app[k].getInt("gender")]).setFontSize(9);
 		        fields.get("app"+m+"_last_name").setValue(StrUtil.null2Blank(app[k].getStr("last_name"))).setFontSize(9);

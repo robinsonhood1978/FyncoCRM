@@ -194,7 +194,7 @@ public class ClientController extends Controller {
 				+ "where ac.client_id=?",id);
 		String appids = "";
 		int i=0;
-		HashMap<String,Object> documentMap = new HashMap<String,Object>();
+		//HashMap<String,Object> documentMap = new HashMap<String,Object>();
 		for(Record r:list) {
 			i++;
 			int appid = r.getInt("id");
@@ -206,10 +206,10 @@ public class ClientController extends Controller {
 			single.put("r",r);
 			single.put("clients",clients);
 			arrlist.add(single);
-			documentMap.put("id_"+String.valueOf(appid), r.getStr("documents"));
+			//documentMap.put("id_"+String.valueOf(appid), r.getStr("documents"));
 		}
-		JSONObject obj = JSONObject.fromObject(documentMap);
-		setAttr("jsonMap",obj.toString());
+		//JSONObject obj = JSONObject.fromObject(documentMap);
+		//setAttr("jsonMap",obj.toString());
 		setAttr("apps",arrlist);
 		setAttr("appids",appids);
 		render("/t/client_detail.html");

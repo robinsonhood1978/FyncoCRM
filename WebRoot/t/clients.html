@@ -79,7 +79,7 @@
                                     <form id="tableForm" method="post">
                                     <tbody class="list" id="staff">
 <#list contentPage.getList() as x>
-                                        <tr>
+                                        <tr ondblclick="DoubleClick('${x.id}');">
 
                                             <td>
                                                 <div class="custom-control custom-checkbox">
@@ -147,6 +147,27 @@
                 </div>
                 <!-- // END drawer-layout__content -->		
 <script>
+function DoubleClick(id){
+	View(id);
+}
+function View(id){
+	//alert(id)
+	var url = '/client/view?l=s&id='+id;
+	layer.open({
+		type: 2,
+		title: 'Client Details',
+		fixed: false, //不固定
+		maxmin: true,
+	    shadeClose: true, //点击遮罩关闭层
+		area: ['60%', '85%'],
+		content: url ,
+		success:function(layero,index){
+        },
+        end:function(){
+        	//ShowApplicant();
+        }
+	});
+}
 $(function () { 
 	var field = '${session.client_field!}';
 	if(field!='')

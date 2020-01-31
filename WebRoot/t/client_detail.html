@@ -637,7 +637,7 @@
 					                                        <div class="col">
 					                                            <div class="form-group">
 					                                                <label for="fname">Link to</label><br/>
-					                                                <#list x["clients"] as client><div><a href="/client/view?id=${client['id']}">${client["name"]}</a></div></#list>
+					                                                <#list x["clients"] as ct><#if client.id!=ct.id><div><a href="/client/view?id=${ct['id']}">${ct["name"]}</a></div></#if></#list>
 					                                        	</div>
 					                                        </div>
 					                                    </div>
@@ -806,7 +806,6 @@
                         
                         <div class="text-right mb-5">
                         <input type="hidden" id="appids" value="${(appids)!}">
-                        <input type="hidden" id="jsonMap" value='${jsonMap}'>
                         
                         	<input type="hidden" id="clientid" value="${(client.id)!}">
                         	<input type="hidden" id="oldtasks" value="">
@@ -1602,18 +1601,8 @@ window.onload = function() {
 	var jsondoc = '${x["r"].documents!}';
 	var appid = '${x["r"].id}'
 	var doc = JSON.parse(jsondoc);
-	//alert(doc.application_form.url)
 	documents(appid,doc);
 	</#list>
-	//var jsonMap = '${jsonMap}';
-	//console.log(jsonMap)
-	//var documents = JSON.parse(jsonMap);
-	//console.log(documents)
-	/* var appids = $('#appids').val();
-	var appidArr = appids.split(",");
-	for(var i=0;i<appidArr.length;i++){
-		//alert(appidArr[i])
-	} */
 	
 }; 
 </script>

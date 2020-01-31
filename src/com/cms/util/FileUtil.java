@@ -18,7 +18,7 @@ public class FileUtil {
           StringBuffer buffer = new StringBuffer();  
          byte[] bytes = new byte[1024];
          try {
-             for(int n ; (n = input.read(bytes))!=-1 ; ){  
+             for(int n ; (n = input.read(bytes))!=-1 ; ){ 
                  buffer.append(new String(bytes,0,n,"UTF-8"));  
              }
          } catch (IOException e) {

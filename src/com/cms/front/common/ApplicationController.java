@@ -30,10 +30,10 @@ public class ApplicationController extends Controller {
 		if (getParaToInt("p") != null) {
 			pageNum = getParaToInt("p");
 		}
-		if(pageNum>1) {
-			if(getSessionAttr("application_status")!=null)
-				status = getSessionAttr("application_status");
-		}
+		
+		if(getPara("st")==null&&getSessionAttr("application_status")!=null)
+			status = getSessionAttr("application_status");
+		
 		String keyword = getPara("keyword");
 		String field = getPara("field");
 		if(field!=null&&!"".equals(keyword)) {
