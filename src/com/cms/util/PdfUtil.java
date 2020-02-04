@@ -262,7 +262,9 @@ public class PdfUtil {
 		for(int j=0;j<pdf_fields.length;j++) {
 			String fv = obj.getString(database_fields[j]);
 			if(format[j]==1) {
-				fv = StrUtil.formatString(Double.valueOf(fv));
+				if(!fv.equals("")) {
+					fv = StrUtil.formatString(Double.valueOf(fv));
+				}
 			}
 			if(position[j]==0) {
 				fields.get(pdf_fields[j]).setValue(fv).setFontSize(10).setJustification(PdfFormField.ALIGN_LEFT);

@@ -1086,7 +1086,7 @@
 		                                       <div class="col">
 		                                            <div class="form-group">
 		             
-		                                                <input type="text" class="form-control" name="loandrop_d" placeholder="" value="Provider             Monthly Cost">
+		                                                <input type="text" class="form-control" name="loandrop_d" placeholder="" value="">
 		                                            </div>
 			                                     </div>
 		                                        <div class="col">
@@ -3438,7 +3438,7 @@
     				var revcredit_l = document.getElementsByName("revcredit_l");
     				var revcredit_v = document.getElementsByName("revcredit_v");
     				for(var i=0;i<revcredit_v.length;i++){
-    					if(revcredit_v[i].value!=''){
+    					if(revcredit_v[i].value!=''||i==0){
     						var name = "Revolving Credit";
     						if(i>0)name="";
     						revcreditArray.push({"name":name,"provider":revcredit_d[i].value,"limit":revcredit_l[i].value,"balance":revcredit_v[i].value});
@@ -3453,7 +3453,7 @@
     				var overlimit_l = document.getElementsByName("overlimit_l");
     				var overlimit_v = document.getElementsByName("overlimit_v");
     				for(var i=0;i<overlimit_v.length;i++){
-    					if(overlimit_v[i].value!=''){
+    					if(overlimit_v[i].value!=''||i==0){
     						var name = "Overdraft Limit";
     						if(i>0)name="";
     						overlimitArray.push({"name":name,"provider":overlimit_d[i].value,"limit":overlimit_l[i].value,"balance":overlimit_v[i].value});
@@ -3468,7 +3468,7 @@
     				var creditcard_l = document.getElementsByName("creditcard_l");
     				var creditcard_v = document.getElementsByName("creditcard_v");
     				for(var i=0;i<creditcard_v.length;i++){
-    					if(creditcard_v[i].value!=''){
+    					if(creditcard_v[i].value!=''||i==0){
     						var name = "Credit Card";
     						if(i>0)name="";
     						creditcardArray.push({"name":name,"provider":creditcard_d[i].value,"limit":creditcard_l[i].value,"balance":creditcard_v[i].value});
@@ -3483,7 +3483,7 @@
     				var storecard_l = document.getElementsByName("storecard_l");
     				var storecard_v = document.getElementsByName("storecard_v");
     				for(var i=0;i<storecard_v.length;i++){
-    					if(storecard_v[i].value!=''){
+    					if(storecard_v[i].value!=''||i==0){
     						var name = "Store Card";
     						if(i>0)name="";
     						storecardArray.push({"name":name,"provider":storecard_d[i].value,"limit":storecard_l[i].value,"balance":storecard_v[i].value});
@@ -3498,7 +3498,7 @@
     				var hirepurchase_c = document.getElementsByName("hirepurchase_c");
     				var hirepurchase_v = document.getElementsByName("hirepurchase_v");
     				for(var i=0;i<hirepurchase_v.length;i++){
-    					if(hirepurchase_v[i].value!=''){
+    					if(hirepurchase_v[i].value!=''||i==0){
     						var name = "Hire Purchase";
     						if(i>0)name="";
     						hirepurchaseArray.push({"name":name,"provider":hirepurchase_d[i].value,"monthly_cost":hirepurchase_c[i].value,"balance":hirepurchase_v[i].value});
@@ -3512,7 +3512,7 @@
     				var otherliability_d = document.getElementsByName("otherliability_d");
     				var otherliability_v = document.getElementsByName("otherliability_v");
     				for(var i=0;i<otherliability_v.length;i++){
-    					if(otherliability_v[i].value!=''){
+    					if(otherliability_v[i].value!=''||i==0){
     						var name = "Other Liabilities";
     						if(i>0)name="";
     						otherliabilityArray.push({"name":name,"description":otherliability_d[i].value,"balance":otherliability_v[i].value});
@@ -3527,7 +3527,7 @@
     				var loandrop_d = document.getElementsByName("loandrop_d");
     				var loandrop_v = document.getElementsByName("loandrop_v");
     				for(var i=0;i<loandrop_v.length;i++){
-    					if(loandrop_v[i].value!=''){
+    					if(loandrop_v[i].value!=''||i==0){
     						loandropArray.push({"loandrop_sel":loandrop_sel[i].value,"loandrop_d":loandrop_d[i].value,"loandrop_v":loandrop_v[i].value});
     						total_liability += b20(loandrop_v[i].value);
     					}
@@ -3594,12 +3594,13 @@
     				var saving_o = "Saving";
     				var saving_text = saving_o;
     				for(var i=0;i<saving_v.length;i++){
-    					if(saving_v[i].value!=''){
+    					if(saving_v[i].value!=''||i==0){
     						if(i>0)saving_text =saving_o+ " "+(i*1+1);
     						savingArray.push({"text":saving_text,"saving_d":saving_d[i].value,"saving_v":saving_v[i].value});
     						total_value += b20(saving_v[i].value);
     					}
     				} 
+    				
     				asset.saving = savingArray;
     				//investment
     				var investmentArray = new Array();
@@ -3608,7 +3609,7 @@
     				var investment_o = "Investment";
     				var investment_text = investment_o;
     				for(var i=0;i<investment_v.length;i++){
-    					if(investment_v[i].value!=''){
+    					if(investment_v[i].value!=''||i==0){
     						if(i>0)investment_text =investment_o+ " "+(i*1+1);
     						investmentArray.push({"text":investment_text,"investment_d":investment_d[i].value,"investment_v":investment_v[i].value});
     						total_value += b20(investment_v[i].value);
@@ -3623,7 +3624,7 @@
     				var kiwisaver_o = "KiwiSaver";
     				var kiwisaver_text = kiwisaver_o;
     				for(var i=0;i<kiwisaver_v.length;i++){
-    					if(kiwisaver_v[i].value!=''){
+    					if(kiwisaver_v[i].value!=''||i==0){
     						if(i>0)kiwisaver_text =kiwisaver_o+ " "+(i*1+1);
     						kiwisaverArray.push({"text":kiwisaver_text,"kiwisaver_d":kiwisaver_d[i].value,"kiwisaver_v":kiwisaver_v[i].value});
     						total_value += b20(kiwisaver_v[i].value);
@@ -3638,7 +3639,7 @@
     				var otherasset_o = "Other Assets (Specify)";
     				var otherasset_text = otherasset_o;
     				for(var i=0;i<otherasset_v.length;i++){
-    					if(otherasset_v[i].value!=''){
+    					if(otherasset_v[i].value!=''||i==0){
     						if(i>0)otherasset_text = otherasset_o+" "+(i*1+1);
     						otherassetArray.push({"text":otherasset_text,"otherasset_d":otherasset_d[i].value,"otherasset_v":otherasset_v[i].value});
     						total_value += b20(otherasset_v[i].value);
@@ -3653,7 +3654,7 @@
     				var businessown_o = "Business owned";
     				var businessown_text = businessown_o;
     				for(var i=0;i<businessown_v.length;i++){
-    					if(businessown_v[i].value!=''){
+    					if(businessown_v[i].value!=''||i==0){
     						if(i>0)businessown_text = businessown_o + " "+(i*1+1);
     						businessownArray.push({"text":businessown_text,"businessown_d":businessown_d[i].value,"businessown_v":businessown_v[i].value});
     						total_value += b20(businessown_v[i].value);
@@ -3669,7 +3670,7 @@
     				var property_origin = "Property";
     				var property_text = property_origin;
     				for(var i=0;i<property_v.length;i++){
-    					if(property_v[i].value!=''){
+    					if(property_v[i].value!=''||i==0){
     						if(i>0)property_text = property_origin+" "+(i*1+1);
     						propertyArray.push({"text":property_text,"property_d":property_d[i].value,"property_v":property_v[i].value});
     						total_value += b20(property_v[i].value);
@@ -3684,7 +3685,7 @@
     				var vehicle_origin = "Motor Vehicle";
     				var vehicle_text = vehicle_origin;
     				for(var i=0;i<vehicle_v.length;i++){
-    					if(vehicle_v[i].value!=''){
+    					if(vehicle_v[i].value!=''||i==0){
     						if(i>0)vehicle_text = vehicle_origin +" "+(i*1+1);
     						vehicleArray.push({"text":vehicle_text,"vehicle_d":vehicle_d[i].value,"vehicle_v":vehicle_v[i].value});
     						total_value += b20(vehicle_v[i].value);
