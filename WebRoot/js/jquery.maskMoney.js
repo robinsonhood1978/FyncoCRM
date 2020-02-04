@@ -23,7 +23,7 @@
                 affixesStay: true,
                 thousands: ",",
                 decimal: ".",
-                precision: 2,
+                precision: 0,
                 allowZero: false,
                 allowNegative: false,
                 doubleClickSelection: true,
@@ -70,7 +70,7 @@
                     }
                 });
                 value = value.replace(/\D/g, "");
-                value = value.replace(new RegExp(decimalPart + "$"), "." + decimalPart);
+                value = value.replace(new RegExp(decimalPart + "$"),  decimalPart+".00" );
                 if (isNegative) {
                     value = "-" + value;
                 }

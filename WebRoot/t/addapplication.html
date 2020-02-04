@@ -15,6 +15,9 @@
                                 </ol>
                             </nav>
                             <h1 class="m-0"><#if method=='add'>New<#else>Edit</#if> Application</h1>
+                            <div class="text-right mb-7">
+                        	 	<button onclick="history.go(-1)" class="btn btn-success">Go Back</button>
+                        	 </div>
                         </div>
                     </div>
 
@@ -2358,35 +2361,35 @@
                 <!-- // END drawer-layout__content -->
                 <script>
                 $(function() {
-                    $('#lending_amount_required').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-                    $('#UMI').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-                    $('#existing_loan_amount').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-                    $('#total_loan_amount').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-                    $("[name='security_property_value']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-                    $('#cash_v').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-                    $("[name='saving_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='investment_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='kiwisaver_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='vehicle_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-                    $('#furniture_v').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-                    $('#term_deposit_v').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-                    $('#other_currency_account_v').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-                    $('#deposit_v').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-                    $("[name='property_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='businessown_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='otherasset_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='loandrop_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='otherliability_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='revcredit_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='revcredit_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='overlimit_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='overlimit_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='creditcard_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='creditcard_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='storecard_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='storecard_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='hirepurchase_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='hirepurchase_c']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                    $('#lending_amount_required').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $('#UMI').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $('#existing_loan_amount').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $('#total_loan_amount').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $("[name='security_property_value']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $('#cash_v').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $("[name='saving_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='investment_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='kiwisaver_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='vehicle_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $('#furniture_v').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $('#term_deposit_v').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $('#other_currency_account_v').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $('#deposit_v').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $("[name='property_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='businessown_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='otherasset_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='loandrop_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='otherliability_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='revcredit_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='revcredit_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='overlimit_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='overlimit_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='creditcard_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='creditcard_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='storecard_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='storecard_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='hirepurchase_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='hirepurchase_c']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
                 })
                 Date.prototype.format = function(fmt) { 
                     var o = { 
@@ -2816,25 +2819,25 @@
             		html = html.replaceAll('[note_index]',note_index);  
             		var newnode = parseDom(html);
             		sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点 
-            		$("[name='saving_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='investment_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='kiwisaver_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='vehicle_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='property_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='businessown_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='otherasset_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='loandrop_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='otherliability_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='revcredit_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='revcredit_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='overlimit_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='overlimit_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='creditcard_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='creditcard_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='storecard_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='storecard_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='hirepurchase_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-            		$("[name='hirepurchase_c']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='saving_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='investment_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='kiwisaver_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='vehicle_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='property_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='businessown_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='otherasset_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='loandrop_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='otherliability_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='revcredit_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='revcredit_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='overlimit_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='overlimit_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='creditcard_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='creditcard_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='storecard_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='storecard_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='hirepurchase_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='hirepurchase_c']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
             	}
             	function copyNode(nodeid){
             		var node_index = document.getElementsByName("loan_effective_date").length;
@@ -2867,13 +2870,13 @@
             		//console.log(html)
             		var newnode = parseDom(html);
             		sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点 
-            		$("[name='security_property_value']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='security_property_value']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
             	}
             	function b20(str){
             		if(typeof str ==='string'){
             			str = str.replace(/\$|,/g, '')
             		}
-            		console.log(str)
+/*             		console.log(str) */
             		return (str==='')?0:str*1;
             	}
             	function n2b(str){
@@ -3608,7 +3611,7 @@
     				var cash_v = $('#cash_v').maskMoney('unmasked')[0];
     				var cash = {"text":"Cash","cash_d":cash_d,"cash_v":cash_v};
     				asset.cash = cash;
-/*     				alert(cash_v) */
+					/* alert(cash_v) */
     				total_value += b20(cash_v);
     				//furniture
     				var furniture_d = $('#furniture_d').val();
