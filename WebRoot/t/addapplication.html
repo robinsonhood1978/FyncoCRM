@@ -90,7 +90,7 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="fname">Lending Amount Required</label>
-                                                <input type="text" class="form-control" id="lending_amount_required" value="${(application.lending_amount_required)!}">
+                                                <input type="text" class="form-control" id="lending_amount_required" value="${(application.lending_amount_required)!}" >
                                             </div>
                                         </div>
                                         
@@ -212,7 +212,7 @@
 		                                        </div>
 		                                        
 		                                    </div>
-		                                    <div class="row">
+		                                    <div class="row" style="display: none;"><!-- dannel modify  -->
 		                                       <div class="col">
 		                                            <div class="form-group">
 		                                                <label>Bank</label>
@@ -2357,6 +2357,18 @@
                 </div>
                 <!-- // END drawer-layout__content -->
                 <script>
+                $(function() {
+                    $('#lending_amount_required').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                    $('#UMI').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                    $('#existing_loan_amount').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                    $('#total_loan_amount').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                    $('#lending_amount_required').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                    $('#lending_amount_required').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                    $('#lending_amount_required').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                    $('#lending_amount_required').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                    $('#lending_amount_required').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                    $('#lending_amount_required').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                })
                 Date.prototype.format = function(fmt) { 
                     var o = { 
                        "M+" : this.getMonth()+1,                 //月份 
@@ -3731,7 +3743,8 @@ function SaveApp(method){
 					var adviser_contact_number=$('#adviser_contact_number').val();
 					
 					var lender=$('#lender').val();
-					var lending_amount_required=$('#lending_amount_required').val();
+					/* var lending_amount_required=$('#lending_amount_required').val(); */ // dannel modify
+					var lending_amount_required=$('#lending_amount_required').maskMoney('unmasked')[0];
 					var purposes=$('#lending_purpose').val();
 					/* alert(purposes);
 					var purposeArr=[];
@@ -3745,9 +3758,12 @@ function SaveApp(method){
 					var settlement_date=$('#settlement_date').val();
 					var borrower=$('#borrower').val();
 					var security_holder=$('#security_holder').val();
-					var UMI=$('#UMI').val();
-					var existing_loan_amount=$('#existing_loan_amount').val();
-					var total_loan_amount=$('#total_loan_amount').val();
+					/* var UMI=$('#UMI').val(); */ //dannel modify
+					/* var existing_loan_amount=$('#existing_loan_amount').val();
+					var total_loan_amount=$('#total_loan_amount').val(); */
+					var UMI=$('#UMI').maskMoney('unmasked')[0];
+					var existing_loan_amount=$('#existing_loan_amount').maskMoney('unmasked')[0];
+					var total_loan_amount=$('#total_loan_amount').maskMoney('unmasked')[0];
 					
 					var propertyArray = new Array();
 					var security_property = document.getElementsByName("security_property");

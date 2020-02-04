@@ -155,6 +155,46 @@
  
                                         </div>
                                     </div>
+                                    <!-- dannel Modify Start-->
+                                    <#if type!=2>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">New Zealand Residency</label>
+                                                <select id="residency_nz" data-toggle="select" data-minimum-results-for-search="-1" class="form-control">
+                                            <option value="1">
+                                                Permanent Resident
+                                            </option>
+                                            <option value="2">
+                                                New Zealand Citizenship
+                                            </option>
+                                            <option value="0">
+                                                None
+                                            </option>
+                                        </select>
+                                                  </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Marital Status</label>
+                                                <select id="marital_status" data-toggle="select" data-minimum-results-for-search="-1" class="form-control">
+                                            <option value="0">
+                                                Married
+                                            </option>
+                                            <option value="1">
+                                                Single
+                                            </option>
+                                            <option value="2">
+                                                De Facto
+                                            </option>
+                                            <option value="3">
+                                                Other
+                                            </option>
+                                        </select>
+                                           </div>
+                                        </div>
+                                    </div>
+                                   
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
@@ -173,6 +213,8 @@
                                             </div>
                                         </div>
                                     </div>
+                                    </#if>
+                                    <!-- dannel Modify End-->
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
@@ -185,7 +227,8 @@
                                 </div>
                             </div>
                         </div>
-
+						<!-- dannel Modify Start-->
+						<#if type==2>
  						<div class="card card-form">
                             <div class="row no-gutters">
                                 <div class="col-lg-4 card-body">
@@ -280,7 +323,7 @@
                                              </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="fname">Previous Residential Address (If client have stayed at current address for less than 3 years)</label>
@@ -288,7 +331,27 @@
                                             </div>
                                         </div>
                                         
+                                    </div> -->
+                                    <!-- dannel Modify Start-->
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Previous Residential Address (If client have stayed at current address for less than 3 years)</label>&nbsp;&nbsp;&nbsp;
+                                                <i id="add_pre_address" class="material-icons">add_circle_outline</i>
+                                                <div id="preaddresses">
+                                                	<div id="inputpreaddress">
+                                                	<div id="divpreaddress" class="search-form search-form--light">
+                                                <input type="text" class="form-control" name="preaddress">
+                                                <button onclick="RemovePreAddress('[pre_address_index]')" id="bt_pre_address" style="display:none;" class="btn" type="button" role="button"><i class="material-icons">close</i></button>
+                                                </div>
+                                            
+	                                                	
+	                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <!-- dannel Modify End-->
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
@@ -349,7 +412,8 @@
                                 </div>
                             </div>
                         </div>
-                        
+                        </#if>
+                        <!-- dannel Modify End-->
                         <div class="card card-form">
                             <div class="row no-gutters">
                                 <div class="col-lg-4 card-body">
@@ -812,6 +876,10 @@
                 function RemoveAddress(id){
                 	$('#divaddress_'+id).remove();
                 }
+                //dannel modify
+                function RemovePreAddress(id){
+                	$('#divpreaddress_'+id).remove();
+                }
                 function d2sd(effective_date,months){
                 	//moment.locale('en-NZ'); 
                 	return moment(effective_date, "DD/MM/YYYY").add(months, 'months').format('DD/MM/YYYY');
@@ -863,6 +931,7 @@ function CalReview(node_index){
                 		var mobile_index = document.getElementsByName("mobile").length;
                 		var email_index = document.getElementsByName("email").length;
                 		var address_index = document.getElementsByName("address").length;
+                		var pre_address_index = document.getElementsByName("preaddress").length;//dannel modify
                 		var sourceNode = document.getElementById(nodeid); // 获得被克隆的节点对象 
                 		var clonedNode = sourceNode.cloneNode(true); // 克隆节点 
                 		//console.log(sourceNode.innerHTML)
@@ -874,6 +943,8 @@ function CalReview(node_index){
                 		$node.find('div[id="divemail"]').attr("id","divemail_"+email_index);
                 		$node.find('button[id="bt_address"]').css("display","block");
                 		$node.find('div[id="divaddress"]').attr("id","divaddress_"+address_index);
+                		$node.find('button[id="bt_pre_address"]').css("display","block");//dannel modify
+                		$node.find('div[id="divpreaddress"]').attr("id","divpreaddress_"+pre_address_index);
                 		$node.find('div[id="removeloan"]').css("display","block");
                 		$node.find('div[id="removeProperty"]').css("display","block");
                 		$node.find('div[id="removeEmploy"]').css("display","block");
@@ -889,6 +960,7 @@ function CalReview(node_index){
                 		html = html.replaceAll('[mobile_index]',mobile_index);  
                 		html = html.replaceAll('[email_index]',email_index); 
                 		html = html.replaceAll('[address_index]',address_index); 
+                		html = html.replaceAll('[pre_address_index]',pre_address_index); //dannel modify
                 		//console.log(html)
                 		var newnode = parseDom(html);
                 		sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点 
@@ -920,6 +992,10 @@ function CalReview(node_index){
                 	});
                 	$("#add_address").on('click',function(e){
                 		copyNode("inputaddress");
+                	});
+                	//dannel modify
+                	$("#add_pre_address").on('click',function(e){
+                		copyNode("inputpreaddress");
                 	});
                 	$("#addloan").on('click',function(e){
                 		copyNode("loan");
@@ -989,6 +1065,18 @@ function CalReview(node_index){
 		                	var address = document.getElementsByName("address");
 		    				for(var i=0;i<addressArray.length;i++){
 		    					address[i].value=addressArray[i];
+		    				}  
+	                	} 
+	                	//dannel modify
+	                	var preaddresses = '${(client.previous_residential_address)!}';
+	                	if(preaddresses!=''){
+		                	var preaddressArray = JSON.parse(preaddresses);
+		                	for(var i=1;i<preaddressArray.length;i++){
+		                		copyNode("inputpreaddress");
+		                	}
+		                	var preaddress = document.getElementsByName("preaddress");
+		    				for(var i=0;i<preaddressArray.length;i++){
+		    					preaddress[i].value=preaddressArray[i];
 		    				}  
 	                	} 
 	                	
@@ -1115,6 +1203,13 @@ function SaveClient(method){
 		        })
 		        var address = JSON.stringify(addressArr);
 		        
+		      //dannel modify
+		        var preaddressArr=[];
+		        $("input[name='preaddress']").each(function(){
+		        	preaddressArr.push($(this).val());
+		        })
+		        var previous_residential_address = JSON.stringify(preaddressArr);
+		        
 				var home_phone=$('#home_phone').val();
 				var wechat=$('#wechat').val();
 				
@@ -1152,7 +1247,7 @@ function SaveClient(method){
 				var current_residential_address=$('#current_residential_address').val();
 				var time_stayed_years=$('#time_stayed_years').val();
 				var time_stayed_months=$('#time_stayed_months').val();
-				var previous_residential_address=$('#previous_residential_address').val();
+				/* var previous_residential_address=$('#previous_residential_address').val(); */ //dannel modify
 				var p_time_stayed_years=$('#p_time_stayed_years').val();
 				var p_time_stayed_months=$('#p_time_stayed_months').val();
 				var postal_address=$('#postal_address').val();
