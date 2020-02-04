@@ -2362,12 +2362,31 @@
                     $('#UMI').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
                     $('#existing_loan_amount').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
                     $('#total_loan_amount').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-                    $('#lending_amount_required').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-                    $('#lending_amount_required').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-                    $('#lending_amount_required').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-                    $('#lending_amount_required').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-                    $('#lending_amount_required').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
-                    $('#lending_amount_required').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                    $("[name='security_property_value']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                    $('#cash_v').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                    $("[name='saving_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='investment_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='kiwisaver_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='vehicle_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                    $('#furniture_v').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                    $('#term_deposit_v').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                    $('#other_currency_account_v').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                    $('#deposit_v').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                    $("[name='property_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='businessown_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='otherasset_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='loandrop_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='otherliability_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='revcredit_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='revcredit_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='overlimit_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='overlimit_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='creditcard_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='creditcard_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='storecard_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='storecard_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='hirepurchase_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='hirepurchase_c']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
                 })
                 Date.prototype.format = function(fmt) { 
                     var o = { 
@@ -2797,6 +2816,25 @@
             		html = html.replaceAll('[note_index]',note_index);  
             		var newnode = parseDom(html);
             		sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点 
+            		$("[name='saving_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='investment_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='kiwisaver_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='vehicle_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='property_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='businessown_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='otherasset_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='loandrop_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='otherliability_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='revcredit_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='revcredit_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='overlimit_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='overlimit_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='creditcard_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='creditcard_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='storecard_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='storecard_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='hirepurchase_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+            		$("[name='hirepurchase_c']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
             	}
             	function copyNode(nodeid){
             		var node_index = document.getElementsByName("loan_effective_date").length;
@@ -2829,8 +2867,13 @@
             		//console.log(html)
             		var newnode = parseDom(html);
             		sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点 
+            		$("[name='security_property_value']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
             	}
             	function b20(str){
+            		if(typeof str ==='string'){
+            			str = str.replace(/\$|,/g, '')
+            		}
+            		console.log(str)
             		return (str==='')?0:str*1;
             	}
             	function n2b(str){
@@ -3528,22 +3571,28 @@
     				var loandrop_v = document.getElementsByName("loandrop_v");
     				for(var i=0;i<loandrop_v.length;i++){
     					if(loandrop_v[i].value!=''||i==0){
-    						loandropArray.push({"loandrop_sel":loandrop_sel[i].value,"loandrop_d":loandrop_d[i].value,"loandrop_v":loandrop_v[i].value});
+    						loandropArray.push({"loandrop_sel":loandrop_sel[i].value,"loandrop_d":loandrop_d[i].value,"loandrop_v":loandrop_v[i].value.replace(/,/g, '')});
     						total_liability += b20(loandrop_v[i].value);
     					}
     				} 
     				liability.loandrop = loandropArray;
     				
-    				$('#total_lvalue').html(total_liability); 
+    				$('#total_lvalue').html(formatter.format(total_liability)); 
     				$('#total_lv').val(total_liability);
     				var total_assets = $('#total_v').val();
     				var equity = total_assets*1-total_liability*1;
-    				$('#equity_value').html(equity);
+    				$('#equity_value').html(formatter.format(equity));
     				$('#equity').val(equity);
     				liability.total_value = total_liability;
     				var jsonLiability = JSON.stringify( liability );
     				return jsonLiability;
                 }
+                //dannel modify
+               const formatter = new Intl.NumberFormat('en-US', {
+               	  style: 'currency',
+               	  currency: 'USD',
+               	  minimumFractionDigits: 2
+               	})
         function Income(){
         	MonthIncome();
         	MonthIncomefr();
@@ -3555,27 +3604,32 @@
                 	var asset = {};
     				var total_value = 0;
     				var cash_d = $('#cash_d').val();
-    				var cash_v = $('#cash_v').val();
+    				/* var cash_v = $('#cash_v').val(); */ //dannel modify
+    				var cash_v = $('#cash_v').maskMoney('unmasked')[0];
     				var cash = {"text":"Cash","cash_d":cash_d,"cash_v":cash_v};
     				asset.cash = cash;
+/*     				alert(cash_v) */
     				total_value += b20(cash_v);
     				//furniture
     				var furniture_d = $('#furniture_d').val();
-    				var furniture_v = $('#furniture_v').val();
+    				/* var furniture_v = $('#furniture_v').val(); */ //dannel modify
+    				var furniture_v = $('#furniture_v').maskMoney('unmasked')[0];
     				var furniture = {"text":"Furniture","furniture_d":furniture_d,"furniture_v":furniture_v};
     				asset.furniture = furniture;
     				total_value += b20(furniture_v);
     				
     				//term_deposit
     				var term_deposit_d = $('#term_deposit_d').val();
-    				var term_deposit_v = $('#term_deposit_v').val();
+    				/* var term_deposit_v = $('#term_deposit_v').val(); */ //dannel modify
+    				var term_deposit_v = $('#term_deposit_v').maskMoney('unmasked')[0];
     				var term_deposit = {"text":"Term Deposit","term_deposit_d":term_deposit_d,"term_deposit_v":term_deposit_v};
     				asset.term_deposit = term_deposit;
     				total_value += b20(term_deposit_v);
     				
     				//other_currency_account
     				var other_currency_account_d = $('#other_currency_account_d').val();
-    				var other_currency_account_v = $('#other_currency_account_v').val();
+    				/* var other_currency_account_v = $('#other_currency_account_v').val(); */ //dannel modify
+    				var other_currency_account_v = $('#other_currency_account_v').maskMoney('unmasked')[0];
     				var other_currency_account = {"text":"Other Currency Account","other_currency_account_d":other_currency_account_d,"other_currency_account_v":other_currency_account_v};
     				asset.other_currency_account = other_currency_account;
     				total_value += b20(other_currency_account_v);
@@ -3583,7 +3637,8 @@
     				
     				//deposit
     				var deposit_d = $('#deposit_d').val();
-    				var deposit_v = $('#deposit_v').val();
+    				/* var deposit_v = $('#deposit_v').val(); */ //dannel modify
+    				var deposit_v = $('#deposit_v').maskMoney('unmasked')[0];
     				var deposit = {"text":"Deposit on property (If Paid)","deposit_d":deposit_d,"deposit_v":deposit_v};
     				asset.deposit = deposit;
     				total_value += b20(deposit_v);
@@ -3596,7 +3651,7 @@
     				for(var i=0;i<saving_v.length;i++){
     					if(saving_v[i].value!=''||i==0){
     						if(i>0)saving_text =saving_o+ " "+(i*1+1);
-    						savingArray.push({"text":saving_text,"saving_d":saving_d[i].value,"saving_v":saving_v[i].value});
+    						savingArray.push({"text":saving_text,"saving_d":saving_d[i].value,"saving_v":saving_v[i].value.replace(/,/g, '')});
     						total_value += b20(saving_v[i].value);
     					}
     				} 
@@ -3611,7 +3666,7 @@
     				for(var i=0;i<investment_v.length;i++){
     					if(investment_v[i].value!=''||i==0){
     						if(i>0)investment_text =investment_o+ " "+(i*1+1);
-    						investmentArray.push({"text":investment_text,"investment_d":investment_d[i].value,"investment_v":investment_v[i].value});
+    						investmentArray.push({"text":investment_text,"investment_d":investment_d[i].value,"investment_v":investment_v[i].value.replace(/,/g, '')});
     						total_value += b20(investment_v[i].value);
     					}
     				} 
@@ -3626,7 +3681,7 @@
     				for(var i=0;i<kiwisaver_v.length;i++){
     					if(kiwisaver_v[i].value!=''||i==0){
     						if(i>0)kiwisaver_text =kiwisaver_o+ " "+(i*1+1);
-    						kiwisaverArray.push({"text":kiwisaver_text,"kiwisaver_d":kiwisaver_d[i].value,"kiwisaver_v":kiwisaver_v[i].value});
+    						kiwisaverArray.push({"text":kiwisaver_text,"kiwisaver_d":kiwisaver_d[i].value,"kiwisaver_v":kiwisaver_v[i].value.replace(/,/g, '')});
     						total_value += b20(kiwisaver_v[i].value);
     					}
     				} 
@@ -3641,7 +3696,7 @@
     				for(var i=0;i<otherasset_v.length;i++){
     					if(otherasset_v[i].value!=''||i==0){
     						if(i>0)otherasset_text = otherasset_o+" "+(i*1+1);
-    						otherassetArray.push({"text":otherasset_text,"otherasset_d":otherasset_d[i].value,"otherasset_v":otherasset_v[i].value});
+    						otherassetArray.push({"text":otherasset_text,"otherasset_d":otherasset_d[i].value,"otherasset_v":otherasset_v[i].value.replace(/,/g, '')});
     						total_value += b20(otherasset_v[i].value);
     					}
     				} 
@@ -3656,7 +3711,7 @@
     				for(var i=0;i<businessown_v.length;i++){
     					if(businessown_v[i].value!=''||i==0){
     						if(i>0)businessown_text = businessown_o + " "+(i*1+1);
-    						businessownArray.push({"text":businessown_text,"businessown_d":businessown_d[i].value,"businessown_v":businessown_v[i].value});
+    						businessownArray.push({"text":businessown_text,"businessown_d":businessown_d[i].value,"businessown_v":businessown_v[i].value.replace(/,/g, '')});
     						total_value += b20(businessown_v[i].value);
     					}
     				} 
@@ -3672,7 +3727,7 @@
     				for(var i=0;i<property_v.length;i++){
     					if(property_v[i].value!=''||i==0){
     						if(i>0)property_text = property_origin+" "+(i*1+1);
-    						propertyArray.push({"text":property_text,"property_d":property_d[i].value,"property_v":property_v[i].value});
+    						propertyArray.push({"text":property_text,"property_d":property_d[i].value,"property_v":property_v[i].value.replace(/,/g, '')});
     						total_value += b20(property_v[i].value);
     					}
     				} 
@@ -3687,12 +3742,12 @@
     				for(var i=0;i<vehicle_v.length;i++){
     					if(vehicle_v[i].value!=''||i==0){
     						if(i>0)vehicle_text = vehicle_origin +" "+(i*1+1);
-    						vehicleArray.push({"text":vehicle_text,"vehicle_d":vehicle_d[i].value,"vehicle_v":vehicle_v[i].value});
+    						vehicleArray.push({"text":vehicle_text,"vehicle_d":vehicle_d[i].value,"vehicle_v":vehicle_v[i].value.replace(/,/g, '')});
     						total_value += b20(vehicle_v[i].value);
     					}
     				} 
     				asset.vehicle = vehicleArray;
-    				$('#total_value').html(total_value); 
+    				$('#total_value').html(formatter.format(total_value)); 
     				asset.total_value = total_value;
     				$('#total_v').val(total_value);
     				//alert(total_value)
@@ -3773,11 +3828,12 @@ function SaveApp(method){
 					var security_property_type = document.getElementsByName("security_property_type");
 					var security_property_use = document.getElementsByName("security_property_use");
 					var security_property_value = document.getElementsByName("security_property_value");
+					console.log()
 					for(var i=0;i<security_property.length;i++){
 						if(security_property[i].value!=''){
 							propertyArray.push({"property":security_property[i].value,"bank":security_bank[i].value,
 								"owner":security_owner[i].value,"property_type":security_property_type[i].value,
-								"use":security_property_use[i].value,"value":security_property_value[i].value});
+								"use":security_property_use[i].value,"value":security_property_value[i].value.replace(/,/g, '')});
 						}
 					} 
 					var jsonProperty = JSON.stringify( propertyArray );
