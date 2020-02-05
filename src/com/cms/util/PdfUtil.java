@@ -786,7 +786,10 @@ public class PdfUtil {
 		        JSONArray emailJsonArray = JSONArray.fromObject(app[k].getStr("personal_email"));
 		        String personal_email = "";
 		        for (int i = 0; i < emailJsonArray.size(); i++) {
-		        	if(i>0)personal_email += ", ";
+		        	if(i>0) {
+		        		break;
+		        		//personal_email += ", ";
+		        	}
 		        	personal_email += emailJsonArray.getString(i);
 				}
 		        

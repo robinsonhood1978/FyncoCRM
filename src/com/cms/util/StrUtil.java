@@ -8,8 +8,13 @@ import java.util.regex.Pattern;
 
 public class StrUtil {
 	public static String formatString(Double data) {
-        DecimalFormat df = new DecimalFormat("#,###.00"); 
-        return df.format(data);
+		if(data!=0) {
+			DecimalFormat df = new DecimalFormat("#,###.00"); 
+			return df.format(data);
+		}
+		else {
+			return "";
+		}
     }
 	public static String formatString(String data) {
 		String str = "";
@@ -74,6 +79,7 @@ public class StrUtil {
 	}
 	public static String null2Blank(String s){
 		if(s!=null){
+			if(s.equals("0"))s="";
 			return s;
 		}
 		return "";
