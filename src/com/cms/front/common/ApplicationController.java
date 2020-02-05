@@ -65,7 +65,7 @@ public class ApplicationController extends Controller {
 		User u = getSessionAttr("user");
 		Page<Record> page = null;
 		// 当前页
-		StringBuffer sql =new StringBuffer("from application c INNER JOIN application_client AS a ON a.application_id = c.id INNER JOIN client AS b ON a.client_id = b.id where c.status="+status+" and c.creator="+u.getInt("id"));
+		StringBuffer sql =new StringBuffer("from application c INNER JOIN application_client AS a ON a.application_id = c.id INNER JOIN client AS b ON a.client_id = b.id where c.status="+status+" and c.creator="+u.getInt("id")+" ORDER BY c.create_time DESC");
 		if(getSessionAttr("application_field")!=null) {
 			keyword = getSessionAttr("application_keyword");
 			field = getSessionAttr("application_field");
