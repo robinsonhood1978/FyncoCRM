@@ -65,7 +65,7 @@ public class ApplicationController extends Controller {
 		User u = getSessionAttr("user");
 		Page<Record> page = null;
 		// 当前页
-		StringBuffer sql =new StringBuffer("from application c where c.status="+status+" and c.creator="+u.getInt("id"));
+		StringBuffer sql =new StringBuffer("from application c INNER JOIN application_client AS a ON a.application_id = c.id INNER JOIN client AS b ON a.client_id = b.id where c.status="+status+" and c.creator="+u.getInt("id"));
 		if(getSessionAttr("application_field")!=null) {
 			keyword = getSessionAttr("application_keyword");
 			field = getSessionAttr("application_field");
@@ -73,7 +73,7 @@ public class ApplicationController extends Controller {
 		}
 		
 		
-		page = Db.paginate(pageNum, 20, "select c.*",sql.toString());
+		page = Db.paginate(pageNum, 20, "select c.*, CONCAT_WS(' ', b.first_name, b.last_name) AS whole_name",sql.toString());
 		setAttr("contentPage", page);
 		setAttr("status", status);
 		render("/t/application.html");

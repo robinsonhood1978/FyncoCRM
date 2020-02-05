@@ -67,11 +67,11 @@
                                                 </div>
                                             </th>
 
-                                            <th>Bank</th>
-                                            <th >Email</th>
-                                            <th >From</th>
-                                            <th >Mobile</th>
-                                            <th >New Loan Amount</th>
+                                            <th>Name</th>
+                                            <th >Lender</th>
+                                            <th >Lending Purpose</th>
+                                            <th >Loan Amount</th>
+                                       <!--      <th >New Loan Amount</th> -->
                                             <th >Application Date</th>
                                             <th ></th>
                                         </tr>
@@ -94,7 +94,7 @@
                                                     
                                                     <div class="media-body">
 
-                                                        <span class="js-lists-values-employee-name">${(x.bank)!}</span>
+                                                        <span class="js-lists-values-employee-name">${(x.whole_name)!}</span>
 
                                                     </div>
                                                 </div>
@@ -103,13 +103,24 @@
 
                                             <td>
                                                 <div class="media align-items-center">
-                                                    <a href="">${(x.email)!}</a>
+                                                   ${(x.lender)!}
                                                 </div>
                                             </td>
 
-                                            <td>${(x.from)!}</td>
-                                            <td><span class="badge badge-warning">${(x.mobile)!}</span></td>
-                                            <td><small class="text-muted">${(x.new_loan_amount)!}</small></td>
+                                            <td><!-- ${(x.lending_purpose)!} -->
+                                            <#if x.lending_purpose??>
+                                            	<!-- ${(x.lending_purpose)?replace("[","")?replace("]","")?replace("\"","")} -->
+		                                            <#assign lending_purposes=(x.lending_purpose)?replace("[","")?replace("]","")?replace("\"","")?split(",")>
+		                                            ${(lending_purposes[0])!} 
+		                                            <#if lending_purposes[1]??>
+		                                            &amp;${(lending_purposes[1])!}
+													</#if>
+                                            </#if>
+                                            
+                                            
+                                            </td>
+                                            <td><span class="badge badge-warning">${(x.lending_amount_required?string.currency)!}</span></td>
+                                            <!-- <td><small class="text-muted">${(x.new_loan_amount)!}</small></td> -->
                                             <td><#if x.application_date??>${(x.application_date)?string('dd/MM/yyyy')!}</#if></td>
                                             <td>
                                             <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
