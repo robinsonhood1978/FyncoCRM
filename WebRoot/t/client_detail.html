@@ -196,66 +196,66 @@
                                         </div>
                                     </div>
                                    
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="fname">Current Residential Address (Address client are currently residing)</label><br/>
-                                                ${(client.current_residential_address)!}
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="fname">Time Stayed:</label>
-                                                <div class="row">
-	                                                <div class="col">
-			                                            <div class="form-group">
-			                                                <label>Year(s)</label>
-			                                                <br/>${(client.time_stayed_years)!}
-			                                            </div>
-				                                     </div>
-			                                        <div class="col">
-			                                            <div class="form-group">
-			                                                <label>Month(s)</label>
-			                                                <br/>${(client.time_stayed_months)!}
-			                                            </div>
-			                                        </div>
-                                                </div>
-                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
+                                   
+                                    <#if type==2>
+                                    
                                                 <label for="fname">Previous Residential Address (If client have stayed at current address for less than 3 years)</label>
-                                                <br/>${(client.previous_residential_address)!}
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="fname">Time Stayed:(Address client are currently residing)</label>
-                                                <div class="row">
-	                                                <div class="col">
-			                                            <div class="form-group">
-			                                                <label>Year(s)</label>
-			                                                <br/>${(client.p_time_stayed_years)!}
-			                                            </div>
-				                                     </div>
-			                                        <div class="col">
-			                                            <div class="form-group">
-			                                                <label>Month(s)</label>
-			                                                <br/>${(client.p_time_stayed_months)!}
-			                                            </div>
-			                                        </div>
-                                                </div>
-                                             </div>
-                                        </div>
-                                    </div>
+                                               <div id="preaddresses">
+                                                	<div id="inputpreaddress">
+                                                	<div id="divpreaddress">
+                                               <div id="previous_employment">
+                                               	<div id="employ">
+                                               		
+	                                               <div id="employ_[employ_index]">
+			                                               <div class="row">
+		                                    <div class="col">
+		                                            <div class="card-header bg-white d-flex align-items-center">
+						                               <p><strong class="headings-color">Previous Residential Address</strong></p>
+						                                
+						                            </div>
+				                                    </div>
+				                                    </div>
+				                                    <div class="row">
+				                                       <div class="col">
+				                                            <div class="form-group">
+				                                                <label>Previous Residential Address</label><br/>
+				                                                <div name="preaddress"></div>
+				                                            </div>
+					                                     </div>
+					                                     </div>
+					                                     <div class="row">
+				                                       <div class="col">
+				                                            <div class="form-group">
+				                                                <label for="fname">Time Stayed:(Address client are currently residing)</label><br/>
+				                                                <div class="row">
+					                                      
+					                                      <div class="col">
+				                                            <div class="form-group">
+				                                                <label>Year(s)</label><br/>
+				                                                <div name="p_time_stayed_years"></div>
+				                                            </div>
+				                                        </div>
+				                                        <div class="col">
+				                                            <div class="form-group">
+				                                                <label>Month(s)</label><br/>
+				                                                <div name="p_time_stayed_months"></div>
+				                                            </div>
+				                                        </div>
+				                                        
+				                                    </div>
+				                                            </div>
+					                                     </div>
+					                                     </div>
+					                                      
+				                                    </div>
+				                                    </div>
+			                                    </div>
+			                                  </div>
+				                                    </div>
+			                                    </div>
+                                           
+                                    </#if>
+                                    
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
@@ -298,12 +298,7 @@
                                                 <div id="source_of_income"></div>
                                         	</div>
                                         </div>
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label>Gross Income</label><br/>
-                                                ${(client.gross_income)!}
-                                            </div>
-                                        </div>
+                                        
                                         
                                     </div>
                                     
@@ -326,18 +321,18 @@
                                                 <div name="curcompany"></div>
                                             </div>
                                         </div>
-                                        
-	                                     
-                                    </div>
-                                    
-                                    
-                                    <div class="row">
-                                    	<div class="col">
+                                        <div class="col">
                                             <div class="form-group">
                                                 <label>Job title</label>
                                                 <div name="curoccupation"></div>
                                             </div>
 	                                     </div>
+	                                     
+                                    </div>
+                                    
+                                    
+                                    <div class="row">
+                                    	
 	                                     
                                        <div class="col">
                                             <div class="form-group">
@@ -345,6 +340,12 @@
                                                 <div name="curduration"></div>
                                             </div>
 	                                     </div>
+	                                     <div class="col">
+                                            <div class="form-group">
+                                                <label>Gross Income</label><br/>
+                                                <div name="curgross_income"></div>
+                                            </div>
+                                        </div>
                                       
                                     </div>
                                     
@@ -895,6 +896,7 @@ function CalReview(node_index){
                 		var mobile_index = document.getElementsByName("mobile").length;
                 		var email_index = document.getElementsByName("email").length;
                 		var address_index = document.getElementsByName("address").length;
+                		var pre_address_index = document.getElementsByName("preaddress").length;//dannel modify
                 		var sourceNode = document.getElementById(nodeid); // 获得被克隆的节点对象 
                 		var clonedNode = sourceNode.cloneNode(true); // 克隆节点 
                 		//console.log(sourceNode.innerHTML)
@@ -906,6 +908,7 @@ function CalReview(node_index){
                 		$node.find('div[id="divemail"]').attr("id","divemail_"+email_index);
                 		$node.find('button[id="bt_address"]').css("display","block");
                 		$node.find('div[id="divaddress"]').attr("id","divaddress_"+address_index);
+                		$node.find('div[id="bt_pre_address"]').css("display","block");//dannel modify
                 		$node.find('div[id="removeloan"]').css("display","block");
                 		$node.find('div[id="removeProperty"]').css("display","block");
                 		$node.find('div[id="removeEmploy"]').css("display","block");
@@ -921,6 +924,7 @@ function CalReview(node_index){
                 		html = html.replaceAll('[mobile_index]',mobile_index);  
                 		html = html.replaceAll('[email_index]',email_index); 
                 		html = html.replaceAll('[address_index]',address_index); 
+                		html = html.replaceAll('[pre_address_index]',pre_address_index); //dannel modify
                 		//console.log(html)
                 		var newnode = parseDom(html);
                 		sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点 
@@ -990,6 +994,22 @@ function CalReview(node_index){
                 		var source_of_income = String(JSON.parse('${(client.source_of_income)!}'));
                 		$('#source_of_income').html(source_of_income);
                 		
+                		var preaddresses = '${(client.previous_residential_address)!}';
+	                	if(preaddresses!=''){
+		                	var preaddressArray = JSON.parse(preaddresses);
+		                	for(var i=1;i<preaddressArray.length;i++){
+		                		copyNode("inputpreaddress");
+		                	}
+		                	var preaddress = document.getElementsByName("preaddress");
+		                	var p_time_stayed_years = document.getElementsByName("p_time_stayed_years");
+		    				var p_time_stayed_months = document.getElementsByName("p_time_stayed_months");
+		    				for(var i=0;i<preaddressArray.length;i++){
+		    					preaddress[i].innerHTML=preaddressArray[i]['preaddress'];
+		    					p_time_stayed_years[i].innerHTML=preaddressArray[i]['p_time_stayed_years'];
+		    					p_time_stayed_months[i].innerHTML=preaddressArray[i]['p_time_stayed_months'];
+		    				}  
+	                	} 
+	                	
                 		var curemployment = '${(client.current_employment)!}';
 	                	if(curemployment!=''){
 		                	var curemploymentArray = JSON.parse(curemployment);
@@ -999,10 +1019,12 @@ function CalReview(node_index){
 		                	var curcompany = document.getElementsByName("curcompany");
 		    				var curoccupation = document.getElementsByName("curoccupation");
 		    				var curduration = document.getElementsByName("curduration");
+		    				var curgross_income = document.getElementsByName("curgross_income");
 		    				for(var i=0;i<curemploymentArray.length;i++){
 		    					curcompany[i].innerHTML=curemploymentArray[i]['curcompany'];
 		    					curoccupation[i].innerHTML=curemploymentArray[i]['curoccupation'];
 		    					curduration[i].innerHTML=curemploymentArray[i]['curduration'];
+		    					curgross_income[i].innerHTML=curemploymentArray[i]['gross_income'];
 		    				}  
 	                	} 
 	                	

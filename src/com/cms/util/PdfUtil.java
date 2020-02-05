@@ -624,21 +624,75 @@ public class PdfUtil {
 				clientArray.add(client);
 			}
 		}
+		String url = dest+"sm_2.pdf";
+//		File file = new File(url);
+//		PdfWriter pdfWriter = new PdfWriter(file);
+//        PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+//
+//        Document document = new Document(pdfDocument);
+//        document.setMargins(0f, 0f, 0f, 0f);
+        
 		int foot = 0;
 		for(Client[] app:clientArray) {
-			String destfile = dest+"sm_2_"+foot+".pdf";
-			filelist.add(destfile);
 			foot++;
-			String src = realPath+"/pdf/sm_2_"+foot+".pdf";
-			//JSONArray securityJsonArray = JSONArray.fromObject(app.getStr("security"));
+			
+			
+			int client_size = app.length;
+			int pra_size1 = 1;
+			int pra_size2 = 1;
+			int pra_max_size=1;
+			if(app[0].getStr("previous_residential_address")!=null) {
+	              JSONArray praJsonArray = JSONArray.fromObject(app[0].getStr("previous_residential_address"));
+	              pra_size1 = praJsonArray.size();
+	        }
+			if(client_size==2) {
+				if(app[1]!=null&&app[1].getStr("previous_residential_address")!=null) {
+		              JSONArray praJsonArray2 = JSONArray.fromObject(app[1].getStr("previous_residential_address"));
+		              pra_size2 = praJsonArray2.size();
+		        }
+			}
+			if(pra_size1>1||pra_size2>1) {
+				pra_max_size=2;
+			}
+			
+			int ce_size1 = 1;
+			int ce_size2 = 1;
+			int ce_max_size=1;
+			if(app[0].getStr("previous_residential_address")!=null) {
+	              JSONArray ceJsonArray = JSONArray.fromObject(app[0].getStr("current_employment"));
+	              ce_size1 = ceJsonArray.size();
+	        }
+			if(client_size==2) {
+				if(app[1]!=null&&app[1].getStr("previous_residential_address")!=null) {
+		              JSONArray ceJsonArray2 = JSONArray.fromObject(app[1].getStr("current_employment"));
+		              ce_size2 = ceJsonArray2.size();
+		        }
+			}
+			if(ce_size1>1||ce_size2>1) {
+				ce_max_size=2;
+			}
+			String destfile = dest+"sm_2_"+foot+"_1_"+pra_max_size+".pdf";
+			String destfile2 = dest+"sm_2_"+foot+"_2_"+ce_max_size+".pdf";
+			String src = realPath+"/pdf/sm_2_"+foot+"_1_"+pra_max_size+".pdf";
+			String src2 = realPath+"/pdf/sm_2_1_2_"+ce_max_size+".pdf";
+			filelist.add(destfile);
+			filelist.add(destfile2);
 			
 			PdfDocument pdfDoc = new PdfDocument(new PdfReader(src), new PdfWriter(destfile));
 			PdfAcroForm form = PdfAcroForm.getAcroForm(pdfDoc, true);
 	        Map<String, PdfFormField> fields = form.getFormFields();
+	        
+	        PdfDocument pdfDoc2 = new PdfDocument(new PdfReader(src2), new PdfWriter(destfile2));
+			PdfAcroForm form2 = PdfAcroForm.getAcroForm(pdfDoc2, true);
+	        Map<String, PdfFormField> fields2 = form2.getFormFields();
 	        int m=0;
 	        for(int k=0;k<app.length;k++) {
-	        	if(app[k]==null)break;
 	        	m=k+1;
+	        	//int applicant_no = foot*2+m;
+	        	//fields.get("applicant_no"+m).setValue(String.valueOf(applicant_no)).setFontSize(18);
+	        	if(app[k]==null) {
+	        		break;
+	        	}
 	        	//System.out.println(app.length+":k="+k+":age:"+app[k].getStr("dependants_age"));
 	        	if(app[k].getStr("dependants_age")!=null) {
 			        JSONArray ageJsonArray = JSONArray.fromObject(app[k].getStr("dependants_age"));
@@ -669,6 +723,7 @@ public class PdfUtil {
 		        if(app[k].getStr("title")!=null) {
 		        	fields.get("app"+m+"_title_d").setValue(app[k].getStr("title")).setFontSize(9);
 		        }
+		        
 		        fields.get("app"+m+"_dob").setValue(birthday).setFontSize(9);
 		        fields.get("app"+m+"_gender").setValue(gender[app[k].getInt("gender")]).setFontSize(9);
 		        fields.get("app"+m+"_last_name").setValue(StrUtil.null2Blank(app[k].getStr("last_name"))).setFontSize(9);
@@ -687,9 +742,34 @@ public class PdfUtil {
 		        fields.get("app"+m+"_current_address").setValue(StrUtil.null2Blank(app[k].getStr("current_residential_address"))).setFontSize(9);
 		        fields.get("app"+m+"_current_address_ts_y").setValue(StrUtil.null2Blank(app[k].getInt("time_stayed_years"))).setFontSize(9);
 		        fields.get("app"+m+"_current_address_ts_m").setValue(StrUtil.null2Blank(app[k].getInt("time_stayed_months"))).setFontSize(9);
-		        fields.get("app"+m+"_previous_address").setValue(StrUtil.null2Blank(app[k].getStr("previous_residential_address"))).setFontSize(9);
-		        fields.get("app"+m+"_previous_address_ts_y").setValue(StrUtil.null2Blank(app[k].getInt("p_time_stayed_years"))).setFontSize(9);
-		        fields.get("app"+m+"_previous_address_ts_m").setValue(StrUtil.null2Blank(app[k].getInt("p_time_stayed_months"))).setFontSize(9);
+		        
+		        if(app[k].getStr("previous_residential_address")!=null) {
+		              JSONArray praJsonArray = JSONArray.fromObject(app[k].getStr("previous_residential_address"));
+		              
+		              for (int i = 0; i < praJsonArray.size(); i++) {
+		                JSONObject praObj = praJsonArray.getJSONObject(i);
+		                int j=i+1;
+		                String preaddress = "";
+		                String p_time_stayed_years = "";
+		                String p_time_stayed_months = "";
+		                if(praObj!=null) {
+		                	preaddress = StrUtil.null2Blank(praObj.getString("preaddress"));
+		                  p_time_stayed_years = StrUtil.null2Blank(praObj.getString("p_time_stayed_years"));
+		                  p_time_stayed_months = StrUtil.null2Blank(praObj.getString("p_time_stayed_months"));
+		                }
+		                fields.get("app"+m+"_previous_address_"+j).setValue(preaddress).setFontSize(9);
+		                fields.get("app"+m+"_previous_address_ts_y_"+j).setValue(p_time_stayed_years).setFontSize(9);
+		                fields.get("app"+m+"_previous_address_ts_m_"+j).setValue(p_time_stayed_months).setFontSize(9);
+		              }
+		        }
+
+		        
+		        
+		        
+		        
+		        
+		        
+		        
 		        fields.get("app"+m+"_postal_address").setValue(StrUtil.null2Blank(app[k].getStr("postal_address"))).setFontSize(9);
 		//        `current_living_situation` tinyint(2) DEFAULT NULL COMMENT '0-Renting,1-Living in own home,2-Boarding,3-Other',
 		        String[] current_living_situation = {"Renting","Living in own home","Boarding","Other"};
@@ -712,18 +792,42 @@ public class PdfUtil {
 		        
 		        fields.get("app"+m+"_contact_personal_email").setValue(personal_email).setFontSize(9);
 		        fields.get("app"+m+"_contact_work_email").setValue(StrUtil.null2Blank(app[k].getStr("work_email"))).setFontSize(9);
-		        
+//		        
 		        JSONArray sourceofincomeJsonArray = JSONArray.fromObject(app[k].getStr("source_of_income"));
 		        String soi = "";
 		        for (int i = 0; i < sourceofincomeJsonArray.size(); i++) {
 		        	if(i>0)soi += ", ";
 		        	soi += sourceofincomeJsonArray.getString(i);
 				}
-		        fields.get("app"+m+"_employment_soi").setValue(soi).setFontSize(9);
-		        fields.get("app"+m+"_employment_occupation").setValue((StrUtil.null2Blank(app[k].getStr("occupation")))).setFontSize(9);
-		        fields.get("app"+m+"_employment_company").setValue(StrUtil.null2Blank(app[k].getStr("company"))).setFontSize(9);
-		        fields.get("app"+m+"_employment_duration").setValue(StrUtil.null2Blank(app[k].getStr("duration"))).setFontSize(9);
-		        fields.get("app"+m+"_employment_gi").setValue(StrUtil.null2Blank(StrUtil.formatString(app[k].getStr("gross_income")))).setFontSize(9);
+		        fields2.get("app"+m+"_employment_soi").setValue(soi).setFontSize(9);
+//		        fields2.get("app"+m+"_employment_occupation").setValue((StrUtil.null2Blank(app[k].getStr("occupation")))).setFontSize(9);
+//		        fields2.get("app"+m+"_employment_company").setValue(StrUtil.null2Blank(app[k].getStr("company"))).setFontSize(9);
+//		        fields2.get("app"+m+"_employment_duration").setValue(StrUtil.null2Blank(app[k].getStr("duration"))).setFontSize(9);
+//		        fields2.get("app"+m+"_employment_gi").setValue(StrUtil.null2Blank(StrUtil.formatString(app[k].getStr("gross_income")))).setFontSize(9);
+//		        
+		        if(app[k].getStr("current_employment")!=null) {
+			        JSONArray ceJsonArray = JSONArray.fromObject(app[k].getStr("current_employment"));
+			        
+			        for (int i = 0; i < ceJsonArray.size(); i++) {
+			        	JSONObject ceObj = ceJsonArray.getJSONObject(i);
+			        	int j=i+1;
+			        	String curcompany = "";
+			        	String curoccupation = "";
+			        	String curduration = "";
+			        	String gross_income = "";
+			        	if(ceObj!=null) {
+			        		curcompany = StrUtil.null2Blank(ceObj.getString("curcompany"));
+			        		curoccupation = StrUtil.null2Blank(ceObj.getString("curoccupation"));
+			        		curduration = StrUtil.null2Blank(ceObj.getString("curduration"));
+			        		gross_income = StrUtil.null2Blank(ceObj.getString("gross_income"));
+			        	}
+			        	System.out.print("app"+m+"_employment_company_"+j);
+				        fields2.get("app"+m+"_employment_company_"+j).setValue(curcompany).setFontSize(9);
+				        fields2.get("app"+m+"_employment_occupation_"+j).setValue(curoccupation).setFontSize(9);
+				        fields2.get("app"+m+"_employment_duration_"+j).setValue(curduration).setFontSize(9);
+				        fields2.get("app"+m+"_employment_gi_"+j).setValue(gross_income).setFontSize(9);
+					}
+		        }
 		        
 		        if(app[k].getStr("previous_employment")!=null) {
 			        JSONArray peJsonArray = JSONArray.fromObject(app[k].getStr("previous_employment"));
@@ -737,19 +841,17 @@ public class PdfUtil {
 			        		company_name = StrUtil.null2Blank(peObj.getString("company_name"));
 			        		time_stayed = StrUtil.null2Blank(peObj.getString("time_stayed"));
 			        	}
-			    		fields.get("app"+m+"_employment_p_cn"+j).setValue(company_name).setFontSize(9);
-			    		fields.get("app"+m+"_employment_p_ts"+j).setValue(time_stayed).setFontSize(9);
+			    		fields2.get("app"+m+"_employment_p_cn"+j).setValue(company_name).setFontSize(9);
+			    		fields2.get("app"+m+"_employment_p_ts"+j).setValue(time_stayed).setFontSize(9);
 					}
 		        }
 	        }
 	        
 	        form.flattenFields();//设置表单域不可编辑       
 	        pdfDoc.close();
+	        form2.flattenFields();//设置表单域不可编辑       
+	        pdfDoc2.close();
 		}
-		String url = dest+"sm_2.pdf";
-		
-		//pdf_3(dest+"sm_3.pdf",apt);
-		//filelist.add(dest+"sm_3.pdf");
 		MergeFiles(url,filelist);
 		return url;
     }

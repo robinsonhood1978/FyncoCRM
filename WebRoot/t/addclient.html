@@ -333,21 +333,30 @@
                                         
                                     </div> -->
                                     <!-- dannel Modify Start-->
+                                    <label for="fname">Previous Residential Address (If client have stayed at current address for less than 3 years)</label>
+                                     <div id="preaddresses">
+                                                	<div id="inputpreaddress">
+                                                	<div id="divpreaddress">
+                                                	<div class="row">
+		                                    <div class="col">
+		                                            <div class="card-header bg-white d-flex align-items-center">
+						                               <p><strong class="headings-color">Previous Residential Address</strong></p>
+						                                <div class="d-flex ml-auto">
+						                                    <div style="display:none" onclick="RemovePreAddress('[pre_address_index]')" id="bt_pre_address">
+						                                                <i class="material-icons">remove_circle_outline</i>
+						                                           		<label>Remove</label>
+						                                           		</div>
+						                                </div>
+						                            </div>
+				                                    </div>
+				                                    </div>
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="fname">Previous Residential Address (If client have stayed at current address for less than 3 years)</label>&nbsp;&nbsp;&nbsp;
-                                                <i id="add_pre_address" class="material-icons">add_circle_outline</i>
-                                                <div id="preaddresses">
-                                                	<div id="inputpreaddress">
-                                                	<div id="divpreaddress" class="search-form search-form--light">
+                                                <label for="fname">Previous Residential Address</label>&nbsp;&nbsp;&nbsp;
+                                               
                                                 <input type="text" class="form-control" name="preaddress">
-                                                <button onclick="RemovePreAddress('[pre_address_index]')" id="bt_pre_address" style="display:none;" class="btn" type="button" role="button"><i class="material-icons">close</i></button>
-                                                </div>
-                                            
-	                                                	
-	                                                </div>
-                                                </div>
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -360,19 +369,28 @@
 	                                                <div class="col">
 			                                            <div class="form-group">
 			                                                <label>Year(s)</label>
-			                                                <input type="text" class="form-control" id="p_time_stayed_years" value="${(client.p_time_stayed_years)!}">
+			                                                <input type="text" class="form-control" name="p_time_stayed_years" id="p_time_stayed_years" value="${(client.p_time_stayed_years)!}">
 			                                            </div>
 				                                     </div>
 			                                        <div class="col">
 			                                            <div class="form-group">
 			                                                <label>Month(s)</label>
-			                                                <input type="text" class="form-control" id="p_time_stayed_months" value="${(client.p_time_stayed_months)!}">
+			                                                <input type="text" class="form-control" name="p_time_stayed_months" id="p_time_stayed_months" value="${(client.p_time_stayed_months)!}">
 			                                            </div>
 			                                        </div>
                                                 </div>
                                              </div>
                                         </div>
                                     </div>
+                                    </div>
+                                            
+	                                                	
+	                                                </div>
+                                                </div>
+                                                <div>
+                                                <i id="add_pre_address" class="material-icons">add_circle_outline</i>
+                                           		<label for="fname">Add Previous Residential Address</label>
+                                           		</div>
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
@@ -435,12 +453,7 @@
 		                                        </select>
                                         	</div>
                                         </div>
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label>Gross Income</label>
-                                                <input type="text" class="form-control" id="gross_income" value="${(client.gross_income)!}">
-                                            </div>
-                                        </div>
+                                        
                                         
                                     </div>
                                     
@@ -465,28 +478,35 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label>Current Employer</label>
-                                                <input type="text" name="curcompany" class="form-control" id="company" value="${(client.company)!}">
+                                                <input type="text" name="curcompany" class="form-control" id="company" value="">
                                             </div>
                                         </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label>Job title</label>
+                                                <input type="text" class="form-control" name="curoccupation" id="occupation" value="">
+                                            </div>
+	                                     </div>
                                         
 	                                     
                                     </div>
                                     
                                     
                                     <div class="row">
-                                    	<div class="col">
-                                            <div class="form-group">
-                                                <label>Job title</label>
-                                                <input type="text" class="form-control" name="curoccupation" id="occupation" value="${(client.occupation)!}">
-                                            </div>
-	                                     </div>
+                                    	
 	                                     
                                        <div class="col">
                                             <div class="form-group">
                                                 <label>Length of time with this employer</label>
-                                                <input type="text" class="form-control" name="curduration" id="duration" value="${(client.duration)!}">
+                                                <input type="text" class="form-control" name="curduration" id="duration" value="">
                                             </div>
 	                                     </div>
+	                                     <div class="col">
+                                            <div class="form-group">
+                                                <label>Gross Income</label>
+                                                <input type="text" class="form-control" name="gross_income" id="gross_income" value="">
+                                            </div>
+                                        </div>
                                       
                                     </div>
                                     
@@ -943,7 +963,7 @@ function CalReview(node_index){
                 		$node.find('div[id="divemail"]').attr("id","divemail_"+email_index);
                 		$node.find('button[id="bt_address"]').css("display","block");
                 		$node.find('div[id="divaddress"]').attr("id","divaddress_"+address_index);
-                		$node.find('button[id="bt_pre_address"]').css("display","block");//dannel modify
+                		$node.find('div[id="bt_pre_address"]').css("display","block");//dannel modify
                 		$node.find('div[id="divpreaddress"]').attr("id","divpreaddress_"+pre_address_index);
                 		$node.find('div[id="removeloan"]').css("display","block");
                 		$node.find('div[id="removeProperty"]').css("display","block");
@@ -1012,6 +1032,7 @@ function CalReview(node_index){
                 	});
                 	
                 	if('${method}'=='edit'){
+                		var type= '${(type)!}';
 	                	var gender = '${(client.gender)!}';
 	                	$('#gender').val(gender).trigger('change');
 	                	var residency_nz = '${(client.residency_nz)!}';
@@ -1023,15 +1044,19 @@ function CalReview(node_index){
 	                	
 	                	var source_of_income = JSON.parse('${(client.source_of_income)!}');
 	                	$("#source_of_income").val(source_of_income).trigger('change');
-	                	var ages = '${(client.dependants_age)!}';
-	                	if(ages!=''){
-		                	var ageArray = JSON.parse(ages);
-		                	var names = document.getElementsByName("dependants_age");
-		    				for(var i=0;i<ageArray.length;i++){
-		    					names[i].value=ageArray[i];
-		    				} 
-		                	
-	                	} 
+	                	if(type==2){
+	                		var ages = '${(client.dependants_age)!}';
+		                	if(ages!=''){
+			                	var ageArray = JSON.parse(ages);
+			                	var names = document.getElementsByName("dependants_age");
+			                	//alert(names.length)
+			    				for(var i=0;i<ageArray.length;i++){
+			    					names[i].value=ageArray[i];
+			    				} 
+			                	
+		                	} 
+	                	}
+	                	
 	                	
 	                	var mobiles = '${(client.mobile)!}';
 	                	if(mobiles!=''){
@@ -1068,17 +1093,24 @@ function CalReview(node_index){
 		    				}  
 	                	} 
 	                	//dannel modify
-	                	var preaddresses = '${(client.previous_residential_address)!}';
-	                	if(preaddresses!=''){
-		                	var preaddressArray = JSON.parse(preaddresses);
-		                	for(var i=1;i<preaddressArray.length;i++){
-		                		copyNode("inputpreaddress");
-		                	}
-		                	var preaddress = document.getElementsByName("preaddress");
-		    				for(var i=0;i<preaddressArray.length;i++){
-		    					preaddress[i].value=preaddressArray[i];
-		    				}  
-	                	} 
+	                	if(type==2){
+	                		var preaddresses = '${(client.previous_residential_address)!}';
+		                	if(preaddresses!=''){
+			                	var preaddressArray = JSON.parse(preaddresses);
+			                	for(var i=1;i<preaddressArray.length;i++){
+			                		copyNode("inputpreaddress");
+			                	}
+			                	var preaddress = document.getElementsByName("preaddress");
+			                	var p_time_stayed_years = document.getElementsByName("p_time_stayed_years");
+			    				var p_time_stayed_months = document.getElementsByName("p_time_stayed_months");
+			    				for(var i=0;i<preaddressArray.length;i++){
+			    					preaddress[i].value=preaddressArray[i]['preaddress'];
+			    					p_time_stayed_years[i].value=preaddressArray[i]['p_time_stayed_years'];
+			    					p_time_stayed_months[i].value=preaddressArray[i]['p_time_stayed_months'];
+			    				}  
+		                	} 
+	                	}
+	                	
 	                	
 	                	var curemployment = '${(client.current_employment)!}';
 	                	if(curemployment!=''){
@@ -1089,10 +1121,12 @@ function CalReview(node_index){
 		                	var curcompany = document.getElementsByName("curcompany");
 		    				var curoccupation = document.getElementsByName("curoccupation");
 		    				var curduration = document.getElementsByName("curduration");
+		    				var gross_income = document.getElementsByName("gross_income");
 		    				for(var i=0;i<curemploymentArray.length;i++){
 		    					curcompany[i].value=curemploymentArray[i]['curcompany'];
 		    					curoccupation[i].value=curemploymentArray[i]['curoccupation'];
 		    					curduration[i].value=curemploymentArray[i]['curduration'];
+		    					gross_income[i].value=curemploymentArray[i]['gross_income'];
 		    				}  
 	                	} 
 	                	
@@ -1203,12 +1237,7 @@ function SaveClient(method){
 		        })
 		        var address = JSON.stringify(addressArr);
 		        
-		      //dannel modify
-		        var preaddressArr=[];
-		        $("input[name='preaddress']").each(function(){
-		        	preaddressArr.push($(this).val());
-		        })
-		        var previous_residential_address = JSON.stringify(preaddressArr);
+		      
 		        
 				var home_phone=$('#home_phone').val();
 				var wechat=$('#wechat').val();
@@ -1236,8 +1265,9 @@ function SaveClient(method){
 					if(names[i].value!='')
 						ageArray.push(names[i].value);
 				} 
-				//alert(ageArray);
+				
 				var jsonStr = JSON.stringify( ageArray );
+				//alert(jsonStr);
 				
 				
 				
@@ -1247,9 +1277,22 @@ function SaveClient(method){
 				var current_residential_address=$('#current_residential_address').val();
 				var time_stayed_years=$('#time_stayed_years').val();
 				var time_stayed_months=$('#time_stayed_months').val();
-				/* var previous_residential_address=$('#previous_residential_address').val(); */ //dannel modify
 				var p_time_stayed_years=$('#p_time_stayed_years').val();
 				var p_time_stayed_months=$('#p_time_stayed_months').val();
+				
+		        var preaddressArr=new Array();
+				var preaddress = document.getElementsByName("preaddress");
+				var p_time_stayed_years = document.getElementsByName("p_time_stayed_years");
+				var p_time_stayed_months = document.getElementsByName("p_time_stayed_months");
+				for(var i=0;i<preaddress.length;i++){
+					if(preaddress[i].value!=''){
+						preaddressArr.push({"preaddress":preaddress[i].value,
+							"p_time_stayed_years":p_time_stayed_years[i].value
+							,"p_time_stayed_months":p_time_stayed_months[i].value});
+					}
+				} 
+				var jsonPreAddress = JSON.stringify( preaddressArr );
+		        
 				var postal_address=$('#postal_address').val();
 				var current_living_situation=$('#current_living_situation').val();
 				
@@ -1259,16 +1302,21 @@ function SaveClient(method){
 				var company=$('#company').val();
 				var duration=$('#duration').val();
 				var gross_income=$('#gross_income').val();
-				
+				/* alert(occupation)
+				alert(company)
+				alert(duration)*/
+				//alert(gross_income) 
 				var curemployArray = new Array();
 				var curcompany = document.getElementsByName("curcompany");
 				var curoccupation = document.getElementsByName("curoccupation");
 				var curduration = document.getElementsByName("curduration");
+				var curgross_income = document.getElementsByName("gross_income");
 				for(var i=0;i<curcompany.length;i++){
 					if(curcompany[i].value!=''){
 						curemployArray.push({"curcompany":curcompany[i].value,
-							"curoccupation":curoccupation[i].value
-							,"curduration":curduration[i].value});
+							"curoccupation":curoccupation[i].value,
+							"curduration":curduration[i].value,
+							"gross_income":curgross_income[i].value});
 					}
 				} 
 				var jsonCurEmploy = JSON.stringify( curemployArray );
@@ -1363,8 +1411,7 @@ function SaveClient(method){
 					"client.residency_nz":residency_nz,
 					"client.marital_status":marital_status,"client.current_residential_address":current_residential_address,
 					"client.time_stayed_years":time_stayed_years,"client.time_stayed_months":time_stayed_months,
-					"client.previous_residential_address":previous_residential_address,
-					"client.p_time_stayed_years":p_time_stayed_years,"client.p_time_stayed_months":p_time_stayed_months,
+					"client.previous_residential_address":jsonPreAddress,
 					"client.postal_address":postal_address,"client.current_living_situation":current_living_situation,
 					"client.source_of_income":source_of_income,
 					"client.occupation":occupation,"client.company":company,
@@ -1382,7 +1429,6 @@ function SaveClient(method){
 						return false;
 					}
 					else{ 
-						//sessionStorage.setItem("fynco_email", vemail); 
 						if(ilay==0){
 							mlayer.open({
 							    content: 'Success',
@@ -1422,8 +1468,6 @@ function SaveClient(method){
 						 				
 					 				parent.$("#minus_ids").val(minus);
 					 				parent.$("#app_ids").val(String(union));
-					 				//alert("minus:"+minus)
-					 				//alert(union)
 					 			}
 								
 								
@@ -1434,16 +1478,7 @@ function SaveClient(method){
 								
 								
 								var index = parent.layer.getFrameIndex(window.name);
-								/* if(parent.$("#app_ids").val()==''){
-									parent.$("#app_ids").val(data.id);
-								}
-								else{
-									var ids = new Set(parent.$("#app_ids").val().split(','));
-									ids.add(data.id);
-									parent.$("#app_ids").val(String(Array.from(ids)));
-								} */
 								
-								//alert(parent.$("#app_ids").val());
 					 	        parent.layer.close(index);
 							}
 							else if(iframe==1){
