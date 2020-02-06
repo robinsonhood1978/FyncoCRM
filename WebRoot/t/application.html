@@ -67,7 +67,7 @@
                                                 </div>
                                             </th>
 
-                                            <th>Name</th>
+                                            <th>Applicant Name</th>
                                             <th >Lender</th>
                                             <th >Lending Purpose</th>
                                             <th >Loan Amount</th>
@@ -94,7 +94,8 @@
                                                     
                                                     <div class="media-body">
 
-                                                        <span class="js-lists-values-employee-name">${(x.whole_name)!}</span>
+                                                        <span id="clients_name_${x_index}" class="js-lists-values-employee-name"></span>
+                                                        <input name="dealstr" type="hidden" value="${x_index}#${(x.dealstr)!}"/>
 
                                                     </div>
                                                 </div>
@@ -285,35 +286,49 @@ function View(id){
         }
 	});
 }
+function ViewClient(id){
+	//alert(id)
+	var url = '/client/view?l=s&id='+id;
+	layer.open({
+		type: 2,
+		title: 'Client Details',
+		fixed: false, //不固定
+		maxmin: true,
+	    shadeClose: true, //点击遮罩关闭层
+		area: ['60%', '85%'],
+		content: url ,
+		success:function(layero,index){
+        },
+        end:function(){
+        	//ShowApplicant();
+        }
+	});
+}
 $(function () { 
 	var field = '${session.application_field!}';
 	if(field!='')
 		$('#field').val(field);
-	/* $( "#delete" ).on("click",function() {
-		var checks =$(".check_class").val();
-		alert(checks); */
-		/* var keyword = $('#keyword').val();
-		var field = $('#field').val();
-		$.post("/lead", {keyword,field}, function(data) {
-			if(data.code==1){
-			 	layer.open({
-				    content: 'Fail',
-				    btn: 'Got it'
-				  });
-			}
-			else{ 
-				//sessionStorage.setItem("fynco_email", vemail); 
-				layer.open({
-				    content: 'Success',
-				    btn: 'Got it',
-				    yes: function(){
-				    	location.href="/lead";
-				      }
-				  });
-			}
-		}, "json"); */
-	//}); 
+	
+	
 })
+window.onload = function() { 
+	var dealstrArray = document.getElementsByName("dealstr");
+	for(var i=0;i<dealstrArray.length;i++){
+		var dealstr=dealstrArray[i].value;
+		var dealArr = dealstr.split("#");
+		var foot = dealArr[0];
+		var deal = dealArr[1];
+		var dealA = deal.split(",");
+		var link = '';
+		for(var j=0;j<dealA.length;j++){
+			var dlA=dealA[j].split("-");
+			if(j>0)link+='<br/>';
+			link += '<a onclick="ViewClient('+dlA[0]+')" href="javascript:void(0)">'+dlA[1]+'</a>';
+		}
+		$('#clients_name_'+foot).html(link);
+	}
+}
+
 </script>			
 
 </@layout>

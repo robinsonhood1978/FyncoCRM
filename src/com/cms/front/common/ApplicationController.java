@@ -65,15 +65,15 @@ public class ApplicationController extends Controller {
 		User u = getSessionAttr("user");
 		Page<Record> page = null;
 		// 当前页
-		StringBuffer sql =new StringBuffer("from application c INNER JOIN application_client AS a ON a.application_id = c.id INNER JOIN client AS b ON a.client_id = b.id where c.status="+status+" and c.creator="+u.getInt("id")+" ORDER BY c.create_time DESC");
+		StringBuffer sql =new StringBuffer("from application a join application_client ac on a.id=ac.application_id join client c on ac.client_id=c.id where a.status="+status+" and a.creator="+u.getInt("id")+" group by a.id ORDER BY a.create_time DESC");
 		if(getSessionAttr("application_field")!=null) {
 			keyword = getSessionAttr("application_keyword");
 			field = getSessionAttr("application_field");
-			sql.append(" and c."+field+" like '%"+keyword+"%'");
+			sql.append(" and a."+field+" like '%"+keyword+"%'");
 		}
 		
 		
-		page = Db.paginate(pageNum, 20, "select c.*, CONCAT_WS(' ', b.first_name, b.last_name) AS whole_name",sql.toString());
+		page = Db.paginate(pageNum, 20, "select GROUP_CONCAT(ac.client_id,'-',c.first_name,' ',c.last_name) as dealstr,a.id,a.status,a.lender,a.lending_purpose,a.lending_amount_required,a.application_date",sql.toString());
 		setAttr("contentPage", page);
 		setAttr("status", status);
 		render("/t/application.html");
