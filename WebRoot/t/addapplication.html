@@ -16,6 +16,7 @@
                             </nav>
                             <h1 class="m-0"><#if method=='add'>New<#else>Edit</#if> Application</h1>
                             <div class="text-right mb-7">
+                            	<button class="btn btn-success" onClick="return SaveApp('${method}');">Save Application</button>
                         	 	<button onclick="history.go(-1)" class="btn btn-success">Go Back</button>
                         	 </div>
                         </div>
@@ -27,12 +28,16 @@
                     <div class="container-fluid page__container">
                     
                         <div class="card card-form">
-                            <div class="row no-gutters">
-                                <div class="col-lg-4 card-body">
+                        <div class="col-lg-12 card-body " style="font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;">
                                     <p><strong class="headings-color">General</strong></p>
                                    
-                                </div>
-                                <div class="col-lg-8 card-form__body card-body">
+                         </div>
+                            <div class="row no-gutters">
+                                <!-- <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">General</strong></p>
+                                   
+                                </div> -->
+                                <div class="col-lg-12 card-form__body card-body">
                                 	<div class="row">
                                         <!-- div class="col">
                                             <div class="form-group">
@@ -76,12 +81,13 @@
                             </div>
                         </div>
                         <div class="card card-form">
-                            <div class="row no-gutters">
-                                <div class="col-lg-4 card-body">
+                        <div class="col-lg-12 card-body" style="font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;">
                                     <p><strong class="headings-color">Loan Information</strong></p>
                                    
                                 </div>
-                                <div class="col-lg-8 card-form__body card-body">
+                            <div class="row no-gutters">
+                                
+                                <div class="col-lg-12 card-form__body card-body">
                                 	
                                  	<div class="row">
                                  		<div class="col">
@@ -129,11 +135,10 @@
                                                 <input type="text" class="form-control" id="LVR" value="${(application.LVR)!}">
                                             </div>
                                         </div>
-                                        
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="lname">Finance Date</label>
-                                                <input id="finance_date" type="text" class="form-control" value="<#if application??&&application.finance_date??>${(application.finance_date)?string('dd/MM/yyyy')!}</#if>" placeholder="date: 00/00/0000" data-mask="00/00/0000" autocomplete="off" maxlength="10">
+                                                <label for="lname">UMI</label>
+                                                <input type="text" class="form-control" id="UMI" value="${(application.UMI)!}">
                                             </div>
                                         </div>
                                     </div>
@@ -141,15 +146,16 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="fname">Settlement Date</label>
-                                                <input id="settlement_date" type="text" class="form-control" value="<#if application??&&application.settlement_date??>${(application.settlement_date)?string('dd/MM/yyyy')!}</#if>" placeholder="date: 00/00/0000" data-mask="00/00/0000" autocomplete="off" maxlength="10">
+                                                <input id="settlement_date" type="date" class="form-control" value="<#if application??&&application.settlement_date??>${(application.settlement_date)?string('dd/MM/yyyy')!}</#if>" placeholder="date: 00/00/0000" maxlength="10">
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="lname">Borrower</label>
-                                                <input type="text" class="form-control" id="borrower" value="${(application.borrower)!}">
+                                                <label for="lname">Finance Date</label>
+                                                <input id="finance_date" type="date" class="form-control" value="<#if application??&&application.finance_date??>${(application.finance_date)?string('dd/MM/yyyy')!}</#if>" placeholder="date: 00/00/0000" maxlength="10">
                                             </div>
                                         </div>
+                                        
                                     </div>
                                     <div class="row">
                                     	<div class="col">
@@ -160,12 +166,13 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="lname">UMI</label>
-                                                <input type="text" class="form-control" id="UMI" value="${(application.UMI)!}">
+                                                <label for="lname">Borrower</label>
+                                                <input type="text" class="form-control" id="borrower" value="${(application.borrower)!}">
                                             </div>
                                         </div>
+                                        
                                     </div>
-                                    <div class="row">
+                                    <!-- <div class="row">
                                     	<div class="col">
                                             <div class="form-group">
                                                 <label for="lname">Existing Loan Amount</label>
@@ -179,7 +186,7 @@
                                             </div>
                                         </div>
                                         
-                                    </div>
+                                    </div> -->
 
                                 </div>
                                 
@@ -188,12 +195,13 @@
                         </div>
                         
                         <div class="card card-form">
-                            <div class="row no-gutters">
-                                <div class="col-lg-4 card-body">
+                        <div class="col-lg-12 card-body" style="font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;">
                                     <p><strong class="headings-color">Security</strong></p>
-                                    <p class="text-muted">Edit the client detailed security information.</p>
+                                    <!-- <p class="text-muted">Edit the client detailed security information.</p> -->
                                 </div>
-                                <div class="col-lg-8 card-form__body card-body">
+                            <div class="row no-gutters">
+                                
+                                <div class="col-lg-12 card-form__body card-body">
                                 	<div id="security">
 	                                	<div id="security_property">
 	                                	<div id="security_property_[property_index]">
@@ -257,8 +265,8 @@
                                    
                                     <div class="row">
                                         <div class="col">
-                                            <div class="form-group">
-			                                   <div id="addproperty">
+                                            <div class="form-group" style="text-align: center; border: solid 1px; height: 40px; border-radius:15px;" >
+			                                   <div id="addproperty" style="margin: 5px;">
                                                 <i class="material-icons">add_circle_outline</i>
                                            		<label for="fname">Add More Property</label>
                                            		</div>
@@ -271,10 +279,14 @@
                                 </div>
                             </div>
                         </div>
-<div class="card card-form">
+							<div class="card card-form">
+							<div class="col-lg-12 card-body" style="font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;">
+                                    <p><strong class="headings-color">Applicant</strong></p>
+                                   
+                                </div>
                             <div class="row no-gutters">
                                 
-                                <div class="col-lg-8 card-form__body card-body">
+                                <div class="col-lg-12 card-form__body card-body">
                                 	
                                  	<div class="row">
                                  		<!-- div class="col">
@@ -294,34 +306,32 @@
                                             </div>
                                         </div-->
                                         <div class="col">
-                                            <div class="form-group">
-			                                   <div id="add_new_applicant">
+                                            <div class="form-group" style="text-align: center; border: solid 1px; height: 40px; border-radius:15px;">
+			                                   <div id="add_new_applicant" style="margin: 5px;">
                                                 <i class="material-icons">add_circle_outline</i>
                                            		<label for="fname">New Applicant</label>
                                            		</div>
                                             </div>
                                         </div>
-                                        <!-- div class="col">
-                                            <div class="form-group">
-			                                   <div id="from_applicant">
+                                        <!-- <div class="col">
+                                            <div class="form-group" style="text-align: center; border: solid 1px; height: 40px; border-radius:15px;">
+			                                   <div id="from_applicant" style="margin: 5px;">
                                                 <i class="material-icons">add_circle_outline</i>
                                            		<label for="fname">Applicants</label>
                                            		</div>
                                             </div>
-                                        </div -->
+                                        </div> -->
                                         <div class="col">
-                                            <div class="form-group">
-                                               
-			                                   <div id="addapplicantfromleads">
+                                            <div class="form-group" style="text-align: center; border: solid 1px; height: 40px; border-radius:15px;">
+			                                   <div id="addapplicantfromleads" style="margin: 5px;">
                                                 <i class="material-icons">add_circle_outline</i>
                                            		<label for="fname">Leads</label>
                                            		</div>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group">
-                                               
-			                                   <div id="addapplicantfromclient">
+                                            <div class="form-group" style="text-align: center; border: solid 1px; height: 40px; border-radius:15px;">
+			                                   <div id="addapplicantfromclient" style="margin: 5px;">
                                                 <i class="material-icons">add_circle_outline</i>
                                            		<label for="fname">Clients</label>
                                            		</div>
@@ -347,7 +357,7 @@
 					                                    <div class="dropdown ml-auto">
 					                                        <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
 					                                        <div class="dropdown-menu dropdown-menu-right">
-					                                            <a href="javascript:void(0)" class="dropdown-item">View</a>
+					                                            <a href="javascript:void(0)" onclick="ViewApplicant('[applicant_id]');" class="dropdown-item">View</a>
 					                                            <a href="javascript:void(0)" onclick="EditApplicant('[applicant_id]');" class="dropdown-item">Edit</a>
 					                                            <div class="dropdown-divider"></div>
 					                                            <a href="javascript:void(0)" onclick="RemoveDiv('[applicant_id]');" class="dropdown-item">Remove</a>
@@ -366,10 +376,7 @@
 
                                 </div>
                                 
-                                <div class="col-lg-2 card-body">
-                                    <p><strong class="headings-color">Applicant</strong></p>
-                                   
-                                </div>
+                                
                             </div>
                         </div>
                         
@@ -400,7 +407,7 @@
 	                                        <div id="newapplicant_forms" class="card-body tab-content">
 	                                        <div style="display:none" id="newapplicant_form">
 	                                            <div class="tab-pane active show fade" id="newapplicant_form_[newapplicant_index]">
-	                                            <div style="height:2370px;max-height:100%" class="embed-responsive embed-responsive-1by1">
+	                                            <div style="height:640px;max-height:100%" class="embed-responsive embed-responsive-1by1">
 	  <iframe style="max-height:100%" class="embed-responsive-item" src="/client/add?type=2&l=s&i=1&tb=[newapplicant_index]"></iframe>
 	</div>  
 	                                            </div>
@@ -416,14 +423,21 @@
                         	
                         
                         <div class="card card-form">
-                            <div class="row no-gutters">
-                                <div class="col-lg-4 card-body">
+                        <div class="col-lg-12 card-body" style="font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;"> 
                                     <p><strong class="headings-color">Assets</strong></p>
                                     <p class="text-muted"></p>
                                 </div>
-                                <div class="col-lg-8 card-form__body">
+                            <div class="row no-gutters">
+                                
+                                <div class="col-lg-12 card-form__body">
                                    			<div class="row">
-                                                   <div style="width:5%">
+                                   			<div style="vertical-align: bottom;width:20%;">
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+                                                        
+		                                            </div>
+			                                     </div>
+                                                  <div style="width:10%;" >
 		                                            <div class="form-group">
 		                                            <div class="custom-control custom-checkbox">
 		                     
@@ -431,12 +445,7 @@
 		                                              
 		                                            </div>
 			                                     </div>
-			                                     <div style="vertical-align: bottom;width:25%">
-		                                            <div style="vertical-align: bottom;" class="form-group">
-		                                               
-                                                        
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		                                            <br/>
@@ -458,7 +467,15 @@
 		                                        </div>
 		                                    </div>
                                             <div class="row">
-                                                   <div style="width:5%">
+                                            <div style="width:20%;">
+		                                            <div style=" margin-left:40px; margin-top: 15px;" class="form-group">
+                                                       <div class="custom-control custom-checkbox">
+                                                       
+                                                       Cash
+                                                       </div>
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%;">
 		                                            <div class="form-group">
 		                                            <div class="custom-control custom-checkbox">
 		                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -466,14 +483,7 @@
 		                                              
 		                                            </div>
 			                                     </div>
-			                                     <div style="vertical-align: bottom;width:25%">
-		                                            <div style="vertical-align: bottom;" class="form-group">
-		                                               
-		                                               <label>&nbsp;</label><br/>
-                                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Cash
-                                                        
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		                                            <label></label>
@@ -498,26 +508,27 @@
                                                 <div id="saving_[saving_index]">
                                                 
                                                    <div class="row">
-                                                   <div style="width:5%">
+                                               
+                                                   <div style="width:20%;">
+		                                            <div class="form-group" style="margin-left:40px; margin-top: 7px;">
+		                                               <div id="txt_saving" class="custom-control custom-checkbox">
+   
+                                                        Saving
+                                                        </div>
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%;">
 		                                            <div class="form-group">
-		                                               <div class="custom-control custom-checkbox">
-		                                               <label></label>
+		                                               <div class="custom-control custom-checkbox" style="text-align: center;margin-top: 7px;">
 		                                               		
-                                                            <i id="add_saving" class="material-icons">add_circle_outline</i>
+                                                            <i id="add_saving" class="material-icons" >add_circle_outline</i>
                                                           
                                                             <i style="display:none" onclick="RemoveSaving('[saving_index]')" id="minus_saving" class="material-icons">remove_circle_outline</i>
                                                         
                                                         </div>
 		                                            </div>
 			                                     </div>
-			                                     <div style="width:25%">
-		                                            <div class="form-group">
-		                                               <div id="txt_saving" class="custom-control custom-checkbox">
-                                                            <label></label><br/>
-                                                        Saving
-                                                        </div>
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		             
@@ -546,10 +557,18 @@
                                                 <div id="investment_[investment_index]">
                                                 
                                                    <div class="row">
-                                                   <div style="width:5%">
+                                                   <div style="width:20%">
+		                                            <div class="form-group" style="margin-left:40px; margin-top: 7px;">
+		                                               <div id="txt_investment" class="custom-control custom-checkbox">
+                                                            
+                                                        Investment
+                                                        </div>
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%">
 		                                            <div class="form-group">
-		                                               <div class="custom-control custom-checkbox">
-		                                               <label></label>
+		                                               <div class="custom-control custom-checkbox" style="text-align: center;margin-top: 7px;">
+		                                             
 		                                               		
                                                             <i id="add_investment" class="material-icons">add_circle_outline</i>
                                                           
@@ -558,14 +577,7 @@
                                                         </div>
 		                                            </div>
 			                                     </div>
-			                                     <div style="width:25%">
-		                                            <div class="form-group">
-		                                               <div id="txt_investment" class="custom-control custom-checkbox">
-                                                            <label></label><br/>
-                                                        Investment
-                                                        </div>
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		             
@@ -593,10 +605,16 @@
                                                 <div id="kiwisaver_[kiwisaver_index]">
                                                 
                                                    <div class="row">
-                                                   <div style="width:5%">
+                                                   <div style="width:20%">
+			                                            <div class="form-group" style="margin-left:40px; margin-top: 7px;">
+			                                               <div id="txt_kiwisaver" class="custom-control custom-checkbox">
+	                                                        KiwiSaver
+	                                                        </div>
+			                                            </div>
+			                                     	</div>
+                                                   <div style="width:10%">
 		                                            <div class="form-group">
-		                                               <div class="custom-control custom-checkbox">
-		                                               <label></label>
+		                                               <div class="custom-control custom-checkbox" style="text-align: center;margin-top: 7px;">
 		                                               		
                                                             <i id="add_kiwisaver" class="material-icons">add_circle_outline</i>
                                                           
@@ -605,14 +623,7 @@
                                                         </div>
 		                                            </div>
 			                                     </div>
-			                                     <div style="width:25%">
-		                                            <div class="form-group">
-		                                               <div id="txt_kiwisaver" class="custom-control custom-checkbox">
-                                                            <label></label><br/>
-                                                        KiwiSaver
-                                                        </div>
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		             
@@ -640,10 +651,17 @@
                                                 <div id="vehicle_[vehicle_index]">
                                                 
                                                    <div class="row">
-                                                   <div style="width:5%">
+                                                   <div style="width:20%">
+		                                            <div class="form-group" style="margin-left:40px; margin-top: 7px;">
+		                                               <div id="txt_vehicle" class="custom-control custom-checkbox">
+                                                            
+                                                        Motor Vehicle
+                                                        </div>
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%">
 		                                            <div class="form-group">
-		                                               <div class="custom-control custom-checkbox">
-		                                               <label></label>
+		                                               <div class="custom-control custom-checkbox" style="text-align: center;margin-top: 7px;">
 		                                               		
                                                             <i id="add_vehicle" class="material-icons">add_circle_outline</i>
                                                           
@@ -652,14 +670,7 @@
                                                         </div>
 		                                            </div>
 			                                     </div>
-			                                     <div style="width:25%">
-		                                            <div class="form-group">
-		                                               <div id="txt_vehicle" class="custom-control custom-checkbox">
-                                                            <label></label><br/>
-                                                        Motor Vehicle
-                                                        </div>
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		             
@@ -683,7 +694,14 @@
                                                 </div>
                                                 </div>      
                                    <div class="row">
-                                                   <div style="width:5%">
+                                   				<div style="width:20%">
+		                                            <div style=" margin-left:40px; margin-top: 15px;" class="form-group">
+		                                               <div class="custom-control custom-checkbox">
+		                                               Furniture
+                                                        </div>
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%">
 		                                            <div class="form-group">
 		                                            <div class="custom-control custom-checkbox">
 		                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -691,14 +709,7 @@
 		                                              
 		                                            </div>
 			                                     </div>
-			                                     <div style="vertical-align: bottom;width:25%">
-		                                            <div style="vertical-align: bottom;" class="form-group">
-		                                               
-		                                               <label>&nbsp;</label><br/>
-                                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Furniture
-                                                        
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		                                            <label></label>
@@ -718,7 +729,14 @@
 		                                        </div>
 		                                    </div>  
 		                           <div class="row">
-                                                   <div style="width:5%">
+			                           			<div style="width:20%">
+		                                            <div style=" margin-left:40px; margin-top: 15px;" class="form-group">
+		                                               <div class="custom-control custom-checkbox">
+		                                               Term Deposit
+                                                        </div>
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%">
 		                                            <div class="form-group">
 		                                            <div class="custom-control custom-checkbox">
 		                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -726,14 +744,7 @@
 		                                              
 		                                            </div>
 			                                     </div>
-			                                     <div style="vertical-align: bottom;width:25%">
-		                                            <div style="vertical-align: bottom;" class="form-group">
-		                                               
-		                                               <label>&nbsp;</label><br/>
-                                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Term Deposit
-                                                        
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		                                            <label></label>
@@ -753,7 +764,14 @@
 		                                        </div>
 		                                    </div> 
 		              <div class="row">
-                                                   <div style="width:5%">
+		              						<div style="width:20%">
+		                                            <div style=" margin-left:40px; margin-top: 15px;" class="form-group">
+		                                               <div class="custom-control custom-checkbox">
+		                                               Other Currency Account
+                                                        </div>
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%">
 		                                            <div class="form-group">
 		                                            <div class="custom-control custom-checkbox">
 		                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -761,14 +779,7 @@
 		                                              
 		                                            </div>
 			                                     </div>
-			                                     <div style="vertical-align: bottom;width:25%">
-		                                            <div style="vertical-align: bottom;" class="form-group">
-		                                               
-		                                               <label>&nbsp;</label><br/>
-                                                       &nbsp;&nbsp;&nbsp;Other Currency Account
-                                                        
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		                                            <label></label>
@@ -788,6 +799,13 @@
 		                                        </div>
 		                                    </div>                         
                                    <div class="row">
+                                   <div style="width:25%">
+		                                            <div style=" margin-left:40px; margin-top: 15px;" class="form-group">
+		                                               <div class="custom-control custom-checkbox">
+                                                       Deposit on property (If Paid)
+                                                        </div>
+		                                            </div>
+			                                     </div>
                                                    <div style="width:5%">
 		                                            <div class="form-group">
 		                                            <div class="custom-control custom-checkbox">
@@ -796,14 +814,7 @@
 		                                              
 		                                            </div>
 			                                     </div>
-			                                     <div style="vertical-align: bottom;width:25%">
-		                                            <div style="vertical-align: bottom;" class="form-group">
-		                                               
-		                                               <label>&nbsp;</label><br/>
-                                                       Deposit on property (If Paid)
-                                                        
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		                                            <label></label>
@@ -828,10 +839,18 @@
                                                 <div id="property_[property_index]">
                                                 
                                                    <div class="row">
-                                                   <div style="width:5%">
-		                                            <div class="form-group">
-		                                               <div class="custom-control custom-checkbox">
-		                                               <label></label>
+                                                   <div style="width:20%">
+		                                            <div class="form-group" style="margin-left:40px; margin-top: 7px;">
+		                                               <div id="txt_property" class="custom-control custom-checkbox">
+                                                            
+                                                        Property
+                                                        </div>
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%">
+		                                            <div class="form-group" >
+		                                               <div class="custom-control custom-checkbox" style="text-align: center;margin-top: 7px;">
+		                                               
 		                                               		
                                                             <i id="add_property" class="material-icons">add_circle_outline</i>
                                                           
@@ -840,14 +859,7 @@
                                                         </div>
 		                                            </div>
 			                                     </div>
-			                                     <div style="width:25%">
-		                                            <div class="form-group">
-		                                               <div id="txt_property" class="custom-control custom-checkbox">
-                                                            <label></label><br/>
-                                                        Property
-                                                        </div>
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		             
@@ -876,10 +888,18 @@
                                                 <div id="businessown_[businessown_index]">
                                                 
                                                    <div class="row">
-                                                   <div style="width:5%">
+                                                   <div style="width:20%">
+		                                            <div class="form-group" style="margin-left:40px; margin-top: 7px;">
+		                                               <div id="txt_businessown" class="custom-control custom-checkbox">
+                                                            
+                                                        Business owned
+                                                        </div>
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%">
 		                                            <div class="form-group">
-		                                               <div class="custom-control custom-checkbox">
-		                                               <label></label>
+		                                               <div class="custom-control custom-checkbox" style="text-align: center;margin-top: 7px;">
+		                                               
 		                                               		
                                                             <i id="add_businessown" class="material-icons">add_circle_outline</i>
                                                           
@@ -888,14 +908,7 @@
                                                         </div>
 		                                            </div>
 			                                     </div>
-			                                     <div style="width:25%">
-		                                            <div class="form-group">
-		                                               <div id="txt_businessown" class="custom-control custom-checkbox">
-                                                            <label></label><br/>
-                                                        Business owned
-                                                        </div>
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		             
@@ -923,10 +936,18 @@
                                                 <div id="otherasset_[otherasset_index]">
                                                 
                                                    <div class="row">
-                                                   <div style="width:5%">
+                                                   <div style="width:20%">
+		                                            <div class="form-group" style="margin-left:40px; margin-top: 7px;">
+		                                               <div id="txt_otherasset" class="custom-control custom-checkbox">
+                                                            
+                                                        Other Assets (Specify) 
+                                                        </div>
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%">
 		                                            <div class="form-group">
-		                                               <div class="custom-control custom-checkbox">
-		                                               <label></label>
+		                                               <div class="custom-control custom-checkbox" style="text-align: center;margin-top: 7px;">
+		                                               
 		                                               		
                                                             <i id="add_otherasset" class="material-icons">add_circle_outline</i>
                                                           
@@ -935,14 +956,7 @@
                                                         </div>
 		                                            </div>
 			                                     </div>
-			                                     <div style="width:25%">
-		                                            <div class="form-group">
-		                                               <div id="txt_otherasset" class="custom-control custom-checkbox">
-                                                            <label></label><br/>
-                                                        Other Assets (Specify) 
-                                                        </div>
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		             
@@ -966,7 +980,15 @@
                                                 </div>
                                                 </div>                           
 									<div class="row">
-                                                   <div style="width:5%">
+												<div style="vertical-align: bottom;width:20%;">
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+		                                               <label>&nbsp;</label>
+                                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                                                        
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%">
 		                                            <div class="form-group">
 		                                            <div class="custom-control custom-checkbox">
 		                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -974,19 +996,19 @@
 		                                              
 		                                            </div>
 			                                     </div>
-			                                     <div style="vertical-align: bottom;width:25%">
-		                                            <div style="vertical-align: bottom;" class="form-group">
-		                                               
-		                                               <label>&nbsp;</label>
-                                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total Value
-                                                        
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div style="display:none;" class="form-group">
 		                                            <label></label>
 		                                               <a href="javascript:void(0)" onclick="Asset();">Calculate Total Value</a>
 		                                            </div>
+		                                            <div style="width:100%">
+		                                            <div  class="form-group">
+		                                               
+		                                                Total Value
+                                                        
+		                                            </div>
+			                                     </div>
 			                                     </div>
 		                                        <div class="col">
 		                                            <div class="form-group">
@@ -1009,14 +1031,21 @@
                         
                         
                          <div class="card card-form">
-                            <div class="row no-gutters">
-                                <div class="col-lg-4 card-body">
+                         <div class="col-lg-12 card-body" style="font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;">
                                     <p><strong class="headings-color">Liabilities</strong></p>
                                     <p class="text-muted"></p>
                                 </div>
-                                <div class="col-lg-8 card-form__body">
+                            <div class="row no-gutters">
+                                
+                                <div class="col-lg-12 card-form__body">
                                    			<div class="row">
-                                                   <div style="width:5%">
+                                   				<div style="vertical-align: bottom;width:20%">
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+                                                        
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%">
 		                                            <div class="form-group">
 		                                            <div class="custom-control custom-checkbox">
 		                     
@@ -1024,12 +1053,7 @@
 		                                              
 		                                            </div>
 			                                     </div>
-			                                     <div style="vertical-align: bottom;width:25%">
-		                                            <div style="vertical-align: bottom;" class="form-group">
-		                                               
-                                                        
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		                                            <br/>
@@ -1055,10 +1079,29 @@
                                                 <div id="loandrop_[loandrop_index]">
                                                 
                                                    <div class="row">
-                                                   <div style="width:5%">
+                                                   <div style="width:20%">
 		                                            <div class="form-group">
-		                                               <div class="custom-control custom-checkbox">
-		                                               <label></label>
+		                                               <div class="custom-control custom-checkbox" style="margin-left: 40px;">
+                                                        <div id="txt_loandrop" style="display:inline-block;" ><label for="lname">Loan</label></div>
+		                                                <div style="width:70%;display:inline-block;" >
+		                                                <select id="sel_loandrop" name="loandrop_sel" style="display:inline-block;"  class="form-control">
+						                                    <option value="Home Loan">Home Loan</option>
+						                                    <option value="Commercial Loan">Commercial Loan</option>
+						                                    <option value="Business Loan">Business Loan</option>
+						                                    <option value="Personal Loan">Personal Loan</option>
+						                                    <option value="Student Loan">Student Loan</option>
+						                                    <option value="Car Loan">Car Loan</option>
+						                                    <option value="Second tier Lending">Second tier Lending</option>
+						                                    <option value="Other">Other</option>
+						                                </select>
+						                                </div>
+                                                        </div>
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%">
+		                                            <div class="form-group">
+		                                               <div class="custom-control custom-checkbox" style="text-align: center;margin-top: 7px;">
+		                                               
 		                                               		
                                                             <i id="add_loandrop" class="material-icons">add_circle_outline</i>
                                                           
@@ -1067,25 +1110,7 @@
                                                         </div>
 		                                            </div>
 			                                     </div>
-			                                     <div style="width:25%">
-		                                            <div class="form-group">
-		                                               <div class="custom-control custom-checkbox">
-                                                        <div id="txt_loandrop" style="display:inline-block;" ><label for="lname">Loan</label></div>
-                                                <div style="width:70%;display:inline-block;" >
-                                                <select id="sel_loandrop" name="loandrop_sel" style="display:inline-block;"  class="form-control">
-				                                    <option value="Home Loan">Home Loan</option>
-				                                    <option value="Commercial Loan">Commercial Loan</option>
-				                                    <option value="Business Loan">Business Loan</option>
-				                                    <option value="Personal Loan">Personal Loan</option>
-				                                    <option value="Student Loan">Student Loan</option>
-				                                    <option value="Car Loan">Car Loan</option>
-				                                    <option value="Second tier Lending">Second tier Lending</option>
-				                                    <option value="Other">Other</option>
-				                                </select>
-				                                </div>
-                                                        </div>
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		             
@@ -1113,10 +1138,18 @@
                                                 <div id="otherliability_[otherliability_index]">
                                                 
                                                    <div class="row">
-                                                   <div style="width:5%">
+                                                   <div style="width:20%">
+		                                            
+		                                            <div class="form-group" style="margin-left:40px; margin-top: 7px;">
+		                                               <div id="txt_otherliability" class="custom-control custom-checkbox" >
+                                                            
+                                                        Other Liabilities
+                                                        </div>
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%">
 		                                            <div class="form-group">
-		                                               <div class="custom-control custom-checkbox">
-		                                               <label></label>
+		                                               <div class="custom-control custom-checkbox" style="text-align: center;margin-top: 7px;">
 		                                               		
                                                             <i id="add_otherliability" class="material-icons">add_circle_outline</i>
                                                           
@@ -1125,14 +1158,7 @@
                                                         </div>
 		                                            </div>
 			                                     </div>
-			                                     <div style="width:25%">
-		                                            <div class="form-group">
-		                                               <div id="txt_otherliability" class="custom-control custom-checkbox">
-                                                            <label></label><br/>
-                                                        Other Liabilities
-                                                        </div>
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		             
@@ -1157,7 +1183,13 @@
                                                 </div>
                                                 </div>                                                  
                                                 <div class="row">
-                                                   <div style="width:5%">
+                                                <div style="vertical-align: bottom;width:20%; text-align: ">
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+                                                        
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%">
 		                                            <div class="form-group">
 		                                            <div class="custom-control custom-checkbox">
 		                     
@@ -1165,12 +1197,7 @@
 		                                              
 		                                            </div>
 			                                     </div>
-			                                     <div style="vertical-align: bottom;width:25%">
-		                                            <div style="vertical-align: bottom;" class="form-group">
-		                                               
-                                                        
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		                                            <br/>
@@ -1204,10 +1231,18 @@
                                                 <div id="revcredit_[revcredit_index]">
                                                 
                                                    <div class="row">
-                                                   <div style="width:5%">
+                                                   <div style="width:20%">
+		                                            <div class="form-group" style="margin-left:40px; margin-top: 7px;" >
+		                                               <div id="txt_revcredit" class="custom-control custom-checkbox">
+                                                            
+                                                        Revolving Credit
+                                                        </div>
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%">
 		                                            <div class="form-group">
-		                                               <div class="custom-control custom-checkbox">
-		                                               <label></label>
+		                                               <div class="custom-control custom-checkbox" style="text-align: center;margin-top: 7px;">
+		                                               
 		                                               		
                                                             <i id="add_revcredit" class="material-icons">add_circle_outline</i>
                                                           
@@ -1216,14 +1251,7 @@
                                                         </div>
 		                                            </div>
 			                                     </div>
-			                                     <div style="width:25%">
-		                                            <div class="form-group">
-		                                               <div id="txt_revcredit" class="custom-control custom-checkbox">
-                                                            <label></label><br/>
-                                                        Revolving Credit
-                                                        </div>
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		             
@@ -1258,10 +1286,17 @@
                                                 <div id="overlimit_[overlimit_index]">
                                                 
                                                    <div class="row">
-                                                   <div style="width:5%">
-		                                            <div class="form-group">
-		                                               <div class="custom-control custom-checkbox">
-		                                               <label></label>
+                                                   <div style="width:20%">
+		                                            <div class="form-group" style="margin-left:40px; margin-top: 7px;">
+		                                               <div id="txt_overlimit" class="custom-control custom-checkbox">
+                                                           
+                                                        Overdraft Limit
+                                                        </div>
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%">
+		                                            <div class="form-group" >
+		                                               <div class="custom-control custom-checkbox" style="text-align: center;margin-top: 7px;" >
 		                                               		
                                                             <i id="add_overlimit" class="material-icons">add_circle_outline</i>
                                                           
@@ -1270,14 +1305,7 @@
                                                         </div>
 		                                            </div>
 			                                     </div>
-			                                     <div style="width:25%">
-		                                            <div class="form-group">
-		                                               <div id="txt_overlimit" class="custom-control custom-checkbox">
-                                                            <label></label><br/>
-                                                        Overdraft Limit
-                                                        </div>
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		             
@@ -1313,10 +1341,18 @@
                                                 <div id="creditcard_[creditcard_index]">
                                                 
                                                    <div class="row">
-                                                   <div style="width:5%">
+                                                   <div style="width:20%">
+		                                            <div class="form-group" style="margin-left:40px;margin-top: 7px;">
+		                                               <div id="txt_creditcard" class="custom-control custom-checkbox">
+                                                            
+                                                        Credit Card
+                                                        </div>
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%">
 		                                            <div class="form-group">
-		                                               <div class="custom-control custom-checkbox">
-		                                               <label></label>
+		                                               <div class="custom-control custom-checkbox" style="text-align: center;margin-top: 7px;">
+		                                               
 		                                               		
                                                             <i id="add_creditcard" class="material-icons">add_circle_outline</i>
                                                           
@@ -1325,14 +1361,7 @@
                                                         </div>
 		                                            </div>
 			                                     </div>
-			                                     <div style="width:25%">
-		                                            <div class="form-group">
-		                                               <div id="txt_creditcard" class="custom-control custom-checkbox">
-                                                            <label></label><br/>
-                                                        Credit Card
-                                                        </div>
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		             
@@ -1367,10 +1396,18 @@
                                                 <div id="storecard_[storecard_index]">
                                                 
                                                    <div class="row">
-                                                   <div style="width:5%">
+                                                   <div style="width:20%">
+		                                            <div class="form-group" style="margin-left: 40px;margin-top: 7px;">
+		                                               <div id="txt_storecard" class="custom-control custom-checkbox">
+                                                            
+                                                        Store Card
+                                                        </div>
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%">
 		                                            <div class="form-group">
-		                                               <div class="custom-control custom-checkbox">
-		                                               <label></label>
+		                                               <div class="custom-control custom-checkbox" style="text-align: center;margin-top: 7px;">
+		                                               
 		                                               		
                                                             <i id="add_storecard" class="material-icons">add_circle_outline</i>
                                                           
@@ -1379,14 +1416,7 @@
                                                         </div>
 		                                            </div>
 			                                     </div>
-			                                     <div style="width:25%">
-		                                            <div class="form-group">
-		                                               <div id="txt_storecard" class="custom-control custom-checkbox">
-                                                            <label></label><br/>
-                                                        Store Card
-                                                        </div>
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		             
@@ -1416,7 +1446,13 @@
                                                 </div>
                                                 </div>  
                                                 <div class="row">
-                                                   <div style="width:5%">
+                                                <div style="vertical-align: bottom;width:20%">
+		                                            <div style="vertical-align: bottom;" class="form-group">
+		                                               
+                                                        
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%">
 		                                            <div class="form-group">
 		                                            <div class="custom-control custom-checkbox">
 		                     
@@ -1424,12 +1460,7 @@
 		                                              
 		                                            </div>
 			                                     </div>
-			                                     <div style="vertical-align: bottom;width:25%">
-		                                            <div style="vertical-align: bottom;" class="form-group">
-		                                               
-                                                        
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		                                            <br/>
@@ -1462,10 +1493,18 @@
                                                 <div id="hirepurchase_[hirepurchase_index]">
                                                 
                                                    <div class="row">
-                                                   <div style="width:5%">
+                                                   <div style="width:20%">
+		                                            <div class="form-group" style="margin-left: 40px;margin-top: 7px;">
+		                                               <div id="txt_hirepurchase" class="custom-control custom-checkbox">
+                                                            
+                                                        Hire Purchase
+                                                        </div>
+		                                            </div>
+			                                     </div>
+                                                   <div style="width:10%">
 		                                            <div class="form-group">
-		                                               <div class="custom-control custom-checkbox">
-		                                               <label></label>
+		                                               <div class="custom-control custom-checkbox" style="text-align: center;margin-top: 7px;">
+		                                               
 		                                               		
                                                             <i id="add_hirepurchase" class="material-icons">add_circle_outline</i>
                                                           
@@ -1474,14 +1513,7 @@
                                                         </div>
 		                                            </div>
 			                                     </div>
-			                                     <div style="width:25%">
-		                                            <div class="form-group">
-		                                               <div id="txt_hirepurchase" class="custom-control custom-checkbox">
-                                                            <label></label><br/>
-                                                        Hire Purchase
-                                                        </div>
-		                                            </div>
-			                                     </div>
+			                                     
 		                                       <div class="col">
 		                                            <div class="form-group">
 		             
@@ -1525,15 +1557,23 @@
 		                                            <div style="vertical-align: bottom;" class="form-group">
 		                                               
 		                                               <label>&nbsp;</label>
-                                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total Liabilities Value
+                                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
                                                         
 		                                            </div>
+			                                     </div>
+			                                     <div class="col">
+		                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		                                            
 			                                     </div>
 		                                       <div class="col">
 		                                            <div style="display:none;" class="form-group">
 		                                            <label></label>
 		                                               <a href="javascript:void(0)" onclick="Liability();">Calculate Total Value</a>
 		                                            </div>
+		                                            <div style="text-align: right;">
+		                                            Total Liabilities Value
+		                                            </div>
+		                                            
 			                                     </div>
 		                                        <div class="col">
 		                                            <div class="form-group">
@@ -1562,13 +1602,17 @@
 		                                            <div style="vertical-align: bottom;" class="form-group">
 		                                               
 		                                               <label>&nbsp;</label>
-                                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Equity
+                                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
                                                         
 		                                            </div>
 			                                     </div>
-		                                       <div class="col">
-		                                            <div class="form-group">
+			                                     <div class="col">
+		                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		                                            
+			                                     </div>
+		                                       <div class="col">
+		                                            <div class="form-group" style="text-align: right;">
+		                                            Equity
 		                                            </div>
 			                                     </div>
 		                                        <div class="col">
@@ -1598,14 +1642,21 @@
                             </div>
                         </div>
                         
+<div id="income" class="card card-form" style="display:none;">
 
- <div id="applicantmi_txt" style="display:none;">
-  <h5>Income and expenditure</h5>
-<p>Monthly Income from work</p>   
- </div>                       
-<div id="midivs">
+ <div id="applicantmi_txt" class="col-lg-12 card-body" style="display:none; font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;">
+  <p><strong class="headings-color">Income</strong></p>
+<!-- <h5>Monthly Income from work</h5> -->   
+ </div>  
+ <div class="card card-form" style="margin-left: 10px; margin-right: 10px; margin-top: 5px; ">
+ <div class="row no-gutters">
+ <div class="row no-gutters">
+	<div class="card-header card-header-sm" style="background-color: #C0C0C0; font-size: 20;" ><h6 class="card-header__title">Monthly Income from work</h6></div>   
+</div>
+
+<div id="midivs" style="width:100%">
 <div id="midiv" style="display:none;" >
-	<div id="applicant_mi_card_[applicant_id]" class="card card-form">
+	<div id="applicant_mi_card_[applicant_id]" class="card card-form" style="margin-left: 7px; margin-right: 7px; margin-top: 7px;">
                             <div class="row no-gutters">
                                 <div class="card-header card-header-sm bg-white">
                                         <h6 id="applicant_name" class="card-header__title">[applicant_name]</h6>
@@ -1741,17 +1792,21 @@
                         </div>
 	
 </div>
-</div>                    
+</div>
+
+</div> 
+</div>
+            
 <div id="applicantmifr_txt" style="display:none;">
-<p>Monthly Income from Rental</p>   
+<!-- <p>Monthly Income from Rental</p>    -->
  </div>                          
                                    
 <div id="mifrdivs">
 <div id="mifrdiv" style="display:none;" >
-	<div id="applicant_mifr_card_[applicant_id]" class="card card-form">
+	<div id="applicant_mifr_card_[applicant_id]" class="card card-form" style="margin-left: 10px; margin-right: 10px;">
                             <div class="row no-gutters">
-                                <div class="card-header card-header-sm bg-white">
-                                        <h6 id="applicant_name" class="card-header__title"></h6>
+                                <div class="card-header card-header-sm " style="background-color: #C0C0C0; font-size: 20;">
+                                        <h6 id="applicant_name" class="card-header__title">Monthly Income from Rental</h6>
                                     </div>
                                 <div class="col-lg-12 card-form__body">
                                    			<div class="row">
@@ -1868,16 +1923,21 @@
 </div>
 </div> 
 
-<div class="row">
-                                                   
+										<div class="row">
+                                               <div class="col">
+		                                            
+		                                        </div>
+		                                        <div class="col">
+		                                            
+		                                        </div>
 			                                     
-		                                       <div class="col">
+		                                       <div class="col"style="text-align: right;">
 		                                            
 		                                         
 		                                            <div style="vertical-align: bottom;" class="form-group">
 		                                               
 		                                               <label>&nbsp;</label>
-                                                       &nbsp;&nbsp;&nbsp;&nbsp;Total Monthly Income
+                                                       &nbsp;&nbsp;&nbsp;&nbsp;Total Monthly Income 
                                                         
 		                                            </div>
 		                                               
@@ -1892,17 +1952,23 @@
 		                                       
 		                                    </div>
 
+</div>
+<div id="expense" class="card card-form" style="display:none;">
 <div id="applicantmiex_txt" style="display:none;">
-<p>Monthly Expenditure</p>   
+<!-- <p>Monthly Expenditure</p>    -->
  </div>                          
                                    
 <div id="miexdivs">
 <div id="miexdiv" style="display:none;" >
 	<div id="applicant_miex_card" class="card card-form">
+	<div class="col-lg-12 card-body" style="font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;">
+                                    <p><strong class="headings-color">Expense</strong></p>
+                                   
+                                </div>
                             <div class="row no-gutters">
-                                <div class="card-header card-header-sm bg-white">
-                                        <h6 id="applicant_name" class="card-header__title"></h6>
-                                    </div>
+                                <!-- <div class="card-header card-header-sm" style="font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;">
+                                        <h6 id="applicant_name" >Monthly Expenditure</h6>
+                                    </div> -->
                                 <div class="col-lg-12 card-form__body">
                                    			<div class="row">
                                                    <div style="width:5%">
@@ -2031,9 +2097,10 @@
 </div>
 </div>                                       
 <div class="row">
-                                                   
+                                              	<div class="col"></div>
+		                                     	<div class="col"></div>
 			                                     
-		                                       <div class="col">
+		                                       <div class="col" style="text-align: right;">
 		                                            
 		                                         
 		                                            <div style="vertical-align: bottom;" class="form-group">
@@ -2055,8 +2122,9 @@
 		                                    </div>    
 <div class="row">
                                                    
-			                                     
-		                                       <div class="col">
+			                                   <div class="col"></div>
+		                                     	<div class="col"></div>
+		                                       <div class="col" style="text-align: right;">
 		                                            
 		                                         
 		                                            <div style="vertical-align: bottom;" class="form-group">
@@ -2075,23 +2143,26 @@
 		                                            </div>
 		                                        </div>
 		                                       
-		                                    </div>   		                                                        
+		                                    </div>   
+</div>		                                                        
 <div class="card card-form">
-                            <div class="row no-gutters">
-                                <div class="col-lg-4 card-body">
+<div class="col-lg-12 card-body" style="font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;">
                                     <p><strong class="headings-color">Notes</strong></p>
                                    
                                 </div>
-                                <div class="col-lg-8 card-form__body card-body">
+                            <div class="row no-gutters">
+                                
+                                <div class="col-lg-12 card-form__body card-body">
                                 	<div id="notes">
                                 		<div id="note">
                                 		<div id="note_[note_index]">
                                 			<div class="row">
 		                                        <div class="col">
 		                                            <div class="form-group">
+		                                            <label id="txt_note">Note</label>
 		                                                <i id="add_note" class="material-icons">add_circle_outline</i>
 		                                                &nbsp;&nbsp;<i style="display:none" onclick="RemoveNote('[note_index]')" id="minus_note" class="material-icons">remove_circle_outline</i>
-		                                                <label id="txt_note">Note</label><br/>
+		                                                <br/>
 		                                                <textarea class="comment" name="note" rows="3" cols="60"></textarea>
 		                                            </div>
 		                                        </div>
@@ -2108,52 +2179,53 @@
                         </div>                        
                         
                         <div class="card card-form">
-                            <div class="row no-gutters">
-                                <div class="col-lg-4 card-body">
+                        <div class="col-lg-12 card-body" style="font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;">
                                     <p><strong class="headings-color">Documents Checklist</strong></p>
                                    
                                 </div>
-                                <div class="col-lg-8 card-form__body card-body">
+                            <div class="row no-gutters">
+                                
+                                <div class="col-lg-12 card-form__body card-body">
                                 	<div id="LAY_preview">
                                  	<div class="row">
                                  	
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align: center;">
                                                 
                                                 <input type="hidden" name="application_form" id="doc1">
       											<div class="layui-upload-drag" id="up1">
 												  <i class="layui-icon">&#xe67c;</i>
-												</div>
+												</div><br>
 												<label id="doc1_name" for="fname">Application Form</label>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align: center;">
                                                 
                                                 <input type="hidden" name="approval_letter" id="doc2">
                                                 <div class="layui-upload-drag" id="up2">
 												  <i class="layui-icon">&#xe67c;</i>
-												</div>
+												</div><br>
 												<label id="doc2_name" for="fname">Approval Letter</label>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align: center;">
                                                 
                                                 <input type="hidden" name="appraisal" id="doc3">
                                                <div class="layui-upload-drag" id="up3">
 												  <i class="layui-icon">&#xe67c;</i>
-												</div>
+												</div><br>
 												<label id="doc3_name" for="fname">Appraisal</label>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align: center;">
                                                 
                                                 <input type="hidden" name="gifting_letter" id="doc4">
                                                 <div class="layui-upload-drag" id="up4">
 												  <i class="layui-icon">&#xe67c;</i>
-												</div>
+												</div><br>
 												<label id="doc4_name" for="fname">Gifting Letter</label>
                                             </div>
                                         </div>
@@ -2161,42 +2233,42 @@
                                     
                                     <div class="row">
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align: center;">
                                                 
                                                 <input type="hidden" name="proof_of_identity" id="doc5">
       											<div class="layui-upload-drag" id="up5">
 												  <i class="layui-icon">&#xe67c;</i>
-												</div>
+												</div><br>
 												<label id="doc5_name" for="fname">Proof of Identity</label>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align: center;">
                                                 
                                                 <input type="hidden" name="rate_lock_form" id="doc6">
                                                 <div class="layui-upload-drag" id="up6">
 												  <i class="layui-icon">&#xe67c;</i>
-												</div>
+												</div><br>
 												<label id="doc6_name" for="fname">Rate Lock Form</label>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align: center;">
                                                 
                                                 <input type="hidden" name="sales_purchase_agreement" id="doc7">
                                                <div class="layui-upload-drag" id="up7">
 												  <i class="layui-icon">&#xe67c;</i>
-												</div>
+												</div><br>
 												<label id="doc7_name" for="fname">Sales Purchase Agreement</label>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align: center;">
                                                 
                                                 <input type="hidden" name="ird_summary" id="doc8">
                                                 <div class="layui-upload-drag" id="up8">
 												  <i class="layui-icon">&#xe67c;</i>
-												</div>
+												</div><br>
 												<label id="doc8_name" for="fname">IRD Summary</label>
                                             </div>
                                         </div>
@@ -2205,42 +2277,42 @@
                                     <div class="row">
                                  	
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align: center;">
                                                 
                                                 <input type="hidden" name="payslip" id="doc9">
       											<div class="layui-upload-drag" id="up9">
 												  <i class="layui-icon">&#xe67c;</i>
-												</div>
+												</div><br>
 												<label id="doc9_name" for="fname">Payslip</label>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align: center;">
                                                 
                                                 <input type="hidden" name="boarder_agreement" id="doc10">
                                                 <div class="layui-upload-drag" id="up10">
 												  <i class="layui-icon">&#xe67c;</i>
-												</div>
+												</div><br>
 												<label id="doc10_name" for="fname">Boarder Agreement</label>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align: center;">
                                                 
                                                 <input type="hidden" name="valuation_report" id="doc11">
                                                <div class="layui-upload-drag" id="up11">
 												  <i class="layui-icon">&#xe67c;</i>
-												</div>
+												</div><br>
 												<label id="doc11_name" for="fname">Valuation Report</label>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align: center;">
                                                 
                                                 <input type="hidden" name="loan_statement" id="doc12">
                                                 <div class="layui-upload-drag" id="up12">
 												  <i class="layui-icon">&#xe67c;</i>
-												</div>
+												</div><br>
 												<label id="doc12_name" for="fname">Loan Statement</label>
                                             </div>
                                         </div>
@@ -2248,42 +2320,42 @@
                                     
                                     <div class="row">
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align: center;">
                                                 
                                                 <input type="hidden" name="financial_report" id="doc13">
       											<div class="layui-upload-drag" id="up13">
 												  <i class="layui-icon">&#xe67c;</i>
-												</div>
+												</div><br>
 												<label id="doc13_name" for="fname">Financial Report</label>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align: center;">
                                                 
                                                 <input type="hidden" name="lease_agreement" id="doc14">
                                                 <div class="layui-upload-drag" id="up14">
 												  <i class="layui-icon">&#xe67c;</i>
-												</div>
+												</div><br>
 												<label id="doc14_name" for="fname">Lease Agreement</label>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align: center;">
                                                 
                                                 <input type="hidden" name="building_report" id="doc15">
                                                <div class="layui-upload-drag" id="up15">
 												  <i class="layui-icon">&#xe67c;</i>
-												</div>
+												</div><br>
 												<label id="doc15_name" for="fname">Building Report</label>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align: center;">
                                                 
                                                 <input type="hidden" name="loan_agreement" id="doc16">
                                                 <div class="layui-upload-drag" id="up16">
 												  <i class="layui-icon">&#xe67c;</i>
-												</div>
+												</div><br>
 												<label id="doc16_name" for="fname">Loan agreement</label>
                                             </div>
                                         </div>
@@ -2291,42 +2363,42 @@
                                     
                                     <div class="row">
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align: center;">
                                                 
                                                 <input type="hidden" name="bank_statement" id="doc17">
       											<div class="layui-upload-drag" id="up17">
 												  <i class="layui-icon">&#xe67c;</i>
-												</div>
+												</div><br>
 												<label id="doc17_name" for="fname">Bank Statement</label>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align: center;">
                                                 
                                                 <input type="hidden" name="rental_agreement" id="doc18">
                                                 <div class="layui-upload-drag" id="up18">
 												  <i class="layui-icon">&#xe67c;</i>
-												</div>
+												</div><br>
 												<label id="doc18_name" for="fname">Rental Agreement</label>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align: center;">
                                                 
                                                 <input type="hidden" name="support_letter" id="doc19">
                                                <div class="layui-upload-drag" id="up19">
 												  <i class="layui-icon">&#xe67c;</i>
-												</div>
+												</div><br>
 												<label id="doc19_name" for="fname">Support Letter</label>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group" style="text-align: center;">
                                                 
                                                 <input type="hidden" name="additional_files" id="doc20">
                                                 <div class="layui-upload-drag" id="up20">
 												  <i class="layui-icon">&#xe67c;</i>
-												</div>
+												</div><br>
 												<label id="doc20_name" for="fname">Additional Files</label>
                                             </div>
                                         </div>
@@ -2352,7 +2424,8 @@
                         	<input type="hidden" id="total_income" value="0">
                         	<input id="app_ids" value="${clients!}" hidden="hidden">
                         	<input id="minus_ids" value="${clients!}" hidden="hidden">
-                            <button class="btn btn-success" onClick="return SaveApp('${method}');">Save</button>
+                            <button class="btn btn-success" onClick="return SaveApp('${method}');">Save Application</button>
+                            <button onclick="history.go(-1)" class="btn btn-success">Go Back</button>
                         </div>
                     </div>
 
@@ -2361,35 +2434,35 @@
                 <!-- // END drawer-layout__content -->
                 <script>
                 $(function() {
-                    $('#lending_amount_required').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-                    $('#UMI').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-                    $('#existing_loan_amount').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-                    $('#total_loan_amount').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-                    $("[name='security_property_value']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-                    $('#cash_v').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-                    $("[name='saving_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='investment_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='kiwisaver_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='vehicle_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-                    $('#furniture_v').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-                    $('#term_deposit_v').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-                    $('#other_currency_account_v').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-                    $('#deposit_v').maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-                    $("[name='property_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='businessown_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='otherasset_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='loandrop_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='otherliability_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='revcredit_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='revcredit_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='overlimit_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='overlimit_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='creditcard_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='creditcard_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='storecard_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='storecard_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='hirepurchase_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='hirepurchase_c']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $('#lending_amount_required').maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $('#UMI').maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $('#existing_loan_amount').maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $('#total_loan_amount').maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $("[name='security_property_value']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $('#cash_v').maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $("[name='saving_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='investment_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='kiwisaver_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='vehicle_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $('#furniture_v').maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $('#term_deposit_v').maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $('#other_currency_account_v').maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $('#deposit_v').maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                    $("[name='property_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='businessown_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='otherasset_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='loandrop_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='otherliability_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='revcredit_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='revcredit_l']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='overlimit_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='overlimit_l']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='creditcard_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='creditcard_l']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='storecard_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='storecard_l']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='hirepurchase_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='hirepurchase_c']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
                 })
                 Date.prototype.format = function(fmt) { 
                     var o = { 
@@ -2510,8 +2583,8 @@
         					if(monthincome_income[i].value!=''){
         						monthincomeArray.push({"monthincome_income":monthincome_income[i].value,
         							"monthincome_description":monthincome_description[i].value,
-        							"monthincome_gross":monthincome_gross[i].value,
-        							"monthincome_net":monthincome_net[i].value});
+        							"monthincome_gross":monthincome_gross[i].value.replace(/\$|,/g, ''),
+        							"monthincome_net":monthincome_net[i].value.replace(/\$|,/g, '')});
         						if(monthincome_net[i].value!=''){
         							total_income += b20(monthincome_net[i].value);
         						}
@@ -2537,7 +2610,7 @@
        					if(monthincome_income[i].value!=''){
        						monthincomefrArray.push({"monthincomefr_income":monthincome_income[i].value,
        							"monthincomefr_description":monthincome_description[i].value,
-       							"monthincomefr_net":monthincome_net[i].value});
+       							"monthincomefr_net":monthincome_net[i].value.replace(/\$|,/g, '')});
        						if(monthincome_net[i].value!=''){
     							total_income += b20(monthincome_net[i].value);
     						}
@@ -2557,20 +2630,20 @@
        					if(monthincome_expend[i].value!=''){
        						monthexpendArray.push({"monthexpend_expend":monthincome_expend[i].value,
        							"monthexpend_description":monthincome_description[i].value,
-       							"monthexpend_expense":monthincome_expense[i].value});
+       							"monthexpend_expense":monthincome_expense[i].value.replace(/\$|,/g, '')});
        						if(monthincome_expense[i].value!=''){
        							total_expense += b20(monthincome_expense[i].value);
     						}
        					}
        				} 
        				$('#total_expense').val(total_expense);
-       				$('#total_expense_value').html(total_expense);
+       				$('#total_expense_value').html(formatter.format(total_expense));
        	        	$('#total_expense_value_h').val(total_expense);
        	        	
        	        	var total_income = $('#total_income').val();
        	        	if(total_income!=''){
        	        		var surplus = total_income*1-total_expense;
-       	        		$('#surplus_value').html(surplus);
+       	        		$('#surplus_value').html(formatter.format(surplus));
            	        	$('#surplus_value_h').val(surplus);
        	        	}
        	        	
@@ -2588,12 +2661,16 @@
                 }
                 function AddMonthincome(id){
                 	copyApplicantInfo("monthincome",id);
+                	$("[name='monthincome_gross_"+id+"']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+				    $("[name='monthincome_net_"+id+"']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
                 }
                 function AddMonthincomefr(){
                 	copyApplicantInfo2("monthincomefr");
+                	$("[name='monthincomefr_net']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
                 }
                 function AddMonthexpend(id){
                 	copyApplicantInfo2("monthexpend");
+                	$("[name='monthexpend_expense']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
                 }
 	function copyApplicantInfo(nodeid,applicantid){
 		
@@ -2819,25 +2896,25 @@
             		html = html.replaceAll('[note_index]',note_index);  
             		var newnode = parseDom(html);
             		sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点 
-            		$("[name='saving_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='investment_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='kiwisaver_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='vehicle_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='property_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='businessown_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='otherasset_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='loandrop_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='otherliability_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='revcredit_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='revcredit_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='overlimit_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='overlimit_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='creditcard_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='creditcard_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='storecard_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='storecard_l']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='hirepurchase_v']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-            		$("[name='hirepurchase_c']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='saving_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='investment_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='kiwisaver_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='vehicle_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='property_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='businessown_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='otherasset_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='loandrop_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='otherliability_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='revcredit_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='revcredit_l']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='overlimit_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='overlimit_l']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='creditcard_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='creditcard_l']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='storecard_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='storecard_l']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='hirepurchase_v']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='hirepurchase_c']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
             	}
             	function copyNode(nodeid){
             		var node_index = document.getElementsByName("loan_effective_date").length;
@@ -2870,7 +2947,7 @@
             		//console.log(html)
             		var newnode = parseDom(html);
             		sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点 
-            		$("[name='security_property_value']").maskMoney({prefix:'$ ', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+            		$("[name='security_property_value']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
             	}
             	function b20(str){
             		if(typeof str ==='string'){
@@ -2899,12 +2976,16 @@
     					$.post("/client/get_applicants", {"ids":clientids}, function(data) {
         					if(data.code==0){
         						//console.log(data.data);
-        						//alert(data.data);
+        						//alert(data.data);income
+        						$('#income').css("display","block");
+        						$('#expense').css("display","block");
         						$('#applicantmi_txt').css("display","block");
 		    					$('#applicantmifr_txt').css("display","block");
 		    					$('#applicantmiex_txt').css("display","block");
 		    					$('#mifrdiv').css("display","block");
         						$('#miexdiv').css("display","block");
+        						$("[name='monthincomefr_net']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+        						$("[name='monthexpend_expense']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
         						var applicants = data.data;
         						var html = $('#applicant').html();
         						var mihtml = $('#midiv').html();
@@ -2919,6 +3000,8 @@
         						    $('#applicants').append(newhtml);
         						    var newmihtml = mihtml.replaceAll('[applicant_id]',applicants[i]['id']).replaceAll('[applicant_name]',name);
         						    $('#midivs').append(newmihtml);
+        						    $("[name='monthincome_gross_"+applicants[i]['id']+"']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+        						    $("[name='monthincome_net_"+applicants[i]['id']+"']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
         						   /*  var newmifrhtml = mifrhtml.replaceAll('[applicant_id]',applicants[i]['id']).replaceAll('[applicant_name]',name);
         						    $('#mifrdivs').append(newmifrhtml);
         						    var newmiexhtml = miexhtml.replaceAll('[applicant_id]',applicants[i]['id']).replaceAll('[applicant_name]',name);
@@ -2966,6 +3049,25 @@
             		});
 
             	}
+                function ViewApplicant(id){
+                	var appid = id.split('_')[1];
+                	var url = '/client/view?type=2&l=s&id='+appid;
+            		layer.open({
+            			type: 2,
+            			title: 'Edit Applicant',
+            			fixed: false, //不固定
+            			maxmin: true,
+            		    shadeClose: true, //点击遮罩关闭层
+            			area: ['80%', '80%'],
+            			content: url ,
+            			success:function(layero,index){
+            	        },
+            	        end:function(){
+            	        	//ShowApplicant();
+            	        }
+            		});
+
+            	}
                 function RemoveDiv(id){
                 	var appid = id.split('_')[1];
                 	var appids = new Set($('#app_ids').val().split(','));
@@ -2980,6 +3082,8 @@
             			$('#applicantmi_txt').css("display","none");
             			$('#applicantmifr_txt').css("display","none");
             			$('#applicantmiex_txt').css("display","none");
+            			$('#income').css("display","none");
+            			$('#expense').css("display","none");
             		}
             			
             	}
@@ -3574,7 +3678,7 @@
     				var loandrop_v = document.getElementsByName("loandrop_v");
     				for(var i=0;i<loandrop_v.length;i++){
     					if(loandrop_v[i].value!=''||i==0){
-    						loandropArray.push({"loandrop_sel":loandrop_sel[i].value,"loandrop_d":loandrop_d[i].value,"loandrop_v":loandrop_v[i].value.replace(/,/g, '')});
+    						loandropArray.push({"loandrop_sel":loandrop_sel[i].value,"loandrop_d":loandrop_d[i].value,"loandrop_v":loandrop_v[i].value.replace(/\$|,/g, '')});
     						total_liability += b20(loandrop_v[i].value);
     					}
     				} 
@@ -3600,7 +3704,11 @@
         	MonthIncome();
         	MonthIncomefr();
         	var total_income = $('#total_income').val();
-        	$('#total_income_value').html(total_income);
+        	var total_expense_value = $('#total_expense_value_h').val();
+			var surplus = total_income*1-total_expense_value*1;
+       		$('#surplus_value').html(formatter.format(surplus));
+	        $('#surplus_value_h').val(surplus);
+        	$('#total_income_value').html(formatter.format(total_income));
         	$('#total_income_value_h').val(total_income);
         }
 		function Asset(){
@@ -3654,7 +3762,7 @@
     				for(var i=0;i<saving_v.length;i++){
     					if(saving_v[i].value!=''||i==0){
     						if(i>0)saving_text =saving_o+ " "+(i*1+1);
-    						savingArray.push({"text":saving_text,"saving_d":saving_d[i].value,"saving_v":saving_v[i].value.replace(/,/g, '')});
+    						savingArray.push({"text":saving_text,"saving_d":saving_d[i].value,"saving_v":saving_v[i].value.replace(/\$|,/g, '')});
     						total_value += b20(saving_v[i].value);
     					}
     				} 
@@ -3669,7 +3777,7 @@
     				for(var i=0;i<investment_v.length;i++){
     					if(investment_v[i].value!=''||i==0){
     						if(i>0)investment_text =investment_o+ " "+(i*1+1);
-    						investmentArray.push({"text":investment_text,"investment_d":investment_d[i].value,"investment_v":investment_v[i].value.replace(/,/g, '')});
+    						investmentArray.push({"text":investment_text,"investment_d":investment_d[i].value,"investment_v":investment_v[i].value.replace(/\$|,/g, '')});
     						total_value += b20(investment_v[i].value);
     					}
     				} 
@@ -3684,7 +3792,7 @@
     				for(var i=0;i<kiwisaver_v.length;i++){
     					if(kiwisaver_v[i].value!=''||i==0){
     						if(i>0)kiwisaver_text =kiwisaver_o+ " "+(i*1+1);
-    						kiwisaverArray.push({"text":kiwisaver_text,"kiwisaver_d":kiwisaver_d[i].value,"kiwisaver_v":kiwisaver_v[i].value.replace(/,/g, '')});
+    						kiwisaverArray.push({"text":kiwisaver_text,"kiwisaver_d":kiwisaver_d[i].value,"kiwisaver_v":kiwisaver_v[i].value.replace(/\$|,/g, '')});
     						total_value += b20(kiwisaver_v[i].value);
     					}
     				} 
@@ -3699,7 +3807,7 @@
     				for(var i=0;i<otherasset_v.length;i++){
     					if(otherasset_v[i].value!=''||i==0){
     						if(i>0)otherasset_text = otherasset_o+" "+(i*1+1);
-    						otherassetArray.push({"text":otherasset_text,"otherasset_d":otherasset_d[i].value,"otherasset_v":otherasset_v[i].value.replace(/,/g, '')});
+    						otherassetArray.push({"text":otherasset_text,"otherasset_d":otherasset_d[i].value,"otherasset_v":otherasset_v[i].value.replace(/\$|,/g, '')});
     						total_value += b20(otherasset_v[i].value);
     					}
     				} 
@@ -3714,7 +3822,7 @@
     				for(var i=0;i<businessown_v.length;i++){
     					if(businessown_v[i].value!=''||i==0){
     						if(i>0)businessown_text = businessown_o + " "+(i*1+1);
-    						businessownArray.push({"text":businessown_text,"businessown_d":businessown_d[i].value,"businessown_v":businessown_v[i].value.replace(/,/g, '')});
+    						businessownArray.push({"text":businessown_text,"businessown_d":businessown_d[i].value,"businessown_v":businessown_v[i].value.replace(/\$|,/g, '')});
     						total_value += b20(businessown_v[i].value);
     					}
     				} 
@@ -3730,7 +3838,7 @@
     				for(var i=0;i<property_v.length;i++){
     					if(property_v[i].value!=''||i==0){
     						if(i>0)property_text = property_origin+" "+(i*1+1);
-    						propertyArray.push({"text":property_text,"property_d":property_d[i].value,"property_v":property_v[i].value.replace(/,/g, '')});
+    						propertyArray.push({"text":property_text,"property_d":property_d[i].value,"property_v":property_v[i].value.replace(/\$|,/g, '')});
     						total_value += b20(property_v[i].value);
     					}
     				} 
@@ -3745,7 +3853,7 @@
     				for(var i=0;i<vehicle_v.length;i++){
     					if(vehicle_v[i].value!=''||i==0){
     						if(i>0)vehicle_text = vehicle_origin +" "+(i*1+1);
-    						vehicleArray.push({"text":vehicle_text,"vehicle_d":vehicle_d[i].value,"vehicle_v":vehicle_v[i].value.replace(/,/g, '')});
+    						vehicleArray.push({"text":vehicle_text,"vehicle_d":vehicle_d[i].value,"vehicle_v":vehicle_v[i].value.replace(/\$|,/g, '')});
     						total_value += b20(vehicle_v[i].value);
     					}
     				} 
@@ -3753,10 +3861,29 @@
     				$('#total_value').html(formatter.format(total_value)); 
     				asset.total_value = total_value;
     				$('#total_v').val(total_value);
+    				var total_assets = $('#total_v').val();
+    				var total_lvalue = $('#total_lv').val();
+    				var equity = total_assets*1-total_lvalue*1;
+    				$('#equity_value').html(formatter.format(equity));
+    				$('#equity').val(equity);
     				//alert(total_value)
     				var jsonAsset = JSON.stringify( asset );
     				return jsonAsset;
-                }			
+                }	
+		// dannel add format date
+		function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) 
+                month = '0' + month;
+            if (day.length < 2) 
+                day = '0' + day;
+
+            return [day, month, year].join('/');
+        }
 function SaveApp(method){
 				
 
@@ -3813,8 +3940,9 @@ function SaveApp(method){
 			        var lending_purpose = JSON.stringify(purposes);
 					var purpose=$('#purpose').val();
 					var LVR=$('#LVR').val();
-					var finance_date=$('#finance_date').val();
-					var settlement_date=$('#settlement_date').val();
+					var finance_date=formatDate($('#finance_date').val());
+					var settlement_date=formatDate($('#settlement_date').val());
+					alert(settlement_date)
 					var borrower=$('#borrower').val();
 					var security_holder=$('#security_holder').val();
 					/* var UMI=$('#UMI').val(); */ //dannel modify
@@ -3836,7 +3964,7 @@ function SaveApp(method){
 						if(security_property[i].value!=''){
 							propertyArray.push({"property":security_property[i].value,"bank":security_bank[i].value,
 								"owner":security_owner[i].value,"property_type":security_property_type[i].value,
-								"use":security_property_use[i].value,"value":security_property_value[i].value.replace(/,/g, '')});
+								"use":security_property_use[i].value,"value":security_property_value[i].value.replace(/\$|,/g, '')});
 						}
 					} 
 					var jsonProperty = JSON.stringify( propertyArray );
