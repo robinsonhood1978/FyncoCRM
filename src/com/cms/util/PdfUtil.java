@@ -91,11 +91,13 @@ public class PdfUtil {
 		
 		//PDFJoin.mergepdf(fileList,"d:/pdfjoin/all.pdf");
 		//change logo
-		String dest = "/Users/robin/eclipse-workspace/Fynco/WebRoot/upload/sm_2_0.png";
-		String src = "/Users/robin/eclipse-workspace/Fynco/WebRoot/upload/sm_2_0.pdf";
-		pdf2Img(dest,src);
-//		String logo = "/Users/robin/demo/logo.png";
-//		replaceImage(dest,src,logo);
+//		String dest = "/Users/robin/eclipse-workspace/Fynco/WebRoot/upload/sm_2_0.png";
+//		String src = "/Users/robin/eclipse-workspace/Fynco/WebRoot/upload/sm_2_0.pdf";
+//		pdf2Img(dest,src);
+		String dest = "/Users/robin/eclipse-workspace/Fynco/WebRoot/upload/sm_1.pdf";
+		String src = "/Users/robin/eclipse-workspace/Fynco/WebRoot/pdf/sm_1.pdf";
+		String logo = "/Users/robin/demo/logo.png";
+		replaceImage(dest,src,logo);
 		
 	}
 	public static Image addTitle(String realPath,String dest,String filename) throws Exception{
@@ -105,7 +107,7 @@ public class PdfUtil {
         Image pdfImg = new Image(imageData);
         return pdfImg;
 	}
-	public static String pdf(String realPath,Client[] clients,Application app) throws Exception {
+	public static String pdf(String realPath,Client[] clients,Application app,String logo,int useLogo) throws Exception {
 		String path=ym.format(new Date())+"_"+app.getInt("id");
 		String dest = realPath+uploadroot+path+"/";
 		String path0=ym.format(new Date());
@@ -124,7 +126,7 @@ public class PdfUtil {
 			}
 			ArrayList<String> src = new ArrayList<String>();
 			
- 			src.add(pdf_1( dest, realPath, app));
+ 			src.add(pdf_1( dest, realPath, app,logo,useLogo));
 			src.add(pdf_2( dest, realPath,clients, app));
 			src.add(pdf_3( dest, realPath, app));
 			src.add(pdf_4(dest,realPath,app));
@@ -1056,15 +1058,21 @@ public class PdfUtil {
         pdfDoc.close();
         return url;
     }
-	public static String pdf_1(String dest,String realPath,Application app) throws Exception {
+	public static String pdf_1(String dest,String realPath,Application app,String logo,int useLogo) throws Exception {
 		String src = realPath+"/pdf/sm_1.pdf";
 		String src2 = realPath+"/pdf/sm_1_s8.pdf";
+		String url0 = dest+"sm_1_0.pdf";
 		String url = dest+"sm_1.pdf";
 		JSONArray securityJsonArray = JSONArray.fromObject(app.getStr("security"));
 		
 		if(securityJsonArray.size()>4) {
 			src = src2;
 		}
+		if(logo!=null&&!logo.equals("")&&useLogo==1) {
+			replaceImage(url0,src,realPath+logo);
+			src = url0;
+		}
+		
 		PdfDocument pdfDoc = new PdfDocument(new PdfReader(src), new PdfWriter(url));
 		PdfAcroForm form = PdfAcroForm.getAcroForm(pdfDoc, true);
         Map<String, PdfFormField> fields = form.getFormFields();

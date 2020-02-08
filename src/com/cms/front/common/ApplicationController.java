@@ -83,6 +83,9 @@ public class ApplicationController extends Controller {
 	}
 	public void pdf() throws Exception {
 		int id = getParaToInt("id");
+		User u = getSessionAttr("user");
+		String logo = u.getStr("logo");
+		int useLogo = u.getInt("uselogo");
 		int code=0;
 		String realPath = this.getRequest().getRealPath("/");
 		String dest1 = "/Users/robin/eclipse-workspace/Fynco/WebRoot/upload/sm_4.pdf";
@@ -100,7 +103,7 @@ public class ApplicationController extends Controller {
 		//PdfUtil.pdf_2(dest2,client,Application.dao.findById(id));
 		//PdfUtil.pdf_4(dest1,Application.dao.findById(id));
 		Application app = Application.dao.findById(id);
-		String url = PdfUtil.pdf(realPath,client,app);
+		String url = PdfUtil.pdf(realPath,client,app,logo,useLogo);
 		if(!"".equals(url)) {
 			//delete the old pdf,release the disk space
 			String old_url = app.getStr("pdf");

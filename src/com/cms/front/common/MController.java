@@ -59,7 +59,6 @@ public class MController extends Controller {
 		String msg = "";
 		User loginUser = getSessionAttr("user");
 		String avatar = getPara("avatar");
-		System.out.println("avatar:"+avatar);
 		String realPath = this.getRequest().getRealPath("/");
 		
 		String path=ym.format(new Date());
@@ -78,6 +77,36 @@ public class MController extends Controller {
 			else{
 				code=1;
 				msg = "Avatar modified failure，Please try again or contact the administrator.";
+			}
+		
+			Map map = new HashMap();
+			map.put("code",code);
+			map.put("msg",msg);
+			renderJson(map);
+	}
+	public void jsavelogo() {
+		int code=0;
+		String msg = "";
+		User loginUser = getSessionAttr("user");
+		String logo = getPara("logo");
+		String realPath = this.getRequest().getRealPath("/");
+		
+		String path=ym.format(new Date());
+		File dir = new File(realPath+uploadroot+path);
+		if(!dir.exists()){
+			dir.mkdir();
+		}
+		String file=uploadroot+path+"/"+ sf.format(new Date())+".jpg";
+		ImageUtils.basePngtoJpg(logo,realPath+file);
+		
+			boolean boo = loginUser.set("logo", file).update();
+			if(boo){
+				setSessionAttr("user",loginUser);
+				msg="Logo modified successfull！";
+			}
+			else{
+				code=1;
+				msg = "Logo modified failure，Please try again or contact the administrator.";
 			}
 		
 			Map map = new HashMap();

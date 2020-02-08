@@ -112,7 +112,6 @@
     <!-- Fynco -->
     <script src="/f/assets/js/md5.min.js"></script>
 	<script src="/f/assets/js/base64.min.js"></script>
-	<script src="/f/assets/js/layer.js"></script>
 	<script src="/f/assets/js/js.cookie.min.js"></script>
 	<script src="/f/assets/js/fynco.js"></script>
 	
@@ -211,6 +210,7 @@
                                     <a class="dropdown-item" href="/pwd">Change Password</a>
                                     <a class="dropdown-item" href="/setemail">Email Setting</a>
                                     <a class="dropdown-item" href="/avatar">Upload Avatar</a>
+                                    <a class="dropdown-item" href="/logo">Upload Logo</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="/logout">Logout</a>
                                 </div>
@@ -241,7 +241,7 @@
                                         <img src="${av}" alt="avatar" class="avatar-img rounded-circle">
                                     </span>
                                     <span class="flex d-flex flex-column">
-                                        <strong>${uname!}</strong>
+                                        <strong>${uname}</strong>
                                         <small class="text-muted text-uppercase"></small>
                                     </span>
                                 </a>
@@ -277,7 +277,7 @@
                                     </ul>
                                 </li>
 
-                                <li class="sidebar-menu-item <#if ap=='/announcement/'|| ap=='/notification/'||ap=='/calendar/'>active open</#if>">
+                                <li class="sidebar-menu-item <#if ap=='/announcement/'|| ap=='/task/'|| ap=='/notification/'||ap=='/calendar/'>active open</#if>">
                                     <a class="sidebar-menu-button" data-toggle="collapse" href="#apps_menu">
                                         <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">slideshow</i>
                                         <span class="sidebar-menu-text">Mortgage Hub</span>
@@ -286,36 +286,53 @@
                                     <ul class="sidebar-submenu collapse show " id="apps_menu">
                                         <li class="sidebar-menu-item <#if ap=='/announcement/'>active</#if>">
                                             <a class="sidebar-menu-button" href="/announcement">
-                                                <span class="sidebar-menu-text">Announcements</span>
+                                                <span class="sidebar-menu-text">Announcement</span>
                                             </a>
                                         </li>
                                         <li class="sidebar-menu-item <#if ap=='/notification/'>active</#if>">
                                             <a class="sidebar-menu-button" href="/notification">
-                                                <span class="sidebar-menu-text">Notifications</span>
+                                                <span class="sidebar-menu-text">Notification</span>
                                             </a>
                                         </li>
                                         <li class="sidebar-menu-item <#if ap=='/calendar/'>active</#if>">
                                             <a class="sidebar-menu-button" href="/calendar">
-                                                <span class="sidebar-menu-text">Calender</span>
+                                                <span class="sidebar-menu-text">Calendar</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item <#if ap=='/task/'>active</#if>">
+                                            <a class="sidebar-menu-button" href="/task">
+                                                <span class="sidebar-menu-text">Task</span>
                                             </a>
                                         </li>
                                         <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="">
-                                                <span class="sidebar-menu-text">Tasks</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="app-chat.html">
+                                            
+                                             <a class="sidebar-menu-button" data-toggle="collapse" href="#per_menu">
                                                 <span class="sidebar-menu-text">Performance</span>
+                                                <span class="ml-auto sidebar-menu-toggle-icon"></span>
                                             </a>
+                                            <ul class="sidebar-submenu collapse" id="per_menu">
+                                                <li class="sidebar-menu-item">
+		                                            <a class="sidebar-menu-button" href="app-chat.html">
+		                                                <span class="sidebar-menu-text">Settlement History</span>
+		                                            </a>
+		                                        </li>
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button" href="login-centered-boxed.html">
+                                                        <span class="sidebar-menu-text">Commission</span>
+                                                    </a>
+                                                </li>
+                                                
+                                            </ul>
                                         </li>
+                                         
+                                       
                                     </ul>
                                 </li>
 
                                 <li class="sidebar-menu-item <#if ap=='/lead/'|| ap=='/client/' || ap=='/application/' || ap=='/email/'>active open</#if>">
                                     <a class="sidebar-menu-button" data-toggle="collapse" href="#pages_menu">
                                         <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">description</i>
-                                        <span class="sidebar-menu-text">Clients</span>
+                                        <span class="sidebar-menu-text">Pipeline</span>
                                         <span class="ml-auto sidebar-menu-toggle-icon"></span>
                                     </a>
                                     <ul class="sidebar-submenu collapse" id="pages_menu">
@@ -325,63 +342,120 @@
                                             </a>
                                         </li>
                                         <li class="sidebar-menu-item <#if ap=='/application/'>active</#if>">
-                                            <a class="sidebar-menu-button" href="/application">
-                                                <span class="sidebar-menu-text">Applications</span>
+                                            
+                                            <a class="sidebar-menu-button" data-toggle="collapse" href="#app_menu">
+                                                <span class="sidebar-menu-text">Application</span>
+                                                <span class="ml-auto sidebar-menu-toggle-icon"></span>
                                             </a>
+                                            <ul class="sidebar-submenu collapse" id="app_menu">
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button" href="/application?st=0">
+                                                        <span class="sidebar-menu-text">Processing</span>
+                                                    </a>
+                                                </li>
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button" href="/application?st=1">
+                                                        <span class="sidebar-menu-text">Submitted</span>
+                                                    </a>
+                                                </li>
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button" href="/application?st=2">
+                                                        <span class="sidebar-menu-text">Pre-approved</span>
+                                                    </a>
+                                                </li>
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button" href="/application?st=3">
+                                                        <span class="sidebar-menu-text">Conditionally Approved</span>
+                                                    </a>
+                                                </li>
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button" href="/application?st=4">
+                                                        <span class="sidebar-menu-text">Pending Settlement</span>
+                                                    </a>
+                                                </li>
+                                                <li class="sidebar-menu-item">
+                                                    <a class="sidebar-menu-button" href="/application?st=5">
+                                                        <span class="sidebar-menu-text">Completed</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="pricing.html">
-                                                <span class="sidebar-menu-text">Limbo</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="edit-account.html">
-                                                <span class="sidebar-menu-text">Settled Applications</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item <#if ap=='/client/'>active</#if>">
-                                            <a class="sidebar-menu-button" href="/client">
-                                                <span class="sidebar-menu-text">Client Database</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item <#if ap=='/email/'>active</#if>">
-                                            <a class="sidebar-menu-button" href="/email">
-                                                <span class="sidebar-menu-text">Email</span>
-                                            </a>
-                                        </li>
+                                       
+                                        
                                         
                                     </ul>
                                 </li>
 
-                                <!-- li class="sidebar-menu-item">
+                                <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button" data-toggle="collapse" href="#layouts_menu">
                                         <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">view_compact</i>
-                                        <span class="sidebar-menu-text">Layouts</span>
+                                        <span class="sidebar-menu-text">Client Hub</span>
                                         <span class="ml-auto sidebar-menu-toggle-icon"></span>
                                     </a>
                                     <ul class="sidebar-submenu collapse" id="layouts_menu">
                                         <li class="sidebar-menu-item active">
-                                            <a class="sidebar-menu-button" href="app-fullcalendar.html">
-                                                <span class="sidebar-menu-text">Default</span>
+                                            <a class="sidebar-menu-button" href="/client">
+                                                <span class="sidebar-menu-text">Client Database</span>
                                             </a>
                                         </li>
                                         <li class="sidebar-menu-item">
                                             <a class="sidebar-menu-button" href="fluid-app-fullcalendar.html">
-                                                <span class="sidebar-menu-text">Full Width Navs</span>
+                                                <span class="sidebar-menu-text">Post Settlement Follow Up</span>
                                             </a>
                                         </li>
+                                       
+                                    </ul>
+                                </li>
+                                
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button" data-toggle="collapse" href="#par_menu">
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">dvr</i>
+                                        <span class="sidebar-menu-text">Partner Contacts</span>
+                                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                    </a>
+                                    <ul class="sidebar-submenu collapse" id="par_menu">
                                         <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="fixed-app-fullcalendar.html">
-                                                <span class="sidebar-menu-text">Fixed Navs</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="mini-app-fullcalendar.html">
-                                                <span class="sidebar-menu-text">Mini Sidebar + Navs</span>
+                                            <a class="sidebar-menu-button" href="/">
+                                                <span class="sidebar-menu-text">Industry</span>
                                             </a>
                                         </li>
                                     </ul>
-                                </li -->
+                                </li>
+                                <li class="sidebar-menu-item <#if ap=='/email/'>active</#if>">
+                                	<a class="sidebar-menu-button" href="/email">
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">dvr</i>
+                                        <span class="sidebar-menu-text">Email</span>
+                                    </a>
+                                            
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button" data-toggle="collapse" href="#doc_menu">
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">view_compact</i>
+                                        <span class="sidebar-menu-text">Documents Centre</span>
+                                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                    </a>
+                                    <ul class="sidebar-submenu collapse" id="doc_menu">
+                                        <li class="sidebar-menu-item active">
+                                            <a class="sidebar-menu-button" href="/client">
+                                                <span class="sidebar-menu-text">Personal</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item">
+                                            <a class="sidebar-menu-button" href="fluid-app-fullcalendar.html">
+                                                <span class="sidebar-menu-text">Public</span>
+                                            </a>
+                                        </li>
+                                       
+                                    </ul>
+                                </li>
+                                <li class="sidebar-menu-item <#if ap=='/email/'>active</#if>">
+                                	<a class="sidebar-menu-button" href="/email">
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">dvr</i>
+                                        <span class="sidebar-menu-text">Reports</span>
+                                    </a>
+                                            
+                                </li>
+                                
                             </ul>
 
                         </div>
@@ -397,7 +471,8 @@
     <!-- // END header-layout -->
 
 
-   
+<script src="/f/assets/js/layer.js"></script>
+<script src="/f/assets/js/mobile/mlayer.js"></script>   
 </body>
 
 </html>

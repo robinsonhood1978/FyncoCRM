@@ -1,0 +1,138 @@
+<#include "/t/_l.html" />
+<@layout>
+                <div class="mdk-drawer-layout__content page">
+
+
+
+                    <div class="container-fluid  page__heading-container">
+                        <div class="page__heading">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="#"><i class="material-icons icon-20pt">home</i></a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Account</li>
+                                </ol>
+                            </nav>
+                            <h1 class="m-0">Upload Company Logo</h1>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="container-fluid page__container">
+
+                        <div class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">Setting</strong></p>
+                                    <p class="text-muted"></p>
+                                </div>
+                                <div class="col-lg-8 card-form__body card-body d-flex align-items-center">
+                                    <div class="flex">
+                                        <label for="uselogo">Use the logo when generate application form</label><br>
+                                        <div class="custom-control custom-checkbox-toggle custom-control-inline mr-1">
+                                            <input type="checkbox" id="uselogo" class="custom-control-input">
+                                            <label class="custom-control-label" for="uselogo">Yes</label>
+                                        </div>
+                                        <label for="uselogo" class="mb-0">Yes</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card card-form">
+                            <div class="row no-gutters">
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">Upload Your Company Logo</strong></p>
+                                    <p class="text-muted">Change the logo.</p>
+                                </div>
+                                <div class="col-lg-8 card-form__body card-body">
+                                    <div class="form-group">
+                                    
+                                    
+                                    
+                                    
+                                    
+                  <div class="embed-responsive embed-responsive-1by1">
+  <iframe class="embed-responsive-item" src="/uplogo" allowfullscreen></iframe>
+</div>              
+                                    
+
+
+	
+
+
+
+
+
+
+
+
+
+
+                                    
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                       
+                    </div>
+
+
+                </div>
+                <!-- // END drawer-layout__content -->
+<script>
+
+
+window.onload = function() { 
+	/* var checkbox = document.getElementById('uselogo');
+
+	checkbox.addEventListener('change', (event) => {
+	  if (event.target.checked) {
+	    alert('checked');
+	  } else {
+	    alert('not checked');
+	  }
+	}) */
+	var uselogo = '${session.user.uselogo}';
+	if(uselogo==1){
+		$( "#uselogo" ).prop( "checked", true );
+	}
+	else{
+		$( "#uselogo" ).prop( "checked", false );
+	}
+	$('#uselogo').change(function() 
+			{
+				var use = 0;
+			  if(this.checked != true)
+			  {
+				  use = 0;
+			  }
+			  else{
+				  use = 1;
+			  }
+			  $.post("/juselogo", {use}, function(data) {
+					if(data.code>0){
+						mlayer.open({
+						    content: 'Setting changed',
+						    btn: 'Got it'
+						  });
+						return false;
+					}
+					else{
+						mlayer.open({
+						    content: 'Fail',
+						    btn: 'Got it'
+						  });
+						return false;
+					}
+				}, "json");
+			}); 
+		
+}; 
+</script>	
+
+</@layout>

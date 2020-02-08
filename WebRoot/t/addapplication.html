@@ -2653,11 +2653,11 @@
                 function RemoveMonthincome(id,applicantid){
                 	$('#monthincome_'+applicantid+'_'+id).remove();
                 }
-                function RemoveMonthincomefr(id,applicantid){
-                	$('#monthincomefr_'+applicantid+'_'+id).remove();
+                function RemoveMonthincomefr(id){
+                	$('#monthincomefr_'+id).remove();
                 }
-                function RemoveMonthexpend(id,applicantid){
-                	$('#monthexpend_'+applicantid+'_'+id).remove();
+                function RemoveMonthexpend(id){
+                	$('#monthexpend_'+id).remove();
                 }
                 function AddMonthincome(id){
                 	copyApplicantInfo("monthincome",id);
@@ -4291,16 +4291,18 @@ layui.use('upload', function(){
   
 });
 window.onload = function() { 
-	var monthincome = '${(application.monthincome)!}';
-	var monthincomefr = '${(application.monthincome_from_rent)!}';
-	var monthexpend = '${(application.monthexpend)!}';
-	setMonthincome(monthincome); 
-	setMonthincomefr(monthincomefr); 
-	setMonthexpend(monthexpend); 
-	Asset();
-	Income();
-	MonthExpend();
-	Liability();
+	if('${method}'=='edit'){
+		var monthincome = '${(application.monthincome)!}';
+		var monthincomefr = '${(application.monthincome_from_rent)!}';
+		var monthexpend = '${(application.monthexpend)!}';
+		setMonthincome(monthincome); 
+		setMonthincomefr(monthincomefr); 
+		setMonthexpend(monthexpend); 
+		Asset();
+		Income();
+		MonthExpend();
+		Liability();
+	}
 }; 
 </script>
 

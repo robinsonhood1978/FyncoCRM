@@ -219,6 +219,14 @@ public class CommonController extends Controller {
 		render("/t/avatar.html");
 	}
 	@Before(MInterceptor.class)
+	public void logo() {
+		render("/t/logo.html");
+	}
+	@Before(MInterceptor.class)
+	public void uplogo() {
+		render("/t/uplogo.html");
+	}
+	@Before(MInterceptor.class)
 	public void person() {
 		//render("/WEB-INF/m/person.html");
 		render("/t/person.html");
@@ -374,6 +382,21 @@ public class CommonController extends Controller {
 			setAttr("msg", "Unauthorized access");
 			render("/t/msg.html");
 		}
+	}
+	public void juselogo() {
+		int code=0;
+		int use = getParaToInt("use");
+		System.out.println("use:"+use);
+		User u = getSessionAttr("user");
+		int i = Db.update("update user set uselogo=? where id=?",use,u.getInt("id"));
+		if(i>0) {
+			u.set("uselogo", use);
+			setSessionAttr("user",u);
+			code=1;
+		}
+		Map map = new HashMap();
+		map.put("code",code);
+		renderJson(map);
 	}
 	public void jsetpwd() {
 		int code=0;
