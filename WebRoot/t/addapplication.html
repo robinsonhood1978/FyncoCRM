@@ -157,7 +157,7 @@
                                         </div>
                                         
                                     </div>
-                                    <div class="row">
+                                    <div class="row" style="display: none;">
                                     	<div class="col">
                                             <div class="form-group">
                                                 <label for="lname">Security Holder</label>
@@ -256,6 +256,21 @@
 		                                                <input type="text" class="form-control" name="security_property_value" value="">
 		                                            </div>
 		                                        </div>
+		                                    </div>
+		                                    <div class="row">
+		                                    	<div class="col">
+		                                            <div class="form-group">
+		                                                <label for="lname">Security Holder</label>
+		                                                <input type="text" class="form-control" name="security_holder" value="${(application.security_holder)!}">
+		                                            </div>
+		                                        </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <label for="lname">Borrower</label>
+		                                                <input type="text" class="form-control" name="security_borrower" value="${(application.borrower)!}">
+		                                            </div>
+		                                        </div>
+		                                        
 		                                    </div>
 	                                    </div>
                                     </div>
@@ -3426,6 +3441,8 @@
 	    				var security_property_type = document.getElementsByName("security_property_type");
 	    				var security_property_use = document.getElementsByName("security_property_use");
 	    				var security_property_value = document.getElementsByName("security_property_value");
+	    				var security_property_holder = document.getElementsByName("security_holder");
+	    				var security_property_borrower = document.getElementsByName("security_borrower");
 	    				for(var i=0;i<securityArray.length;i++){
 	    					security_property[i].value=securityArray[i]['property'];
 	    					security_bank[i].value=securityArray[i]['bank'];
@@ -3433,6 +3450,8 @@
 	    					security_property_type[i].value=securityArray[i]['property_type'];
 	    					security_property_use[i].value=securityArray[i]['use'];
 	    					security_property_value[i].value=securityArray[i]['value'];
+	    					security_property_holder[i].value=securityArray[i]['holder'];
+	    					security_property_borrower[i].value=securityArray[i]['borrower'];
 	    				}  
                 	} 
                 	
@@ -3963,11 +3982,14 @@ function SaveApp(method){
 					var security_property_type = document.getElementsByName("security_property_type");
 					var security_property_use = document.getElementsByName("security_property_use");
 					var security_property_value = document.getElementsByName("security_property_value");
+					var security_property_holder = document.getElementsByName("security_holder");
+    				var security_property_borrower = document.getElementsByName("security_borrower");
 					console.log()
 					for(var i=0;i<security_property.length;i++){
 						if(security_property[i].value!=''){
 							propertyArray.push({"property":security_property[i].value,"bank":security_bank[i].value,
 								"owner":security_owner[i].value,"property_type":security_property_type[i].value,
+								"holder":security_property_holder[i].value,"borrower":security_property_borrower[i].value,
 								"use":security_property_use[i].value,"value":security_property_value[i].value.replace(/\$|,/g, '')});
 						}
 					} 

@@ -143,20 +143,7 @@
                                         </div>
                                         
                                     </div>
-                                    <div class="row">
-                                    	<div class="col">
-                                            <div class="form-group">
-                                                <label for="lname">Security Holder</label><br/>
-                                                ${(application.security_holder)!}
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="lname">Borrower</label><br/>
-                                                ${(application.borrower)!}
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="row" style="display: none;">
                                     	<div class="col">
                                             <div class="form-group">
@@ -234,6 +221,22 @@
 		                                            <div class="form-group">
 		                                                <label>Value</label>
 		                                                <div name="security_property_value"></div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    <div class="row">
+		                                    	<div class="col">
+		                                            <div class="form-group">
+		                                                <label>Security Holder</label>
+		                                                ${(application.security_holder)!}
+		                                                <div name="security_holder"></div>
+		                                            </div>
+		                                        </div>
+		                                        <div class="col">
+		                                            <div class="form-group">
+		                                                <label>Borrower</label>
+		                                                ${(application.borrower)!}
+		                                                <div name="security_borrower"></div>
 		                                            </div>
 		                                        </div>
 		                                    </div>
@@ -3218,6 +3221,8 @@
 	    				var security_property_type = document.getElementsByName("security_property_type");
 	    				var security_property_use = document.getElementsByName("security_property_use");
 	    				var security_property_value = document.getElementsByName("security_property_value"); 
+	    				var security_property_holder = document.getElementsByName("security_holder");
+	    				var security_property_borrower = document.getElementsByName("security_borrower");
 	    				for(var i=0;i<securityArray.length;i++){
 	    					security_property[i].innerHTML=securityArray[i]['property'];
 	    					security_bank[i].innerHTML=securityArray[i]['bank'];
@@ -3225,6 +3230,8 @@
 	    					security_property_type[i].innerHTML=securityArray[i]['property_type'];
 	    					security_property_use[i].innerHTML=securityArray[i]['use'];
 	    					security_property_value[i].innerHTML=formatter.format(securityArray[i]['value']); 
+	    					security_property_holder[i].innerHTML=securityArray[i]['holder'];
+	    					security_property_borrower[i].innerHTML=securityArray[i]['borrower'];
 	    				}  
                 	} 
                 	
