@@ -265,7 +265,13 @@ public class PdfUtil {
 			String fv = obj.getString(database_fields[j]);
 			if(format[j]==1) {
 				if(!fv.equals("")) {
-					fv = StrUtil.formatString(Double.valueOf(fv));
+					if(fv.indexOf("$")<0) {
+						fv = StrUtil.formatString(Double.valueOf(fv));
+					}
+					else {
+						System.out.println("fv:"+fv);
+						fv = fv.replaceAll("\\$", "");
+					}
 				}
 			}
 			if(position[j]==0) {
