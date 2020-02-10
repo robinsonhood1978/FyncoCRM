@@ -3595,7 +3595,7 @@
     					if(revcredit_v[i].value!=''||i==0){
     						var name = "Revolving Credit";
     						if(i>0)name="";
-    						revcreditArray.push({"name":name,"provider":revcredit_d[i].value,"limit":revcredit_l[i].value,"balance":revcredit_v[i].value});
+    						revcreditArray.push({"name":name,"provider":revcredit_d[i].value,"limit":revcredit_l[i].value.replace(/\$|,/g, ''),"balance":revcredit_v[i].value.replace(/\$|,/g, '')});
     						total_liability += b20(revcredit_v[i].value);
     					}
     				} 
@@ -3610,7 +3610,7 @@
     					if(overlimit_v[i].value!=''||i==0){
     						var name = "Overdraft Limit";
     						if(i>0)name="";
-    						overlimitArray.push({"name":name,"provider":overlimit_d[i].value,"limit":overlimit_l[i].value,"balance":overlimit_v[i].value});
+    						overlimitArray.push({"name":name,"provider":overlimit_d[i].value,"limit":overlimit_l[i].value.replace(/\$|,/g, ''),"balance":overlimit_v[i].value.replace(/\$|,/g, '')});
     						total_liability += b20(overlimit_v[i].value);
     					}
     				} 
@@ -3625,7 +3625,7 @@
     					if(creditcard_v[i].value!=''||i==0){
     						var name = "Credit Card";
     						if(i>0)name="";
-    						creditcardArray.push({"name":name,"provider":creditcard_d[i].value,"limit":creditcard_l[i].value,"balance":creditcard_v[i].value});
+    						creditcardArray.push({"name":name,"provider":creditcard_d[i].value,"limit":creditcard_l[i].value.replace(/\$|,/g, ''),"balance":creditcard_v[i].value.replace(/\$|,/g, '')});
     						total_liability += b20(creditcard_v[i].value);
     					}
     				} 
@@ -3640,7 +3640,7 @@
     					if(storecard_v[i].value!=''||i==0){
     						var name = "Store Card";
     						if(i>0)name="";
-    						storecardArray.push({"name":name,"provider":storecard_d[i].value,"limit":storecard_l[i].value,"balance":storecard_v[i].value});
+    						storecardArray.push({"name":name,"provider":storecard_d[i].value,"limit":storecard_l[i].value.replace(/\$|,/g, ''),"balance":storecard_v[i].value.replace(/\$|,/g, '')});
     						total_liability += b20(storecard_v[i].value);
     					}
     				} 
@@ -3655,7 +3655,7 @@
     					if(hirepurchase_v[i].value!=''||i==0){
     						var name = "Hire Purchase";
     						if(i>0)name="";
-    						hirepurchaseArray.push({"name":name,"provider":hirepurchase_d[i].value,"monthly_cost":hirepurchase_c[i].value,"balance":hirepurchase_v[i].value});
+    						hirepurchaseArray.push({"name":name,"provider":hirepurchase_d[i].value,"monthly_cost":hirepurchase_c[i].value.replace(/\$|,/g, ''),"balance":hirepurchase_v[i].value.replace(/\$|,/g, '')});
     						total_liability += b20(hirepurchase_v[i].value);
     					}
     				} 
@@ -3669,7 +3669,7 @@
     					if(otherliability_v[i].value!=''||i==0){
     						var name = "Other Liabilities";
     						if(i>0)name="";
-    						otherliabilityArray.push({"name":name,"description":otherliability_d[i].value,"balance":otherliability_v[i].value});
+    						otherliabilityArray.push({"name":name,"description":otherliability_d[i].value,"balance":otherliability_v[i].value.replace(/\$|,/g, '')});
     						total_liability += b20(otherliability_v[i].value);
     					}
     				} 
@@ -3946,7 +3946,7 @@ function SaveApp(method){
 					var LVR=$('#LVR').val();
 					var finance_date=formatDate($('#finance_date').val());
 					var settlement_date=formatDate($('#settlement_date').val());
-					alert(settlement_date)
+					/* alert(settlement_date) */
 					var borrower=$('#borrower').val();
 					var security_holder=$('#security_holder').val();
 					/* var UMI=$('#UMI').val(); */ //dannel modify
