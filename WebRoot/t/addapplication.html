@@ -3294,8 +3294,7 @@
 	    				
 	    				
                 	}
-                	
-                	var notes = '${(application.note)?replace("\'","\\'")!}';
+                	var notes = '${(application.note)!?replace("\'","\\'")}';
                 	if(notes!=''){
                 		//notes = notes.replace("[&quot;","[\"").replace("&quot;]","\"]");
                 		notes = notes.replace(/\n/g,"\\n").replace(/\"/g, "\\\"") ;
