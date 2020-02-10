@@ -313,14 +313,14 @@
                                            		</div>
                                             </div>
                                         </div>
-                                        <!-- <div class="col">
+                                        <!-- div class="col">
                                             <div class="form-group" style="text-align: center; border: solid 1px; height: 40px; border-radius:15px;">
 			                                   <div id="from_applicant" style="margin: 5px;">
                                                 <i class="material-icons">add_circle_outline</i>
                                            		<label for="fname">Applicants</label>
                                            		</div>
                                             </div>
-                                        </div> -->
+                                        </div -->
                                         <div class="col">
                                             <div class="form-group" style="text-align: center; border: solid 1px; height: 40px; border-radius:15px;">
 			                                   <div id="addapplicantfromleads" style="margin: 5px;">
@@ -3295,8 +3295,13 @@
 	    				
                 	}
                 	
-                	var notes = '${(application.note)!}';
+                	var notes = '${(application.note)?replace("\'","\\'")!}';
                 	if(notes!=''){
+                		//notes = notes.replace("[&quot;","[\"").replace("&quot;]","\"]");
+                		notes = notes.replace(/\n/g,"\\n").replace(/\"/g, "\\\"") ;
+                		notes = notes.replace('[\\"','[\"').replace('\\"]','\"]');
+                		notes = notes.replace('\\", \\"','\", \"');
+                		//console.log(notes)
                 		var noteArray = JSON.parse(notes);
                 		for(var i=1;i<noteArray.length;i++){
 	                		copyTr("note");
