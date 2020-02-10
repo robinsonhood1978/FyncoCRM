@@ -67,13 +67,11 @@
                                                 </div>
                                             </th>
 
-                                            <th>Name</th>
-                                            <th >Title</th>
-                                            <th >Date of Birth</th>
+                                            <th >First Name</th>
+                                            <th >Last Name</th>
                                             <th >Mobile</th>
                                             <th >Personal Email</th>
-                                            <th >Comments</th>
-                                            <th ></th>
+                                            <th >Assigned Broker</th>
                                         </tr>
                                     </thead>
                                     <form id="tableForm" method="post">
@@ -88,7 +86,7 @@
                                                 </div>
                                             </td>
 
-                                            <td>
+                                            <!-- <td>
 
                                                 <div class="media align-items-center">
                                                     <div class="avatar avatar-xs mr-2">
@@ -101,18 +99,34 @@
                                                     </div>
                                                 </div>
 
+                                            </td> -->
+	
+											<td>
+                                            	${x.first_name!}
                                             </td>
 
-                                            <td>
+                                            <td>${x.last_name!}</td>
+                                            <!-- <td>
                                                 <div class="media align-items-center">
                                                     <a href="">${x.title!}</a>
                                                 </div>
-                                            </td>
-
-                                            <td><#if x.birthday??>${(x.birthday)?string('dd/MM/yyyy')!}</#if></td>
+                                            </td> -->
+											<td><span class="badge badge-warning">
+											<#if x.mobile??>
+                                            ${x.mobile?substring(x.mobile?index_of(",") + 2)?replace("[","")?replace("]","")?replace("\"","")}
+                                            </#if>
+                                            </span></td>
+                                            <td><small class="badge badge-warning">
+                                            <#if x.personal_email??>
+                                            ${x.personal_email?substring(x.personal_email?index_of(",") + 2)?replace("[","")?replace("]","")?replace("\"","")}
+                                            </#if>
+                                            </small></td>
+                                            
+                                           <!--  <td><#if x.birthday??>${(x.birthday)?string('dd/MM/yyyy')!}</#if></td>
                                             <td><span class="badge badge-warning">${x.mobile!}</span></td>
                                             <td><small class="text-muted">${x.personal_email!}</small></td>
-                                            <td>${x.comments!}</td>
+                                            <td>${x.comments!}</td> -->
+                                             <td>${x.broker!}</td>
                                             <td>
                                             <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
 	                                        <div class="dropdown-menu dropdown-menu-right">
