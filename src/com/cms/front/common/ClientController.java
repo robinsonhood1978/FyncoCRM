@@ -128,7 +128,9 @@ public class ClientController extends Controller {
 		User u = getSessionAttr("user");
 		Page<Client> page = null;
 		// 当前页
-		StringBuffer sql =new StringBuffer("from client c where c.type=1 and c.creator="+u.getInt("id"));
+//		StringBuffer sql =new StringBuffer("from client c where c.type=1 and c.creator="+u.getInt("id")); dannel modify
+		StringBuffer sql =new StringBuffer("from client c INNER JOIN user u ON c.creator=u.id where c.type=1 and c.company_id="+u.getInt("company_id"));
+		
 		if(getSessionAttr("client_field")!=null) {
 			keyword = getSessionAttr("client_keyword");
 			field = getSessionAttr("client_field");
@@ -141,7 +143,8 @@ public class ClientController extends Controller {
 		}
 		
 		
-		page = Client.dao.paginate(pageNum, 10, "select c.*",sql.toString());
+//		page = Client.dao.paginate(pageNum, 10, "select c.*",sql.toString()); dannel modify
+		page = Client.dao.paginate(pageNum, 10, "select c.*, concat(u.first_name, ' ', u.last_name) as broker",sql.toString());
 		setAttr("contentPage", page);
 		render("/t/clients.html");
 	}
@@ -259,7 +262,7 @@ public class ClientController extends Controller {
 		System.out.println("id="+id);
 		int message_type=5;
 		String type_name = "Refix";
-		
+		System.out.println(u.getInt("company_id")+"yyyyyyyyyyyyyyyy");
 		JSONArray jsonArray = JSONArray.fromObject(loanJson);
 		JSONArray ja = new JSONArray();
 		for (int i = 0; i < jsonArray.size(); i++) {
@@ -294,7 +297,7 @@ public class ClientController extends Controller {
 		}
 		//System.out.println(ja.toString());
 
-		boolean b = getModel(Client.class).set("id", id).set("loan", ja.toString()).set("birthday", DateFmt.USDate(birthday)).set("creator", u.getInt("id")).save();
+		boolean b = getModel(Client.class).set("id", id).set("loan", ja.toString()).set("birthday", DateFmt.USDate(birthday)).set("creator", u.getInt("id")).set("company_id", u.getInt("company_id")).save();
 		if(b)code=0;
 		
 		Map<String, Integer> map = new HashMap<String, Integer>();
