@@ -18,9 +18,13 @@
 
 <tr>
 <td width="12%" class="pn-flabel pn-flabel-h"><span class="pn-frequired"></span>Prefered Name:</td>
-<td colspan="1" width="38%" class="pn-fcontent">
+<td colspan="3" width="38%" class="pn-fcontent">
 <input type="text" maxlength="50" name="user.prefered_name" value="${(user.prefered_name)!}" maxlength="50"/>
 </td>
+
+</tr>
+
+<tr>
 <td width="12%" class="pn-flabel pn-flabel-h">Role:</td><td colspan="1" width="38%" class="pn-fcontent">
 	<select name="user.role_id" id="role_id">
 		<#list roleList as r>
@@ -28,7 +32,15 @@
 		</#list>
 	</select>
 </td>
+<td width="12%" class="pn-flabel pn-flabel-h">Company:</td><td colspan="1" width="38%" class="pn-fcontent">
+	<select name="user.company_id" id="company_id">
+		<#list companyList as c>
+			<option value="${c.id!}">${c.name!}</option>
+		</#list>
+	</select>
+</td>
 </tr>
+
 <tr><td width="12%" class="pn-flabel pn-flabel-h">Avatar:</td>
 <td colspan="1" width="38%" class="pn-fcontent">
 <img id="avatar" src="${(user.avatar)!}" alt="预览" style="width:100px;height:70px;background-color:#ccc;border:1px solid #333">

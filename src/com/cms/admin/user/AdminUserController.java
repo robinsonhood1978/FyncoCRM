@@ -2,7 +2,7 @@ package com.cms.admin.user;
 
 import java.util.List;
 
-
+import com.cms.admin.dept.Dept;
 import com.cms.admin.role.Role;
 import com.cms.util.Md5;
 import com.cms.util.SendMail;
@@ -30,6 +30,7 @@ public class AdminUserController extends Controller {
 	
 	public void add() {
 		setAttr("roleList", Role.dao.find("select * from role"));
+		setAttr("companyList", Dept.dao.find("select * from dept"));
 	}
 	public void account() {
 		int uid = getParaToInt(0);

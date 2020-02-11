@@ -1,0 +1,46 @@
+<table width="100%" class="pn-ftable" cellpadding="2" cellspacing="1" border="0">
+<tr>
+        <td width="30%" height="35" class="pn-flabel pn-flabel-h" nowrap="nowrap">组织机构名称</td>
+        <td height="35" class="pn-fcontent">
+          <input type="text" maxlength="100" name="dept.name" value="${(dept.name)!}" maxlength="100"/>${nameMsg!}
+        </td>
+      </tr>
+      <!-- <tr>
+        <td width="142" height="35" class="pn-flabel pn-flabel-h" nowrap="nowrap">
+        <span class="pn-frequired">*</span>上级组织机构</td>
+        <td height="35" class="pn-fcontent">
+          <select name="dept.pid" id="parent_id"  WIDTH="200" STYLE="width:200px">
+<#if deptList?? && deptList?size gt 0>
+<#assign origdepth=deptList[0].depth+1/>
+<#list deptList as c>
+	<option value="${c.id}"><#if c.depth gte origdepth><#list origdepth..c.depth as i>&nbsp;&nbsp;</#list>></#if>${c.name}</option>
+</#list>
+</#if>
+	</select>
+        </td>
+        </tr> -->
+      <tr>
+        <td width="142" class="pn-flabel pn-flabel-h" nowrap="nowrap">顺序号</td>
+        <td class="pn-fcontent">
+          <input type="text" maxlength="100" name="dept.priority" value="${(dept.priority)!}" maxlength="100"/>
+        </td>
+        </tr>
+      <tr>
+        <td width="142" class="pn-flabel pn-flabel-h">
+          组织机构介绍
+        </div></td>
+        <td class="pn-fcontent">
+          <textarea name="dept.intro"  style=" width:600px; height:100px;">${(dept.intro)!}</textarea>
+        </div></td>
+        </tr>
+      <tr>
+        <td colspan="2" class="pn-fbutton"><input type="hidden" name="dept.id" value="${(dept.id)!}" />
+        <img src="/images/bc.gif" width="62" height="18" onClick="$('#myForm').submit();"/> <img src="/images/cz.gif" width="62" height="18" onClick="history.go(-1);"/></td>
+      </tr>
+</table>
+<script type="text/javascript"> 
+<#if dept?? && dept.pid??>
+var parentId = "${dept.pid!}";
+$("#parent_id").val(parentId);
+</#if>
+</script>
