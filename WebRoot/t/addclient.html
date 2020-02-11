@@ -107,7 +107,7 @@
                                         <div class="col">
                                              <div class="form-group">
 		                                        <label for="birthday">Date of Birth</label>
-		                                        <input id="birthday" type="date" class="form-control" value="<#if client??&&client.birthday??>${(client.birthday)?string('dd/MM/yyyy')!}</#if>" placeholder="date: 00/00/0000"  maxlength="10">
+		                                        <input id="birthday" type="date" class="form-control" value="<#if client??&&client.birthday??>${(client.birthday)?string('yyyy-MM-dd')!}</#if>" placeholder="date: 00/00/0000"  maxlength="10">
 		                                    </div>
                                         </div>
                                     </div>
@@ -453,7 +453,7 @@
                                     <!-- dannel Modify End-->
                                     <div class="row">
 	                                    <div style="padding-left: 16px;padding-right: 8px; width: 70%">
-	                                    	<input class="form-control" type="text" id="current_residential_address" value="${(client.current_residential_address)!}">
+	                                    	<input class="form-control" type="text" name="preaddress" value="">
 	                                    </div>
 	                                    <div style="width: 15%; padding-left: 2px;padding-right: 8px;">
 	                                     	<input type="text" class="form-control" name="p_time_stayed_years" id="p_time_stayed_years" value="${(client.p_time_stayed_years)!}">

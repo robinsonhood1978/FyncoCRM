@@ -218,35 +218,75 @@
                                             </div>
                                         </div>
                                     </div>
-                                   
+                                   <div class="row">
+	                                    <div style="padding-left:16px; width: 70%">
+	                                    	<label for="fname">Current Residential Address (Address client are currently residing)</label>
+	                                    </div>
+	                                    <div style="width: 30%; padding-left: 2px;">
+	                                     	<label for="fname">Period Styled(Years, Months)</label>
+	                                    </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                    	<div style="padding-left: 16px;padding-right: 8px; width: 70%">
+	                                    	${(client.current_residential_address)!}
+	                                    </div>
+	                                    <div style="width: 15%; padding-left: 2px;padding-right: 8px;">
+	                                     	${(client.time_stayed_years)!} Year(s)
+	                                    </div>
+	                                    <div style="width: 15%; padding-left: 2px;padding-right: 16px;">
+	                                     	${(client.time_stayed_months)!} Month(s)
+	                                    </div>
+
+	                                    
+                                    </div>
                                    
                                     
                                     
                                                 <label for="fname">Previous Residential Address (If client have stayed at current address for less than 3 years)</label>
                                                <div id="preaddresses">
                                                 	<div id="inputpreaddress">
-                                                	<div id="divpreaddress">
+                                                	<div id="divpreaddress" style="margin-bottom: 10px;">
                                                <div id="previous_employment">
                                                	<div id="employ">
                                                		
 	                                               <div id="employ_[employ_index]">
 			                                               <div class="row">
 		                                    <div class="col">
-		                                            <div class="card-header bg-white d-flex align-items-center">
+		                                            <div class="card-header bg-white d-flex align-items-center" style="padding-bottom: 2px;">
 						                               <p><strong class="headings-color">Previous Residential Address</strong></p>
 						                                
 						                            </div>
 				                                    </div>
 				                                    </div>
 				                                    <div class="row">
+				                                    	<div style="padding-left:16px; width: 70%">
+					                                    	<label for="fname">Previous Residential Address</label>
+					                                    </div>
+					                                    <div style="width: 30%; padding-left: 2px;">
+					                                     	<label for="fname">Period Styled(Year(s), Month(s))</label>
+					                                    </div>
+				                                    </div>
+				                                    <!-- <div class="row">
 				                                       <div class="col">
 				                                            <div class="form-group">
 				                                                <label>Previous Residential Address</label><br/>
 				                                                <div name="preaddress"></div>
 				                                            </div>
 					                                     </div>
-					                                     </div>
-					                                     <div class="row">
+				                                     </div> -->
+				                                     <div class="row">
+	                                    <div style="padding-left: 16px;padding-right: 8px; width: 70%">
+	                                    	<div name="preaddress"></div>
+	                                    </div>
+	                                    <div style="width: 15%; padding-left: 2px;padding-right: 8px;">
+	                                     	<div name="p_time_stayed_years"></div>
+	                                    </div>
+	                                    <div style="width: 15%; padding-left: 2px;padding-right: 16px;">
+	                                     	<div name="p_time_stayed_months"></div>
+	                                    </div>
+                                    </div>
+					                                     <!-- <div class="row">
 				                                       <div class="col">
 				                                            <div class="form-group">
 				                                                <label for="fname">Time Stayed:(Address client are currently residing)</label><br/>
@@ -268,7 +308,7 @@
 				                                    </div>
 				                                            </div>
 					                                     </div>
-					                                     </div>
+					                                     </div> -->
 					                                      
 				                                    </div>
 				                                    </div>
@@ -278,8 +318,23 @@
 			                                    </div>
                                            
                                     
-                                    
                                     <div class="row">
+	                                    <div style="width: 70%; padding-left: 16px;padding-right: 8px;">
+	                                    	<div class="form-group">
+                                                <label for="fname">Postal Address (If different from residential address)</label>
+                                                ${(client.postal_address)!}
+                                            </div>
+	                                    </div>
+	                                    <div style="width: 30%; padding-left: 2px;padding-right: 16px;">
+	                                    <div class="form-group">
+                                                <label for="fname">Current Living Situation</label>
+                                                <#assign current_living_situation=["Renting","Living in own home","Boarding","Other"]/>
+                                                ${(current_living_situation[client.current_living_situation])!}
+                                            </div>
+	                                    </div>
+                                    </div>
+                                    <!-- <div class="row">
+                                    
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="fname">Postal Address (If different from residential address)</label>
@@ -301,7 +356,7 @@
                                                 
                                            </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     
                                 </div>
                             </div>
@@ -332,7 +387,7 @@
                                     
                                     <div class="row">
                                     <div class="col">
-                                            <div class="card-header bg-white d-flex align-items-center" style="padding-bottom: 5px;">
+                                            <div class="card-header bg-white d-flex align-items-center" style="padding-bottom: 2px;">
 				                               <p><strong class="headings-color">Current Employment</strong></p>
 				                                
 				                            </div>
@@ -390,7 +445,7 @@
 	                                               <div id="employ_[employ_index]">
 			                                               <div class="row">
 		                                    <div class="col">
-		                                            <div class="card-header bg-white d-flex align-items-center">
+		                                            <div class="card-header bg-white d-flex align-items-center" style="padding-bottom: 2px;">
 						                               <p><strong class="headings-color">Previous Employment</strong></p>
 						                                
 						                            </div>
@@ -1032,8 +1087,8 @@ function CalReview(node_index){
 		    				var p_time_stayed_months = document.getElementsByName("p_time_stayed_months");
 		    				for(var i=0;i<preaddressArray.length;i++){
 		    					preaddress[i].innerHTML=preaddressArray[i]['preaddress'];
-		    					p_time_stayed_years[i].innerHTML=preaddressArray[i]['p_time_stayed_years'];
-		    					p_time_stayed_months[i].innerHTML=preaddressArray[i]['p_time_stayed_months'];
+		    					p_time_stayed_years[i].innerHTML=preaddressArray[i]['p_time_stayed_years']+" Year(s)";
+		    					p_time_stayed_months[i].innerHTML=preaddressArray[i]['p_time_stayed_months']+" Month(s)";
 		    				}  
 	                	} 
 	                	

@@ -146,13 +146,13 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="fname">Settlement Date</label>
-                                                <input id="settlement_date" type="date" class="form-control" value="<#if application??&&application.settlement_date??>${(application.settlement_date)?string('dd/MM/yyyy')!}</#if>" placeholder="date: 00/00/0000" maxlength="10">
+                                                <input id="settlement_date" type="date" class="form-control" value="<#if application??&&application.settlement_date??>${(application.settlement_date)?string('yyyy-MM-dd')!}</#if>" placeholder="date: 00/00/0000" maxlength="10">
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="lname">Finance Date</label>
-                                                <input id="finance_date" type="date" class="form-control" value="<#if application??&&application.finance_date??>${(application.finance_date)?string('dd/MM/yyyy')!}</#if>" placeholder="date: 00/00/0000" maxlength="10">
+                                                <input id="finance_date" type="date" class="form-control" value="<#if application??&&application.finance_date??>${(application.finance_date)?string('yyyy-MM-dd')!}</#if>" placeholder="date: 00/00/0000" maxlength="10">
                                             </div>
                                         </div>
                                         
