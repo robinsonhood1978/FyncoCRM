@@ -232,10 +232,10 @@
 	                                    	${(client.current_residential_address)!}
 	                                    </div>
 	                                    <div style="width: 15%; padding-left: 2px;padding-right: 8px;">
-	                                     	${(client.time_stayed_years)!} Year(s)
+	                                     	${(client.time_stayed_years)!} Y
 	                                    </div>
 	                                    <div style="width: 15%; padding-left: 2px;padding-right: 16px;">
-	                                     	${(client.time_stayed_months)!} Month(s)
+	                                     	${(client.time_stayed_months)!} M
 	                                    </div>
 
 	                                    
@@ -904,6 +904,11 @@
                 </div>
                 <!-- // END drawer-layout__content -->
                 <script>
+                const formatter = new Intl.NumberFormat('en-US', {
+                 	  style: 'currency',
+                 	  currency: 'USD',
+                 	  minimumFractionDigits: 2
+                 	})
                 var view_type=$('#type').val();
                 var client_avatar = '${(client.avatar)!}';
                 function Remove(id){
@@ -1087,8 +1092,8 @@ function CalReview(node_index){
 		    				var p_time_stayed_months = document.getElementsByName("p_time_stayed_months");
 		    				for(var i=0;i<preaddressArray.length;i++){
 		    					preaddress[i].innerHTML=preaddressArray[i]['preaddress'];
-		    					p_time_stayed_years[i].innerHTML=preaddressArray[i]['p_time_stayed_years']+" Year(s)";
-		    					p_time_stayed_months[i].innerHTML=preaddressArray[i]['p_time_stayed_months']+" Month(s)";
+		    					p_time_stayed_years[i].innerHTML=preaddressArray[i]['p_time_stayed_years']+" Y";
+		    					p_time_stayed_months[i].innerHTML=preaddressArray[i]['p_time_stayed_months']+" M";
 		    				}  
 	                	} 
 	                	
@@ -1106,7 +1111,7 @@ function CalReview(node_index){
 		    					curcompany[i].innerHTML=curemploymentArray[i]['curcompany'];
 		    					curoccupation[i].innerHTML=curemploymentArray[i]['curoccupation'];
 		    					curduration[i].innerHTML=curemploymentArray[i]['curduration'];
-		    					curgross_income[i].innerHTML=curemploymentArray[i]['gross_income'];
+		    					curgross_income[i].innerHTML=formatter.format(curemploymentArray[i]['gross_income']);
 		    				}  
 	                	} 
 	                	
