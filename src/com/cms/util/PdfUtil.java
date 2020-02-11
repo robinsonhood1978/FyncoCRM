@@ -1090,6 +1090,8 @@ public class PdfUtil {
     		fields.get("security_p"+j+"_type").setValue(securityObj.getString("property_type")).setFontSize(9);
     		fields.get("security_p"+j+"_use").setValue(securityObj.getString("use")).setFontSize(9);
     		fields.get("security_p"+j+"_value").setValue(StrUtil.formatString(securityObj.getString("value"))).setFontSize(9);
+    		fields.get("security_p"+j+"_holder").setValue(securityObj.getString("holder")).setFontSize(9);
+    		fields.get("security_p"+j+"_borrower").setValue(securityObj.getString("borrower")).setFontSize(9);
 		}
 		
         
@@ -1145,12 +1147,12 @@ public class PdfUtil {
         if(app.getDate("settlement_date")!=null) {
         	fields.get("settlement_date").setValue(DateFmt.formatDate(app.getDate("settlement_date").toString(),"yyyy-MM-dd","dd/MM/yyyy")).setFontSize(9);
         }
-        if(app.getBigDecimal("existing_loan_amount")!=null) {
-        	fields.get("existing_loan_amount").setValue(StrUtil.formatString(app.getBigDecimal("existing_loan_amount").doubleValue())).setFontSize(9);
-        }
-        if(app.getBigDecimal("total_loan_amount")!=null) {
-        	fields.get("total_loan_amount").setValue(StrUtil.formatString(app.getBigDecimal("total_loan_amount").doubleValue())).setFontSize(9);
-        }
+//        if(app.getBigDecimal("existing_loan_amount")!=null) {
+//        	fields.get("existing_loan_amount").setValue(StrUtil.formatString(app.getBigDecimal("existing_loan_amount").doubleValue())).setFontSize(9);
+//        }
+//        if(app.getBigDecimal("total_loan_amount")!=null) {
+//        	fields.get("total_loan_amount").setValue(StrUtil.formatString(app.getBigDecimal("total_loan_amount").doubleValue())).setFontSize(9);
+//        }
         fields.get("purpose").setValue(lending_purpose+"\n"+StrUtil.null2Blank(app.getStr("purpose"))).setFontSize(9);
         
         form.flattenFields();//设置表单域不可编辑       
