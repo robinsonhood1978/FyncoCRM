@@ -73,7 +73,7 @@ public class ApplicationController extends Controller {
 		}
 		
 		
-		page = Db.paginate(pageNum, 20, "select GROUP_CONCAT(ac.client_id,'-',c.first_name,' ',c.last_name) as dealstr,a.id,a.status,a.lender,a.lending_purpose,a.lending_amount_required,a.application_date",sql.toString());
+		page = Db.paginate(pageNum, 20, "select GROUP_CONCAT(ac.client_id,'-',ifnull(c.first_name,''),' ',ifnull(c.last_name,'')) as dealstr,a.id,a.status,a.lender,a.lending_purpose,a.lending_amount_required,a.application_date",sql.toString());
 		setAttr("contentPage", page);
 		setAttr("status", status);
 		render("/t/application.html");
