@@ -1065,10 +1065,10 @@ function CalReview(node_index){
 	
 	if(node_index=='[node_index]'){
 		var effective_date = formatDate($('#loan_effective_date_0').val());
-		alert(effective_date)
+/* 		alert(effective_date) */
 		if(effective_date!=''){
 			var months = $('#loan_now_rate_period_0').val();
-			alert(d2sd(effective_date,months))
+			/* alert(d2sd(effective_date,months)) */
 			$('#loan_review_date_0').val(d2sd(effective_date,months));
 		}
 		else{

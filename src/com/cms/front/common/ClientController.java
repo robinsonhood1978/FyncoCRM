@@ -141,7 +141,7 @@ public class ClientController extends Controller {
 				sql.append(" and c."+field+" like '%"+keyword+"%'");
 			}
 		}
-		
+		sql.append(" ORDER BY c.create_time DESC");
 		
 //		page = Client.dao.paginate(pageNum, 10, "select c.*",sql.toString()); dannel modify
 		page = Client.dao.paginate(pageNum, 10, "select c.*, concat(u.first_name, ' ', u.last_name) as broker",sql.toString());

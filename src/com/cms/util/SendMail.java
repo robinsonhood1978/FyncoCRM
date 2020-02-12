@@ -224,18 +224,20 @@ public class SendMail {
 
         // Sender's email ID needs to be mentioned
         //String from = "fynco.storage@gmail.com";
-		String from = "robin@taijicoin.nz";
+		final String from = "fyncotester@gmail.com";
         // Assuming you are sending email from through gmails smtp
         //String host = "smtp.gmail.com";
-		String host = "smtp.taijicoin.nz";
+		String host = "smtp.gmail.com";
         // Get system properties
-        Properties properties = System.getProperties();
-
-        // Setup mail server
-        properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", "465");
-        properties.put("mail.smtp.ssl.enable", "true");
-        properties.put("mail.smtp.auth", "true");
+//        Properties properties = System.getProperties();
+//
+//        // Setup mail server
+//        properties.put("mail.smtp.host", host);
+//        properties.put("mail.smtp.port", "465");
+//        properties.put("mail.smtp.ssl.enable", "true");
+//        properties.put("mail.smtp.auth", "true");
+		Properties properties = hostSetUp(host);
+        
 
         // Get the Session object.// and pass username and password
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
@@ -243,7 +245,7 @@ public class SendMail {
             protected PasswordAuthentication getPasswordAuthentication() {
 
                 //return new PasswordAuthentication("fynco.storage@gmail.com", "fynco321");
-            	return new PasswordAuthentication("robin@taijicoin.nz", "111111");
+            	return new PasswordAuthentication(from, "fynco@test");
 
             }
 

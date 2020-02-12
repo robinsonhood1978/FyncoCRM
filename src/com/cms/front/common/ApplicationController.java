@@ -65,17 +65,26 @@ public class ApplicationController extends Controller {
 		User u = getSessionAttr("user");
 		Page<Record> page = null;
 		// 当前页
-		StringBuffer sql =new StringBuffer("from application a join application_client ac on a.id=ac.application_id join client c on ac.client_id=c.id where a.status="+status+" and a.creator="+u.getInt("id")+" group by a.id ORDER BY a.create_time DESC");
+		StringBuffer sql =new StringBuffer("from application a join application_client ac on a.id=ac.application_id join client c on ac.client_id=c.id where a.status="+status+" and a.creator="+u.getInt("id"));
 		if(getSessionAttr("application_field")!=null) {
 			keyword = getSessionAttr("application_keyword");
 			field = getSessionAttr("application_field");
-			sql.append(" and a."+field+" like '%"+keyword+"%'");
+			if(field.equals("name")) {
+				sql.append(" and (c.first_name like '%"+keyword+"%' or c.last_name like '%"+keyword+"%')");
+			}
+			else {
+				sql.append(" and a."+field+" like '%"+keyword+"%'");
+			}
 		}
+		sql.append(" group by a.id ORDER BY a.create_time DESC");
 		
 		
 		page = Db.paginate(pageNum, 20, "select GROUP_CONCAT(ac.client_id,'-',ifnull(c.first_name,''),' ',ifnull(c.last_name,'')) as dealstr,a.id,a.status,a.lender,a.lending_purpose,a.lending_amount_required,a.application_date",sql.toString());
+//		System.out.println(page.getTotalPage());
+//		System.out.println(page.getTotalRow());
 		setAttr("contentPage", page);
 		setAttr("status", status);
+		setAttr("totals",Db.queryBigDecimal("select SUM(a.lending_amount_required) AS lending_totals from application a where a.status=? and a.creator=?",status,u.getInt("id")));
 		render("/t/application.html");
 	}
 	public void add() {

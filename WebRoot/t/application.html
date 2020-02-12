@@ -40,14 +40,23 @@
 
                                     <label class="sr-only" for="inlineFormRole">Field</label>
                                     <select name="field" id="field" class="custom-select mb-2 mr-sm-2 mb-sm-0">
-                                        <option value="bank">Bank</option>
-                                        <option value="mobile">Mobile</option>
+                                        <option value="lender">Bank</option>
+                                        <option value="name">Name</option>
                                     </select>
 
                                     <button class="btn" type="submit" role="button"><i class="material-icons">search</i></button>
                                 </form>
                                         </div>
+                                        <div style="margin-left: 200px;">
+                                        	Total: 
+                                        	<#if totals??>
+                                        	${(totals?string.currency)!}
+                                        	<#else>
+                                        	${(0?string.currency)!}
+                                        	</#if>
+                                        </div>
                                         <div class="ml-auto">
+                                        
                                             <button type="button" onclick="optDelete('/application/del');" id="delete" class="btn btn-outline-info btn-rounded">Delete</button>
                                         </div>
                                     </div>
@@ -76,6 +85,7 @@
                                             <th ></th>
                                         </tr>
                                     </thead>
+                                   <#assign total = 0>
                                     <form id="tableForm" method="post">
                                     <tbody class="list" id="staff">
 <#list contentPage.getList() as x>
@@ -120,6 +130,8 @@
                                             
                                             
                                             </td>
+                                            
+                                            <#assign total = total+x.lending_amount_required>
                                             <td><span class="badge badge-warning">${(x.lending_amount_required?string.currency)!}</span></td>
                                             <!-- <td><small class="text-muted">${(x.new_loan_amount)!}</small></td> -->
                                             <td><#if x.application_date??>${(x.application_date)?string('dd/MM/yyyy')!}</#if></td>
@@ -168,6 +180,13 @@
                 </div>
                 <!-- // END drawer-layout__content -->		
 <script>
+const formatter = new Intl.NumberFormat('en-US', {
+ 	  style: 'currency',
+ 	  currency: 'USD',
+ 	  minimumFractionDigits: 2
+ 	})
+var total = "${total}";
+$('#total_amount').html("Total: "+formatter.format(total));
 function SavePdf(appid){
 	$.ajaxSettings.async = false;
 	$.post("/application/pdf", {"id":appid}, function(data) {
