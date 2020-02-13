@@ -789,7 +789,7 @@ public class PdfUtil {
 		        fields.get("app"+m+"_contact_mobile").setValue(mobile).setFontSize(9);
 		        fields.get("app"+m+"_contact_home").setValue(StrUtil.null2Blank(app[k].getStr("home_phone"))).setFontSize(9);
 		        fields.get("app"+m+"_contact_work").setValue(StrUtil.null2Blank(app[k].getStr("work_phone"))).setFontSize(9);
-		        fields.get("app"+m+"_contact_wechat").setValue(StrUtil.null2Blank(app[k].getStr("wechat"))).setFontSize(9);
+		        //fields.get("app"+m+"_contact_wechat").setValue(StrUtil.null2Blank(app[k].getStr("wechat"))).setFontSize(9);
 		        
 		        JSONArray emailJsonArray = JSONArray.fromObject(app[k].getStr("personal_email"));
 		        String personal_email = "";

@@ -24,6 +24,7 @@ import com.cms.admin.user.User;
 import com.cms.front.entity.Application;
 import com.cms.front.entity.Email;
 import com.cms.util.DateFmt;
+import com.cms.util.FileUtil;
 import com.cms.util.Md5;
 import com.cms.util.Paginable;
 import com.cms.util.SendMail;
@@ -46,6 +47,15 @@ public class CommonController extends Controller {
 	private static SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmsssSSS");
 	private static SimpleDateFormat ym = new SimpleDateFormat("yyyyMM");
 	private static String uploadroot = "/upload/";
+	public void jdeldoc() {
+		String doc_url = getPara("doc_url");
+		String realPath = this.getRequest().getRealPath("/");
+		String dest = realPath+doc_url;
+		FileUtil.deleteAll(dest);
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("code",0);
+		renderJson(map);
+	}
 	public void file() {
 		String savefilename="";
 		String filedataFileName ="";
