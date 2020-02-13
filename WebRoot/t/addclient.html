@@ -1350,7 +1350,7 @@ function CalReview(node_index){
 		    					loan_borrowing_entity[i].value=loanArray[i]['loan_borrowing_entity'];
 		    					loan_amount[i].value=loanArray[i]['loan_amount'];
 		    					loan_account_no[i].value=loanArray[i]['loan_account_no'];
-		    					loan_effective_date[i].value=loanArray[i]['loan_effective_date'];
+		    					loan_effective_date[i].value=loanArray[i]['loan_effective_date'].split("/").reverse().join("-");
 		    					loan_now_rate_period[i].value=loanArray[i]['loan_now_rate_period'];
 		    					loan_review_date[i].value=loanArray[i]['loan_review_date'].split("/").reverse().join("-");
 		    					loan_reminder_days[i].value=loanArray[i]['loan_reminder_days'];
