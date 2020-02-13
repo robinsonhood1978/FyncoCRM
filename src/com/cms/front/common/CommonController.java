@@ -48,7 +48,7 @@ public class CommonController extends Controller {
 	private static SimpleDateFormat ym = new SimpleDateFormat("yyyyMM");
 	private static String uploadroot = "/upload/";
 	public void jdeldoc() {
-		String doc_url = getPara("doc_url");
+		String doc_url = getPara("url");
 		String realPath = this.getRequest().getRealPath("/");
 		String dest = realPath+doc_url;
 		FileUtil.deleteAll(dest);
