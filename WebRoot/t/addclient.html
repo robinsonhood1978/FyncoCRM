@@ -141,7 +141,7 @@
                                                 <div id="mobiles">
                                                 	<div id="inputmobile">
                                                 	<div id="divmobile" class="search-form search-form--light">
-                                                <input class="form-control" type="tel" name="mobile" pattern="[0-9]*" value="">
+                                                <input class="form-control" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="mobile" pattern="[0-9]" value="">
                                                 <button onclick="RemoveMobile('[mobile_index]')" id="bt_mobile" style="display:none;" class="btn" type="button" role="button"><i class="material-icons">close</i></button>
                                             </div>
                                             
@@ -1196,8 +1196,11 @@ function CalReview(node_index){
 	                	var current_living_situation = '${(client.current_living_situation)!}';
 	                	$('#current_living_situation').val(current_living_situation).trigger('change');
 	                	
-	                	var source_of_income = JSON.parse('${(client.source_of_income)!}');
-	                	$("#source_of_income").val(source_of_income).trigger('change');
+	                	var source_of_incomes = '${(client.source_of_income)!}';
+	                	if(source_of_incomes!=''){
+	                		var source_of_income = JSON.parse(source_of_incomes);
+		                	$("#source_of_income").val(source_of_income).trigger('change');
+	                	}
 	                	if(type==2){
 	                		var ages = '${(client.dependants_age)!}';
 		                	if(ages!=''){
@@ -1349,7 +1352,7 @@ function CalReview(node_index){
 		    					loan_account_no[i].value=loanArray[i]['loan_account_no'];
 		    					loan_effective_date[i].value=loanArray[i]['loan_effective_date'];
 		    					loan_now_rate_period[i].value=loanArray[i]['loan_now_rate_period'];
-		    					loan_review_date[i].value=loanArray[i]['loan_review_date'];
+		    					loan_review_date[i].value=loanArray[i]['loan_review_date'].split("/").reverse().join("-");
 		    					loan_reminder_days[i].value=loanArray[i]['loan_reminder_days'];
 		    					loan_interest_rate[i].value=loanArray[i]['loan_interest_rate'];
 		    					loan_notes[i].value=loanArray[i]['loan_notes'];
@@ -1383,7 +1386,7 @@ function SaveClient(method){
 				var first_name=$('#first_name').val();
 				var last_name=$('#last_name').val();
 				var prefered_name=$('#prefered_name').val();
-				var birthday = formatDate($('#birthday').val());
+				var birthday=formatDate($('#birthday').val());
 				var work_phone=$('#work_phone').val();
 				var description=$('#description').val();
 				var mobileArr=[];

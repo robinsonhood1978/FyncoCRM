@@ -114,12 +114,12 @@
                                             </td> -->
 											<td><span class="badge badge-warning">
 											<#if x.mobile??>
-                                            ${x.mobile?substring(x.mobile?index_of(",") + 2)?replace("[","")?replace("]","")?replace("\"","")}
+                                            ${x.mobile?split(',')[0]?replace('\"','')?replace('[','')?replace(']','')}
                                             </#if>
                                             </span></td>
                                             <td><small class="badge badge-warning">
                                             <#if x.personal_email??>
-                                            ${x.personal_email?substring(x.personal_email?index_of(",") + 2)?replace("[","")?replace("]","")?replace("\"","")}
+                                            ${x.personal_email?split(',')[0]?replace('\"','')?replace('[','')?replace(']','')}
                                             </#if>
                                             </small></td>
                                             

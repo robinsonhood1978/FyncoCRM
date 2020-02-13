@@ -22,9 +22,9 @@ import com.jfinal.plugin.activerecord.Record;
 public class TaskController extends Controller {
 	public void index() {
 		User u = getSessionAttr("user");
-		List<Record> ts = Db.find("select * from task t where t.type=0 and t.user_id=?",u.getInt("id"));
+		List<Record> ts = Db.find("select * from task t where t.type=0 and t.user_id='"+u.getInt("id")+"'ORDER BY t.due_date ASC");
 		setAttr("tasks",ts);
-		List<Record> rs = Db.find("select * from task t where t.type=1 and t.user_id=?",u.getInt("id"));
+		List<Record> rs = Db.find("select * from task t where t.type=1 and t.user_id='"+u.getInt("id")+"'ORDER BY t.due_date ASC");
 		setAttr("refixs",rs);
 		render("/t/task.html");
 	}

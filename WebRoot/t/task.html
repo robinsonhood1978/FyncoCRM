@@ -101,7 +101,7 @@
                                         <div class="trello-board__tasks-list card-list" id="trello-tasks-2">
 
                                             <#list refixs as x>
-                                            <div ondblclick="DoubleClick('${x.id}');" id="task_${x.id}" class="trello-board__tasks-item card shadow-none border">
+                                            <div ondblclick="DoubleClick('${(x.client_id)!}');" id="task_${x.id}" class="trello-board__tasks-item card shadow-none border">
                                                 <div class="p-3">
                                                      <div class="m-0 d-flex align-items-center">
                                                         <strong>${x.title}</strong>
@@ -115,8 +115,8 @@
                                                          
                                                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
 			                                        <div class="dropdown-menu dropdown-menu-right">
-			                                        <a href="javascript:void(0)" onclick="View('${x.id}');" class="dropdown-item">View</a>
-			                                            <a href="javascript:void(0)" onclick="EditRefix('${(x.client_id)!}');" class="dropdown-item">Edit</a>
+			                                        <!-- <a href="javascript:void(0)" onclick="View('${x.id}');" class="dropdown-item">View</a> -->
+			                                            <a href="javascript:void(0)" onclick="EditRefix('${(x.client_id)!}');" class="dropdown-item">Edit/View</a>
 			                                             <a href="javascript:void(0)" onclick="Complete('${x.id}');" class="dropdown-item">Complete</a>
 			    
 			                                            <div class="dropdown-divider"></div>
@@ -317,7 +317,8 @@
                 	});
                 }
                 function DoubleClick(id){
-                	View(id);
+                	/* View(id); */
+                	EditRefix(id);
                 }
                 function View(id){
                 	//alert(id)

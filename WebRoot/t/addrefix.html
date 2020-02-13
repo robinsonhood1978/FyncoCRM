@@ -13,7 +13,7 @@
                                     <li class="breadcrumb-item active" aria-current="page">Client</li>
                                 </ol>
                             </nav>
-                            <h1 class="m-0"><#if method=='addrefix'>New<#else>Edit</#if> Refix Client</h1>
+                            <h1 class="m-0"><#if method=='addrefix'>New<#else>Edit/View</#if> Refix Client</h1>
                         </div>
                     </div>
 
@@ -21,17 +21,33 @@
 
 
                     <div class="container-fluid page__container">
-                        <div class="card card-form">
-                            <div class="row no-gutters">
-                                <div class="col-lg-4 card-body">
-                                    <p><strong class="headings-color">Client Basic Information</strong></p>
+                    
+                        <div class="card card-form" <#if method!='addrefix'> style="pointer-events: none;"</#if>>
+                        <div class="col-lg-12 card-body" style="padding-bottom: 10px;">
+                                    <h4><strong class="headings-color">Client Basic Information</strong></h4>
                                 </div>
-                                <div class="col-lg-8 card-form__body card-body">
+                            <div class="row no-gutters">
+                                
+                                <div class="col-lg-12 card-form__body card-body">
                                 	<div class="row">
                                     	<div class="col">
                                             <div class="form-group">
                                                 <label for="lname">Title</label>
-                                                <input type="text" class="form-control" name="client.title" id="title" value="${(client.title)!}">
+                                                <!-- <input type="text" class="form-control" name="client.title" id="title" value="${(client.title)!}"> -->
+                                                <select id="title" data-toggle="select" data-minimum-results-for-search="-1" class="form-control">
+		                                            <option value="Mr" >
+		                                                Mr
+		                                            </option>
+		                                            <option value="Miss" >
+		                                                Miss
+		                                            </option>
+		                                            <option value="Mrs" >
+		                                                Mrs
+		                                            </option>
+		                                            <option value="Ms" >
+		                                                Ms
+		                                            </option>
+		                                        </select>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -75,7 +91,7 @@
                                         <div class="col">
                                              <div class="form-group">
 		                                        <label for="birthday">Date of Birth</label>
-		                                        <input id="birthday" type="text" class="form-control" value="<#if client??&&client.birthday??>${(client.birthday)?string('dd/MM/yyyy')!}</#if>" placeholder="date: 00/00/0000" data-mask="00/00/0000" autocomplete="off" maxlength="10">
+		                                        <input id="birthday" type="date" class="form-control" value="<#if client??&&client.birthday??>${(client.birthday)?string('yyyy-MM-dd')!}</#if>" placeholder="date: 00/00/0000" maxlength="10">
 		                                    </div>
                                         </div>
                                     </div>
@@ -83,7 +99,7 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="fname">Personal Email</label>
-                                                <input type="text" class="form-control" name="client.personal_email" id="personal_email" value="${(client.personal_email)!}">
+                                                <input type="text" class="form-control" name="client.personal_email" id="personal_email" value="${(client.personal_email?split(',')[0]?replace('\"','')?replace('[','')?replace(']',''))!}">
                                             </div>
                                         </div>
                                         <div class="col">
@@ -97,7 +113,7 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="fname">Mobile</label>
-                                                <input class="form-control" type="tel" name="client.mobile" id="mobile" pattern="[0-9]*" placeholder="Input your mobile" value="${(client.mobile)!}" required>
+                                                <input class="form-control" type="tel" name="client.mobile" onkeypress="return event.charCode >= 48 && event.charCode <= 57" id="mobile" pattern="[0-9]*" value="${(client.mobile?split(',')[0]?replace('\"','')?replace('[','')?replace(']',''))!}" required>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -194,7 +210,7 @@
                                         <div class="col">
                                              <div class="form-group">
 		                                        <label for="loan_effective_date">Effective Date</label>
-		                                        <input id="loan_effective_date_0" onblur="CalReview('[node_index]')" name="loan_effective_date" type="text" class="form-control" value="" placeholder="date: 00/00/0000" data-mask="00/00/0000" autocomplete="off" maxlength="10">
+		                                        <input id="loan_effective_date_0" onblur="CalReview('[node_index]')" name="loan_effective_date" type="date" class="form-control" value="" placeholder="date: 00/00/0000" maxlength="10">
 		                                    </div>
                                         </div>
                                     </div>
@@ -230,7 +246,7 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="lname">Review Date</label>
-                                                <input id="loan_review_date_0" name="loan_review_date" type="text" class="form-control" value="" placeholder="date: 00/00/0000" data-mask="00/00/0000" autocomplete="off" maxlength="10">
+                                                <input id="loan_review_date_0" name="loan_review_date" type="date" class="form-control" value="" placeholder="date: 00/00/0000" maxlength="10">
 		                                    
                                             </div>
                                         </div>
@@ -240,6 +256,9 @@
                                             <div class="form-group">
                                                 <label for="loan_interest_rate">Reminder Date</label>
                                                 <select name="loan_reminder_days" class="form-control">
+                                                	<option value="60">
+		                                                2 months before Review Date
+		                                            </option>
 		                                            <option value="30">
 		                                                1 months before Review Date
 		                                            </option>
@@ -307,13 +326,14 @@
                 </div>
                 <!-- // END drawer-layout__content -->
                 <script>
+                $("[name='loan_amount']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
                 function Remove(id){
                 	//alert(id)
                 	$('#loan_'+id).remove();
                 }
                 function d2sd(effective_date,months){
                 	//moment.locale('en-NZ'); 
-                	return moment(effective_date, "DD/MM/YYYY").add(months, 'months').format('DD/MM/YYYY');
+                	return moment(effective_date, "DD/MM/YYYY").add(months, 'months').format('YYYY-MM-DD');
                 }
                 String.prototype.replaceAll = function(search, replacement) {
             	    var target = this;
@@ -328,10 +348,24 @@
                 	return objE.childNodes;
 
                 }
+                function formatDate(date) {
+                    var d = new Date(date),
+                        month = '' + (d.getMonth() + 1),
+                        day = '' + d.getDate(),
+                        year = d.getFullYear();
+
+                    if (month.length < 2) 
+                        month = '0' + month;
+                    if (day.length < 2) 
+                        day = '0' + day;
+
+                    return [day, month, year].join('/');
+                }
+                
 function CalReview(node_index){
 	
 	if(node_index=='[node_index]'){
-		var effective_date = $('#loan_effective_date_0').val();
+		var effective_date = formatDate($('#loan_effective_date_0').val());
 		if(effective_date!=''){
 			var months = $('#loan_now_rate_period_0').val();
 			$('#loan_review_date_0').val(d2sd(effective_date,months));
@@ -341,7 +375,7 @@ function CalReview(node_index){
 		}
 	}
 	else{
-		var effective_date = $('#loan_effective_date_'+node_index).val();
+		var effective_date = formatDate($('#loan_effective_date_'+node_index).val());
 		if(effective_date!=''){
 			var months = $('#loan_now_rate_period_'+node_index).val();
 			$('#loan_review_date_'+node_index).val(d2sd(effective_date,months));
@@ -369,6 +403,7 @@ function CalReview(node_index){
                 		//console.log(html)
                 		var newnode = parseDom(html);
                 		sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点 
+                		$("[name='loan_amount']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
                 	}
                 	$("#addloan").on('click',function(e){
                 		copyNode("loan");
@@ -376,6 +411,8 @@ function CalReview(node_index){
                 	if('${method}'=='editrefix'){
                 		var gender = '${(client.gender)!}';
                     	$('#gender').val(gender).trigger('change');
+                    	var title = '${(client.title)!}';
+	                	$('#title').val(title).trigger('change');
                     	
                     	var loan = '${(client.loan)!}';
                     	var oldTaskIdsArr = new Array();
@@ -402,9 +439,9 @@ function CalReview(node_index){
 		    					loan_borrowing_entity[i].value=loanArray[i]['loan_borrowing_entity'];
 		    					loan_amount[i].value=loanArray[i]['loan_amount'];
 		    					loan_account_no[i].value=loanArray[i]['loan_account_no'];
-		    					loan_effective_date[i].value=loanArray[i]['loan_effective_date'];
+		    					loan_effective_date[i].value=loanArray[i]['loan_effective_date'].split("/").reverse().join("-");
 		    					loan_now_rate_period[i].value=loanArray[i]['loan_now_rate_period'];
-		    					loan_review_date[i].value=loanArray[i]['loan_review_date'];
+		    					loan_review_date[i].value=loanArray[i]['loan_review_date'].split("/").reverse().join("-");
 		    					loan_reminder_days[i].value=loanArray[i]['loan_reminder_days'];
 		    					loan_interest_rate[i].value=loanArray[i]['loan_interest_rate'];
 		    					loan_notes[i].value=loanArray[i]['loan_notes'];
@@ -424,7 +461,7 @@ function SaveRefix(method){
 				var first_name=$('#first_name').val();
 				var last_name=$('#last_name').val();
 				var prefered_name=$('#prefered_name').val();
-				var birthday = $('#birthday').val();
+				var birthday = formatDate($('#birthday').val());
 				var work_phone=$('#work_phone').val();
 				var mobile=$('#mobile').val();
 				var home_phone=$('#home_phone').val();
@@ -457,9 +494,9 @@ function SaveRefix(method){
 				for(var i=0;i<loan_bank.length;i++){
 					if(loan_bank[i].value!=''){
 						loanArray.push({"loan_bank":loan_bank[i].value,"loan_customer_no":loan_customer_no[i].value,
-							"loan_borrowing_entity":loan_borrowing_entity[i].value,"loan_amount":loan_amount[i].value,
-							"loan_account_no":loan_account_no[i].value,"loan_effective_date":loan_effective_date[i].value,
-							"loan_now_rate_period":loan_now_rate_period[i].value,"loan_review_date":loan_review_date[i].value,
+							"loan_borrowing_entity":loan_borrowing_entity[i].value,"loan_amount":loan_amount[i].value.replace(/\$|,/g, ''),
+							"loan_account_no":loan_account_no[i].value,"loan_effective_date":formatDate(loan_effective_date[i].value),
+							"loan_now_rate_period":loan_now_rate_period[i].value,"loan_review_date":formatDate(loan_review_date[i].value),
 							"loan_reminder_days":loan_reminder_days[i].value,"loan_interest_rate":loan_interest_rate[i].value,
 							"loan_notes":loan_notes[i].value,"task_id":task_id[i].value});
 						newtasks.push(task_id[i].value);
