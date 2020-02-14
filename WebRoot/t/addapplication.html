@@ -365,7 +365,7 @@
 					                                        <img src="[applicant_avatar]"  alt="Avatar" class="avatar-img rounded-circle">
 					                                    </div>
 					                                    <div class="stories-card__title flex">
-					                                        <h6 class="card-title m-0">[applicant_name]</h6>
+					                                        <h6 class="card-title m-0" id="name_[applicant_id]">[applicant_name]</h6>
 					                                        <small class="text-dark-gray"></small>
 					                                    </div>
 					                                    
@@ -1674,7 +1674,7 @@
 	<div id="applicant_mi_card_[applicant_id]" class="card card-form" style="margin-left: 7px; margin-right: 7px; margin-top: 7px;">
                             <div class="row no-gutters">
                                 <div class="card-header card-header-sm bg-white">
-                                        <h6 id="applicant_name" class="card-header__title">[applicant_name]</h6>
+                                        <h6 id="applicant_name_update_[applicant_id]" class="card-header__title">[applicant_name]</h6>
                                         <input type="hidden" name="applicantname_[applicant_id]" value="[applicant_name]">
                                     </div>
                                 <div class="col-lg-12 card-form__body">
@@ -1821,7 +1821,7 @@
 	<div id="applicant_mifr_card_[applicant_id]" class="card card-form" style="margin-left: 10px; margin-right: 10px;">
                             <div class="row no-gutters">
                                 <div class="card-header card-header-sm " style="background-color: #C0C0C0; font-size: 20;">
-                                        <h6 id="applicant_name" class="card-header__title">Monthly Income from Rental</h6>
+                                        <h6 class="card-header__title">Monthly Income from Rental</h6>
                                     </div>
                                 <div class="col-lg-12 card-form__body">
                                    			<div class="row">
@@ -2481,6 +2481,7 @@
                         	<input type="hidden" id="total_income" value="0">
                         	<input id="app_ids" value="${clients!}" hidden="hidden">
                         	<input id="minus_ids" value="${clients!}" hidden="hidden">
+                        	<input id="applicants_id" value="" hidden="hidden">
                             <button class="btn btn-success" onClick="return SaveApp('${method}');">Save Application</button>
                             <button onclick="history.go(-1)" class="btn btn-success">Go Back</button>
                         </div>
@@ -2648,7 +2649,7 @@
         					}
         				} 
         				applicantOb.applicantid=appid;
-        				var applicantName= document.getElementsByName("applicantname_"+appid)[0].value;
+        				var applicantName= document.getElementsByName("applicantname_"+appid).value;
         				applicantOb.applicant_name = applicantName;
         				applicantOb.monthincome = monthincomeArray; 
         				monthincome.push(applicantOb);
@@ -3028,63 +3029,85 @@
            		}
                 function ShowApplicant(){
                 	var clientids = $("#minus_ids").val();
-    				if(clientids.length>0){
-    					
-    					$.post("/client/get_applicants", {"ids":clientids}, function(data) {
+                	if($('#applicants_id').val().length > 0){
+                		/* alert("hello") */
+                		clientids = $('#applicants_id').val();
+                		$.post("/client/get_applicants", {"ids":clientids}, function(data) {
         					if(data.code==0){
-        						//console.log(data.data);
-        						//alert(data.data);income
-        						$('#income').css("display","block");
-        						$('#expense').css("display","block");
-        						$('#applicantmi_txt').css("display","block");
-		    					$('#applicantmifr_txt').css("display","block");
-		    					$('#applicantmiex_txt').css("display","block");
-		    					$('#mifrdiv').css("display","block");
-        						$('#miexdiv').css("display","block");
-        						$("[name='monthincomefr_net']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-        						$("[name='monthexpend_expense']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
         						var applicants = data.data;
         						var html = $('#applicant').html();
         						var mihtml = $('#midiv').html();
-        						
-        						
+
         						for(var i = 0, len = applicants.length; i < len; i++){
-        							var pic = '/t/assets/images/avatar/dfavatar.png';
         						    var name = n2b(applicants[i]['first_name'])+" "+n2b(applicants[i]['last_name']);
-        						    if(applicants[i]['avatar']!=null)
-        						    	pic = applicants[i]['avatar'];
-        						    var newhtml = html.replaceAll('[applicant_id]','applicant_'+applicants[i]['id']).replace('[applicant_avatar]',pic).replace('[applicant_name]',name);
-        						    $('#applicants').append(newhtml);
-        						    var newmihtml = mihtml.replaceAll('[applicant_id]',applicants[i]['id']).replaceAll('[applicant_name]',name);
-        						    $('#midivs').append(newmihtml);
-        						    $("[name='monthincome_gross_"+applicants[i]['id']+"']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-        						    $("[name='monthincome_net_"+applicants[i]['id']+"']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-        						   /*  var newmifrhtml = mifrhtml.replaceAll('[applicant_id]',applicants[i]['id']).replaceAll('[applicant_name]',name);
-        						    $('#mifrdivs').append(newmifrhtml);
-        						    var newmiexhtml = miexhtml.replaceAll('[applicant_id]',applicants[i]['id']).replaceAll('[applicant_name]',name);
-        						    $('#miexdivs').append(newmiexhtml); */
+        						    /* alert(name+"|"+applicants[i]['id']) */
+        						    $('#name_applicant_'+applicants[i]['id']).html(name);
+        						    $('#applicant_name_update_'+applicants[i]['id']).html(name);
+        						    document.getElementsByName("applicantname_"+applicants[i]['id']).value = name;
         						}
-        						
-        						///t/assets/images/stories/256_rsz_clem-onojeghuo-193397-unsplash.jpg
-        						
-        						
-        						
-        						/* layer.open({
-        						    content: 'Success',
-        						    btn: 'Got it'
-        						  });  */
         					}
         					return false;
-        				}, "json");  
-    				}
-    				else{
-    					layer.msg('Added Failed. No new applicant.',{
-    	                    icon: 1,
-    	                    time: 1000 //2秒关闭（如果不配置，默认是3秒）
-    	                },function(){
-    	                    //history.go(0);
-    	                });
-    				}
+        				}, "json");
+                		
+                	}else{
+	    				if(clientids.length>0){
+	    					
+	    					$.post("/client/get_applicants", {"ids":clientids}, function(data) {
+	        					if(data.code==0){
+	        						//console.log(data.data);
+	        						//alert(data.data);income
+	        						$('#income').css("display","block");
+	        						$('#expense').css("display","block");
+	        						$('#applicantmi_txt').css("display","block");
+			    					$('#applicantmifr_txt').css("display","block");
+			    					$('#applicantmiex_txt').css("display","block");
+			    					$('#mifrdiv').css("display","block");
+	        						$('#miexdiv').css("display","block");
+	        						$("[name='monthincomefr_net']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+	        						$("[name='monthexpend_expense']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+	        						var applicants = data.data;
+	        						var html = $('#applicant').html();
+	        						var mihtml = $('#midiv').html();
+	        						
+	        						
+	        						for(var i = 0, len = applicants.length; i < len; i++){
+	        							var pic = '/t/assets/images/avatar/dfavatar.png';
+	        						    var name = n2b(applicants[i]['first_name'])+" "+n2b(applicants[i]['last_name']);
+	        						    if(applicants[i]['avatar']!=null)
+	        						    	pic = applicants[i]['avatar'];
+	        						    var newhtml = html.replaceAll('[applicant_id]','applicant_'+applicants[i]['id']).replace('[applicant_avatar]',pic).replace('[applicant_name]',name);
+	        						    $('#applicants').append(newhtml);
+	        						    var newmihtml = mihtml.replaceAll('[applicant_id]',applicants[i]['id']).replaceAll('[applicant_name]',name);
+	        						    $('#midivs').append(newmihtml);
+	        						    $("[name='monthincome_gross_"+applicants[i]['id']+"']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+	        						    $("[name='monthincome_net_"+applicants[i]['id']+"']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+	        						   /*  var newmifrhtml = mifrhtml.replaceAll('[applicant_id]',applicants[i]['id']).replaceAll('[applicant_name]',name);
+	        						    $('#mifrdivs').append(newmifrhtml);
+	        						    var newmiexhtml = miexhtml.replaceAll('[applicant_id]',applicants[i]['id']).replaceAll('[applicant_name]',name);
+	        						    $('#miexdivs').append(newmiexhtml); */
+	        						}
+	        						
+	        						///t/assets/images/stories/256_rsz_clem-onojeghuo-193397-unsplash.jpg
+	        						
+	        						
+	        						
+	        						/* layer.open({
+	        						    content: 'Success',
+	        						    btn: 'Got it'
+	        						  });  */
+	        					}
+	        					return false;
+	        				}, "json");  
+	    				}
+	    				else{
+	    					layer.msg('Added Failed. No new applicant.',{
+	    	                    icon: 1,
+	    	                    time: 1000 //2秒关闭（如果不配置，默认是3秒）
+	    	                },function(){
+	    	                    //history.go(0);
+	    	                });
+	    				}
+                	}
                 }
                 
                 function EditApplicant(id){
@@ -3101,7 +3124,7 @@
             			success:function(layero,index){
             	        },
             	        end:function(){
-            	        	//ShowApplicant();
+            	        	ShowApplicant();
             	        }
             		});
 
@@ -4422,6 +4445,8 @@ window.onload = function() {
 		Income();
 		MonthExpend();
 		Liability();
+		/* alert($('#minus_ids').val()) */
+		$('#applicants_id').val($('#minus_ids').val());
 	}
 }; 
 </script>
