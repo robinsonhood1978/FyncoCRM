@@ -2490,7 +2490,15 @@
                 </div>
                 <!-- // END drawer-layout__content -->
                 <script>
+              //dannel modify
+                const formatter = new Intl.NumberFormat('en-US', {
+                	  style: 'currency',
+                	  currency: 'USD',
+                	  minimumFractionDigits: 2
+                	})
                 $(function() {
+                	
+                	
                     $('#lending_amount_required').maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
                     $('#UMI').maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
                     $('#existing_loan_amount').maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
@@ -3759,12 +3767,7 @@
     				var jsonLiability = JSON.stringify( liability );
     				return jsonLiability;
                 }
-                //dannel modify
-               const formatter = new Intl.NumberFormat('en-US', {
-               	  style: 'currency',
-               	  currency: 'USD',
-               	  minimumFractionDigits: 2
-               	})
+                
         function Income(){
         	MonthIncome();
         	MonthIncomefr();
