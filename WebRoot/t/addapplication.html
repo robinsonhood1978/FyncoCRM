@@ -2627,7 +2627,7 @@
                 	var idArray = clientids.split(",");
                 	var total_income = 0;
                 	
-                	for(var j=0;j<idArray.length;j++){
+                	for(var j=0;j<idArray.length&&idArray[j]!='';j++){
                 		var appid = idArray[j];
                 		var applicantOb = {};
                 		//monthincome
