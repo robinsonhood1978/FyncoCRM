@@ -1638,18 +1638,15 @@ function SaveClient(method){
 						 				
 					 				parent.$("#minus_ids").val(minus);
 					 				parent.$("#app_ids").val(String(union));
+					 				if(method=='edit'){
+							 	    	  parent.window.ReloadApplicant();
+							 	    }
 					 			}
-								
-								
-								
-								
-								
-								
-								
 								
 								var index = parent.layer.getFrameIndex(window.name);
 								
 					 	        parent.layer.close(index);
+					 	       
 							}
 							else if(iframe==1){
 								mlayer.open({

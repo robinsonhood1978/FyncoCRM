@@ -354,8 +354,7 @@
                                         </div>
                                         
                                     </div>
-                                    <div id="applicants">
-	                                    <div id="applicant" style="display:none;">
+                                    <div id="applicant" style="display:none;">
 	                                    	<div id="div_applicant_[applicant_id]">
 		                                    	<div class="stories-cards mb-4">
 		
@@ -384,6 +383,8 @@
 					                        	</div>
 					                        </div>
 	                                    </div>
+                                    <div id="applicants">
+	                                    
 	                                 </div>
 	                                    
 
@@ -1668,8 +1669,6 @@
  <div class="row no-gutters">
 	<div class="card-header card-header-sm" style="background-color: #C0C0C0; font-size: 20;" ><h6 class="card-header__title">Monthly Income from work</h6></div>   
 </div>
-
-<div id="midivs" style="width:100%">
 <div id="midiv" style="display:none;" >
 	<div id="applicant_mi_card_[applicant_id]" class="card card-form" style="margin-left: 7px; margin-right: 7px; margin-top: 7px;">
                             <div class="row no-gutters">
@@ -1807,6 +1806,8 @@
                         </div>
 	
 </div>
+<div id="midivs" style="width:100%">
+
 </div>
 
 </div> 
@@ -3036,6 +3037,11 @@
            		}
                 function ShowApplicant(){
                 	var clientids = $("#minus_ids").val();
+                	while(clientids.substr(-1)==','){
+                		clientids = clientids.replaceAll(',,',',');
+                		clientids = clientids.substr(0,clientids.length-1); 
+                	}
+                	$("#minus_ids").val(clientids);
     				if(clientids.length>0){
     					
     					$.post("/client/get_applicants", {"ids":clientids}, function(data) {
@@ -3054,8 +3060,6 @@
         						var applicants = data.data;
         						var html = $('#applicant').html();
         						var mihtml = $('#midiv').html();
-        						
-        						
         						for(var i = 0, len = applicants.length; i < len; i++){
         							var pic = '/t/assets/images/avatar/dfavatar.png';
         						    var name = n2b(applicants[i]['first_name'])+" "+n2b(applicants[i]['last_name']);
@@ -3072,15 +3076,6 @@
         						    var newmiexhtml = miexhtml.replaceAll('[applicant_id]',applicants[i]['id']).replaceAll('[applicant_name]',name);
         						    $('#miexdivs').append(newmiexhtml); */
         						}
-        						
-        						///t/assets/images/stories/256_rsz_clem-onojeghuo-193397-unsplash.jpg
-        						
-        						
-        						
-        						/* layer.open({
-        						    content: 'Success',
-        						    btn: 'Got it'
-        						  });  */
         					}
         					return false;
         				}, "json");  
@@ -3094,7 +3089,22 @@
     	                });
     				}
                 }
-                
+                function ReloadApplicant(){
+                	$('#applicants').html('');
+                	$('#midivs').html('');
+                	let clientids = $("#app_ids").val();
+                	while(clientids.substr(-1)==','){
+                		clientids = clientids.replaceAll(',,',',');
+                		clientids = clientids.substr(0,clientids.length-1); 
+                	}
+                	$("#app_ids").val(clientids);
+                	let c = clientids.split(",");
+	 				let cset = new Set(c);
+	 				let minus = Array.from(cset);
+	 				$("#minus_ids").val(minus);
+	 				ShowApplicant();
+
+                }
                 function EditApplicant(id){
                 	var appid = id.split('_')[1];
                 	var url = '/client/edit?type=2&l=s&id='+appid;
