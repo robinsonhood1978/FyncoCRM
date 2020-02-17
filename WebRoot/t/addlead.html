@@ -22,27 +22,33 @@
 
                     <div class="container-fluid page__container">
                         <div class="card card-form">
-                            <div class="row no-gutters">
-                                <div class="col-lg-4 card-body">
-                                    <p><strong class="headings-color">Lead Information</strong></p>
-                                    <p class="text-muted">Edit the lead details.</p>
-                                    <div class="embed-responsive embed-responsive-1by1">
-									  <iframe id="iframe_avatar" class="embed-responsive-item" src="/add_avatar2?url=${(client.avatar)!}" allowfullscreen></iframe>
-									</div>  
-									<div class="row">
-									<div class="col">
-									<div style="text-align:center;" class="form-group">
-									<button id="edit_avatar" type="button" class="btn btn-primary btn-rounded">Edit Avatar</button>
-									</div>
-									</div>
-									</div>        
+                        <div class="col-lg-12 card-body" style="padding-bottom: 10px;font-size: 30px; background-color: #C0C0C0;">
+                                    <p><strong class="headings-color">General Information</strong></p>
+                                    <!-- <p class="text-muted">Edit the client general information.</p> -->
+                                    
                                 </div>
-                                <div class="col-lg-8 card-form__body card-body">
+                            <div class="row no-gutters">
+                                
+                                <div class="col-lg-12 card-form__body card-body">
                                 	<div class="row">
                                     	<div class="col">
                                             <div class="form-group">
                                                 <label for="lname">Title</label>
-                                                <input type="text" class="form-control" name="client.title" id="title" value="${(client.title)!}">
+                                                <!-- <input type="text" class="form-control" name="client.title" id="title" value="${(client.title)!}"> -->
+                                                <select id="title" data-toggle="select" data-minimum-results-for-search="-1" class="form-control">
+		                                            <option value="Mr" >
+		                                                Mr
+		                                            </option>
+		                                            <option value="Miss" >
+		                                                Miss
+		                                            </option>
+		                                            <option value="Mrs" >
+		                                                Mrs
+		                                            </option>
+		                                            <option value="Ms" >
+		                                                Ms
+		                                            </option>
+		                                        </select>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -86,15 +92,23 @@
                                         <div class="col">
                                              <div class="form-group">
 		                                        <label for="birthday">Date of Birth</label>
-		                                        <input id="birthday" type="text" class="form-control" value="<#if client??&&client.birthday??>${(client.birthday)?string('dd/MM/yyyy')!}</#if>" placeholder="date: 00/00/0000" data-mask="00/00/0000" autocomplete="off" maxlength="10">
+		                                        <input id="birthday" type="date" class="form-control" value="<#if client??&&client.birthday??>${(client.birthday)?string('yyyy-MM-dd')!}</#if>" placeholder="date: 00/00/0000"  maxlength="10">
 		                                    </div>
                                         </div>
                                     </div>
                                    <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="fname">Personal Email</label>
-                                                <input type="text" class="form-control" name="client.personal_email" id="personal_email" value="${(client.personal_email)!}">
+                                                <label for="fname">Personal Email</label>&nbsp;&nbsp;&nbsp;&nbsp;<i id="add_email" class="material-icons">add_circle_outline</i>
+                                                 <div id="emails">
+                                                	<div id="inputemail">
+                                                	<div id="divemail" class="search-form search-form--light">
+                                                <input type="text" class="form-control" name="email">
+                                                <button onclick="RemoveEmail('[email_index]')" id="bt_email" style="display:none;" class="btn" type="button" role="button"><i class="material-icons">close</i></button>
+                                            </div>
+                                                		
+                                            		</div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -107,8 +121,18 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="fname">Mobile</label>
-                                                <input class="form-control" type="tel" name="client.mobile" id="mobile" pattern="[0-9]*" placeholder="Input your mobile" value="${(client.mobile)!}" required>
+                                                <label for="fname">Mobile</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <i id="add_mobile" class="material-icons">add_circle_outline</i>
+                                                <div id="mobiles">
+                                                	<div id="inputmobile">
+                                                	<div id="divmobile" class="search-form search-form--light">
+                                                <input class="form-control" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="mobile" pattern="[0-9]" value="">
+                                                <button onclick="RemoveMobile('[mobile_index]')" id="bt_mobile" style="display:none;" class="btn" type="button" role="button"><i class="material-icons">close</i></button>
+                                            </div>
+                                            
+	                                                	
+	                                                </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -128,6 +152,10 @@
                                             </div>
                                         </div>
                                         <div class="col">
+                                       		<div class="form-group">
+                                                <label for="lname">Wechat</label>
+                                                <input type="text" class="form-control" name="client.wechat" id="wechat" value="${(client.wechat)!}">
+                                            </div>
  
                                         </div>
                                     </div>
@@ -160,7 +188,56 @@
                 <!-- // END drawer-layout__content -->
                 <script>
                 var client_avatar = '${(client.avatar)!}';
+                function copyNode(nodeid){
+            		
+            		var mobile_index = document.getElementsByName("mobile").length;
+            		var email_index = document.getElementsByName("email").length;
+            		
+            		var sourceNode = document.getElementById(nodeid); // 获得被克隆的节点对象 
+            		var clonedNode = sourceNode.cloneNode(true); // 克隆节点 
+            		//console.log(sourceNode.innerHTML)
+            		//console.log('--------------------')
+            		$node = $(clonedNode);
+            		$node.find('button[id="bt_mobile"]').css("display","block");
+            		$node.find('div[id="divmobile"]').attr("id","divmobile_"+mobile_index);
+            		$node.find('button[id="bt_email"]').css("display","block");
+            		$node.find('div[id="divemail"]').attr("id","divemail_"+email_index);
+            		var html = $node.html();  
+            		html = html.replaceAll('[mobile_index]',mobile_index);  
+            		html = html.replaceAll('[email_index]',email_index); 
+            		
+            		//console.log(html)
+            		var newnode = parseDom(html);
+            		sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点 
+            	}
+                function RemoveMobile(id){
+                	$('#divmobile_'+id).remove();
+                }
+                function RemoveEmail(id){
+                	$('#divemail_'+id).remove();
+                }
+                String.prototype.replaceAll = function(search, replacement) {
+            	    var target = this;
+            	    return target.split(search).join(replacement);
+            	};
+                function parseDom(arg) {
+
+                	var objE = document.createElement("div");
+
+                	objE.innerHTML = "<div>"+arg+"</div>";
+
+                	return objE.childNodes;
+
+                }
                 $(function () { 
+                	
+                	$("#add_mobile").on('click',function(e){
+                		//$('#mobiles').append($('#inputmobile').html());
+                		copyNode("inputmobile");
+                	});
+                	$("#add_email").on('click',function(e){
+                		copyNode("inputemail");
+                	});
                 	if('${method}'=='edit'){
                 		var gender = '${(client.gender)!}';
                     	$('#gender').val(gender).trigger('change');
@@ -185,20 +262,69 @@
                 		});
                 	});
                 })
+                function formatDate(date) {
+                    var d = new Date(date),
+                        month = '' + (d.getMonth() + 1),
+                        day = '' + d.getDate(),
+                        year = d.getFullYear();
+
+                    if (month.length < 2) 
+                        month = '0' + month;
+                    if (day.length < 2) 
+                        day = '0' + day;
+
+                    return [day, month, year].join('/');
+                }
+                if('${method}'=='edit'){
+                	var mobiles = '${(client.mobile)!}';
+                	if(mobiles!=''){
+	                	var mobileArray = JSON.parse(mobiles);
+	                	for(var i=1;i<mobileArray.length;i++){
+	                		copyNode("inputmobile");
+	                	}
+	                	var mobile = document.getElementsByName("mobile");
+	    				for(var i=0;i<mobileArray.length;i++){
+	    					mobile[i].value=mobileArray[i];
+	    				}  
+                	} 
+                	
+                	var emails = '${(client.personal_email)!}';
+                	if(emails!=''){
+	                	var emailArray = JSON.parse(emails);
+	                	for(var i=1;i<emailArray.length;i++){
+	                		copyNode("inputemail");
+	                	}
+	                	var email = document.getElementsByName("email");
+	    				for(var i=0;i<emailArray.length;i++){
+	    					email[i].value=emailArray[i];
+	    				}  
+                	} 
+                }
 function SaveLead(method){
-				var title=$('#title').val();
-				var gender=$('#gender').val();
-				var first_name=$('#first_name').val();
-				var last_name=$('#last_name').val();
-				var prefered_name=$('#prefered_name').val();
-				var birthday = $('#birthday').val();
-				var work_phone=$('#work_phone').val();
-				var mobile=$('#mobile').val();
-				var home_phone=$('#home_phone').val();
-				
-				var personal_email=$('#personal_email').val();
-				var work_email=$('#work_email').val();
-				var comments=$('#comments').val();
+                	var title=$('#title').val();
+    				var gender=$('#gender').val();
+    				var first_name=$('#first_name').val();
+    				var last_name=$('#last_name').val();
+    				var prefered_name=$('#prefered_name').val();
+    				var birthday=formatDate($('#birthday').val());
+    				var work_phone=$('#work_phone').val();
+    				var mobileArr=[];
+    		        $("input[name='mobile']").each(function(){
+    		        	mobileArr.push($(this).val());
+    		        })
+    		        var mobile = JSON.stringify(mobileArr);
+    		        
+    		        var emailArr=[];
+    		        $("input[name='email']").each(function(){
+    		        	emailArr.push($(this).val());
+    		        })
+    		        var email = JSON.stringify(emailArr);
+    		        
+    				var home_phone=$('#home_phone').val();
+    				var wechat=$('#wechat').val();
+    				
+    				var work_email=$('#work_email').val();
+    				var comments=$('#comments').val();
 				var clientid=$('#clientid').val();
 				//var avatar=document.getElementById('iframe_avatar').contentWindow.document.getElementById('avatar_url').value;
 				var avatar = $('#avatar_url').val();
@@ -208,7 +334,7 @@ function SaveLead(method){
 				else url+="update";
 
 				$.post(url, {"client.id":clientid,"client.title":title,"client.gender":gender,"client.first_name":first_name,"client.last_name":last_name,"client.prefered_name":prefered_name,
-					"birthday":birthday,"client.work_phone":work_phone,"client.mobile":mobile,"client.home_phone":home_phone,"client.personal_email":personal_email,"client.work_email":work_email,
+					"birthday":birthday,"client.work_phone":work_phone,"client.mobile":mobile,"client.home_phone":home_phone,"client.personal_email":email,"client.work_email":work_email,
 					"client.comments":comments,"client.avatar":avatar}, function(data) {
 					if(data.code==1){
 					 	mlayer.open({
