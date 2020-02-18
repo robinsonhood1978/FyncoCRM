@@ -8,6 +8,7 @@ import java.util.Map;
 import com.cms.admin.user.User;
 import com.cms.front.entity.Application;
 import com.cms.front.entity.Client;
+import com.cms.front.entity.Task;
 import com.cms.util.DateFmt;
 import com.cms.util.FileUtil;
 import com.cms.util.PdfUtil;
@@ -17,8 +18,33 @@ import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 @Before(MInterceptor.class)
 public class ApplicationController extends Controller {
+	public void saveloan() {
+		int code = 0;
+		//
+
+		String loanJson = getPara("loan");
+		int appid = getParaToInt("appid");
+		
+
+		getModel(Application.class).set("id", appid).set("loan", loanJson).update();
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("code",code);
+		renderJson(map);
+	}
+	public void addloan() {
+		setAttr("application",Application.dao.findById(getPara("appid")));
+		render("/t/addloan.html");
+	}
+	public void editloan() {
+		setAttr("application",Application.dao.findById(getPara("appid")));
+		render("/t/addloan.html");
+	}
 	public void view() {
 		int id = getParaToInt("id");
 		String layout = "c";
@@ -131,18 +157,70 @@ public class ApplicationController extends Controller {
 	}
 	public void changeStatus() {
 		int code=0;
-		int id = getParaToInt("id");
+		int appid = getParaToInt("id");
 		int status = getParaToInt("status");
-		int i = Db.update("update application set status=? where id=?",status,id);
+		
+		
 		if(status==5) {
-			List<Record> clients = Db.find("select c.id "
-					+ "from application_client ac join client c on ac.client_id=c.id where ac.application_id=?",id);
+			User u = getSessionAttr("user");
+			Application app = Application.dao.findById(appid);
+			String loanJson = app.getStr("loan");
+			List<Record> clients = Db.find("select c.id,c.first_name,c.last_name "
+					+ "from application_client ac join client c on ac.client_id=c.id where ac.application_id=?",appid);
 			for(Record client:clients) {
-				int clientid = client.getInt("id");
-				Db.update("update client set type=1 where id=?",clientid);
+				int id = client.getInt("id");
+				
+//				String cids = Db.queryStr("select group_concat(client_id) from application_client where application_id=? group by application_id",appid); 
+//				System.out.println("cid:"+cids);
+//				String[] cidArr = cids.split(",");
+//				for(String cid:cidArr) {
+//					int id = Integer.parseInt(cid);
+					String originLoan = Db.queryStr("select loan from client where id=?",id);
+					JSONArray ja = JSONArray.fromObject(originLoan);
+					
+					int message_type=5;
+					String type_name = "Refix";
+					JSONArray jsonArray = JSONArray.fromObject(loanJson);
+
+					for (int i = 0; i < jsonArray.size(); i++) {
+					    JSONObject loan = jsonArray.getJSONObject(i);
+					    int loan_reminder_days = loan.getInt("loan_reminder_days");
+					    String loan_review_date = loan.getString("loan_review_date");
+					    String loan_notes = loan.getString("loan_notes");
+					    if(!"".equals(loan_review_date)) {
+						    String reminder_date = DateFmt.addDays(loan_review_date,"dd/MM/yyyy","yyyy-MM-dd", (-1)*loan_reminder_days);
+						    
+						    getModel(Task.class)
+						    .set("client_id",id)
+						    .set("type",1)
+						    .set("title",client.getStr("first_name")+" "+client.getStr("last_name"))
+						    .set("description",loan_notes)
+						    .set("due_date",DateFmt.formatDate(loan_review_date,"dd/MM/yyyy","yyyy-MM-dd"))
+						    .set("reminder_date", reminder_date)
+						    .set("reminder_days", loan_reminder_days)
+						    .set("user_id", u.getInt("id"))
+						    .set("creator", u.getInt("id"))
+						    .save();
+							int taskId = Db.queryInt("select max(id) from task");
+							loan.put("task_id", taskId);
+							
+							Db.update("insert into message (name,link_id,type,type_name,sender,receiver,create_time,alert_time) values "
+									+ "(?,?,?,?,?,?,?,?)","You have an upcoming Refix with client ["+getPara("client.first_name")
+									+" "+getPara("client.last_name")+"] due on "+loan_review_date,taskId,message_type,type_name,
+									u.getInt("id"),u.getInt("id"),DateFmt.addLongDays(0),reminder_date);
+					    }
+					    ja.add(loan);
+					    
+					}
+			
+					getModel(Client.class).set("type", 1).set("id", id).set("loan", ja.toString()).update();
+				//}
+				
+				//Db.update("update client set type=1 where id=?",clientid);
 			}
 		}
-		if(i==0) {
+		int b = Db.update("update application set status=? where id=?",status,appid);
+		if(b==0) {
 			code=1;
 		}
 		Map<String, Object> map = new HashMap<String, Object>();

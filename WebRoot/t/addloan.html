@@ -1,0 +1,374 @@
+<#include "/t/_s.html" />
+<@layout>
+                <div class="mdk-drawer-layout__content page">
+
+
+
+                    <div class="container-fluid page__container">
+                        
+                        <div class="card card-form">
+                        <div class="col-lg-12 card-body" style="padding-bottom: 10px;font-size: 30px; background-color: #C0C0C0;">
+                                    <p><strong class="headings-color">Loan Structure</strong></p>
+                                    <!-- <p class="text-muted">Edit the loan information.</p> -->
+                                    
+                                </div>
+                            <div class="row no-gutters">
+          
+                                <div class="col-lg-12 card-form__body card-body">
+                                <div id="loans">
+	                                	<div id="loan">
+	                                	<div id="loan_[node_index]">
+	                                	<div class="card-header bg-white d-flex align-items-center" style="padding-bottom: 1px;">
+                               <p><strong class="headings-color">Loan Information</strong></p>
+                                <div class="d-flex ml-auto">
+                                    <div style="display:none" onclick="Remove('[node_index]')" id="removeloan">
+                                                <i class="material-icons">remove_circle_outline</i>
+                                           		<label>Remove</label>
+                                           		</div>
+                                </div>
+                            </div>
+                                	<div class="row">
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Bank</label>
+                                                <input type="text" class="form-control" name="loan_bank" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Customer NO.</label>
+                                                <input type="text" class="form-control" name="loan_customer_no" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                 	<div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Borrowing Entity</label>
+                                                <input type="text" class="form-control" name="loan_borrowing_entity" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Loan Amount</label>
+                                                <input type="text" class="form-control" name="loan_amount" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Loan Account NO.</label>
+                                                <input type="text" class="form-control" name="loan_account_no" value="" >
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                             <div class="form-group">
+		                                        <label for="loan_effective_date">Effective Date</label>
+		                                        <input id="loan_effective_date_0" onblur="CalReview('[node_index]')" name="loan_effective_date" type="date" class="form-control" value="" placeholder="date: 00/00/0000"  maxlength="10">
+		                                    </div>
+                                        </div>
+                                    </div>
+                                   <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Now Rate Period</label>
+                                                <select id="loan_now_rate_period_0" onchange="CalReview('[node_index]')" name="loan_now_rate_period"  class="form-control">
+		                                            <option value="6">
+		                                                6 months
+		                                            </option>
+		                                            <option value="12">
+		                                                1 year
+		                                            </option>
+		                                            <option value="18">
+		                                                18 months
+		                                            </option>
+		                                            <option value="24">
+		                                                2 years
+		                                            </option>
+		                                            <option value="36">
+		                                                3 years
+		                                            </option>
+		                                            <option value="48">
+		                                                4 years
+		                                            </option>
+		                                            <option value="60">
+		                                                5 years
+		                                            </option>
+		                                        </select>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Review Date</label>
+                                                <input id="loan_review_date_0" name="loan_review_date" type="date" class="form-control" value="" placeholder="date: 00/00/0000" maxlength="10">
+		                                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                   <div class="row">
+                                   		<div class="col">
+                                            <div class="form-group">
+                                                <label for="loan_interest_rate">Reminder Date</label>
+                                                <select name="loan_reminder_days" class="form-control">
+                                                	<option value="60">
+		                                                2 months before Review Date
+		                                            </option>
+		                                            <option value="30">
+		                                                1 months before Review Date
+		                                            </option>
+		                                            <option value="21">
+		                                                3 weeks before Review Date
+		                                            </option>
+		                                            <option value="14">
+		                                                2 weeks before Review Date
+		                                            </option>
+		                                            <option value="7">
+		                                                1 week before Review Date
+		                                            </option>
+		                                        </select>
+                                            </div>
+                                        </div>
+                                    	<div class="col">
+                                            <div class="form-group">
+                                                <label for="loan_interest_rate">Interest Rate</label>
+                                                <input type="text" class="form-control" name="loan_interest_rate" value="" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                            <input type="hidden" class="form-control" name="task_id" value="0" >
+                                                <label for="fname">Notes</label><br/>
+                                                <textarea class="comment" name="loan_notes" rows="3" cols="60"></textarea>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                        <div class="col">
+                                            <div class="form-group" style="text-align: center; border: solid 1px; height: 40px; border-radius:15px;">
+			                                   <div id="addloan" style="padding-top: 7px;">
+                                                <i class="material-icons">add_circle_outline</i>
+                                           		<label>Add More Loan Structure</label>
+                                           		</div>
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                            </div>
+                            </div>
+                        </div>
+                    
+                        
+                        
+                        <div class="text-right mb-5">
+                        	
+                        	 <input type="hidden" id="appid" value="${(application.id)!}">
+                        	 <button class="btn btn-success" onClick="return SaveLoan('${method}');">Save Loan Structure</button>
+                        	
+                        	 
+                            
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- // END drawer-layout__content -->
+                <script>
+                //dannel modify
+                
+                $("[name='loan_amount']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                var client_avatar = '${(client.avatar)!}';
+                function Remove(id){
+                	$('#loan_'+id).remove();
+                }
+               
+                function d2sd(effective_date,months){
+                	//moment.locale('en-NZ'); 
+                	return moment(effective_date, "DD/MM/YYYY").add(months, 'months').format('YYYY-MM-DD');
+                }
+                String.prototype.replaceAll = function(search, replacement) {
+            	    var target = this;
+            	    return target.split(search).join(replacement);
+            	};
+                function parseDom(arg) {
+
+                	var objE = document.createElement("div");
+
+                	objE.innerHTML = "<div>"+arg+"</div>";
+
+                	return objE.childNodes;
+
+                }
+function CalReview(node_index){
+	
+	if(node_index=='[node_index]'){
+		var effective_date = formatDate($('#loan_effective_date_0').val());
+
+		if(effective_date!=''){
+			var months = $('#loan_now_rate_period_0').val();
+			$('#loan_review_date_0').val(d2sd(effective_date,months));
+		}
+		else{
+			$('#loan_review_date_0').val('');
+		}
+	}
+	else{
+		var effective_date = formatDate($('#loan_effective_date_'+node_index).val());
+		if(effective_date!=''){
+			var months = $('#loan_now_rate_period_'+node_index).val();
+			$('#loan_review_date_'+node_index).val(d2sd(effective_date,months));
+		}
+		else{
+			$('#loan_review_date_'+node_index).val('');
+		}
+	}
+		
+}
+                $(function () { 
+                	function copyNode(nodeid){
+                		var node_index = document.getElementsByName("loan_effective_date").length;
+                		
+                		var sourceNode = document.getElementById(nodeid); // 获得被克隆的节点对象 
+                		var clonedNode = sourceNode.cloneNode(true); // 克隆节点 
+                		//console.log(sourceNode.innerHTML)
+                		//console.log('--------------------')
+                		$node = $(clonedNode);
+                		
+                		$node.find('div[id="removeloan"]').css("display","block");
+                		
+                		$node.find('input[name="loan_effective_date"]').attr("id","loan_effective_date_"+node_index);
+                		$node.find('select[name="loan_now_rate_period"]').attr("id","loan_now_rate_period_"+node_index);
+                		$node.find('input[name="loan_review_date"]').attr("id","loan_review_date_"+node_index);
+                		
+                		var html = $node.html().replaceAll('[node_index]',node_index);  
+                		
+                		var newnode = parseDom(html);
+                		sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点 
+                	}
+                	
+                	
+                	$("#addloan").on('click',function(e){
+                		copyNode("loan");
+                		$("[name='loan_amount']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                	});
+                	
+                	
+                	if('${method}'=='editloan'){
+	                	var loan = '${(application.loan)!}';
+	                	if(loan!=''){
+		                	var loanArray = JSON.parse(loan);
+		                	for(var i=1;i<loanArray.length;i++){
+		                		copyNode("loan");
+		                	}
+		                	var loan_bank = document.getElementsByName("loan_bank");
+		    				var loan_customer_no = document.getElementsByName("loan_customer_no");
+		    				var loan_borrowing_entity = document.getElementsByName("loan_borrowing_entity");
+		    				var loan_amount = document.getElementsByName("loan_amount");
+		    				var loan_account_no = document.getElementsByName("loan_account_no");
+		    				var loan_effective_date = document.getElementsByName("loan_effective_date");
+		    				var loan_now_rate_period = document.getElementsByName("loan_now_rate_period");
+		    				var loan_review_date = document.getElementsByName("loan_review_date");
+		    				var loan_reminder_days = document.getElementsByName("loan_reminder_days");
+		    				var loan_interest_rate = document.getElementsByName("loan_interest_rate");
+		    				var loan_notes = document.getElementsByName("loan_notes");
+		    				var task_id = document.getElementsByName("task_id");
+		    				for(var i=0;i<loanArray.length;i++){
+		    					loan_bank[i].value=loanArray[i]['loan_bank'];
+		    					loan_customer_no[i].value=loanArray[i]['loan_customer_no'];
+		    					loan_borrowing_entity[i].value=loanArray[i]['loan_borrowing_entity'];
+		    					loan_amount[i].value=loanArray[i]['loan_amount'];
+		    					loan_account_no[i].value=loanArray[i]['loan_account_no'];
+		    					loan_effective_date[i].value=loanArray[i]['loan_effective_date'].split("/").reverse().join("-");
+		    					loan_now_rate_period[i].value=loanArray[i]['loan_now_rate_period'];
+		    					loan_review_date[i].value=loanArray[i]['loan_review_date'].split("/").reverse().join("-");
+		    					loan_reminder_days[i].value=loanArray[i]['loan_reminder_days'];
+		    					loan_interest_rate[i].value=loanArray[i]['loan_interest_rate'];
+		    					loan_notes[i].value=loanArray[i]['loan_notes'];
+		    					task_id[i].value=loanArray[i]['task_id'];
+		    				}  
+	                	} 
+                	}
+                })
+
+                function formatDate(date) {
+                    var d = new Date(date),
+                        month = '' + (d.getMonth() + 1),
+                        day = '' + d.getDate(),
+                        year = d.getFullYear();
+
+                    if (month.length < 2) 
+                        month = '0' + month;
+                    if (day.length < 2) 
+                        day = '0' + day;
+
+                    return [day, month, year].join('/');
+                }
+function SaveLoan(method){
+				var appid = $('#appid').val();
+				var url = "/application/";
+				url+="saveloan";
+
+
+				var loanArray = new Array();
+				var loan_bank = document.getElementsByName("loan_bank");
+				var loan_customer_no = document.getElementsByName("loan_customer_no");
+				var loan_borrowing_entity = document.getElementsByName("loan_borrowing_entity");
+				var loan_amount = document.getElementsByName("loan_amount");
+				var loan_account_no = document.getElementsByName("loan_account_no");
+				var loan_effective_date = document.getElementsByName("loan_effective_date");
+				var loan_now_rate_period = document.getElementsByName("loan_now_rate_period");
+				var loan_review_date = document.getElementsByName("loan_review_date");
+				var loan_reminder_days = document.getElementsByName("loan_reminder_days");
+				var loan_interest_rate = document.getElementsByName("loan_interest_rate");
+				var loan_notes = document.getElementsByName("loan_notes");
+				var task_id = document.getElementsByName("task_id");
+				var newtasks = new Array();
+				for(var i=0;i<loan_bank.length;i++){
+					if(loan_bank[i].value!=''){
+						loanArray.push({"application_id":appid,"loan_bank":loan_bank[i].value,"loan_customer_no":loan_customer_no[i].value,
+							"loan_borrowing_entity":loan_borrowing_entity[i].value,"loan_amount":loan_amount[i].value.replace(/\$|,/g, ''),
+							"loan_account_no":loan_account_no[i].value,"loan_effective_date":formatDate(loan_effective_date[i].value),
+							"loan_now_rate_period":loan_now_rate_period[i].value,"loan_review_date":formatDate(loan_review_date[i].value),
+							"loan_reminder_days":loan_reminder_days[i].value,"loan_interest_rate":loan_interest_rate[i].value,
+							"loan_notes":loan_notes[i].value,"task_id":task_id[i].value});
+					}
+				} 
+				var jsonLoan = JSON.stringify( loanArray );
+				//alert(jsonLoan)
+				$.post(url, {"appid":appid,
+					"loan":jsonLoan}, function(data) {
+					if(data.code==1){
+					 	mlayer.open({
+						    content: 'Fail',
+						    btn: 'Got it'
+						  });
+						return false;
+					}
+					else{ 
+						mlayer.open({
+						    content: 'Success',
+						    btn: 'Got it',
+						    yes: function(){
+						    	var index = parent.layer.getFrameIndex(window.name);
+					 	        parent.layer.close(index);
+						      }
+						  }); 
+						
+					}
+					return false;
+				}, "json"); 
+				return false;
+	
+
+}
+</script>
+</@layout>

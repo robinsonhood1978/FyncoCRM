@@ -144,6 +144,10 @@
 	                                        	<a href="#" onclick="SendPdf2Bank('${x.id}','${x.pdf!}');" class="dropdown-item">Send All Documents to Bank</a>
 	                                        	<a href="#" onclick="SendPdf2Client('${x.id}','${x.pdf!}');" class="dropdown-item">Send Application to Client</a>
 	                                        	</#if>
+	                                        	<#if x.status=3 || x.status=4>
+	                                        	<a href="#" onclick="AddLoan('${x.id}');" class="dropdown-item">Add Loan Structure</a>
+	                                        	<a href="#" onclick="EditLoan('${x.id}');" class="dropdown-item">Edit Loan Structure</a>
+	                                        	</#if>
 	                                        	<#if x.status lt 5>
 	                                        	<a href="#" onclick="Move2NextStage('${x.id}','${x.status}');" class="dropdown-item">Move to the next stage</a>
 	                                        	</#if>
@@ -187,6 +191,40 @@ const formatter = new Intl.NumberFormat('en-US', {
  	})
 var total = "${total}";
 $('#total_amount').html("Total: "+formatter.format(total));
+function AddLoan(id){
+	var url = '/application/addloan?appid='+id;
+	layer.open({
+		type: 2,
+		title: 'Add Loan Structure',
+		fixed: false, //不固定
+		maxmin: true,
+	    shadeClose: true, //点击遮罩关闭层
+		area: ['80%', '80%'],
+		content: url ,
+		success:function(layero,index){
+        },
+        end:function(){
+			//alert(1)
+        }
+	}); 
+}
+function EditLoan(id){
+	var url = '/application/editloan?appid='+id;
+	layer.open({
+		type: 2,
+		title: 'Edit Loan Structure',
+		fixed: false, //不固定
+		maxmin: true,
+	    shadeClose: true, //点击遮罩关闭层
+		area: ['80%', '80%'],
+		content: url ,
+		success:function(layero,index){
+        },
+        end:function(){
+			//alert(1)
+        }
+	}); 
+}
 function SavePdf(appid){
 	$.ajaxSettings.async = false;
 	$.post("/application/pdf", {"id":appid}, function(data) {
