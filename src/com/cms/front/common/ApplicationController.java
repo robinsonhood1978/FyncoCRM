@@ -205,8 +205,7 @@ public class ApplicationController extends Controller {
 							loan.put("task_id", taskId);
 							
 							Db.update("insert into message (name,link_id,type,type_name,sender,receiver,create_time,alert_time) values "
-									+ "(?,?,?,?,?,?,?,?)","You have an upcoming Refix with client ["+getPara("client.first_name")
-									+" "+getPara("client.last_name")+"] due on "+loan_review_date,taskId,message_type,type_name,
+									+ "(?,?,?,?,?,?,?,?)","You have an upcoming Refix with client ["+client.getStr("first_name")+" "+client.getStr("last_name")+"] due on "+loan_review_date,taskId,message_type,type_name,
 									u.getInt("id"),u.getInt("id"),DateFmt.addLongDays(0),reminder_date);
 					    }
 					    ja.add(loan);
