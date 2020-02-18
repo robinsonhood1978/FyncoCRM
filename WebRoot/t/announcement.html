@@ -1,5 +1,34 @@
 <#include "/t/_c.html" />
 <@layout>
+<style>
+.label {
+  color: white;
+  font-family: Arial;
+  border-radius: 15px;
+  margin-left: 10px; 
+  width: 110px;
+  height:20px;
+  text-align: center;
+  font-weight: 200;
+  font-size:15px; 
+  display: table-cell;
+  word-wrap: break-word;
+  vertical-align: middle;
+}
+.success {background-color: #4CAF50;} /* Green */
+.Notice {background-color: #34b8f5;} /* Blue */
+.warning {background-color: #ff9800;} /* Orange */
+.News {background-color: #f98072;} /* Red */ 
+.other {background-color: #9fa69f; color: black;} /* Gray */ 
+
+.text {
+  display: block;
+  max-width: 400px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+</style>
 
                 <div class="mdk-drawer-layout__content page">
 
@@ -25,19 +54,59 @@
 
 
                     <div class="container-fluid page__container">
-                        <div class="stories-cards mb-4">
+                        <div class="stories-cards mb-12">
 
 <#list ans as x>
                             <div class="card stories-card">
                                 <div class="stories-card__content d-flex align-items-center flex-wrap">
-                                    <div class="avatar avatar-lg mr-3">
+                                    <!-- <div class="avatar avatar-lg mr-3">
                                         <a href="/announcement/detail/${x.id}"><img src="${x.title_img}" alt="avatar" class="avatar-img rounded"></a>
+                                    </div>-->
+                                    <div class="d-flex" style="width: 100%;">
+                               		<div class="d-flex" style="width: 70%; margin: 20px 0px 0px 20px;">
+                                		<div class="d-flex" style="width: 100%;">
+                                    		<a href="/announcement/detail/${x.id}" class="headings-color"><h2 class="card-title m-0" style="font-family:Open Sans,monospace; font-weight: 400; max-width: 400px;"><span class="text">${x.title}</span></h2></a>
+										
+										<div class="d-flex" style="margin-top: 10px; margin-left: 20px;">
+	                                         <span class="label ${x.channel_name}" >${x.channel_name}</span> 
+	                                         <#if x.priority??>
+	                                             <#if x.priority == 1>
+	                                             <span class="label other">Sticky</span> 
+	                                            </#if>
+	                                        </#if>
+                                        </div>
+                                        </div>
+                               		</div>
+                                   
+                                   		<div class="d-flex" style="width: 30%; text-align:center;  margin: 25px;">
+                                   	
+	                                       <div  style="width: 60%;">
+	                                        Author: 
+	                                        <#if x.author??>
+	                                        ${x.author}
+	                                        </#if>
+	                                       </div>
+	                                       <div style="width: 40%;">
+	                                    	<small>${x.release_date?string["dd/MM/yyyy"]}</small>
+	                                                <!-- <small>${x.release_date?string.long}</small> -->
+	                                        </div>
+                                        </div>
+                                    </div> 
+                                    <div class="d-flex" style="width: 100%; margin: 0px 0px 30px 20px;">
+                                        <div style="width: 70%;" class="text">
+	                                          <#if x.txt??>
+	                                              <#assign description = x.txt!>
+	                                              ${description}
+	                                          <#else>  
+	                                          No Descriptions!
+	                                          </#if>
+                                        </div>
+                                        <div style="width: 30%; text-align: right; margin-right: 50px; ">
+                                            <a href="/announcement/detail/${x.id}" ><button style="border-radius: 17px; width: 120px; background: #6ede38; position: absolute; bottom: 30px; right: 50px; outline: none;">View</button></a>
+                                        </div>
                                     </div>
-                                    <div class="stories-card__title flex">
-                                        <h5 class="card-title m-0"><a href="/announcement/detail/${x.id}" class="headings-color">${x.title}</a></h5>
-                                        <small class="text-dark-gray">${x.viewer_num} viewers</small>
-                                    </div>
-                                    <div class="d-flex align-items-center flex-column flex-sm-row stories-card__meta">
+
+                                    <!-- <div class="d-flex align-items-center flex-column flex-sm-row stories-card__meta">
                                         <div class="mr-3 text-dark-gray text-uppercase stories-card__tag d-flex align-items-center">
                                             <i class="material-icons text-muted-light mr-1">folder_open</i> ${x.channel_name}
                                         </div>
@@ -70,8 +139,8 @@
                                             </div>
                                             </#if>
                                         </div>
-                                    </div>
-                                    <div class="dropdown ml-auto">
+                                    </div> -->
+                                    <!-- <div class="dropdown ml-auto">
                                         <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <a href="/announcement/detail/${x.id}" class="dropdown-item">View</a>
@@ -79,7 +148,7 @@
                                             <div class="dropdown-divider"></div>
                                            
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
@@ -144,3 +213,4 @@
 <script src="/f/assets/js/layer.js"></script>
 <script src="/f/assets/js/mobile/mlayer.js"></script>
 </@layout>
+

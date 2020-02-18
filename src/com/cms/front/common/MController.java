@@ -361,7 +361,8 @@ public class MController extends Controller {
 			public boolean run() throws SQLException {
 				getModel(Content.class)
 				.set("release_date",DateFmt.addLongDays(0))
-				.set("creator", loginUser.getInt("id")).save();
+				.set("creator", loginUser.getInt("id"))
+				.set("author", loginUser.getStr("first_name")+" "+loginUser.getStr("last_name")).save();
 				//拿到刚刚添加文字的ID
 				int contentId = Db.queryInt("select max(id) from content");
 				int channelId = getParaToInt("content.channel_id");

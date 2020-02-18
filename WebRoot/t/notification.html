@@ -1,5 +1,21 @@
 <#include "/t/_c.html" />
 <@layout>
+<style>
+.label {
+  color: white;
+  padding: 8px;
+  font-family: Arial;
+}
+.Refix {background-color: #4CAF50;} /* Green */
+.Notice {background-color: #2196F3;} /* Blue */
+.warning {background-color: #ff9800;} /* Orange */
+.Meeting {background-color: #f44336;} /* Red */ 
+.Announcement {background-color: #e7e7e7; color: black;} /* Gray */ 
+
+
+
+.close:hover {background: #bbb;}
+</style>
 <div class="mdk-drawer-layout__content page">
 
 
@@ -70,8 +86,8 @@
                                             <th>Name</th>
                                             <th >Title</th>
                                             <th >Content</th>
-                                            <th >Create Time</th>
-                                            <th >Personal Email</th>
+                                            <!-- <th >Create Time</th>
+                                            <th >Personal Email</th> -->
                                             <th >Type</th>
                                             <th ></th>
                                         </tr>
@@ -87,7 +103,7 @@
                                                     <label class="custom-control-label" for="customCheck_${x_index}"><span class="text-hide">Check</span></label>
                                                 </div>
                                             </td>
-
+											<td><span class="label ${x.type_name}">${x.type_name!}</span></td>
                                             <td>
 
                                                 <div class="media align-items-center">
@@ -95,25 +111,25 @@
                                                         <img src="<#if x.avatar??>${x.avatar}<#else>/t/assets/images/avatar/dfavatar.png</#if>" alt="Avatar" class="avatar-img rounded-circle">
                                                     </div>
                                                     <div class="media-body">
-
+	
                                                         <span class="js-lists-values-employee-name">${x.first_name!} ${x.last_name!}</span>
 
                                                     </div>
                                                 </div>
 
                                             </td>
-
                                             <td>
                                                 <div class="media align-items-center">
-                                                    <a href="<#if x.type==0>/announcement/detail/${(x.link_id)!}<#else>javascript:void(0)</#if>" <#if x.type==1>onclick="View('${x.id}');"</#if>>${x.title!}</a>
+                                                    <!-- <a href="<#if x.type==0>/announcement/detail/${(x.link_id)!}<#else>javascript:void(0)</#if>" <#if x.type==1>onclick="View('${x.id}');"</#if>>${x.title!}</a> -->
+                                                ${x.title!}
                                                 </div>
                                             </td>
-                                            <td><span class="badge badge-pill badge-info">${x.content!}</span></td>
+                                            <!-- <td><span class="badge badge-pill badge-info">${x.content!}</span></td>
 
                                             <td><#if x.create_time??>${(x.create_time)?string('dd/MM/yyyy')!}</#if></td>
                                             
                                             <td><span onclick="SendMail('${x.email!}')" class="badge badge-pill badge-light"><small class="text-muted">${x.email!}</small></span></td>
-                                            <td>${x.ntype!}</td>
+ 
                                             <td>
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
 	                                        <div class="dropdown-menu dropdown-menu-right">
@@ -123,7 +139,10 @@
 	                                            <div class="dropdown-divider"></div>
 	                                           
 	                                        </div>
-                                            </td>
+                                            </td> -->   
+                                            <td><a href="javascript:void(0)" onclick="DoubleClick('${x.id}','${x.type}','${x.link_id}');" >View</a></td>
+                                            <!-- <td><a href="javascript:void(0)" onclick="View('${x.id}');" >View</a></td> -->
+                                            <td><a href="/notification/del/${x.id}" class="close"><span>&times;</span></a></td>                                         
                                         </tr>
 
 </#list>
@@ -165,10 +184,10 @@
                 	});
                 }
                 function DoubleClick(id,type,link_id){
-                	if(type=='1')
-                		View(id);
-                	else
+                	if(type=='1' || type == '0')             		
                 		location.href='/announcement/detail/'+link_id;
+                	else
+                		View(id);
                 }
                 function View(id){
                 	//alert(id)

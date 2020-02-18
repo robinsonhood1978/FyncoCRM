@@ -49,7 +49,7 @@ public class NotificationController extends Controller {
 		}
 		
 		
-		page = Db.paginate(pageNum, 10, "select m.id,m.name title,m.content,m.create_time,m.status,m.type,if(m.type=0,'announcement','notification') ntype,m.link_id,u.avatar,u.first_name,u.last_name,u.email",sql.toString());
+		page = Db.paginate(pageNum, 10, "select m.id,m.name title,m.content,m.create_time,m.type_name,m.status,m.type,if(m.type=0,'announcement','notification') ntype,m.link_id,u.avatar,u.first_name,u.last_name,u.email",sql.toString());
 		setAttr("contentPage", page);
 		render("/t/notification.html");
 	}

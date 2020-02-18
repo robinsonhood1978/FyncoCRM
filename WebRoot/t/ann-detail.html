@@ -4,7 +4,8 @@
                 <div class="mdk-drawer-layout__content page">
 
 					<div class="container-fluid  page__heading-container">
-                        <div class="page__heading">
+                        <div class="page__heading d-flex align-items-center">
+                        	<div class="flex">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb mb-0">
                                     <li class="breadcrumb-item"><a href="#"><i class="material-icons icon-20pt">home</i></a></li>
@@ -12,6 +13,10 @@
                                 </ol>
                             </nav>
                             <h1 class="m-0">Announcement</h1>
+                            </div>
+                            <div class="text-right mb-7">
+                          		<a href="/announcement"><button class="btn btn-success">Exit Announcement</button></a>
+                       		</div>
                         </div>
                     </div>
 
@@ -35,7 +40,11 @@
                                         <li class="list-group-item bg-light">
                                             <a href="#" class="flex d-flex align-items-center text-body text-underline-0">
                                                 <span class="avatar mr-3">
+                                                <#if author.avatar??>
                                                     <img src="${author.avatar}" alt="avatar" class="avatar-img rounded-circle">
+                                                <#else>
+                                                	<img src="/t/assets/images/avatar/dfavatar.png" alt="avatar" class="avatar-img rounded-circle">
+                                                </#if>
                                                 </span>
                                                 <span class="flex d-flex flex-column">
                                                     <strong>${(creator_name)!}</strong>
@@ -62,10 +71,10 @@
 		                            <div class="card-body">
 		                                <p>
 		                                <#if content.txt??>
-          ${(content.txt)!}
-          <#else>
-          	No content
-          </#if>
+								          ${(content.txt)!}
+								          <#else>
+								          	No content
+								          </#if>
 		                                </p>
 		                                <div class="row align-items-end">
 		                                   
