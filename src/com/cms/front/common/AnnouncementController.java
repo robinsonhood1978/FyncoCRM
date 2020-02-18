@@ -12,7 +12,7 @@ import com.jfinal.plugin.activerecord.Record;
 @Before(MInterceptor.class)
 public class AnnouncementController extends Controller {
 	public void index() {
-		List<Record> as = Db.find("select c.id,c.title,c.release_date,ch.title_img,ch.name channel_name,ifnull(cv.viewer_num,0) viewer_num,v.avatars,v.usernames,ifnull((v.users_num-3),0) as usernum from content c join channel ch on c.channel_id=ch.id left join (select count(id) viewer_num,content_id from content_view group by content_id) cv on c.id=cv.content_id left join (select GROUP_CONCAT(u.avatar) avatars,GROUP_CONCAT(CONCAT_WS(' ',u.first_name,u.last_name)) usernames,ctv.content_id,count(u.id) users_num from user u join content_view ctv on u.id=ctv.user_id group by ctv.content_id) v on c.id=v.content_id");
+		List<Record> as = Db.find("select c.id,c.priority,c.author,c.txt,c.title,c.release_date,ch.title_img,ch.name channel_name,ifnull(cv.viewer_num,0) viewer_num,v.avatars,v.usernames,ifnull((v.users_num-3),0) as usernum from content c join channel ch on c.channel_id=ch.id left join (select count(id) viewer_num,content_id from content_view group by content_id) cv on c.id=cv.content_id left join (select GROUP_CONCAT(u.avatar) avatars,GROUP_CONCAT(CONCAT_WS(' ',u.first_name,u.last_name)) usernames,ctv.content_id,count(u.id) users_num from user u join content_view ctv on u.id=ctv.user_id group by ctv.content_id) v on c.id=v.content_id ORDER BY c.priority DESC, c.release_date DESC");
 		setAttr("ans",as);
 		render("/t/announcement.html");
 	}

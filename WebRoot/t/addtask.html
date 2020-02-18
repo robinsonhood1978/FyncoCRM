@@ -39,8 +39,8 @@
                                     	
                                         <div class="col">
                                              <div class="form-group">
-		                                        <label for="due_date">Due Date</label>
-		                                        <input id="due_date" type="text" class="form-control" placeholder="" data-toggle="flatpickr" data-flatpickr-enable-time="true" data-flatpickr-alt-format="F j, Y at H:i" data-flatpickr-date-format="Y-m-d H:i" value="${(task.due_date)!}">
+		                                        <label for="due_date">Due Date ${(task.due_date)!}</label>
+		                                        <input id="due_date" type="text" class="form-control" placeholder="" data-toggle="flatpickr" data-flatpickr-enable-time="true" data-flatpickr-alt-format="F j, Y at H:i" data-flatpickr-date-format="Y-m-d H:i" value="${(task.due_date?string('yyyy-MM-dd hh:mm a'))!}">
 		                                    </div>
                                         </div>
                                         <div class="col">

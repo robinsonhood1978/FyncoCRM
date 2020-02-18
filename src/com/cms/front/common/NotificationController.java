@@ -44,12 +44,11 @@ public class NotificationController extends Controller {
 				sql.append(" and (u.first_name like '%"+keyword+"%' or u.last_name like '%"+keyword+"%')");
 			}
 			else {
-				sql.append(" and u."+field+" like '%"+keyword+"%'");
+				sql.append(" and m."+field+" like '%"+keyword+"%'");
 			}
 		}
-		
-		
-		page = Db.paginate(pageNum, 10, "select m.id,m.name title,m.content,m.create_time,m.status,m.type,if(m.type=0,'announcement','notification') ntype,m.link_id,u.avatar,u.first_name,u.last_name,u.email",sql.toString());
+		sql.append(" ORDER BY m.create_time DESC");
+		page = Db.paginate(pageNum, 10, "select m.id,m.name title,m.content,m.create_time,m.type_name,m.status,m.type,if(m.type=0,'announcement','notification') ntype,m.link_id,u.avatar,u.first_name,u.last_name,u.email",sql.toString());
 		setAttr("contentPage", page);
 		render("/t/notification.html");
 	}

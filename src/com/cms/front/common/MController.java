@@ -361,7 +361,8 @@ public class MController extends Controller {
 			public boolean run() throws SQLException {
 				getModel(Content.class)
 				.set("release_date",DateFmt.addLongDays(0))
-				.set("creator", loginUser.getInt("id")).save();
+				.set("creator", loginUser.getInt("id"))
+				.set("author", loginUser.getStr("first_name")+" "+loginUser.getStr("last_name")).save();
 				//拿到刚刚添加文字的ID
 				int contentId = Db.queryInt("select max(id) from content");
 				int channelId = getParaToInt("content.channel_id");
@@ -374,9 +375,11 @@ public class MController extends Controller {
 				new ContentCount().set("content_id", contentId).save();
 				//增添系统通知
 				List<Record> ul = Db.find("select id from user where status=1");
+				String titles = getPara("content.title");
+				titles = titles.length() <= 20? titles: titles.substring(0, 19) + "...";
 				for(Record r:ul) {
 					Db.update("insert into message (name,link_id,type,type_name,sender,receiver,create_time,alert_time) values (?,?,?,?,?,?,?,?)",
-							"New Announcement ["+getPara("content.title")+"] has published",contentId,type,type_name,loginUser.getInt("id"),r.getInt("id"),DateFmt.addLongDays(0),DateFmt.addLongDays(0));
+							"New Announcement &nbsp; <B>"+titles+"</B> &nbsp; has published",contentId,type,type_name,loginUser.getInt("id"),r.getInt("id"),DateFmt.addLongDays(0),DateFmt.addLongDays(0));
 				}
 				return true;
 			}

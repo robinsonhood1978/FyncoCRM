@@ -1,5 +1,31 @@
 <#include "/t/_c.html" />
 <@layout>
+<style>
+.label {
+  color: white;
+  font-family: Open Sans,monospace;
+  border-radius: 15px;
+  margin-left: 10px; 
+  width: 130px;
+  height:20px;
+  text-align: center;
+  font-weight: 200;
+  font-size:12px; 
+  display: table-cell;
+  word-wrap: break-word;
+  vertical-align: middle;
+}
+.Refix {background-color: #4CAF50;} /* Green */
+.Announcement{background-color: #34b8f5;} /* Blue */
+.Appointment {background-color: #ff9800;} /* Orange */
+.Meeting {background-color: #f98072;} /* Red */ 
+.Notice {background-color: #9fa69f;} /* Gray */ 
+.Event {background-color: #e961c1;}
+.Task {background-color: #4cde8f;}
+
+
+.close:hover {background: #9fa69f;}
+</style>
 <div class="mdk-drawer-layout__content page">
 
 
@@ -40,8 +66,8 @@
                                     <label class="sr-only" for="inlineFormRole">Field</label>
                                     <select name="field" id="field" class="custom-select mb-2 mr-sm-2 mb-sm-0">
                                         <option value="name">Name</option>
-                                        <option value="mobile">Mobile</option>
-                                        <option value="email">Email</option>
+                                        <option value="type_name">Type Name</option>
+                                        <!-- <option value="email">Email</option> -->
                                     </select>
 
                                     <button class="btn" type="submit" role="button"><i class="material-icons">search</i></button>
@@ -67,12 +93,12 @@
                                                 </div>
                                             </th>
 
-                                            <th>Name</th>
+                                            <th>Type</th>
                                             <th >Title</th>
-                                            <th >Content</th>
-                                            <th >Create Time</th>
-                                            <th >Personal Email</th>
-                                            <th >Type</th>
+                                            <!-- <th >Name</th> -->
+                                            <!-- <th >Create Time</th>
+                                            <th >Personal Email</th> -->
+                                            <th ></th>
                                             <th ></th>
                                         </tr>
                                     </thead>
@@ -87,7 +113,16 @@
                                                     <label class="custom-control-label" for="customCheck_${x_index}"><span class="text-hide">Check</span></label>
                                                 </div>
                                             </td>
-
+											<td><span class="label ${x.type_name}">
+											${x.type_name!}
+											</span></td>
+                                            
+                                            <td>
+                                                <div class="media align-items-center">
+                                                    <!-- <a href="<#if x.type==0>/announcement/detail/${(x.link_id)!}<#else>javascript:void(0)</#if>" <#if x.type==1>onclick="View('${x.id}');"</#if>>${x.title!}</a> -->
+                                                ${x.title!}
+                                                </div>
+                                            </td>
                                             <td>
 
                                                 <div class="media align-items-center">
@@ -95,25 +130,19 @@
                                                         <img src="<#if x.avatar??>${x.avatar}<#else>/t/assets/images/avatar/dfavatar.png</#if>" alt="Avatar" class="avatar-img rounded-circle">
                                                     </div>
                                                     <div class="media-body">
-
+	
                                                         <span class="js-lists-values-employee-name">${x.first_name!} ${x.last_name!}</span>
 
                                                     </div>
                                                 </div>
 
-                                            </td>
-
-                                            <td>
-                                                <div class="media align-items-center">
-                                                    <a href="<#if x.type==0>/announcement/detail/${(x.link_id)!}<#else>javascript:void(0)</#if>" <#if x.type==1>onclick="View('${x.id}');"</#if>>${x.title!}</a>
-                                                </div>
-                                            </td>
-                                            <td><span class="badge badge-pill badge-info">${x.content!}</span></td>
+                                            </td> 
+                                            <!-- <td><span class="badge badge-pill badge-info">${x.content!}</span></td>
 
                                             <td><#if x.create_time??>${(x.create_time)?string('dd/MM/yyyy')!}</#if></td>
                                             
                                             <td><span onclick="SendMail('${x.email!}')" class="badge badge-pill badge-light"><small class="text-muted">${x.email!}</small></span></td>
-                                            <td>${x.ntype!}</td>
+ 
                                             <td>
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
 	                                        <div class="dropdown-menu dropdown-menu-right">
@@ -123,7 +152,11 @@
 	                                            <div class="dropdown-divider"></div>
 	                                           
 	                                        </div>
-                                            </td>
+                                            </td> -->   
+                                            <td>
+                                            <a href="javascript:void(0)" ><button type="button" style="border-radius: 17px; width: 120px; background: #6ede38; outline: none; color: white;" onclick="DoubleClick('${x.id}','${x.type}','${x.link_id}');">View</button></td>
+                                            <!-- <td><a href="javascript:void(0)" onclick="View('${x.id}');" >View</a></td> -->
+                                            <td><a href="/notification/del/${x.id}" class="close"><span>&times;</span></a></td>                                         
                                         </tr>
 
 </#list>
@@ -165,10 +198,10 @@
                 	});
                 }
                 function DoubleClick(id,type,link_id){
-                	if(type=='1')
-                		View(id);
-                	else
+                	if(type=='1' || type == '0')             		
                 		location.href='/announcement/detail/'+link_id;
+                	else
+                		View(id);
                 }
                 function View(id){
                 	//alert(id)
