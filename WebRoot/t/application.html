@@ -130,9 +130,15 @@
                                             
                                             
                                             </td>
+                                            <#if x.lending_amount_required??>
+                                            <#assign lending_amount = x.lending_amount_required>
+                                            <td><span class="badge badge-warning">${(lending_amount?string.currency)!}</span></td>
+                                            <#else>
+                                            <#assign lending_amount = 0>
+                                            <td><span class="badge badge-warning">N/A</span></td>
+                                            </#if>
+                                            <#assign total = total+lending_amount>
                                             
-                                            <#assign total = total+x.lending_amount_required>
-                                            <td><span class="badge badge-warning">${(x.lending_amount_required?string.currency)!}</span></td>
                                             <!-- <td><small class="text-muted">${(x.new_loan_amount)!}</small></td> -->
                                             <td><#if x.application_date??>${(x.application_date)?string('dd/MM/yyyy')!}</#if></td>
                                             <td>

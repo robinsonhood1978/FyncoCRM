@@ -223,19 +223,20 @@
 	                                    	<label for="fname">Current Residential Address (Address client are currently residing)</label>
 	                                    </div>
 	                                    <div style="width: 30%; padding-left: 2px;">
-	                                     	<label for="fname">Period Styled(Years, Months)</label>
+	                                     	<label for="fname">Period Styled(Year(s), Month(s))</label>
 	                                    </div>
                                         
                                     </div>
+                                    
                                     <div class="row">
                                     	<div style="padding-left: 16px;padding-right: 8px; width: 70%">
 	                                    	${(client.current_residential_address)!}
 	                                    </div>
 	                                    <div style="width: 15%; padding-left: 2px;padding-right: 8px;">
-	                                     	${(client.time_stayed_years)!} Y
+	                                     	${(client.time_stayed_years+' Y')!} 
 	                                    </div>
 	                                    <div style="width: 15%; padding-left: 2px;padding-right: 16px;">
-	                                     	${(client.time_stayed_months)!} M
+	                                     	${(client.time_stayed_months+' M')!} 
 	                                    </div>
 
 	                                    

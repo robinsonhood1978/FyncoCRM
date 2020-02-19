@@ -20,14 +20,14 @@
     var defaultOptions = {
                 prefix: "",
                 suffix: "",
-                affixesStay: true,
+                affixesStay: false,
                 thousands: ",",
                 decimal: ".",
                 precision: 0,
                 allowZero: true,
                 allowNegative: false,
                 doubleClickSelection: true,
-                allowEmpty: false,
+                allowEmpty: true,
                 bringCaretAtEndOnFocus: true
             },
 		methods = {
@@ -62,6 +62,9 @@
                 var value = ($(this).val() || "0"),
                     isNegative = value.indexOf("-") !== -1,
                     decimalPart;
+                if ($(this).val() == '$' || $(this).val() == '' ) {
+                	return '';
+				}
                 // get the last position of the array that is a number(coercion makes "" to be evaluated as false)
                 $(value.split(/\D/).reverse()).each(function (index, element) {
                     if (element) {
@@ -95,7 +98,7 @@
             return this.each(function () {
                 var $input = $(this), settings,
                     onFocusValue;
-
+               
                 // data-* api
                 settings = $.extend({}, parameters);
                 settings = $.extend(settings, $input.data());
@@ -207,7 +210,9 @@
 
                 function mask() {
                     var value = $input.val();
-                    if (settings.allowEmpty && value === "") {
+                    //dannel modify for control input '$'
+                    if (settings.allowEmpty && (value === "" || value === "$")) {
+                    	$input.val("$")
                         return;
                     }
 					var decimalPointIndex = value.indexOf(settings.decimal);
@@ -386,10 +391,12 @@
                                 endPos += 1;
                             }
                         }
-
+                        
                         $input.val(value.substring(0, startPos) + value.substring(endPos, value.length));
-
-                        maskAndPosition(startPos);
+                        //dannel modify for control '$'
+                        if($input.val()!='$'){
+                        	maskAndPosition(startPos);
+                        }
                         return false;
                     } else if (key === 9) { // tab key
                         return true;

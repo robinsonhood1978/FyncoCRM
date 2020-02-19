@@ -96,8 +96,8 @@
                                             </td>
 
                                             <td><#if x.birthday??>${(x.birthday)?string('dd/MM/yyyy')!}</#if></td>
-                                            <td><span class="badge badge-warning">${x.mobile!}</span></td>
-                                            <td><small class="text-muted">${x.personal_email!}</small></td>
+                                            <td><span class="badge badge-warning">${(x.mobile?split(',')[0]?replace('\"','')?replace('[','')?replace(']',''))!}</span></td>
+                                            <td><small class="text-muted">${(x.personal_email?split(',')[0]?replace('\"','')?replace('[','')?replace(']',''))!}</small></td>
                                             <td>${x.comments!}</td>
                                             
                                         </tr>

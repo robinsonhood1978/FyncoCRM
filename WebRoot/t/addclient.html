@@ -1018,9 +1018,9 @@
                 <!-- // END drawer-layout__content -->
                 <script>
                 //dannel modify
-                $("[name='gross_income']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-                $("[name='security_property_value']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
-                $("[name='loan_amount']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                $("[name='gross_income']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                $("[name='security_property_value']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                $("[name='loan_amount']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
                 var client_avatar = '${(client.avatar)!}';
                 function Remove(id){
                 	$('#loan_'+id).remove();
@@ -1168,19 +1168,19 @@ function CalReview(node_index){
                 	});
                 	$("#addloan").on('click',function(e){
                 		copyNode("loan");
-                		$("[name='loan_amount']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                		$("[name='loan_amount']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
                 	});
                 	
                 	$("#add_curemploy").on('click',function(e){
                 		copyNode("curemploy");
-                		$("[name='gross_income']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                		$("[name='gross_income']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
                 	});
                 	$("#addnew").on('click',function(e){
                 		copyNode("employ");
                 	});
                 	$("#addproperty").on('click',function(e){
                 		copyNode("property");
-                		$("[name='security_property_value']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: true});
+                		$("[name='security_property_value']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
                 	});
                 	
                 	if('${method}'=='edit'){
