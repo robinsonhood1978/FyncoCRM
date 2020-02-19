@@ -79,7 +79,7 @@ public class StrUtil {
 	}
 	public static String null2Blank(String s){
 		if(s!=null){
-			if(s.equals("0"))s="";
+			//if(s.equals("0"))s="";
 			return s;
 		}
 		return "";
