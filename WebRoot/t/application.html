@@ -381,14 +381,17 @@ window.onload = function() {
 		var dealArr = dealstr.split("#");
 		var foot = dealArr[0];
 		var deal = dealArr[1];
-		var dealA = deal.split(",");
-		var link = '';
-		for(var j=0;j<dealA.length;j++){
-			var dlA=dealA[j].split("-");
-			if(j>0)link+='<br/>';
-			link += '<a onclick="ViewClient('+dlA[0]+')" href="javascript:void(0)">'+dlA[1]+'</a>';
+		if(deal!=''){
+			var dealA = deal.split(",");
+			var link = '';
+			for(var j=0;j<dealA.length;j++){
+				var dlA=dealA[j].split("-");
+				if(j>0)link+='<br/>';
+				link += '<a onclick="ViewClient('+dlA[0]+')" href="javascript:void(0)">'+dlA[1]+'</a>';
+			}
+			$('#clients_name_'+foot).html(link);
 		}
-		$('#clients_name_'+foot).html(link);
+		
 	}
 }
 

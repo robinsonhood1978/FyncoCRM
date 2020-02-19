@@ -91,7 +91,7 @@ public class ApplicationController extends Controller {
 		User u = getSessionAttr("user");
 		Page<Record> page = null;
 		// 当前页
-		StringBuffer sql =new StringBuffer("from application a join application_client ac on a.id=ac.application_id join client c on ac.client_id=c.id where a.status="+status+" and a.creator="+u.getInt("id"));
+		StringBuffer sql =new StringBuffer("from application a left join application_client ac on a.id=ac.application_id left join client c on ac.client_id=c.id where a.status="+status+" and a.creator="+u.getInt("id"));
 		if(getSessionAttr("application_field")!=null) {
 			keyword = getSessionAttr("application_keyword");
 			field = getSessionAttr("application_field");
