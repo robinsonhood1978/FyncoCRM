@@ -2718,12 +2718,15 @@
                 }	
                 function RemoveMonthincome(id,applicantid){
                 	$('#monthincome_'+applicantid+'_'+id).remove();
+                	Income();
                 }
                 function RemoveMonthincomefr(id){
                 	$('#monthincomefr_'+id).remove();
+                	Income();
                 }
                 function RemoveMonthexpend(id){
                 	$('#monthexpend_'+id).remove();
+                	MonthExpend();
                 }
                 function AddMonthincome(id){
                 	copyApplicantInfo("monthincome",id);
@@ -2796,46 +2799,60 @@
 	}
                 function RemoveProperty(id){
                 	$('#property_'+id).remove();
+                	Asset();
                 }
                 function RemoveVehicle(id){
                 	$('#vehicle_'+id).remove();
+                	Asset();
                 }
                 function RemoveKiwisaver(id){
                 	$('#kiwisaver_'+id).remove();
+                	Asset();
                 }
                 function RemoveOtherasset(id){
                 	$('#otherasset_'+id).remove();
+                	Asset();
                 }
                 function RemoveBusinessown(id){
                 	$('#businessown_'+id).remove();
+                	Asset();
                 }
                 function RemoveInvestment(id){
                 	$('#investment_'+id).remove();
+                	Asset();
                 }
                 function RemoveRevcredit(id){
                 	$('#revcredit_'+id).remove();
+                	Liability();
                 }
                 function RemoveOverlimit(id){
                 	$('#overlimit_'+id).remove();
+                	Liability();
                 }
                 function RemoveCreditcard(id){
                 	$('#creditcard_'+id).remove();
+                	Liability();
                 }
                 function RemoveStorecard(id){
                 	$('#storecard_'+id).remove();
+                	Liability();
                 }
                 function RemoveHirepurchase(id){
                 	$('#hirepurchase_'+id).remove();
+                	Liability();
                 }
                 function RemoveOtherliability(id){
                 	$('#otherliability_'+id).remove();
+                	Liability();
                 }
                 function RemoveLoandrop(id){
                 	$('#loandrop_'+id).remove();
+                	Liability();
                 }
                 
                 function RemoveSaving(id){
                 	$('#saving_'+id).remove();
+                	Asset();
                 }
                 function RemoveSecurityProperty(id){
                 	$('#security_property_'+id).remove();
