@@ -259,8 +259,7 @@ public class ApplicationController extends Controller {
 		String finance_date = getPara("finance_date");
 		String settlement_date = getPara("settlement_date");
 		String applicants_ids = getPara("applicants_ids");
-		String[] ids = applicants_ids.split(",");
-		System.out.println(applicants_ids);
+		
 		
 		//boolean b = getModel(Application.class).set("type", 1).set("birthday", DateFmt.USDate(birthday)).set("creator", u.getInt("id")).save();
 		boolean b = getModel(Application.class)
@@ -270,11 +269,15 @@ public class ApplicationController extends Controller {
 				.set("creator", u.getInt("id")).save();
 		if(b)code=0;
 		int app_id = Db.queryInt("select max(id) from application");
-		for(String id:ids) {
-			Db.update("insert into application_client (application_id,client_id) values (?,?)",app_id,id);
+		if(!applicants_ids.equals("")) {
+			String[] ids = applicants_ids.split(",");
+			for(String id:ids) {
+				Db.update("insert into application_client (application_id,client_id) values (?,?)",app_id,id);
+			}
 		}
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("code",code);
+		map.put("appid",app_id);
 		renderJson(map);
 	}
 	public void update() {
@@ -285,23 +288,23 @@ public class ApplicationController extends Controller {
 		String finance_date = getPara("finance_date");
 		String settlement_date = getPara("settlement_date");
 		String applicants_ids = getPara("applicants_ids");
-		String[] ids = applicants_ids.split(",");
-		System.out.println(applicants_ids);
-		
-		//boolean b = getModel(Application.class).set("type", 1).set("birthday", DateFmt.USDate(birthday)).set("creator", u.getInt("id")).save();
+
 		boolean b = getModel(Application.class)
 				.set("application_date", DateFmt.USDate(application_date))
 				.set("finance_date", DateFmt.USDate(finance_date))
 				.set("settlement_date", DateFmt.USDate(settlement_date))
 				.set("creator", u.getInt("id")).update();
-		
-		Db.update("delete from application_client where application_id=?",app_id);
-		for(String id:ids) {
-			Db.update("insert into application_client (application_id,client_id) values (?,?)",app_id,id);
+		if(!applicants_ids.equals("")) {
+			String[] ids = applicants_ids.split(",");
+			Db.update("delete from application_client where application_id=?",app_id);
+			for(String id:ids) {
+				Db.update("insert into application_client (application_id,client_id) values (?,?)",app_id,id);
+			}
 		}
 		if(b)code=0;
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("code",code);
+		map.put("appid",app_id);
 		renderJson(map);
 	}
 }

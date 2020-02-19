@@ -16,7 +16,7 @@
                             </nav>
                             <h1 class="m-0"><#if method=='add'>New<#else>Edit</#if> Application</h1>
                             <div class="text-right mb-7">
-                            	<button class="btn btn-success" onClick="return SaveApp('${method}');">Save Application</button>
+                            	<button class="btn btn-success" onClick="SaveApp(0);">Save Application</button>
                         	 	<button onclick="history.go(-1)" class="btn btn-success">Go Back</button>
                         	 </div>
                         </div>
@@ -2482,7 +2482,7 @@
                         	<input type="hidden" id="total_income" value="0">
                         	<input id="app_ids" value="${clients!}" hidden="hidden">
                         	<input id="minus_ids" value="${clients!}" hidden="hidden">
-                            <button class="btn btn-success" onClick="return SaveApp('${method}');">Save Application</button>
+                            <button class="btn btn-success" onClick="SaveApp(0);">Save Application</button>
                             <button onclick="history.go(-1)" class="btn btn-success">Go Back</button>
                         </div>
                     </div>
@@ -3979,10 +3979,12 @@
 
             return [day, month, year].join('/');
         }
-function SaveApp(method){
-				
-
+function SaveApp(autosave){
 				var appid=$('#appid').val();
+				var method = 'edit';
+				if(appid==''){
+					method = 'add';
+				}
 				var applicants_ids = $('#app_ids').val();
 				var url = "/application/";
 				if(method=='add')url+="save";
@@ -4001,7 +4003,7 @@ function SaveApp(method){
 				}
 				var documents = strMapToJson(checklist);
 //alert(documents)
-				if(applicants_ids==''){
+				if(applicants_ids==''&&autosave==0){
 					mlayer.open({
 					    content: 'Please add an applicant.',
 					    btn: 'Got it'
@@ -4105,22 +4107,44 @@ function SaveApp(method){
 						"application.equity":equity,
 						"application.documents":documents}, function(data) {
 						if(data.code==1){
-						 	mlayer.open({
-							    content: 'Fail',
-							    btn: 'Got it'
-							  });
-							return false;
+							if(autosave==1){
+								mlayer.open({
+								    content: 'Autosave failed'
+								    ,skin: 'msg'
+								    ,time: 2 //2秒后自动关闭
+								  });
+							}else{
+								mlayer.open({
+								    content: 'Save failed',
+								    btn: 'Got it'
+								  });
+							}
+						 	
 						}
 						else{ 
-							mlayer.open({
-							    content: 'Success',
-							    btn: 'Got it',
-							    yes: function(){
-							    	location.href="/application";
-							      }
-							  });
+							$('#appid').val(data.appid);
+							if(autosave==1){
+								/* mlayer.open({
+								    content: 'Autosave success'
+								    ,style: 'background-color:#09C1FF; color:#fff; border:none;'
+								    ,time: 2 //2秒后自动关闭
+								  }); */
+								layer.msg('Autosave success',{
+		    	                    icon: 1,
+		    	                    time: 2000 //2秒关闭（如果不配置，默认是3秒）
+		    	                },function(){
+		    	                    //history.go(0);
+		    	                });
+							}else{
+								mlayer.open({
+								    content: 'Success',
+								    btn: 'Got it',
+								    yes: function(){
+								    	location.href="/application";
+								      }
+								  });
+							}
 						}
-						return false;
 					}, "json"); 
 				}
 				
@@ -4453,6 +4477,9 @@ window.onload = function() {
 		MonthExpend();
 		Liability();
 	}
+	$('body').everyTime('60s',function(){
+		SaveApp(1);
+	});
 }; 
 </script>
 

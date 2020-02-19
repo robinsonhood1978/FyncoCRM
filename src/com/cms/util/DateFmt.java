@@ -28,7 +28,7 @@ public class DateFmt {
     }
 	public static Date USDate(String d) {
 		Date dt=null;
-		if(!"".equals(d)) {
+		if(!"".equals(d)&&!d.equals("NaN/NaN/NaN")) {
 			String pattern = "dd/MM/yyyy";
 			SimpleDateFormat df = new SimpleDateFormat(pattern);
 			try {
