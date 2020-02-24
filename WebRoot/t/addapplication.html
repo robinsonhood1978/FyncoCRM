@@ -197,6 +197,7 @@
                         <div class="card card-form">
                         <div class="col-lg-12 card-body" style="font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;">
                                     <p><strong class="headings-color">Security</strong></p>
+                                    <input type="hidden" class="form-control" id="security_total_value" value="">
                                     <!-- <p class="text-muted">Edit the client detailed security information.</p> -->
                                 </div>
                             <div class="row no-gutters">
@@ -3979,6 +3980,33 @@
 
             return [day, month, year].join('/');
         }
+		function Security(){
+			var propertyArray = new Array();
+			var security_property = document.getElementsByName("security_property");
+			var security_bank = document.getElementsByName("security_bank");
+			var security_owner = document.getElementsByName("security_owner");
+			var security_property_type = document.getElementsByName("security_property_type");
+			var security_property_use = document.getElementsByName("security_property_use");
+			var security_property_value = document.getElementsByName("security_property_value");
+			var security_property_holder = document.getElementsByName("security_holder");
+			var security_property_borrower = document.getElementsByName("security_borrower");
+			
+			var s_total_value = 0;
+			
+			for(var i=0;i<security_property.length;i++){
+				if(security_property[i].value!=''){
+					s_value = security_property_value[i].value.replace(/\$|,/g, '');
+					s_total_value += b20(s_value);
+					propertyArray.push({"property":security_property[i].value,"bank":security_bank[i].value,
+						"owner":security_owner[i].value,"property_type":security_property_type[i].value,
+						"holder":security_property_holder[i].value,"borrower":security_property_borrower[i].value,
+						"use":security_property_use[i].value,"value":s_value});
+				}
+			} 
+			$('#security_total_value').val(s_total_value);
+			var jsonProperty = JSON.stringify( propertyArray );
+			return jsonProperty;
+		}
 function SaveApp(autosave){
 				var appid=$('#appid').val();
 				var method = 'edit';
@@ -4049,25 +4077,8 @@ function SaveApp(autosave){
 					var existing_loan_amount=$('#existing_loan_amount').maskMoney('unmasked')[0];
 					var total_loan_amount=$('#total_loan_amount').maskMoney('unmasked')[0];
 					
-					var propertyArray = new Array();
-					var security_property = document.getElementsByName("security_property");
-					var security_bank = document.getElementsByName("security_bank");
-					var security_owner = document.getElementsByName("security_owner");
-					var security_property_type = document.getElementsByName("security_property_type");
-					var security_property_use = document.getElementsByName("security_property_use");
-					var security_property_value = document.getElementsByName("security_property_value");
-					var security_property_holder = document.getElementsByName("security_holder");
-    				var security_property_borrower = document.getElementsByName("security_borrower");
-					console.log()
-					for(var i=0;i<security_property.length;i++){
-						if(security_property[i].value!=''){
-							propertyArray.push({"property":security_property[i].value,"bank":security_bank[i].value,
-								"owner":security_owner[i].value,"property_type":security_property_type[i].value,
-								"holder":security_property_holder[i].value,"borrower":security_property_borrower[i].value,
-								"use":security_property_use[i].value,"value":security_property_value[i].value.replace(/\$|,/g, '')});
-						}
-					} 
-					var jsonProperty = JSON.stringify( propertyArray );
+					
+					var jsonProperty = Security();
 					
 					var jsonAsset = Asset();
 					var jsonLiability = Liability();
@@ -4081,6 +4092,7 @@ function SaveApp(autosave){
 					var surplus = $('#surplus_value_h').val();
 					var total_assets = $('#total_v').val();
 					var total_liability = $('#total_lv').val();
+					var total_security = $('#security_total_value').val();
 					var equity = $('#equity').val();
 					$.post(url, {"applicants_ids":applicants_ids,"application.id":appid,
 						"application.application_no":application_no,"application_date":application_date,
@@ -4105,6 +4117,7 @@ function SaveApp(autosave){
 						"application.total_assets":total_assets,
 						"application.total_liability":total_liability,
 						"application.equity":equity,
+						"application.total_security":total_security,
 						"application.documents":documents}, function(data) {
 						if(data.code==1){
 							if(autosave==1){
