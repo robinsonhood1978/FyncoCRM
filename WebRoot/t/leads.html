@@ -110,8 +110,16 @@
                                             </td>
 
                                             <td><#if x.birthday??>${(x.birthday)?string('dd/MM/yyyy')!}</#if></td>
-                                            <td><span class="badge badge-pill badge-info">${x.mobile!}</span></td>
-                                            <td><span onclick="SendMail('${x.personal_email!}')" class="badge badge-pill badge-light"><small class="text-muted">${x.personal_email!}</small></span></td>
+                                            <td><span class="badge badge-pill badge-info">
+											<#if x.mobile??>
+                                            ${x.mobile?split(',')[0]?replace('\"','')?replace('[','')?replace(']','')}
+                                            </#if>
+											</span></td>
+                                            <td><span onclick="SendMail('${x.personal_email!}')" class="badge badge-pill badge-light"><small class="text-muted">
+                                            <#if x.personal_email??>
+                                            ${x.personal_email?split(',')[0]?replace('\"','')?replace('[','')?replace(']','')}
+                                            </#if>
+                                            </small></span></td>
                                             <td>${x.comments!}</td>
                                             <td>
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>

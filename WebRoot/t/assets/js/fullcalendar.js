@@ -275,36 +275,63 @@
                             i.modal({
                                 backdrop: "static"
                             });
-                            var sel = '<select class="form-control custom-select" name="others" multiple="multiple">\n';
-                            other.forEach(function(e){  
-                                 //alert(e['id'] + " " + e['name']);
-                                 sel +='<option value="'+e["id"]+'">'+e["name"]+'</option>\n';
-                            });
+                            var sel ='<div class="selectBox" >';
+                            sel += '<select class="form-control custom-select" name="others">\n';
+//                            other.forEach(function(e){  
+//                                 //alert(e['id'] + " " + e['name']);
+//                                 sel +='<option value="'+e["id"]+'">'+e["name"]+'</option>\n';
+//                            });
+                            sel +='<option> Select one</option>\n';
                             sel +='</select>\n';
+                            sel +='<div class="overSelect"></div>';
+                            sel +='</div>\n';
+                            sel +='  <div id="checkboxes">';
+                            other.forEach(function(e){  
+                            	sel +='<label><input type="checkbox" id="one" value="'+e["id"]+'"/>&nbsp;'+e["name"]+'</label>';
+                            });
+                            sel +='</div>\n';
                             //alert(sel);
-                            var a = $('<form>\n      <div class="row">\n        <div class="col-12">\n          <div class="form-group">\n            <label class="control-label">Event Name</label>\n            <input class="form-control" placeholder="Insert Event Name" type="text" name="title" />\n          </div>\n        </div>\n  \n        <div class="col-6">\n          <div class="form-group">\n             <label class="control-label">Start Time</label>\n.      <input type="text" class="form-control" name="beginning" value="15:35">\n          </div>\n        </div>\n<div class="col-6">\n          <div class="form-group">\n             <label class="control-label">End Time</label>\n.      <input type="text" name="ending" class="form-control" value="16:35">\n          </div>\n        </div>\n       <div class="col-6">\n          <div class="form-group">\n            <label class="control-label">Category</label>\n            <select class="form-control custom-select" name="category">\n              <option value="bg-danger">Meeting</option>\n              <option value="bg-success">Interview</option>\n              <option value="bg-primary">Appointment</option>\n              <option value="bg-info">Event</option>\n              <option value="bg-dark">Activity</option>\n              <option value="bg-warning">Other</option>\n            </select>\n          </div>\n        </div>\n    <div class="col-6">\n          <div class="form-group">\n            <label class="control-label">Reminder Time</label>\n            <select class="form-control custom-select" name="reminder">\n              <option value="1">1 day before start time</option>\n              <option value="3">3 days before start time</option>\n              <option value="5">5 days before start time</option>\n           </select>\n          </div>\n        </div>\n   <div class="col-12">\n          <div class="form-group">\n            <label class="control-label">Participant</label>\n'.concat(sel,'</div>\n        </div>\n     </div>\n    </form>'));
+                            var expanded = false;
+                            var a = $('<form>\n      <div class="row">\n        <div class="col-12">\n          <div class="form-group">\n            <label class="control-label">Event Name</label>\n            <input class="form-control" placeholder="Insert Event Name" type="text" name="title" />\n          </div>\n        </div>\n  \n        <div class="col-6">\n          <div class="form-group">\n             <label class="control-label">Start Time</label>\n.      <input type="time" class="form-control" name="beginning" value="15:35">\n          </div>\n        </div>\n<div class="col-6">\n          <div class="form-group">\n             <label class="control-label">End Time</label>\n.      <input type="time" name="ending" class="form-control" value="16:35">\n          </div>\n        </div>\n       <div class="col-6">\n          <div class="form-group">\n            <label class="control-label">Category</label>\n            <select class="form-control custom-select" name="category">\n              <option value="bg-danger">Meeting</option>\n              <option value="bg-success">Interview</option>\n              <option value="bg-primary">Appointment</option>\n              <option value="bg-info">Event</option>\n              <option value="bg-dark">Activity</option>\n              <option value="bg-warning">Other</option>\n            </select>\n          </div>\n        </div>\n    <div class="col-6">\n          <div class="form-group">\n            <label class="control-label">Reminder Time</label>\n            <select class="form-control custom-select" name="reminder">\n              <option value="1">1 day before start time</option>\n              <option value="3">3 days before start time</option>\n              <option value="5">5 days before start time</option>\n           </select>\n          </div>\n        </div>\n     <div class="col-12">\n          <div class="form-group">\n            <label class="control-label">Event Details</label>\n            <textarea class="comment" name="description" rows="3" cols="60"> </textarea>\n          </div>\n        </div>\n   <div class="col-12">\n          <div class="form-group">\n            <label class="control-label">Participant</label>\n'.concat(sel,'</div>\n        </div>\n     </div>\n    </form>'));
                             i.find(".delete-event").hide().end().find(".save-event").show().end().find(".modal-body").empty().prepend(a).end().find(".save-event").unbind("click").click(function() {
                                 a.submit()
                             }),
+                            i.find(".selectBox").on("click", function() {
+                            	var checkboxes = document.getElementById("checkboxes");
+                                if (!expanded) {
+                                  checkboxes.style.display = "block";
+                                  expanded = true;
+                                } else {
+                                  checkboxes.style.display = "none";
+                                  expanded = false;
+                                }
+							}),
                             i.find("form").on("submit", function(e) {
                                 e.preventDefault();
                                 var r = a.find('input[name="title"]').val()
                                   , b = a.find('input[name="beginning"]').val()
                                   , e = a.find('input[name="ending"]').val()
                                   ,reminder_time = a.find('select[name="reminder"] option:checked').val()
+                                  ,description = a.find('textarea[name="description"]').val()
                                   ,c = (a.find('input[name="beginning"]').val(),
                                 a.find('input[name="ending"]').val(),
                                 a.find('select[name="category"] option:checked').val());
+//                                a.find('input[type="checkbox"]:checked').each(function(){
+//                                    alert($(this).val()) 
+//                                });
                                 //var others = a.find('select[name="others"] :selected').val();
-                                var others = [];    
-                                a.find('select[name="others"] :selected').each(function(){
+                                var others = [];  
+                                a.find('input[type="checkbox"]:checked').each(function(){
                                     others.push($(this).val()); 
                                 });
+//                                a.find('select[name="others"] :selected').each(function(){
+//                                    others.push($(this).val()); 
+//                                });
                                 //alert(others.join());
                                 //alert(others);
                                 if (null !== r && 0 != r.length){
                                 	
-  //                              	alert(b);
+  //                               alert(b);
 //                                	alert(t.valueOf());
                                 	//alert(e);
                                 	var starthour = b.split(":")[0],startmin = b.split(":")[1];
@@ -314,13 +341,16 @@
                                 	var endtime = n.valueOf()-13*3600000+endhour*3600000+endmin*60000;
                                 	var startdate = new Date(starttime);
                                 	var enddate = new Date(endtime);
+
                                 	var alertid=0;
+                                	var reminder = 0;
                                 	//var nowdate = new Date(n.valueOf());
                                 	//alert(nowdate)
                                 	$.ajaxSettings.async = false;
-	                                $.post("/calendar/add/", {title: r,reminder:reminder_time,start: starttime,end: endtime,others:others.join(),allDay: 0,className: c}, function(data) {
+	                                $.post("/calendar/add/", {title: r,reminder:reminder_time,start: starttime,end: endtime,others:others.join(),allDay: 0,className: c, content: description}, function(data) {
 	                                	if(data.code==1){
 	                                		alertid = data.id;
+	                                		reminder = data.reminder;
 	                    					layer.open({
 	                    					    content: 'success',
 	                    					    btn: 'Got it',
@@ -336,6 +366,9 @@
                                         start: startdate,
                                         end: enddate,
                                         allDay: !1,
+                                        reminder: reminder,
+                                        content: description,
+                                        parent_id:null,
                                         className: c
                                     }, !0),
                                     i.modal("hide");
@@ -347,47 +380,114 @@
                     },
                     eventClick: function(t, e, o) {
                         !function(n, t, e, o) {
-                        	//alert(n.ifnew);
-                        	var startdate = new Date(n.start);
-                        	var starthours = startdate.getHours()+11,startmin = startdate.getMinutes();
-                        	
-                        	var enddate = new Date(n.end);
-                        	var endhours = enddate.getHours()+11,endmin = enddate.getMinutes();
-                        	
-                        	if(n.ifnew==1){
-                        		starthours = starthours+13;
-                        		endhours = endhours+13;
-                        		if(starthours>24){
-                            		starthours = starthours - 24;
-                            	}
-                            	if(endhours>24){
-                            		endhours = endhours - 24;
-                            	}
-                            	n.ifnew=0;
-                        	}
-                        	
-                        	var starttime = starthours+":"+startmin;
-                        	var endtime = endhours+":"+endmin;
-                        	
+//                        	console.log(n);
+//                        	alert(n.alertid+"|aId");
+//                        	alert(n.parent_id == null? n.alertid:n.parent_id +"|partID")
+                        	var participants;
+                        	var searchId = n.parent_id == null? n.alertid:n.parent_id;
+                        	$.ajaxSettings.async = false;
+				            $.post("/calendar/selectedUser/", {searchId:searchId}, function(data) {
+				            	participants = data;
+				            },"json");
+				            $.ajaxSettings.async = true;
+				            participants = $.map(participants.ids.split(','), function(value){
+							    return parseInt(value, 10);
+							    // or return +value; which handles float values as well
+							});
+                        	var startdate = (n.ifnew==1)?new Date(n.start):new Date(new Date(n.start) - (13*3600000));
+                        	var starthours = startdate.getHours(),startmin = startdate.getMinutes();
+                        	var enddate = (n.ifnew==1)?new Date(n.end):new Date(new Date(n.end) - (13*3600000)); 
+                        	var endhours = enddate.getHours(),endmin = enddate.getMinutes();
+                        	starthours = starthours>24?starthours-24:starthours;
+                        	endhours = endhours>24?endhours-24:endhours;
+                        	var starttime = starthours<10?"0"+starthours+":"+startmin:starthours+":"+startmin;
+                        	var endtime = endhours<10?"0"+endhours+":"+endmin:endhours+":"+endmin;
+                        	var year = startdate.getFullYear();
+                        	var month = (startdate.getMonth()+1)<10?"0"+(startdate.getMonth()+1) : (startdate.getMonth()+1);
+                        	var day = startdate.getDate()<10?"0"+startdate.getDate():startdate.getDate();
+                        	                        	
+//                        	var sel = '<select class="form-control custom-select" name="others" multiple="multiple">\n';
+//                            other.forEach(function(e){  
+//                                 //alert(e['id'] + " " + e['name']);
+////                            	alert(participants.includes(e["id"]))
+//                            	var d = participants.includes(e["id"])? 'selected':'';
+//                            	var icon = participants.includes(e["id"])? '<div align="rigth"><a href="" class="close" ><span>&times;</span></a></div>':'';
+//                                 sel +='<option value="'+e["id"]+'"'+d+'>'+e["name"]+icon+'</option>\n';
+//                            });
+//                            sel +='</select>\n';
+                            
+                            var sel ='<div class="selectBox" >';
+                            sel += '<select class="form-control custom-select" name="others">\n';
+                            sel +='<option> Select one</option>\n';
+                            sel +='</select>\n';
+                            sel +='<div class="overSelect"></div>';
+                            sel +='</div>\n';
+                            var permission = n.parent_id!=null;
+                            sel +='<div id="checkboxes" style="display:block">';
+                            if(permission){
+                                other.forEach(function(e){  
+                                	var d = participants.includes(e["id"])? 'checked':'';
+                                	sel +=participants.includes(e["id"])?'<label><input type="checkbox" id="one" value="'+e["id"]+'"'+d+'/>&nbsp;'+e["name"]+'</label>':"";
+                                });
+                            }else{
+	                            other.forEach(function(e){  
+	                            	var d = participants.includes(e["id"])? 'checked':'';
+	                            	sel +='<label><input type="checkbox" id="one" value="'+e["id"]+'"'+d+'/>&nbsp;'+e["name"]+'</label>';
+	                            });
+                            }
+                            sel +='</div>\n';
+                            var control = permission? 'style="pointer-events: none;"':"";
                             var i = $(r)
                             //  , a = $('<form>\n      <div class="row">\n        <div class="col-12">\n          <div class="form-group">\n            <label class="control-label">Change Event Name</label>\n            <input class="form-control" placeholder="Change Event Name" type="text" name="title" value="'.concat(n.title, '"/>\n          </div>\n        </div>\n  \n        <div class="col-6">\n          <div class="form-group">\n             <label class="control-label">Start Time</label>\n.      <input type="text" class="form-control" name="beginning" value="').concat(starttime,'">\n          </div>\n        </div>\n<div class="col-6">\n          <div class="form-group">\n             <label class="control-label">End Time</label>\n.      <input type="text" name="ending" class="form-control" value="').concat(endtime,'">\n          </div>\n        </div>\n</div>\n       <button type="submit" class="btn btn-success">\n            <i class="material-icons mr-2">check</i> Save\n          </button>    </form>'));
-                              , a = $('<form>\n      <div class="row">\n        <div class="col-12">\n          <div class="form-group">\n            <label class="control-label">Change Event Name</label>\n            <input class="form-control" placeholder="Change Event Name" type="text" name="title" value="'.concat(n.title, '"/>\n          </div>\n        </div>\n  </div>\n       <button type="submit" class="btn btn-success">\n            <i class="material-icons mr-2">check</i> Save\n          </button>    </form>'));
-                            i.modal("show"),
-                            i.find(".delete-event").show().end().find(".save-event").hide().end().find(".modal-body").empty().prepend(a).end().find(".delete-event").unbind("click").click(function() {
-                            	$.ajaxSettings.async = false;
-                                $.post("/calendar/del/", {id:n.alertid}, function(data) {
-                                    if(data.code==1){
-                    				}
-                                },"json");
-                                $.ajaxSettings.async = true;
-                            	o.fullCalendar("removeEvents", function(t) {
-                                    return t._id == n._id
-                                }),
-                                i.modal("hide")
-                            }),
+//                              		<form>\n      <div class="row">\n        <div class="col-12">\n          <div class="form-group">\n            <label class="control-label">Event Name</label>\n            <input class="form-control" placeholder="Insert Event Name" type="text" name="title" />\n                                             </div>\n        </div>\n  \n             <div class="col-6">\n          <div class="form-group">\n             <label class="control-label">Start Time</label>\n.      <input type="time" class="form-control" name="beginning" value="15:35">\n          </div>\n        </div>\n<div class="col-6">\n          <div class="form-group">\n             <label class="control-label">End Time</label>\n.      <input type="time" name="ending" class="form-control" value="16:35">\n                         </div>\n        </div>\n       <div class="col-6">\n          <div class="form-group">\n            <label class="control-label">Category</label>\n            <select class="form-control custom-select" name="category">\n              <option value="bg-danger">Meeting</option>\n              <option value="bg-success">Interview</option>\n              <option value="bg-primary">Appointment</option>\n              <option value="bg-info">Event</option>\n              <option value="bg-dark">Activity</option>\n              <option value="bg-warning">Other</option>\n            </select>\n          </div>\n        </div>\n    <div class="col-6">\n          <div class="form-group">\n            <label class="control-label">Reminder Time</label>\n            <select class="form-control custom-select" name="reminder">\n              <option value="1">1 day before start time</option>\n              <option value="3">3 days before start time</option>\n              <option value="5">5 days before start time</option>\n           </select>\n          </div>\n        </div>\n   <div class="col-12">\n          <div class="form-group">\n            <label class="control-label">Participant</label>\n'.concat(sel,'</div>\n        </div>\n     </div>\n    </form>'
+                            	, a = $('<form '+control+'>\n      <div class="row">\n        <div class="col-12">\n          <div class="form-group">\n            <label class="control-label">Change Event Name</label>\n            <input class="form-control" placeholder="Change Event Name" type="text" name="title" value="'.concat(n.title, '"/>\n          </div>\n        </div>\n  <div class="col-12">\n          <div class="form-group">\n            <label class="control-label">Event Date:</label>\n <input class="form-control" type="date" name="e_date" value="',year,'-',month,'-',day,'"/> \n </div>\n        </div>\n     <div class="col-6">\n          <div class="form-group">\n             <label class="control-label">Start Time</label>\n.      <input type="time" class="form-control" name="beginning" value="',starttime,'">\n          </div>\n        </div>\n<div class="col-6">\n          <div class="form-group">\n             <label class="control-label">End Time</label>\n.      <input type="time" name="ending" class="form-control" value="',endtime,'">\n          </div>\n        </div>\n       <div class="col-6">\n          <div class="form-group">\n            <label class="control-label">Category</label>\n            <select class="form-control custom-select" name="category">\n              <option value="bg-danger">Meeting</option>\n              <option value="bg-success">Interview</option>\n              <option value="bg-primary">Appointment</option>\n              <option value="bg-info">Event</option>\n              <option value="bg-dark">Activity</option>\n              <option value="bg-warning">Other</option>\n            </select>\n          </div>\n        </div>\n    <div class="col-6">\n          <div class="form-group">\n            <label class="control-label">Reminder Time</label>\n            <select class="form-control custom-select" name="reminder">\n              <option value="1">1 day before start time</option>\n              <option value="3">3 days before start time</option>\n              <option value="5">5 days before start time</option>\n           </select>\n          </div>\n        </div>\n   <div class="col-12">\n          <div class="form-group">\n            <label class="control-label">Event Details</label>\n            <textarea class="comment" name="description" rows="3" cols="60">',n.content == null? '': n.content,'</textarea>\n          </div>\n        </div>\n   <div class="col-12">\n          <div class="form-group">\n            <label class="control-label">Participant</label>\n',sel,'</div>\n        </div>\n  </div>\n       <button type="submit" class="btn btn-success">\n            <i class="material-icons mr-2">check</i> Save\n          </button>    </form>'));
+                        	a.find('select[name="category"]').val(n.className).trigger('change');
+                        	a.find('select[name="reminder"]').val(n.reminder).trigger('change');
+                        	var expanded = true;
+                        	i.modal("show");
+                        	if (permission) {
+                        		i.find(".delete-event").hide().end().find(".save-event").hide().end().find(".modal-body").empty().prepend(a).end().find(".delete-event").unbind("click").click(function() {});
+							}else{
+	                            i.find(".delete-event").show().end().find(".save-event").hide().end().find(".modal-body").empty().prepend(a).end().find(".delete-event").unbind("click").click(function() {
+	                            	$.ajaxSettings.async = false;
+	                                $.post("/calendar/del/", {id:n.alertid}, function(data) {
+	                                    if(data.code==1){
+	                    				}
+	                                },"json");
+	                                $.ajaxSettings.async = true;
+	                            	o.fullCalendar("removeEvents", function(t) {
+	                                    return t._id == n._id
+	                                }),
+	                                i.modal("hide")
+	                            });
+							}
+                            i.find(".selectBox").on("click", function() {
+                            	var checkboxes = document.getElementById("checkboxes");
+                                if (!expanded) {
+                                  checkboxes.style.display = "block";
+                                  expanded = true;
+                                } else {
+                                  checkboxes.style.display = "none";
+                                  expanded = false;
+                                }
+							}),
                             i.find("form").on("submit", function(t) {
-                                t.preventDefault(),
-                                n.title = a.find('input[name="title"]').val();
+                                t.preventDefault();
+                                var r = a.find('input[name="title"]').val()
+                                ,y = a.find('input[name="e_date"]').val()
+                                ,b = a.find('input[name="beginning"]').val()
+                                ,e = a.find('input[name="ending"]').val()
+                                ,c = (a.find('input[name="beginning"]').val(),
+                                        a.find('input[name="ending"]').val(),
+                                        a.find('select[name="category"] option:checked').val());
+                                var reminder = a.find('select[name="reminder"] option:checked').val();
+                                n.reminder = reminder;
+                                var content = a.find('textarea[name="description"]').val();
+                                n.content = content;
+                                var others = [];  
+                                a.find('input[type="checkbox"]:checked').each(function(){
+                                    others.push($(this).val()); 
+                                });
 //                                var b = a.find('input[name="beginning"]').val();
 //                                var e = a.find('input[name="ending"]').val();
 //                                
@@ -408,21 +508,39 @@
 //                            	n.start = startdate;
 //                            	n.end = enddate;
                             	//alert(thedate);
-                            	$.ajaxSettings.async = false;
-                                //$.post("/calendar/update/", {id:n.alertid,title: n.title,start: starttime,end: endtime}, function(data) {
-                                $.post("/calendar/update/", {id:n.alertid,title: n.title}, function(data) {
-                                        	if(data.code==1){
-                                		//alertid = data.id;
-//                    					layer.open({
-//                    					    content: 'success',
-//                    					    btn: 'Got it',
-//                    					  });
-                    				}
-                                },"json");
-                                $.ajaxSettings.async = true;
-                                
-                                o.fullCalendar("updateEvent", n),
-                                i.modal("hide")
+                                if (null !== r && 0 != r.length){
+                                	var starthour = b.split(":")[0],startmin = b.split(":")[1];
+                                	var endhour = e.split(":")[0],endmin = e.split(":")[1];
+                                	var n_date = new Date(y);
+                                	var n_start = new Date(new Date(startdate.setHours(starthour,startmin)) +(13*3600000));
+                                	var n_end = new Date(new Date(enddate.setHours(endhour,endmin)) + (13*3600000));
+                                	var u_start = new Date(n_date.getFullYear(),n_date.getMonth(),n_date.getDate(),n_start.getHours(),n_start.getMinutes());
+                                	var u_end = new Date(n_date.getFullYear(),n_date.getMonth(),n_date.getDate(),n_end.getHours(),n_end.getMinutes());
+                                	n.start = u_start;
+                                	n.end = u_end;
+//                                	n.end = n_end.setFullYear(n_date.getFullYear()).setMonth(n_date.getMonth()).setDate(n_date.getDate());
+                                	var starttime = n.start.getTime();
+                                	var endtime = n.end.getTime();
+                                	n.title = r;
+                                	n.className[0] = c;
+                                	$.ajaxSettings.async = false;
+	                                //$.post("/calendar/update/", {id:n.alertid,title: n.title,start: starttime,end: endtime}, function(data) {
+	                                $.post("/calendar/update/", {id:n.alertid,title: r,reminder:reminder,start: starttime,end: endtime,others:others.join(),allDay: 0,className: c, content: content, parent_id: n.parent_id}, function(data) {
+	                                        	if(data.code==1){
+	                                		//alertid = data.id;
+	//                    					layer.open({
+	//                    					    content: 'success',
+	//                    					    btn: 'Got it',
+	//                    					  });
+	                    				}
+	                                },"json");
+	                                $.ajaxSettings.async = true;
+	                                
+	                                o.fullCalendar("updateEvent", n),
+	                                i.modal("hide")
+                                }else{
+                                	alert("You have to give a title to your event")
+                                }
                             })
                         }(t, 0, 0, n)
                     }
