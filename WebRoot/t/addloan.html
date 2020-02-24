@@ -31,7 +31,7 @@
                                     	<div class="col">
                                             <div class="form-group">
                                                 <label for="lname">Bank</label>
-                                                <input type="text" class="form-control" name="loan_bank" value="">
+                                                <input type="text" class="form-control" name="loan_bank" value="${(application.lender)!}" readonly>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -58,13 +58,33 @@
                                     <div class="row">
                                     	<div class="col">
                                             <div class="form-group">
-                                                <label for="fname">Loan Account NO.</label>
-                                                <input type="text" class="form-control" name="loan_account_no" value="" >
+                                                <label for="fname">Loan Product</label>
+                                                <input type="hidden" class="form-control" name="loan_account_no" value="" >
+                                                <select name="loan_product" class="form-control">
+                                                	<option value="Flexible Home Loan">
+		                                                Flexible Home Loan
+		                                            </option>
+		                                            <option value="Floating Rate Home Loan">
+		                                                Floating Rate Home Loan
+		                                            </option>
+		                                            <option value="Fixed Rate Home Loan">
+		                                                Fixed Rate Home Loan
+		                                            </option>
+		                                            <option value="Business Flexible Facility">
+		                                                Business Flexible Facility
+		                                            </option>
+		                                            <option value="Business Fixed Home Loan">
+		                                                Business Fixed Home Loan
+		                                            </option>
+		                                            <option value="Business Floating Home Loan">
+		                                                Business Floating Home Loan
+		                                            </option>
+		                                        </select>
                                             </div>
                                         </div>
                                         <div class="col">
                                              <div class="form-group">
-		                                        <label for="loan_effective_date">Effective Date</label>
+		                                        <label for="loan_effective_date">Settlement Date</label>
 		                                        <input id="loan_effective_date_0" onblur="CalReview('[node_index]')" name="loan_effective_date" type="date" class="form-control" value="" placeholder="date: 00/00/0000"  maxlength="10">
 		                                    </div>
                                         </div>
@@ -96,13 +116,14 @@
 		                                                5 years
 		                                            </option>
 		                                        </select>
+		                                        <input id="loan_review_date_0" name="loan_review_date" type="hidden" class="form-control" value="" placeholder="date: 00/00/0000" maxlength="10">
+		                                    
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="lname">Review Date</label>
-                                                <input id="loan_review_date_0" name="loan_review_date" type="date" class="form-control" value="" placeholder="date: 00/00/0000" maxlength="10">
-		                                    
+                                                <label for="loan_interest_rate">Interest Rate</label>
+                                                <input type="text" class="form-control" name="loan_interest_rate" value="" >
                                             </div>
                                         </div>
                                     </div>
@@ -131,8 +152,7 @@
                                         </div>
                                     	<div class="col">
                                             <div class="form-group">
-                                                <label for="loan_interest_rate">Interest Rate</label>
-                                                <input type="text" class="form-control" name="loan_interest_rate" value="" >
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -278,6 +298,7 @@ function CalReview(node_index){
 		    				var loan_now_rate_period = document.getElementsByName("loan_now_rate_period");
 		    				var loan_review_date = document.getElementsByName("loan_review_date");
 		    				var loan_reminder_days = document.getElementsByName("loan_reminder_days");
+		    				var loan_product = document.getElementsByName("loan_product");
 		    				var loan_interest_rate = document.getElementsByName("loan_interest_rate");
 		    				var loan_notes = document.getElementsByName("loan_notes");
 		    				var task_id = document.getElementsByName("task_id");
@@ -291,6 +312,7 @@ function CalReview(node_index){
 		    					loan_now_rate_period[i].value=loanArray[i]['loan_now_rate_period'];
 		    					loan_review_date[i].value=loanArray[i]['loan_review_date'].split("/").reverse().join("-");
 		    					loan_reminder_days[i].value=loanArray[i]['loan_reminder_days'];
+		    					loan_product[i].value=loanArray[i]['loan_product'];
 		    					loan_interest_rate[i].value=loanArray[i]['loan_interest_rate'];
 		    					loan_notes[i].value=loanArray[i]['loan_notes'];
 		    					task_id[i].value=loanArray[i]['task_id'];
@@ -328,17 +350,19 @@ function SaveLoan(method){
 				var loan_now_rate_period = document.getElementsByName("loan_now_rate_period");
 				var loan_review_date = document.getElementsByName("loan_review_date");
 				var loan_reminder_days = document.getElementsByName("loan_reminder_days");
+				var loan_product = document.getElementsByName("loan_product");
 				var loan_interest_rate = document.getElementsByName("loan_interest_rate");
 				var loan_notes = document.getElementsByName("loan_notes");
 				var task_id = document.getElementsByName("task_id");
 				var newtasks = new Array();
+				
 				for(var i=0;i<loan_bank.length;i++){
 					if(loan_bank[i].value!=''){
-						loanArray.push({"application_id":appid,"loan_bank":loan_bank[i].value,"loan_customer_no":loan_customer_no[i].value,
+						loanArray.push({"application_id":appid,"order_id":i,"loan_bank":loan_bank[i].value,"loan_customer_no":loan_customer_no[i].value,
 							"loan_borrowing_entity":loan_borrowing_entity[i].value,"loan_amount":loan_amount[i].value.replace(/\$|,/g, ''),
 							"loan_account_no":loan_account_no[i].value,"loan_effective_date":formatDate(loan_effective_date[i].value),
 							"loan_now_rate_period":loan_now_rate_period[i].value,"loan_review_date":formatDate(loan_review_date[i].value),
-							"loan_reminder_days":loan_reminder_days[i].value,"loan_interest_rate":loan_interest_rate[i].value,
+							"loan_product":loan_product[i].value,"loan_reminder_days":loan_reminder_days[i].value,"loan_interest_rate":loan_interest_rate[i].value,
 							"loan_notes":loan_notes[i].value,"task_id":task_id[i].value});
 					}
 				} 

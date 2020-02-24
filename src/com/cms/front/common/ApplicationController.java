@@ -23,9 +23,40 @@ import net.sf.json.JSONObject;
 
 @Before(MInterceptor.class)
 public class ApplicationController extends Controller {
+	public void saverate() {
+		int code = 0;
+		String loanJson = getPara("loan");
+		int appid = getParaToInt("appid");
+		Application app = Application.dao.findById(appid);
+		String oriLoanJson = app.getStr("loan");
+		JSONArray jsonArray = JSONArray.fromObject(loanJson);
+		JSONArray oriJsonArray = JSONArray.fromObject(oriLoanJson);
+		JSONArray ja = new JSONArray();
+		for (int i = 0; i < oriJsonArray.size(); i++) {
+		    JSONObject oriloan = oriJsonArray.getJSONObject(i);
+		    JSONObject loan = jsonArray.getJSONObject(i);
+		    if(loan.getInt("order_id")==oriloan.getInt("order_id")) {
+		    	oriloan.put("commission_rate", loan.getString("commission_rate"));	
+		    	if(!loan.getString("commission_rate").equals("")) {
+		    		double commission_fee = oriloan.getInt("loan_amount")* Double.parseDouble(loan.getString("commission_rate"));
+		    		oriloan.put("commission_fee", String.format("%.2f", commission_fee));	
+		    	}
+		    }
+		    ja.add(oriloan);
+		    
+		}
+		getModel(Application.class).set("id", appid).set("loan", ja.toString()).update();
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("code",code);
+		renderJson(map);
+	}
+	public void editrate() {
+		setAttr("application",Application.dao.findById(getPara("appid")));
+		render("/t/edit_rate.html");
+	}
 	public void saveloan() {
 		int code = 0;
-		//
 
 		String loanJson = getPara("loan");
 		int appid = getParaToInt("appid");
@@ -44,6 +75,21 @@ public class ApplicationController extends Controller {
 	public void editloan() {
 		setAttr("application",Application.dao.findById(getPara("appid")));
 		render("/t/addloan.html");
+	}
+	public void manager() {
+		int id = getParaToInt("id");
+		String layout = "c";
+		int ilay = 0;
+		
+		if(getPara("l")!=null) {
+			layout = getPara("l");
+			ilay = 1;
+		}
+		setAttr("layout","_"+layout+".html");
+		setAttr("ilay",ilay);
+		setAttr("application",Application.dao.findById(id));
+		setAttr("clients",Db.find("select c.* from client c join application_client ac on c.id=ac.client_id where ac.application_id=?",id));
+		render("/t/application_manager.html");
 	}
 	public void view() {
 		int id = getParaToInt("id");
@@ -105,7 +151,7 @@ public class ApplicationController extends Controller {
 		sql.append(" group by a.id ORDER BY a.create_time DESC");
 		
 		
-		page = Db.paginate(pageNum, 20, "select GROUP_CONCAT(ac.client_id,'-',ifnull(c.first_name,''),' ',ifnull(c.last_name,'')) as dealstr,a.id,a.status,a.lender,a.lending_purpose,a.lending_amount_required,a.application_date",sql.toString());
+		page = Db.paginate(pageNum, 20, "select GROUP_CONCAT(ac.client_id,'-',ifnull(c.first_name,''),' ',ifnull(c.last_name,'')) as dealstr,a.id,a.loan,a.status,a.lender,a.lending_purpose,a.lending_amount_required,a.application_date",sql.toString());
 //		System.out.println(page.getTotalPage());
 //		System.out.println(page.getTotalRow());
 		setAttr("contentPage", page);
@@ -121,7 +167,7 @@ public class ApplicationController extends Controller {
 		User u = getSessionAttr("user");
 		String logo = u.getStr("logo");
 		int useLogo = u.getInt("uselogo");
-		int code=0;
+		int code=1;
 		String realPath = this.getRequest().getRealPath("/");
 		String dest1 = "/Users/robin/eclipse-workspace/Fynco/WebRoot/upload/sm_4.pdf";
 		String dest2 = "/Users/robin/eclipse-workspace/Fynco/WebRoot/upload/";
@@ -129,26 +175,28 @@ public class ApplicationController extends Controller {
 		
 		//PdfUtil.pdf_1(dest1,Application.dao.findById(id));
 		String clients = Db.queryStr("select group_concat(client_id) clientids from application_client where application_id=?",id);
-		String[] cs = clients.split(",");
-		Client[] client = new Client[cs.length];
-		for(int i=0;i<cs.length;i++) {
-			client[i]=Client.dao.findById(cs[i]);
-		}
-		
-		//PdfUtil.pdf_2(dest2,client,Application.dao.findById(id));
-		//PdfUtil.pdf_4(dest1,Application.dao.findById(id));
-		Application app = Application.dao.findById(id);
-		String url = PdfUtil.pdf(realPath,client,app,logo,useLogo);
-		if(!"".equals(url)) {
-			//delete the old pdf,release the disk space
-			String old_url = app.getStr("pdf");
-			if(old_url!=null) {
-				FileUtil.deleteAll(realPath+old_url);
+		String url ="";
+		if(clients!=null) {
+			String[] cs = clients.split(",");
+			Client[] client = new Client[cs.length];
+			for(int i=0;i<cs.length;i++) {
+				client[i]=Client.dao.findById(cs[i]);
 			}
-			app.set("pdf", url).update();
-		}
-		else {
-			code=1;
+			
+			//PdfUtil.pdf_2(dest2,client,Application.dao.findById(id));
+			//PdfUtil.pdf_4(dest1,Application.dao.findById(id));
+			Application app = Application.dao.findById(id);
+			url = PdfUtil.pdf(realPath,client,app,logo,useLogo);
+			if(!"".equals(url)) {
+				//delete the old pdf,release the disk space
+				String old_url = app.getStr("pdf");
+				if(old_url!=null) {
+					FileUtil.deleteAll(realPath+old_url);
+				}
+				app.set("pdf", url).update();
+				code=0;
+			}
+			
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("code",code);
@@ -160,10 +208,10 @@ public class ApplicationController extends Controller {
 		int appid = getParaToInt("id");
 		int status = getParaToInt("status");
 		
-		
+		Application app = Application.dao.findById(appid);
 		if(status==5) {
 			User u = getSessionAttr("user");
-			Application app = Application.dao.findById(appid);
+			
 			String loanJson = app.getStr("loan");
 			List<Record> clients = Db.find("select c.id,c.first_name,c.last_name "
 					+ "from application_client ac join client c on ac.client_id=c.id where ac.application_id=?",appid);
@@ -218,7 +266,14 @@ public class ApplicationController extends Controller {
 				//Db.update("update client set type=1 where id=?",clientid);
 			}
 		}
-		int b = Db.update("update application set status=? where id=?",status,appid);
+		String state_history = app.getStr("state_history");
+		JSONArray json = JSONArray.fromObject(state_history);
+		JSONObject obj = new JSONObject();
+		obj.put("time", DateFmt.USDate());
+		String[] statusStr = {"Prosessing","Submitted","Pre-approved","Conditionally Approved","Pending Settlement","Completed"};
+		obj.put("msg", statusStr[status]);
+		json.add(obj);
+		int b = Db.update("update application set status=?,state_history=? where id=?",status,json.toString(),appid);
 		if(b==0) {
 			code=1;
 		}
@@ -262,10 +317,17 @@ public class ApplicationController extends Controller {
 		
 		
 		//boolean b = getModel(Application.class).set("type", 1).set("birthday", DateFmt.USDate(birthday)).set("creator", u.getInt("id")).save();
+		JSONArray json = new JSONArray();
+		JSONObject obj = new JSONObject();
+		obj.put("time", DateFmt.USDate());
+		obj.put("msg", "Created");
+		json.add(obj);
+		
 		boolean b = getModel(Application.class)
 				.set("application_date", DateFmt.USDate(application_date))
 				.set("finance_date", DateFmt.USDate(finance_date))
 				.set("settlement_date", DateFmt.USDate(settlement_date))
+				.set("state_history",json.toString())
 				.set("creator", u.getInt("id")).save();
 		if(b)code=0;
 		int app_id = Db.queryInt("select max(id) from application");

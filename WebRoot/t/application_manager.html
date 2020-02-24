@@ -1,0 +1,495 @@
+<#include "/t/${layout}" />
+<link type="text/css" href="/f/layui/css/layui.css" rel="stylesheet">
+<@layout>
+                <div class="mdk-drawer-layout__content page">
+
+
+<#if ilay==0>
+                    <div class="container-fluid  page__heading-container">
+                        <div class="page__heading">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="#"><i class="material-icons icon-20pt">home</i></a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Applications</li>
+                                </ol>
+                            </nav>
+                            <h1 class="m-0">Application Manager</h1>
+                        </div>
+                    </div>
+</#if>
+
+
+
+                    <div class="container-fluid page__container">
+                    
+                        <div class="card card-form">
+                        <div class="card-header card-header-large bg-white d-flex align-items-center">
+                                        <div class="flatpickr-wrapper flex">
+                                            <div id="recent_orders_date" data-toggle="flatpickr" data-flatpickr-wrap="true" data-flatpickr-static="true" data-flatpickr-mode="range" data-flatpickr-alt-format="d/m/Y" data-flatpickr-date-format="d/m/Y">
+                                                <h4 class="card-header__title">Client Information</h4>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                            <div class="row no-gutters">
+                                
+                                <div class="col-lg-12 card-body">
+                                <div class="table-responsive">
+                                                <table class="table border-bottom mb-5">
+                                                    <thead>
+                                                        <tr class="bg-light">
+                                                            <th>Applicant Name</th>
+                                                            <th>Contact No.</th>
+                                                            <th>Email</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <#list clients as x>
+                                                        <tr>
+                                                            <td>${x.first_name} ${x.last_name}</td>
+                                                            <td>${x.mobile?replace('\"','')?replace('[','')?replace(']','')}</td>
+                                                            <td>
+                                            ${x.personal_email?replace('\"','')?replace('[','')?replace(']','')}
+                                            </td>
+                                                        </tr>
+                                                        </#list>   
+                                                        
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                
+
+                                </div>
+                                
+                                
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <div class="card">
+                                    <div class="card-header card-header-large bg-white d-flex align-items-center">
+                                        <div class="flatpickr-wrapper flex">
+                                            <div id="recent_orders_date" data-toggle="flatpickr" data-flatpickr-wrap="true" data-flatpickr-static="true" data-flatpickr-mode="range" data-flatpickr-alt-format="d/m/Y" data-flatpickr-date-format="d/m/Y">
+                                                <h4 class="card-header__title">Application Summary</h4>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body py-0">
+                                    <p>
+                                        	<div class="row mb-4">
+                                                <div class="col-lg">
+                                                    
+                                                    <div class="text-label">Bank</div>
+                                                    ${application.lender!}
+                                                </div>
+                                                <div class="col-lg">
+                                                    
+                                                    <div class="text-label">Total Lending</div>
+                                                    &dollar;${application.lending_amount_required!}
+                                                </div>
+                                                <div class="col-lg">
+                                                    
+                                                    <div class="text-label">LVR</div>
+                                                    ${application.LVR!}
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <div class="col-lg">
+                                                    
+                                                    <div class="text-label">Net Income (Total)</div>
+                                                    &dollar;${application.surplus!}
+                                                </div>
+                                                <div class="col-lg">
+                                                    
+                                                    <div class="text-label">Security</div>
+                                                    XXX
+                                                </div>
+                                                <div class="col-lg">
+                                                    
+                                                    <div class="text-label">Purpose</div>
+                                                    ${application.lending_purpose?replace('\"','')?replace('[','')?replace(']','')}
+                                                </div>
+                                            </div>
+                                     </p>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="card">
+		                            <div class="card-header bg-white d-flex align-items-center">
+		                                <h4 class="card-header__title mb-0">Commissions</h4>
+		                                <div class="flatpickr-wrapper flatpickr-calendar-right d-flex ml-auto">
+		                                    <div >
+		                                        <a href="javascript:void(0)" onclick="EditRate('${(application.id)!}');" class="link-date">Edit Rates</a>&nbsp;&nbsp;<a href="javascript:void(0)">View Performance</a>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                            <div class="card-body">
+		                            <div class="row">
+                                        
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div class="text-label">Loan Amount</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div class="text-label">Commission Rate</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div class="text-label">Commission Amount</div>
+                                            </div>
+                                        </div>
+                                    </div>
+		                                <div id="loans">
+	                                	<div id="loan">
+	                                	<div id="loan_[node_index]">
+	                                	<div class="row">
+                                        
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div name="loan_amount"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div name="commission_rate"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div name="commission_amount"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+	                                	</div>
+	                                	</div>
+	                                	</div>
+		                            </div>
+		                        </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                        	<div class="col-lg-5">
+                                <div class="card">
+                                    <div class="card-header card-header-large bg-white d-flex align-items-center">
+                                        <div class="flatpickr-wrapper flex">
+                                            <div id="recent_orders_date" data-toggle="flatpickr" data-flatpickr-wrap="true" data-flatpickr-static="true" data-flatpickr-mode="range" data-flatpickr-alt-format="d/m/Y" data-flatpickr-date-format="d/m/Y">
+                                                <h4 class="card-header__title">Progression</h4>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                        
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div class="text-label">Current State</div>
+                                                <#assign state=["Prosessing","Submitted","Pre-approved","Conditionally Approved","Pending Settlement","Completed"]/>
+                                                ${state[application.status]}
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <#if application.status lt 5>
+                                    <div class="row">
+                                        
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div class="text-label">Next State</div>
+                                                ${state[application.status+1]}
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    </#if>
+                                    <div class="row">
+                                        
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <a href="javascript:void(0)" onclick="Move2NextStage('${application.id}','${application.status}');" class="btn btn-primary">Progress State</a>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <div class="row">
+                                        
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div class="text-label">State History</div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                     <div id="historys">
+		                                	<div id="history">
+	
+			                                	<div class="row">
+		                                        
+			                                        <div class="col">
+			                                            <div class="form-group">
+			                                                <div name="state_history"></div>
+			                                            </div>
+			                                        </div>
+			                                        
+			                                    </div>
+		                                	</div>
+	                                	</div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="card">
+                                    <div class="card-header card-header-large bg-white d-flex align-items-center">
+                                        <div class="flatpickr-wrapper flex">
+                                            <div id="recent_orders_date" data-toggle="flatpickr" data-flatpickr-wrap="true" data-flatpickr-static="true" data-flatpickr-mode="range" data-flatpickr-alt-format="d/m/Y" data-flatpickr-date-format="d/m/Y">
+                                                <h4 class="card-header__title">Tool Box</h4>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body py-0">
+                                        <div class="row">
+                                        
+                                        <div class="col">
+                                            <div class="form-group" style="align:center">
+                                            	<a href="javascript:void(0)" onClick="return SavePdf();"><img src="/f/i/D.jpg"></a>
+                                                <div><label for="fname">Digital Application</label></div>
+                                               
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                            	<img src="/f/i/A.jpg">
+                                                <label for="lname">Add Pages</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                            	<a href="javascript:void(0)" onClick="return SavePdf();"><img src="/f/i/S.jpg"></a>
+                                                <label for="lname">Save as PDF</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        
+                                        <div class="col">
+                                            <div class="form-group">
+                                            	<img src="/f/i/G.jpg">
+                                                <label for="fname">General Checklist</label>
+                                               
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                            	<img src="/f/i/DU.jpg">
+                                                <label for="lname">Document Upload</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                            	<a href="javascript:void(0)" onClick="SendPdf2Bank('${(application.id)!}','${(application.pdf)!}');"><img src="/f/i/St.jpg"></a>
+                                                <label for="lname">Submit</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                        
+                        
+                  
+                           
+                 
+                        
+                        
+                                                         
+                        
+                        
+                        <!-- Applicant start-->
+                        
+                   
+                        <div id="viewpdf" style="display:none;"><a id="pdf_url" href="#">View Pdf</a></div>
+                        <!-- Applicant end -->
+                        <div class="text-right mb-5">
+                        	<input type="hidden" id="appid" value="${(application.id)!}">
+                        	<input id="app_ids" value="${clients!}" hidden="hidden">
+                        	<input id="minus_ids" value="${clients!}" hidden="hidden">
+                           <button class="btn btn-success" onClick="return SavePdf();">Save to PDF</button>
+                           <button class="btn btn-success" onClick="SendPdf2Client('${(application.id)!}','${(application.pdf)!}');">Send Application to Client</button>
+                           <button class="btn btn-success" onClick="SendPdf2Bank('${(application.id)!}','${(application.pdf)!}');">Send All Documents to Bank</button>
+                           <#if application.status lt 5>
+                           <button class="btn btn-success" onClick="Move2NextStage('${(application.id)!}','${(application.status)!}');">Move to the Next Stage</button>
+                           </#if>
+                           <#if application.status gt 0>
+	                           <button class="btn btn-success" onClick="Back2PreStage('${(application.id)!}','${(application.status)!}');">Back to the previous stage</button>
+	                       </#if>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- // END drawer-layout__content -->
+                
+<script>
+function Move2NextStage(id,status){
+	var status = status*1+1;
+	postStatus(id,status);
+}
+function Back2PreStage(id,status){
+	var status = status*1-1;
+	postStatus(id,status);
+}
+function postStatus(id,status){
+	$.post("/application/changeStatus", {"id":id,"status":status}, function(data) {
+		if(data.code==1){
+		 	mlayer.open({
+			    content: 'Fail',
+			    btn: 'Got it'
+			  });
+		}
+		else{ 
+			//sessionStorage.setItem("fynco_email", vemail); 
+			mlayer.open({
+			    content: 'Success',
+			    btn: 'Got it',
+			    yes: function(){
+			    	location.reload();
+			      }
+			  });
+		}
+	}, "json"); 
+}
+function EditRate(id){
+	var url = '/application/editrate?l=s&appid='+id;
+	layer.open({
+		type: 2,
+		title: 'Edit Rates',
+		fixed: false, //不固定
+		maxmin: true,
+	    shadeClose: true, //点击遮罩关闭层
+		area: ['60%', '85%'],
+		content: url ,
+		success:function(layero,index){
+        },
+        end:function(){
+        	//ShowApplicant();
+        }
+	});
+}
+function SavePdf(){
+	
+	$.ajaxSettings.async = false;
+	var appid = $('#appid').val();
+	$.post("/application/pdf", {"id":appid}, function(data) {
+		if(data.code==0){
+			var url = data.url;
+			$('#viewpdf').css("display","block");
+			$('#pdf_url').attr("href",url);
+			 mlayer.open({
+			    content: 'Success',
+			    btn: 'Got it'
+			  });  
+		}
+		else{
+			mlayer.open({
+			    content: 'No applicants.',
+			    btn: 'Got it'
+			  }); 
+		}
+	}, "json");  
+	$.ajaxSettings.async = true;
+	
+}
+function SendPdf2Bank(id,pdf){
+	if(pdf==''){
+		mlayer.open({
+		    content: 'Please generate the Pdf file at first!',
+		    btn: 'Got it'
+		  });
+	}
+	else{
+		var url = '/amail?type=Send2Bank&appid='+id;
+		layer.open({
+			type: 2,
+			title: 'Write an Email',
+			fixed: false, //不固定
+			maxmin: true,
+		    shadeClose: true, //点击遮罩关闭层
+			area: ['80%', '80%'],
+			content: url ,
+			success:function(layero,index){
+	        },
+	        end:function(){
+				//alert(1)
+	        }
+		}); 
+	}
+}
+function copyNode(nodeid){
+	
+	var sourceNode = document.getElementById(nodeid); // 获得被克隆的节点对象 
+	var clonedNode = sourceNode.cloneNode(true); // 克隆节点 
+	//console.log(sourceNode.innerHTML)
+	//console.log('--------------------')
+	$node = $(clonedNode);
+	
+	
+	//var html = $node.html();  
+	
+	//var newnode = parseDom(html);
+	sourceNode.parentNode.appendChild(clonedNode); // 在父节点插入克隆的节点 
+}
+
+window.onload = function() { 
+	var loan = '${(application.loan)!}';
+	if(loan!=''){
+    	var loanArray = JSON.parse(loan);
+    	for(var i=1;i<loanArray.length;i++){
+    		copyNode("loan");
+    	}
+    	var loan_amount = document.getElementsByName("loan_amount");
+		var commission_rate = document.getElementsByName("commission_rate");
+		var commission_amount = document.getElementsByName("commission_amount");
+		
+		for(var i=0;i<loanArray.length;i++){
+			loan_amount[i].innerHTML=loanArray[i]['loan_amount'];
+			commission_rate[i].innerHTML=loanArray[i]['commission_rate'];
+			commission_amount[i].innerHTML=loanArray[i]['commission_fee'];
+		}  
+	} 
+	
+	var history = '${(application.state_history)!}';
+	if(history!=''){
+    	var hisArray = JSON.parse(history);
+    	for(var i=1;i<hisArray.length;i++){
+    		copyNode("history");
+    	}
+    	var state_history = document.getElementsByName("state_history");
+		
+		
+		for(var i=0;i<hisArray.length;i++){
+			state_history[i].innerHTML=hisArray[i]['time']+' '+hisArray[i]['msg'];
+		}  
+	} 
+		
+}; 
+</script>
+
+</@layout>

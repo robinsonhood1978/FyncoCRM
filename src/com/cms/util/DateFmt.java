@@ -11,6 +11,12 @@ import java.util.TimeZone;
 
 public class DateFmt {
 	private DateFmt(){}
+	public static String USDate(){
+		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh.mm aa"); 
+		String dt=df.format(new Date());
+		return dt;
+	}
+
 	/**
      * Java将Unix时间戳转换成指定格式日期字符串
      * @param timestampString 时间戳 如："1578796500000";

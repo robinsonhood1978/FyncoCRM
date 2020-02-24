@@ -151,8 +151,11 @@
 	                                        	<a href="#" onclick="SendPdf2Client('${x.id}','${x.pdf!}');" class="dropdown-item">Send Application to Client</a>
 	                                        	</#if>
 	                                        	<#if x.status=3 || x.status=4>
-	                                        	<a href="#" onclick="AddLoan('${x.id}');" class="dropdown-item">Add Loan Structure</a>
+	                                        	<#if x.loan??>
 	                                        	<a href="#" onclick="EditLoan('${x.id}');" class="dropdown-item">Edit Loan Structure</a>
+	                                        	<#else>
+	                                        	<a href="#" onclick="AddLoan('${x.id}');" class="dropdown-item">Add Loan Structure</a>
+	                                        	</#if>
 	                                        	</#if>
 	                                        	<#if x.status lt 5>
 	                                        	<a href="#" onclick="Move2NextStage('${x.id}','${x.status}');" class="dropdown-item">Move to the next stage</a>
@@ -329,7 +332,25 @@ function postStatus(id,status){
 	}, "json"); 
 }
 function DoubleClick(id){
-	View(id);
+	location.href= '/application/manager/?id='+id;
+}
+function Manager(id){
+	//alert(id)
+	var url = '/application/manager/?l=s&id='+id;
+	layer.open({
+		type: 2,
+		title: 'Application Manager',
+		fixed: false, //不固定
+		maxmin: true,
+	    shadeClose: true, //点击遮罩关闭层
+		area: ['60%', '85%'],
+		content: url ,
+		success:function(layero,index){
+        },
+        end:function(){
+        	//ShowApplicant();
+        }
+	});
 }
 function View(id){
 	//alert(id)

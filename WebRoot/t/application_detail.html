@@ -2963,11 +2963,14 @@
 				}
 				function getClientNames(ids){
 					var clients='';
-					$.post("/client/get_applicants_name", {"ids":ids}, function(data) {
-    					if(data.code==0){
-    						clients = data.data;
-    					}
-    				}, "json");   
+					if(ids!=''){
+						$.post("/client/get_applicants_name", {"ids":ids}, function(data) {
+	    					if(data.code==0){
+	    						clients = data.data;
+	    					}
+	    				}, "json");   
+					}
+					
 					return clients;
 				}
                 if(true){
