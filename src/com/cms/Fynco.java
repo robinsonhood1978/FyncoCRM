@@ -42,7 +42,7 @@ public class Fynco extends JFinalConfig {
 		// 加载少量必要配置，随后可用getProperty(...)获取值
 		loadPropertyFile("config.txt");
 		me.setDevMode(getPropertyToBoolean("devMode", false));
-		me.setMaxPostSize(1000000);
+		me.setMaxPostSize(2000000);
 		// 创建“英文/美国”的Locale
 	    Locale localeUS = new Locale("en", "US");
 		// 创建“简体中文”的Locale
