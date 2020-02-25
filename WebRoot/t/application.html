@@ -12,7 +12,29 @@
                                     <ol class="breadcrumb mb-0">
                                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                                         <li class="breadcrumb-item">Clients</li>
-                                        <li class="breadcrumb-item active" aria-current="page">Applications</li>
+                                        <li class="breadcrumb-item active" aria-current="page">Applications - <#switch status>
+										  <#case 0>
+										    Processing
+										    <#break>
+										  <#case 1>
+										    Submitted
+										    <#break>
+										  <#case 2>
+										    Pre-approved
+										    <#break>
+									    	<#case 3>
+										    Conditionally Approved
+										    <#break>
+										    <#case 4>
+										    Pending Settlement
+										    <#break>
+										    <#case 5>
+										    Completed
+										    <#break>
+										  <#default>
+										    Non-Completed
+										</#switch>
+										</li>
                                     </ol>
                                 </nav>
                                 <h1 class="m-0">Applications</h1>
