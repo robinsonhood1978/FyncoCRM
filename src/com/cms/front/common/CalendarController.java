@@ -30,6 +30,21 @@ public class CalendarController extends Controller {
 		System.out.println(ids);
 		renderJson(map);
 	}
+	/**
+	 * Get all related alert id by given Alert id. 
+	 * @param id given alert id.
+	 * @return all related alert id.
+	 */
+	private int[] getAlertId(int id) {
+		String ids = Db.queryStr("select group_concat(id) as alertId from alert where id = "+id+" or parent_id = "+id);
+		int[] alertIds = ArrayUtils.toPrimitive(extractIntegersFromText(ids).toArray(new Integer[0]));
+		return alertIds;
+	}
+	/**
+	 * Get all User id related to the given event id.
+	 * @param id the given event id.
+	 * @return a String of user id.
+	 */
 	private String getUsers(int id) {
 		String ids = Db.queryStr("select group_concat(user_id) as participants from alert where id = "+id+" or parent_id = "+id);
 		return ids;
@@ -58,6 +73,11 @@ public class CalendarController extends Controller {
 		}
 		return different;
 	}
+	/**
+	 * Convert String to Integer Array.
+	 * @param source a given String.
+	 * @return Integer array.
+	 */
 	private static HashSet<Integer> extractIntegersFromText( final String source) {
 		String[] integersAsText = source.split(",");
 		HashSet<Integer> results = new HashSet<Integer>();
@@ -76,8 +96,9 @@ public class CalendarController extends Controller {
 	}
 	public void del() {
 		int id = getParaToInt("id");
-		Db.update("delete from message where type=1 and link_id in (select id from alert where parent_id=?)",id);
-		Db.update("delete from message where type=1 and link_id=?",id);
+		int type = Db.queryInt("select type from alert where id = "+id);
+		Db.update("delete from message where type=? and link_id in (select id from alert where parent_id=?)",type,id);
+		Db.update("delete from message where type=? and link_id=?",type,id);
 		Db.update("delete from alert where parent_id=?",id);
 		int i = Db.update("delete from alert where id=?",id);
 		Map map = new HashMap();
@@ -158,7 +179,7 @@ public class CalendarController extends Controller {
 	public void update() {
 		//User u = getSessionAttr("user");
 		//allDay=0  start=1575244800000  end=1575331200000  className=bg-danger  title=33  
-		int id = getParaToInt("id");
+		int id = getParaToInt("id");//event id.
 		String parent_id = getPara("parent_id");
 		String title = getPara("title");
 		long start = getParaToLong("start")/1000;
@@ -205,8 +226,6 @@ public class CalendarController extends Controller {
 		String end_date=DateFmt.TimeStamp2Date(String.valueOf(end), "");
 		String reminder_date = DateFmt.addLongDays(start_date, (-1)*reminder);
 		String local_time = DateFmt.timestamp2str(new Timestamp(start*1000),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
-		System.out.println(start+"|1|"+end);
-		System.out.println(start_date+"|2|"+end_date+"|3|"+reminder_date);
 //		String local_time = DateFmt.timestamp2str(new Timestamp(start*1000),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
 //		
 //		if (!parent_id.equals("")) {
@@ -217,16 +236,20 @@ public class CalendarController extends Controller {
 //		long end = getParaToLong("end")/1000;
 		User u = getSessionAttr("user");
 		Map<String, ArrayList<Integer>> test = getNewParticipant(getUsers(id),others,u.getInt("id"));
-		System.out.println(test.get("remove").size()+"|--returns--|"+test.get("add"));
+		//remove Participant
 		ArrayList<Integer> remove_others = test.get("remove");
 		if(remove_others.size() != 0) {
-			for (Integer rother : remove_others) {
-				Db.update("delete from alert where parent_id=? and user_id=?",id,rother);
+			for (int rother : remove_others) {
+				List<Record> a_id = Db.find("select id, type from alert where parent_id=? and user_id=?",id,rother);
+				Db.update("delete from message where type=? and link_id=?",a_id.get(0).getInt("type"),a_id.get(0).getInt("id"));
+				Db.update("delete from alert where id=?",a_id.get(0).getInt("id"));
 			}
 		}
 		
 		int i = Db.update("update alert set title=?,start_time=from_unixtime(?),end_time=from_unixtime(?),alert_time=?,content=?,class_name=?,type=?,type_name=? where id=? or parent_id=?",title,start,end,reminder_date,content,class_name,type,type_name,id,id);
+//		Db.update("update message set name=? where link_id=?","You have an upcoming "+type_name+" ["+title+"] at "+local_time,l_id);		
 //		int i = Db.update("update alert set title=? where id=?",title,id);
+		//add new Participant
 		ArrayList<Integer> arr_others = test.get("add");
 		if(arr_others.size() != 0) {
 			for(int other:arr_others){
@@ -237,6 +260,11 @@ public class CalendarController extends Controller {
 						"You have an upcoming "+type_name+" ["+title+"] at "+local_time,link_id,type,type_name,u.getInt("id"),other,DateFmt.addLongDays(0),reminder_date);
 			}
 		}
+		//update all data that related to current event 
+		for (int l_id  : getAlertId(id)) {
+			Db.update("update message set name=? where link_id=?","You have an upcoming "+type_name+" ["+title+"] at "+local_time,l_id);
+		}
+
 		Map map = new HashMap();
 		map.put("code",i);
 		renderJson(map);
