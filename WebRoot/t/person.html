@@ -42,10 +42,16 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col">
+                                        <!-- <div class="col">
                                             <div class="form-group">
                                                 <label for="fname">Preferred Name</label>
                                                 <input type="text" class="form-control" name="user.prefered_name" id="prefered_name" value="${(session.user.prefered_name)!}" >
+                                            </div>
+                                        </div> -->
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Mobile</label>
+                                                <input class="form-control" type="tel" name="user.mobile" id="mobile" pattern="[0-9]*" placeholder="Input your mobile" value="${(session.user.mobile)!}" required>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -57,24 +63,25 @@
                                     </div>
                                    
                                     <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="fname">Mobile</label>
-                                                <input class="form-control" type="tel" name="user.mobile" id="mobile" pattern="[0-9]*" placeholder="Input your mobile" value="${(session.user.mobile)!}" required>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="lname">Title</label>
-                                                <input type="text" class="form-control" name="user.title" id="title" value="${(session.user.title)!}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="fname">Department</label>
-                                                <input type="text" class="form-control" name="user.department" id="department" value="${(session.user.department)!}">
+                                                <!-- <input type="text" class="form-control" name="user.title" id="title" value="${(session.user.title)!}"> -->
+                                                <select id="title" data-toggle="select" data-minimum-results-for-search="-1" class="form-control">
+		                                            <option value="Mr" >
+		                                                Mr
+		                                            </option>
+		                                            <option value="Miss" >
+		                                                Miss
+		                                            </option>
+		                                            <option value="Mrs" >
+		                                                Mrs
+		                                            </option>
+		                                            <option value="Ms" >
+		                                                Ms
+		                                            </option>
+		                                        </select>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -87,15 +94,18 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="fname">Office Location</label>
-                                                <input type="text" class="form-control" name="user.office_location" id="office_location" value="${(session.user.office_location)!}">
+                                                <label for="fname">Department</label>
+                                                <input type="text" class="form-control" name="user.department" id="department" value="${(session.user.department)!}">
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
+                                                <label for="fname">Office Location</label>
+                                                <input type="text" class="form-control" name="user.office_location" id="office_location" value="${(session.user.office_location)!}">
                                             </div>
                                         </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -160,6 +170,10 @@
                 
                 if(host!=''){
                 	$('#mail_host').val(host);
+                }
+                var title = '${(client.title)!}';
+                if(title!=''){
+                	$('#title').val(title).trigger('change');
                 }
 function Mod(){
 	var vmobile=$('#mobile').val();
