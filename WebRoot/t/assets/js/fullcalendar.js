@@ -400,6 +400,8 @@
                         	var endhours = enddate.getHours(),endmin = enddate.getMinutes();
                         	starthours = starthours>24?starthours-24:starthours;
                         	endhours = endhours>24?endhours-24:endhours;
+                        	startmin = startmin<10? "0"+startmin:startmin;
+                        	endmin = endmin<10? "0"+endmin:endmin;
                         	var starttime = starthours<10?"0"+starthours+":"+startmin:starthours+":"+startmin;
                         	var endtime = endhours<10?"0"+endhours+":"+endmin:endhours+":"+endmin;
                         	var year = startdate.getFullYear();
