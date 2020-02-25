@@ -263,7 +263,7 @@
                                         
                                         <div class="col">
                                             <div class="form-group" style="align:center">
-                                            	<a href="javascript:void(0)" onClick="return SavePdf();"><img src="/f/i/D.jpg"></a>
+                                            	<a href="/application/edit/${(application.id)!}"><img src="/f/i/D.jpg"></a>
                                                 <div><label for="fname">Digital Application</label></div>
                                                
                                             </div>
@@ -299,7 +299,7 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                            	<a href="javascript:void(0)" onClick="SendPdf2Bank('${(application.id)!}','${(application.pdf)!}');"><img src="/f/i/St.jpg"></a>
+                                            	<a href="javascript:void(0)" onClick="Submit2Whom('${(application.id)!}','${(application.pdf)!}');"><img src="/f/i/St.jpg"></a>
                                                 <label for="lname">Submit</label>
                                             </div>
                                         </div>
@@ -348,6 +348,45 @@
                 <!-- // END drawer-layout__content -->
                 
 <script>
+function Submit2Whom(appid,pdf){
+	mlayer.open({
+	    content: 'Who do you want to send documents to？'
+	    ,btn: ['Bank', 'Client']
+	    ,yes: function(index){
+	      SendPdf2Bank(appid,pdf);
+	      layer.close(index);
+	    }
+	    ,no:function(index){
+	    	SendPdf2Client(appid,pdf);
+	    	layer.close(index);
+	    }
+	  });
+}
+function SendPdf2Client(id,pdf){
+	if(pdf==''){
+		mlayer.open({
+		    content: 'Please generate the Pdf file at first!',
+		    btn: 'Got it'
+		  });
+	}
+	else{
+		var url = '/amail?type=Send2ClientApplicationForm&appid='+id;
+		layer.open({
+			type: 2,
+			title: 'Write an Email',
+			fixed: false, //不固定
+			maxmin: true,
+		    shadeClose: true, //点击遮罩关闭层
+			area: ['80%', '80%'],
+			content: url ,
+			success:function(layero,index){
+	        },
+	        end:function(){
+				//alert(1)
+	        }
+		}); 
+	}
+}
 function Move2NextStage(id,status){
 	var status = status*1+1;
 	postStatus(id,status);
