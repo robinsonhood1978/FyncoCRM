@@ -156,8 +156,8 @@ public class CalendarController extends Controller {
 		int reminder = getParaToInt("reminder");
 		String start_date=DateFmt.TimeStamp2Date(String.valueOf(start), "");
 		String reminder_date = DateFmt.addLongDays(start_date, (-1)*reminder);
-		String local_time = DateFmt.TimeStamp2Date(String.valueOf(start),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
-//		String local_time = DateFmt.timestamp2str(new Timestamp(start*1000),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
+//		String local_time = DateFmt.TimeStamp2Date(String.valueOf(start),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
+		String local_time = DateFmt.timestamp2str(new Timestamp((start*1000)+(13*3600000)),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
 		
 		
 		int i = Db.update("insert into alert (title,content,type,type_name,start_time,end_time,class_name,allday,creator,user_id,alert_time) values "
@@ -233,8 +233,8 @@ public class CalendarController extends Controller {
 		String start_date=DateFmt.TimeStamp2Date(String.valueOf(start), "");
 		String end_date=DateFmt.TimeStamp2Date(String.valueOf(end), "");
 		String reminder_date = DateFmt.addLongDays(start_date, (-1)*reminder);
-		String local_time = DateFmt.TimeStamp2Date(String.valueOf(start),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
-//		String local_time = DateFmt.timestamp2str(new Timestamp(start*1000),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
+//		String local_time = DateFmt.TimeStamp2Date(String.valueOf(start),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
+		String local_time = DateFmt.timestamp2str(new Timestamp((start*1000)+(13*3600000)),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
 //		
 //		if (!parent_id.equals("")) {
 //			
