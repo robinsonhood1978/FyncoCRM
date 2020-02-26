@@ -70,7 +70,7 @@ public class NotificationController extends Controller {
 	}
 	public void detail() {
 		int id = getParaToInt("id");
-		Record r = Db.findFirst("select a.start_time,a.end_time,a.alert_time,a.class_name,a.status alert_status,"
+		Record r = Db.findFirst("select DATE_ADD(a.start_time, INTERVAL 13 HOUR) start_time, DATE_ADD(a.end_time, INTERVAL 13 HOUR) end_time, DATE_ADD(a.alert_time, INTERVAL 13 HOUR) alert_time,a.class_name,a.status alert_status,"
 				+ "m.name notification_title,m.content,m.status message_status,a.title alert_title,m.type,"
 				+ "if(m.type=0,'announcement','notification') ntype,m.link_id,u.avatar,u.first_name,u.last_name "
 				+ "from message m join alert a on m.link_id=a.id join user u on m.sender=u.id where m.id=?",id);
