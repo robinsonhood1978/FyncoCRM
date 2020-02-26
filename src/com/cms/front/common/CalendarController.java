@@ -83,7 +83,7 @@ public class CalendarController extends Controller {
 	 */
 	private static HashSet<Integer> extractIntegersFromText( final String source) {
 		HashSet<Integer> results = new HashSet<Integer>();
-		if(source != "") {
+		if(source != "" || source!=null) {
 			String[] integersAsText = source.split(",");
 			for ( String textValue : integersAsText ) {
 				results.add(Integer.parseInt( textValue )); 
