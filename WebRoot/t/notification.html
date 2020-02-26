@@ -23,9 +23,17 @@
 .Event {background-color: #e961c1;}
 .Task {background-color: #4cde8f;}
 .Interview {background-color: #0ee2f3;}
-
+.Key {color: #04d6df;}
 
 .close:hover {background: #9fa69f;}
+
+.anntext {
+  display: block;
+  max-width: 460px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 </style>
 <div class="mdk-drawer-layout__content page">
 
@@ -96,7 +104,7 @@
 
                                             <th>Type</th>
                                             <th >Title</th>
-                                            <!-- <th >Name</th> -->
+                                            <th >Creator</th> 
                                             <!-- <th >Create Time</th>
                                             <th >Personal Email</th> -->
                                             <th ></th>
@@ -119,7 +127,7 @@
 											</span></td>
                                             
                                             <td>
-                                                <div class="media align-items-center">
+                                                <div class="anntext">
                                                     <!-- <a href="<#if x.type==0>/announcement/detail/${(x.link_id)!}<#else>javascript:void(0)</#if>" <#if x.type==1>onclick="View('${x.id}');"</#if>>${x.title!}</a> -->
                                                 ${x.title!}
                                                 </div>

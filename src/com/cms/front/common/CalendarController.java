@@ -30,6 +30,9 @@ public class CalendarController extends Controller {
 		System.out.println(ids);
 		renderJson(map);
 	}
+	private int getUserIdByAlertId(int id) {
+		return Db.queryInt("select user_id from alert where id="+id);
+	}
 	/**
 	 * Get all related alert id by given Alert id. 
 	 * @param id given alert id.
@@ -79,16 +82,18 @@ public class CalendarController extends Controller {
 	 * @return Integer array.
 	 */
 	private static HashSet<Integer> extractIntegersFromText( final String source) {
-		String[] integersAsText = source.split(",");
 		HashSet<Integer> results = new HashSet<Integer>();
-		for ( String textValue : integersAsText ) {
-			results.add(Integer.parseInt( textValue )); 
-		} 
+		if(source != "") {
+			String[] integersAsText = source.split(",");
+			for ( String textValue : integersAsText ) {
+				results.add(Integer.parseInt( textValue )); 
+			} 
+		}
 		return results ; 
 	} 
 	public void otheruser() {
 		User u = getSessionAttr("user");
-		List<Record> l = Db.find("select id,concat(first_name,' ',last_name) name from user where id!=?",u.getInt("id"));
+		List<Record> l = Db.find("select id,concat(first_name,' ',last_name) name from user where company_id=? and id!=?",u.getInt("company_id"),u.getInt("id"));
 		renderJson(l);
 	}
 	public void index() {
@@ -151,22 +156,25 @@ public class CalendarController extends Controller {
 		int reminder = getParaToInt("reminder");
 		String start_date=DateFmt.TimeStamp2Date(String.valueOf(start), "");
 		String reminder_date = DateFmt.addLongDays(start_date, (-1)*reminder);
-		String local_time = DateFmt.timestamp2str(new Timestamp(start*1000),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
+		String local_time = DateFmt.TimeStamp2Date(String.valueOf(start),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
+//		String local_time = DateFmt.timestamp2str(new Timestamp(start*1000),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
 		
 		
 		int i = Db.update("insert into alert (title,content,type,type_name,start_time,end_time,class_name,allday,creator,user_id,alert_time) values "
 				+ "(?,?,?,?,from_unixtime(?),from_unixtime(?),?,?,?,?,?)",title,content,type,type_name,start,end,class_name,all_day,u.getInt("id"),u.getInt("id"),reminder_date);
 		int id = Db.queryInt("select max(id) from alert");
+		String message = "<span class='Key'>"+title+"</span>";
 		Db.update("insert into message (name,link_id,type,type_name,sender,receiver,create_time,alert_time) values (?,?,?,?,?,?,?,?)",
-				"You have an upcoming "+type_name+" ["+title+"] at "+local_time,id,type,type_name,u.getInt("id"),u.getInt("id"),DateFmt.addLongDays(0),reminder_date);
+				"You have an upcoming &nbsp;<B>"+type_name+"</B> &nbsp;"+message+"&nbsp; at &nbsp;<span class='Key'>"+local_time+"</span>",id,type,type_name,u.getInt("id"),u.getInt("id"),DateFmt.addLongDays(0),reminder_date);
 		int link_id = id;
 		if(!others.equals("")) {
 			String[] arr_others = others.split(",");
 			for(String other:arr_others){
 				Db.update("insert into alert (parent_id,title,content,type,type_name,start_time,end_time,class_name,allday,creator,user_id,alert_time) values "
 						+ "(?,?,?,?,?,from_unixtime(?),from_unixtime(?),?,?,?,?,?)",id,title,content,type,type_name,start,end,class_name,all_day,u.getInt("id"),other,reminder_date);
+				String otherMessage = "with &nbsp;<span class='Key'>"+u.getStr("first_name")+"&nbsp;"+u.getStr("last_name")+"</span>";
 				Db.update("insert into message (name,link_id,type,type_name,sender,receiver,create_time,alert_time) values (?,?,?,?,?,?,?,?)",
-						"You have an upcoming "+type_name+" ["+title+"] at "+local_time,++link_id,type,type_name,u.getInt("id"),other,DateFmt.addLongDays(0),reminder_date);
+						"You have an upcoming &nbsp;<B>"+type_name+"</B> &nbsp;"+otherMessage+"&nbsp; at &nbsp;<span class='Key'>"+local_time+"</span>",++link_id,type,type_name,u.getInt("id"),other,DateFmt.addLongDays(0),reminder_date);
 			
 			}
 		}
@@ -225,7 +233,7 @@ public class CalendarController extends Controller {
 		String start_date=DateFmt.TimeStamp2Date(String.valueOf(start), "");
 		String end_date=DateFmt.TimeStamp2Date(String.valueOf(end), "");
 		String reminder_date = DateFmt.addLongDays(start_date, (-1)*reminder);
-		String local_time = DateFmt.timestamp2str(new Timestamp(start*1000),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
+		String local_time = DateFmt.TimeStamp2Date(String.valueOf(start),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
 //		String local_time = DateFmt.timestamp2str(new Timestamp(start*1000),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
 //		
 //		if (!parent_id.equals("")) {
@@ -236,6 +244,7 @@ public class CalendarController extends Controller {
 //		long end = getParaToLong("end")/1000;
 		User u = getSessionAttr("user");
 		Map<String, ArrayList<Integer>> test = getNewParticipant(getUsers(id),others,u.getInt("id"));
+		System.out.println(test.get("remove")+"|r and a|"+test.get("add"));
 		//remove Participant
 		ArrayList<Integer> remove_others = test.get("remove");
 		if(remove_others.size() != 0) {
@@ -256,13 +265,15 @@ public class CalendarController extends Controller {
 				Db.update("insert into alert (parent_id,title,content,type,type_name,start_time,end_time,class_name,allday,creator,user_id,alert_time) values "
 						+ "(?,?,?,?,?,from_unixtime(?),from_unixtime(?),?,?,?,?,?)",id,title,content,type,type_name,start,end,class_name,all_day,u.getInt("id"),other,reminder_date);
 				int link_id = Db.queryInt("select max(id) from alert");
+				String message = "with &nbsp;<span class='Key'>"+u.getStr("first_name")+"&nbsp;"+u.getStr("last_name")+"</span>";
 				Db.update("insert into message (name,link_id,type,type_name,sender,receiver,create_time,alert_time) values (?,?,?,?,?,?,?,?)",
-						"You have an upcoming "+type_name+" ["+title+"] at "+local_time,link_id,type,type_name,u.getInt("id"),other,DateFmt.addLongDays(0),reminder_date);
+						"You have an upcoming &nbsp;<B>"+type_name+"</B> &nbsp;"+message+"&nbsp; at &nbsp;<span class='Key'>"+local_time+"</span>",link_id,type,type_name,u.getInt("id"),other,DateFmt.addLongDays(0),reminder_date);
 			}
 		}
 		//update all data that related to current event 
 		for (int l_id  : getAlertId(id)) {
-			Db.update("update message set name=? where link_id=?","You have an upcoming "+type_name+" ["+title+"] at "+local_time,l_id);
+			String messageUpdate = (u.getInt("id") != getUserIdByAlertId(l_id))? "with &nbsp;<span class='Key'>"+u.getStr("first_name")+"&nbsp;"+u.getStr("last_name")+"</span>" : "<span class='Key'>"+title+"</span>"; 
+			Db.update("update message set name=?, type=?, type_name=? where link_id=?","You have an upcoming &nbsp;<B>"+type_name+"</B> &nbsp;"+messageUpdate+"&nbsp; at &nbsp;<span class='Key'>"+local_time+"</span>",type,type_name,l_id);
 		}
 
 		Map map = new HashMap();
