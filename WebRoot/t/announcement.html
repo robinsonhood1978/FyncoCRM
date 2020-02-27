@@ -92,7 +92,7 @@
 	                                        </div>
                                         </div>
                                      <#if x.creator == publisher>
-                                       	<a href="" class="close"><span>&times;</span></a>
+                                       	<a onclick="DelAnn('${x.id}','${x.title}');" class="close"><span>&times;</span></a>
                                 	</#if>
                                     </div> 
                                     <div class="d-flex" style="width: 100%; margin: 0px 0px 30px 20px;">
@@ -105,7 +105,7 @@
 	                                          </#if>
                                         </div>
                                         <div style="width: 30%; text-align: right; margin-right: 50px; ">
-                                            <a href="/announcement/detail/${x.id}" ><button style="border-radius: 17px; width: 120px; background: #6ede38; position: absolute; bottom: 30px; right: 50px; outline: none; color: white;">View</button></a>
+                                            <a href="/announcement/detail?id=${x.id}&d=0" ><button style="border-radius: 17px; width: 120px; background: #6ede38; position: absolute; bottom: 30px; right: 50px; outline: none; color: white;">View</button></a>
                                         </div>
                                     </div>
 
@@ -171,15 +171,49 @@
                 <!-- // END drawer-layout__content -->
                 
 <script>
+function DelAnn(id,title) {
+	layer.open({
+		title: 'Notice',
+		scrollbar: false,
+	    content: 'You want to delete <B>'+title+'</B>, all changes cannot be rolled back. Are you sure?'
+	    ,btn: ['Yes', 'No']
+	    ,yes: function(index){
+	    	var url = "/announcement/delete/"+id;
+	    	$.get(url, function(data) {
+				if(data==0){
+				 	layer.open({
+				 		title: 'Notice',
+				 		scrollbar: false,
+					    content: 'Fail',
+					    btn: 'Got it'
+					  });
+				}
+				else{ 
+					layer.open({
+						title: 'Notice',
+						scrollbar: false,
+					    content: 'Action succeed',
+					    btn: 'Got it',
+					    yes: function(index){
+					    	location.href='/announcement';
+					    }
+					  });
+					
+				} 						
+			}, "json"); 
+	    }
+	  });
+}
                 function New(){
                 	var url = '/announcement/add';
                 	layer.open({
                 		type: 2,
-                		title: 'Add an announcement',
+                		title: '',
                 		fixed: false, //不固定
-                		maxmin: true,
+                		/* maxmin: true, */
+                		scrollbar: false,
                 	    shadeClose: true, //点击遮罩关闭层
-                		area: ['60%', '80%'],
+                		area: ['60%', '70%'],
                 		content: url ,
                 		success:function(layero,index){
                         },
@@ -192,7 +226,7 @@
                 	if(type=='1')
                 		View(id);
                 	else
-                		location.href='/announcement/detail/'+link_id;
+                		location.href='/announcement/detail?id='+link_id+"&d=0";
                 }
                 function View(id){
                 	//alert(id)

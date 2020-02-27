@@ -184,6 +184,33 @@ public class CalendarController extends Controller {
 		map.put("reminder",reminder);
 		renderJson(map);
 	}
+	public int getType(String class_name) {
+		int type=20;
+		switch(class_name) 
+        { 
+            case "bg-danger": 
+                type=20;
+                break; 
+            case "bg-success": 
+            	type=21;            	
+                break; 
+            case "bg-primary": 
+            	type=22;
+                break; 
+            case "bg-info": 
+            	type=23;
+                break; 
+            case "bg-dark": 
+            	type=24;
+                break; 
+            case "bg-warning": 
+            	type=25;
+                break; 
+            default: 
+                System.out.println("no match"); 
+        } 
+		return type;
+	}
 	public void update() {
 		//User u = getSessionAttr("user");
 		//allDay=0  start=1575244800000  end=1575331200000  className=bg-danger  title=33  
@@ -195,7 +222,8 @@ public class CalendarController extends Controller {
 		String class_name = getPara("className");
 		String content = getPara("content");
 		String others = getPara("others");
-		
+		String preClassName = getPara("preClassName");
+
 		int type=20;
 		String type_name = "";
 		//消息类型 0-News,1-Notice,20-Meeting,21-Interview,22-Appointment,23-Event,24-Activity,25-Other,4-Task,5-Refix,6-Birthday
@@ -271,9 +299,10 @@ public class CalendarController extends Controller {
 			}
 		}
 		//update all data that related to current event 
+		int oldType = getType(preClassName);
 		for (int l_id  : getAlertId(id)) {
 			String messageUpdate = (u.getInt("id") != getUserIdByAlertId(l_id))? "with &nbsp;<span class='Key'>"+u.getStr("first_name")+"&nbsp;"+u.getStr("last_name")+"</span>" : "<span class='Key'>"+title+"</span>"; 
-			Db.update("update message set name=?, type=?, type_name=? where link_id=?","You have an upcoming &nbsp;<B>"+type_name+"</B> &nbsp;"+messageUpdate+"&nbsp; at &nbsp;<span class='Key'>"+local_time+"</span>",type,type_name,l_id);
+			Db.update("update message set name=?, type=?, type_name=? where type=? and link_id=?","You have an upcoming &nbsp;<B>"+type_name+"</B> &nbsp;"+messageUpdate+"&nbsp; at &nbsp;<span class='Key'>"+local_time+"</span>",type,type_name,oldType,l_id);
 		}
 
 		Map map = new HashMap();

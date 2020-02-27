@@ -9,13 +9,18 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb mb-0">
                                     <li class="breadcrumb-item"><a href="#"><i class="material-icons icon-20pt">home</i></a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Notifications</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Announcements</li>
                                 </ol>
                             </nav>
                             <h1 class="m-0">Announcement</h1>
                             </div>
                             <div class="text-right mb-7">
-                          		<a href="/announcement"><button class="btn btn-success">Exit Announcement</button></a>
+                            <#if edit??>
+					          <#if edit==author.id>
+					          <a href="javascript:void(0)" onclick="Edit('${(content.id)!}');" class="btn btn-success ml-3">Edit Announcement</a>
+					          </#if>
+				         	</#if>
+                          		<a href="${direct}"><button class="btn btn-success">Previous</button></a>
                        		</div>
                         </div>
                     </div>
@@ -91,5 +96,24 @@
 
 
                 </div>
+                <script>
+                function Edit(id){
+                	var url = '/announcement/edit/'+id;
+                	layer.open({
+                		type: 2,
+                		title: '',
+                		fixed: false, //不固定
+                		/* maxmin: true, */
+                	    shadeClose: true, //点击遮罩关闭层
+                		area: ['60%', '70%'],
+                		content: url ,
+                		success:function(layero,index){
+                        },
+                        end:function(){
+                			//alert(1)
+                        }
+                	});
+                }
+                </script>
                 <!-- // END drawer-layout__content -->
 </@layout>

@@ -524,10 +524,11 @@
                                 	var starttime = n.start.getTime();
                                 	var endtime = n.end.getTime();
                                 	n.title = r;
+                                	var preClassName = n.className[0];
                                 	n.className[0] = c;
                                 	$.ajaxSettings.async = false;
 	                                //$.post("/calendar/update/", {id:n.alertid,title: n.title,start: starttime,end: endtime}, function(data) {
-	                                $.post("/calendar/update/", {id:n.alertid,title: r,reminder:reminder,start: starttime,end: endtime,others:others.join(),allDay: 0,className: c, content: content, parent_id: n.parent_id}, function(data) {
+	                                $.post("/calendar/update/", {id:n.alertid,title: r,reminder:reminder,start: starttime,end: endtime,others:others.join(),allDay: 0,className: c, content: content, parent_id: n.parent_id, preClassName:preClassName}, function(data) {
 	                                        	if(data.code==1){
 	                                		//alertid = data.id;
 	//                    					layer.open({

@@ -3,7 +3,7 @@
   <!-- content start -->
   <div class="admin-content">
     <div class="am-cf am-padding">
-      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">Write an Announcement</strong></div>
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg"><#if content??>Edit the<#else>Write an</#if> Announcement</strong></div>
     </div>
 
     <hr/>
@@ -21,7 +21,7 @@
       </div>
       <div class="am-u-sm-12 am-u-md-12">
           <div class="am-form-group">
-          <div class="am-alert am-alert-success" data-am-alert id="ctg_msg">
+          <div style="display: none;" class="am-alert am-alert-success" data-am-alert id="ctg_msg">
   <button type="button" class="am-close">&times;</button>
   <p>Please choose a channel^-^</p>
 </div>
@@ -50,7 +50,7 @@
           
 		
           <div class="am-form-group"> 
-          <div class="am-alert am-alert-success" data-am-alert id="txt_msg">
+          <div style="display: none;" class="am-alert am-alert-success" data-am-alert id="txt_msg">
   <button type="button" class="am-close">&times;</button>
   <p>content^-^</p>
 </div>
@@ -115,8 +115,8 @@
 			jQuery(function($){
 			
 			
-			$('#ctg_msg').hide();
-			$('#txt_msg').hide();
+			//$('#ctg_msg').hide();
+			//$('#txt_msg').hide();
 	$('#publish').bind('click', function () {
         //$("#txt").val($("#editor1").html().trim().replace(/img src/g,'img class="am-img-responsive" src').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'));
         $("#txt").val($("#editor1").html().trim().replace(/img src/g,'img class="am-img-responsive" src'));
@@ -268,13 +268,20 @@
 });
 		</script>
 <script>
+var channelId = null;
 <#if content?? && content.channel_id??>
-				var channelId = "${content.channel_id}";
+				channelId = "${content.channel_id}";
 				$("#ctg").val(channelId);
 			</#if>
 <#if content?? && (content.txt)??>
 				$('#editor1').html('${content.txt}');
 			</#if>
+<#if content?? && content.title??>
+			$("#title").val('${content.title}');
+		</#if>
+<#if content?? && content.priority??>
+			$('#top').val('${content.priority}');
+		</#if>
 function Check(){
 	if($('#ctg').val()==''){
 		$('#ctg_msg').show();
@@ -300,11 +307,15 @@ function Check(){
 			
 			
 			var url = "/m/publish/";
+			<#if content??>
+			url = "/announcement/update";
+			var index = parent.layer.getFrameIndex(window.name);
+			</#if>
 			//if(method=='add')url+="save";
 			//else url+="update";
-
+			
 			$.post(url, {"content.id":annid,"content.channel_id":ctg,
-				"content.title":title,"content.txt":txt, "content.priority":priority }, function(data) {
+				"content.title":title,"content.txt":txt, "content.priority":priority, "preChannelId":channelId }, function(data) {
 				if(data==0){
 				 	mlayer.open({
 					    content: 'Fail',
@@ -317,7 +328,12 @@ function Check(){
 					    content: 'Success',
 					    btn: 'Got it',
 					    yes: function(){
+					    	<#if content??>
+					    	window.parent.location.reload();
+					    	parent.layer.close(index);
+					    	<#else>
 					    	parent.window.CloseLayer();
+					    	</#if>
 					      }
 					  });
 				}
