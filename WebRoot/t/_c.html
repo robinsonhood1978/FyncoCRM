@@ -43,6 +43,18 @@
     <link type="text/css" href="/t/assets/vendor/dragula/dragula.min.css" rel="stylesheet">
   <link type="text/css" href="/f/layui/css/layui.css" rel="stylesheet">
   <style type="text/css">  
+ .badges {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  text-align: center;
+  height: 15px;
+  line-height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+}
   .embed-responsive, .embed-responsive iframe, .embed-responsive-1by1, .embed-responsive-item { max-width: 100%; max-height:260px; }
   	.comment {  
 	 width:100%;
@@ -88,7 +100,7 @@
 	#checkboxes label:hover {
 	  background-color: #1e90ff;
 	}
-	
+	.Key {color: #04d6df;}
   </style>  
 	<!-- jQuery -->
     <script src="/t/assets/vendor/jquery.min.js"></script>
@@ -184,30 +196,45 @@ function optDelete(actionUrl) {
 
 
                         <ul class="nav navbar-nav ml-auto d-none d-md-flex">
+                        <div id="notices">
                             <li class="nav-item dropdown">
                                 <a href="#notifications_menu" class="nav-link dropdown-toggle" data-toggle="dropdown" data-caret="false">
-                                    <i class="material-icons nav-icon navbar-notifications-indicator">notifications</i>
+                                    <i class="material-icons nav-icon ">notifications</i>
+                                    <span class="badges">${(ns.size())!}</span>
                                 </a>
                                 <div id="notifications_menu" class="dropdown-menu dropdown-menu-right navbar-notifications-menu">
                                     <div class="dropdown-item d-flex align-items-center py-2">
                                         <span class="flex navbar-notifications-menu__title m-0">Notifications</span>
-                                        <a href="javascript:void(0)" class="text-muted"><small>Clear all</small></a>
+                                        <a href="javascript:ReadAll();" class="text-muted"><small>Clear all</small></a>
                                     </div>
                                     <div class="navbar-notifications-menu__content" data-simplebar>
                                         <div class="py-2">
 
                                             <#list ns as n>
-                                            <div class="dropdown-item d-flex">
-                                                <div class="mr-3">
+                                            <div class="dropdown-item" >
+                                                <!-- <div class="mr-3">
                                                     <div class="avatar avatar-sm" style="width: 32px; height: 32px;">
                                                         <img src="${n.avatar!}" alt="Avatar" class="avatar-img rounded-circle">
                                                     </div>
+                                                </div> -->
+                                                <div class="row" style="margin: 2px;">
+                                                	<div class="col">
+                                                	<!-- ${n.first_name!}&nbsp;${n.last_name!}&nbsp;&nbsp; -->
+                                                	<#if n.type=6>
+                                                	<a href="/client/view?id=${n.link_id!}">&nbsp;Your Client <B>${n.name}</B> is truning <B>${n.age!}</B> in <B>3 days</B>&nbsp;</a> <br>
+                                                	<#else>
+                                                	<a href="javascript:GetView('${n.ntype!}','${n.id!}','${n.link_id!}');">&nbsp;${n.name}&nbsp;</a> <br>
+                                                	</#if>
+                                                	</div>
+                                                    
                                                 </div>
-                                                <div class="flex">
-                                                    ${n.first_name!}&nbsp;${n.last_name!}&nbsp;&nbsp;<a href="/${n.ntype!}/detail/${n.link_id!}">&nbsp;${n.title}&nbsp;</a> <br>
-                                                    <a href="/${n.ntype!}"><small class="text-muted">[${n.ntype!}]</small></a>
+                                               
+                                                <div class="row" style="margin: 2px;">
+                                                <div class="col"><a href="/${n.ntype!}"><small class="text-muted">[${n.type_name!}]</small></a></div>
+                                                <div class="col"><a onclick="javascript:ToReaded('${n.id!}','single');" class="close"><span  >&times;</span></a></div>
                                                 </div>
                                             </div>
+                                            <hr/>
                                     </#list>
 
                                         </div>
@@ -215,6 +242,7 @@ function optDelete(actionUrl) {
                                     <a href="/notification" class="dropdown-item text-center navbar-notifications-menu__footer">View All</a>
                                 </div>
                             </li>
+                            </div>
                         </ul>
 
                         <ul class="nav navbar-nav d-none d-sm-flex border-left navbar-height align-items-center">
@@ -603,6 +631,51 @@ function optDelete(actionUrl) {
     <script src="/t/assets/vendor/dragula/dragula.min.js"></script>
     <script src="/t/assets/js/dragula.js"></script>
     
+    <script>
+    function ReadAll() {
+		var notice = '${notice!}';
+		notice = notice.replace(/\s/g, '').replace(/\[/g, '').replace(/\]/g, '');
+		/* console.log(notice); */
+		ToReaded(notice,'mutiple');
+	}
+	function ToReaded(id,model) {
+		$.post("/notification/changeToRead/", {id:id, m:model}, function(data) {
+        	if(data==1){
+        		//alert("okkkkkk")
+        		$( "#notices" ).load(window.location.href + " #notices" );
+			}
+		},"json");
+	}
+    function GetView(direact,id,link_id){
+    	if(direact == 'announcement'){
+    		//alert(location.pathname+location.search)
+    		location.href='/announcement/detail?id='+link_id+"&d="+encodeURIComponent(location.pathname+location.search);
+    	}
+    	else{
+    		ViewNotice(id);
+    	}
+    		
+    }
+    function ViewNotice(id){
+    	alert(id)
+    	var url = '/notification/detail?id='+id;
+		layer.open({
+			type: 2,
+			title: '',
+			fixed: false, //不固定
+			//maxmin: true,
+		    shadeClose: true, //点击遮罩关闭层
+		    anim: 1,
+			area: ['32%', '65%'],
+			content: url ,
+			success:function(layero,index){
+	        },
+	        end:function(){
+	        	//ShowApplicant();
+	        }
+		});
+    }
+    </script>
     
 <script src="/f/assets/js/mobile/mlayer.js"></script>
 </body>

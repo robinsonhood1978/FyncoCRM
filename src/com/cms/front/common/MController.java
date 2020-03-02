@@ -374,12 +374,12 @@ public class MController extends Controller {
 				//增添文章的点击量
 				new ContentCount().set("content_id", contentId).save();
 				//增添系统通知
-				List<Record> ul = Db.find("select id from user where status=1");
+				List<Record> ul = Db.find("select id from user where status=1 and company_id="+loginUser.getInt("company_id")+" and id!="+loginUser.getInt("id"));
 				String titles = getPara("content.title");
 				titles = titles.length() <= 20? titles: titles.substring(0, 19) + "...";
 				for(Record r:ul) {
 					Db.update("insert into message (name,link_id,type,type_name,sender,receiver,create_time,alert_time) values (?,?,?,?,?,?,?,?)",
-							"New Announcement &nbsp; <B>"+titles+"</B> &nbsp; has published",contentId,type,type_name,loginUser.getInt("id"),r.getInt("id"),DateFmt.addLongDays(0),DateFmt.addLongDays(0));
+							titles,contentId,type,type_name,loginUser.getInt("id"),r.getInt("id"),DateFmt.addLongDays(0),DateFmt.addLongDays(0));
 				}
 				return true;
 			}
@@ -391,11 +391,17 @@ public class MController extends Controller {
 		else{
 			msg = "Publish failure，Please try again or contact the administrator.";
 		}
-		
+		User u = getSessionAttr("user");
+		int newContentId = Db.queryInt("select id from content where update_time = (select max(update_time) from content where creator ="+u.getInt("id")+")");
 		//setAttr("code", code);
 		//setAttr("msg", msg);
 		//render("/t/msg.html");
-		renderJson(code);
+		Map map = new HashMap();
+		map.put("code",code);
+		map.put("id",newContentId);
+		map.put("direct",0);
+		renderJson(map);
+//		renderJson(code);
 	}
 	public void update_blog() {
 		int code=0;

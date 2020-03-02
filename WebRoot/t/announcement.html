@@ -65,7 +65,7 @@
                                     <div class="d-flex" style="width: 100%;">
                                		<div class="d-flex" style="width: 70%; margin: 20px 0px 0px 20px;">
                                 		<div class="d-flex" style="width: 100%;">
-                                    		<a href="/announcement/detail/${x.id}" class="headings-color"><h2 class="card-title m-0" style="font-family:Open Sans,monospace; font-weight: 400; max-width: 400px;"><span class="text">${x.title}</span></h2></a>
+                                    		<a href="javascript:View('${x.id}');" class="headings-color"><h2 class="card-title m-0" style="font-family:Open Sans,monospace; font-weight: 400; max-width: 400px;"><span class="text">${x.title}</span></h2></a>
 										
 										<div class="d-flex" style="margin-top: 10px; margin-left: 20px;">
 	                                         <span class="label ${x.channel_name}" >${x.channel_name}</span> 
@@ -105,7 +105,7 @@
 	                                          </#if>
                                         </div>
                                         <div style="width: 30%; text-align: right; margin-right: 50px; ">
-                                            <a href="/announcement/detail?id=${x.id}&d=0" ><button style="border-radius: 17px; width: 120px; background: #6ede38; position: absolute; bottom: 30px; right: 50px; outline: none; color: white;">View</button></a>
+                                            <button onclick="View('${x.id}');" style="border-radius: 17px; width: 120px; background: #6ede38; position: absolute; bottom: 30px; right: 50px; outline: none; color: white;">View</button>
                                         </div>
                                     </div>
 
@@ -218,33 +218,18 @@ function DelAnn(id,title) {
                 		success:function(layero,index){
                         },
                         end:function(){
-                			//alert(1)
                         }
                 	});
                 }
-                function DoubleClick(id,type,link_id){
+                /* function DoubleClick(id,type,link_id){
                 	if(type=='1')
                 		View(id);
                 	else
                 		location.href='/announcement/detail?id='+link_id+"&d=0";
-                }
+                } */
                 function View(id){
-                	//alert(id)
-                	var url = '/notification/detail?id='+id;
-            		layer.open({
-            			type: 2,
-            			title: 'Notification Details',
-            			fixed: false, //不固定
-            			maxmin: true,
-            		    shadeClose: true, //点击遮罩关闭层
-            			area: ['60%', '85%'],
-            			content: url ,
-            			success:function(layero,index){
-            	        },
-            	        end:function(){
-            	        	//ShowApplicant();
-            	        }
-            		});
+                	//alert(location.pathname+location.search)
+                	location.href='/announcement/detail?id='+id+"&d="+encodeURIComponent(location.pathname+location.search);
                 }
                 </script>			
 <script src="/f/assets/js/layer.js"></script>

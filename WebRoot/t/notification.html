@@ -25,6 +25,7 @@
 .Interview {background-color: #0ee2f3;}
 .Activity {background-color: #364c66;}
 .Other {background-color: #a5df04;}
+.Birthday {background-color: #f0c33b;}
 .Key {color: #04d6df;}
 
 .close:hover {background: #9fa69f;}
@@ -131,7 +132,16 @@
                                             <td>
                                                 <div class="anntext">
                                                     <!-- <a href="<#if x.type==0>/announcement/detail/${(x.link_id)!}<#else>javascript:void(0)</#if>" <#if x.type==1>onclick="View('${x.id}');"</#if>>${x.title!}</a> -->
-                                                ${x.title!}
+                                                <#if x.type!=0 && x.type!=1>
+                                                	<#if x.type=6>
+                                                	Your Client <B>${x.title!}</B> is truning <B>${x.age!}</B> in <B>3 days</B>
+                                                	<#else>
+                                                		${x.title!}
+                                                	</#if>
+                                                <#else>
+                                                New Announcement <B>${x.title!}</B> has published
+                                                </#if>
+                                                
                                                 </div>
                                             </td>
                                             <td>
@@ -165,7 +175,12 @@
 	                                        </div>
                                             </td> -->   
                                             <td>
-                                            <a href="javascript:void(0)" ><button type="button" style="border-radius: 17px; width: 120px; background: #6ede38; outline: none; color: white;" onclick="DoubleClick('${x.id}','${x.type}','${x.link_id}');">View</button></td>
+                                            <#if x.type=6>
+                                                	<a href="/client/view?id=${x.link_id!}" ><button type="button" style="border-radius: 17px; width: 120px; background: #6ede38; outline: none; color: white;">View</button>
+                                                	<#else>
+                                                		<a href="javascript:void(0)" ><button type="button" style="border-radius: 17px; width: 120px; background: #6ede38; outline: none; color: white;" onclick="DoubleClick('${x.id}','${x.type}','${x.link_id}');">View</button>
+                                                	</#if>
+                                            </td>
                                             <!-- <td><a href="javascript:void(0)" onclick="View('${x.id}');" >View</a></td> -->
                                             <td><a href="/notification/del/${x.id}" class="close"><span>&times;</span></a></td>                                         
                                         </tr>
@@ -209,10 +224,14 @@
                 	});
                 }
                 function DoubleClick(id,type,link_id){
-                	if(type=='1' || type == '0')             		
-                		location.href='/announcement/detail?id='+link_id+"&d=1";
-                	else
+                	if(type=='1' || type == '0'){
+                		//alert(location.pathname+location.search)
+                		location.href='/announcement/detail?id='+link_id+"&d="+encodeURIComponent(location.pathname+location.search);
+                	}
+                	else{
                 		View(id);
+                	}
+                		
                 }
                 function View(id){
                 	//alert(id)

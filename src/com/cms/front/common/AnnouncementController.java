@@ -55,11 +55,7 @@ public class AnnouncementController extends Controller {
 		setAttr("edit",u.getInt("id"));
 		setAttr("author",author);
 		setAttr("content", c);
-		if (getParaToInt("d") == 0) {
-			setAttr("direct", "/announcement");
-		}else {
-			setAttr("direct", "/notification");
-		}
+		setAttr("direct", getPara("d"));
 		setAttr("views",Db.queryLong("select count(id) from content_view where content_id=?",id));
 		render("/t/ann-detail.html");
 	}
@@ -78,7 +74,7 @@ public class AnnouncementController extends Controller {
 		String type_name=(type==0)?"Announcement":"Notice";
 		String titles = getPara("content.title");
 		titles = titles.length() <= 20? titles: titles.substring(0, 19) + "...";
-		Db.update("update message set name=?, type=?, type_name=? where type=? and link_id=?","New Announcement &nbsp; <B>"+titles+"</B> &nbsp; has published",type,type_name,preType,id);
+		Db.update("update message set name=?, type=?, type_name=? where type=? and link_id=?",titles,type,type_name,preType,id);
 		System.out.println(id+"thsi asdsadsa");
 		renderJson(getModel(Content.class).update());
 	}

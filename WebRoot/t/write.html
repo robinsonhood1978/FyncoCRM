@@ -14,7 +14,7 @@
 <div class="am-u-sm-12 am-u-md-12">
         <div class="am-form-group">
             
-              <input style="width:100%;height:40px;" type="text" name="content.title" id="title" placeholder="title" value="" required>
+              <input style="width:100%;height:40px;" type="text" name="content.title" id="title" placeholder="title" value="" maxlength="100" required>
             
           </div>
 
@@ -316,7 +316,7 @@ function Check(){
 			
 			$.post(url, {"content.id":annid,"content.channel_id":ctg,
 				"content.title":title,"content.txt":txt, "content.priority":priority, "preChannelId":channelId }, function(data) {
-				if(data==0){
+				if(data.code==0){
 				 	mlayer.open({
 					    content: 'Fail',
 					    btn: 'Got it'
@@ -332,7 +332,7 @@ function Check(){
 					    	window.parent.location.reload();
 					    	parent.layer.close(index);
 					    	<#else>
-					    	parent.window.CloseLayer();
+					    	parent.window.CloseLayer(data.id);
 					    	</#if>
 					      }
 					  });

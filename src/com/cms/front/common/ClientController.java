@@ -244,10 +244,12 @@ public class ClientController extends Controller {
 			}
 			strId = strId.substring(0, strId.length()-1);
 			Db.update("delete from client where id in ("+strId+")");
+			Db.update("delete from message where type=6 and link_id in ("+strId+")");
 		}
 		else{
 			if(getParaToInt()>0)
 				Client.dao.deleteById(getParaToInt());
+				Db.update("delete from message where type=6 and link_id ="+getParaToInt());
 		}
 		index();
 	}
@@ -298,6 +300,9 @@ public class ClientController extends Controller {
 		//System.out.println(ja.toString());
 
 		boolean b = getModel(Client.class).set("id", id).set("loan", ja.toString()).set("birthday", DateFmt.USDate(birthday)).set("creator", u.getInt("id")).set("company_id", u.getInt("company_id")).save();
+		Db.update("insert into message (name,link_id,type,type_name,sender,receiver,create_time,alert_time) values "
+				+ "(?,?,?,?,?,?,?,?)",getPara("client.first_name")+" "+getPara("client.last_name"),id,6,"Birthday",
+				u.getInt("id"),u.getInt("id"),DateFmt.addLongDays(0),DateFmt.addDays(birthday,"dd/MM/yyyy","yyyy-MM-dd", (-1)*3));
 		if(b)code=0;
 		
 		Map<String, Integer> map = new HashMap<String, Integer>();
@@ -381,6 +386,8 @@ public class ClientController extends Controller {
 		    
 		}
 		boolean b = getModel(Client.class).set("loan", ja.toString()).set("birthday", DateFmt.USDate(birthday)).update();
+		Db.update("update message set name=?,alert_time=? where link_id=? and type=6",
+				getPara("client.first_name")+" "+getPara("client.last_name"),DateFmt.addDays(birthday,"dd/MM/yyyy","yyyy-MM-dd", (-1)*3),client_id);
 		if(b)code=0;
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("code",code);

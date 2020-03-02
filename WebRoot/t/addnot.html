@@ -40,11 +40,16 @@
                 </div> -->
                 <!-- // END drawer-layout__content -->
 <script>
-function CloseLayer(){
-	window.parent.location.reload(); //刷新父页面
+function CloseLayer(id){
+	//window.parent.location.reload(); //刷新父页面
 	var index = parent.layer.getFrameIndex(window.name);
-	//alert(index)
+	//alert(window.parent.location.pathname)
 	parent.layer.close(index);
+	goToView(id);
+}
+
+function goToView(id) {
+	window.parent.location.href='/announcement/detail?id='+id+"&d=0";
 }
 
 </script>

@@ -352,9 +352,11 @@
 	                                		alertid = data.id;
 	                                		reminder = data.reminder;
 	                    					layer.open({
+	                    						title:'notice',
 	                    					    content: 'success',
 	                    					    btn: 'Got it',
 	                    					  });
+	                    					$( "#notices" ).load(window.location.href + " #notices" );
 	                    				}
 	                                },"json");
 	                                $.ajaxSettings.async = true;
@@ -446,14 +448,15 @@
                         	a.find('select[name="category"]').val(n.className).trigger('change');
                         	a.find('select[name="reminder"]').val(n.reminder).trigger('change');
                         	var expanded = true;
-                        	i.modal("show");
-                        	if (permission) {
-                        		i.find(".delete-event").hide().end().find(".save-event").hide().end().find(".modal-body").empty().prepend(a).end().find(".delete-event").unbind("click").click(function() {});
-							}else{
+                        	i.modal("show"),
+//                        	if (permission) {
+//                        		i.find(".delete-event").hide().end().find(".save-event").hide().end().find(".modal-body").empty().prepend(a).end().find(".delete-event").unbind("click").click(function() {});
+//							}else{
 	                            i.find(".delete-event").show().end().find(".save-event").hide().end().find(".modal-body").empty().prepend(a).end().find(".delete-event").unbind("click").click(function() {
 	                            	$.ajaxSettings.async = false;
 	                                $.post("/calendar/del/", {id:n.alertid}, function(data) {
 	                                    if(data.code==1){
+	                                    	$( "#notices" ).load(window.location.href + " #notices" );
 	                    				}
 	                                },"json");
 	                                $.ajaxSettings.async = true;
@@ -461,8 +464,8 @@
 	                                    return t._id == n._id
 	                                }),
 	                                i.modal("hide")
-	                            });
-							}
+	                            }),
+//							}
                             i.find(".selectBox").on("click", function() {
                             	var checkboxes = document.getElementById("checkboxes");
                                 if (!expanded) {
@@ -530,6 +533,7 @@
 	                                //$.post("/calendar/update/", {id:n.alertid,title: n.title,start: starttime,end: endtime}, function(data) {
 	                                $.post("/calendar/update/", {id:n.alertid,title: r,reminder:reminder,start: starttime,end: endtime,others:others.join(),allDay: 0,className: c, content: content, parent_id: n.parent_id, preClassName:preClassName}, function(data) {
 	                                        	if(data.code==1){
+	                                        		$( "#notices" ).load(window.location.href + " #notices" );
 	                                		//alertid = data.id;
 	//                    					layer.open({
 	//                    					    content: 'success',

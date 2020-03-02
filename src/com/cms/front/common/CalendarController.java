@@ -302,7 +302,7 @@ public class CalendarController extends Controller {
 		int oldType = getType(preClassName);
 		for (int l_id  : getAlertId(id)) {
 			String messageUpdate = (u.getInt("id") != getUserIdByAlertId(l_id))? "with &nbsp;<span class='Key'>"+u.getStr("first_name")+"&nbsp;"+u.getStr("last_name")+"</span>" : "<span class='Key'>"+title+"</span>"; 
-			Db.update("update message set name=?, type=?, type_name=? where type=? and link_id=?","You have an upcoming &nbsp;<B>"+type_name+"</B> &nbsp;"+messageUpdate+"&nbsp; at &nbsp;<span class='Key'>"+local_time+"</span>",type,type_name,oldType,l_id);
+			Db.update("update message set name=?, type=?, type_name=?, alert_time=? where type=? and link_id=?","You have an upcoming &nbsp;<B>"+type_name+"</B> &nbsp;"+messageUpdate+"&nbsp; at &nbsp;<span class='Key'>"+local_time+"</span>",type,type_name,reminder_date,oldType,l_id);
 		}
 
 		Map map = new HashMap();
