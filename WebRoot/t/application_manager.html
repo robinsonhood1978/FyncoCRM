@@ -293,7 +293,7 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                            	<img src="/f/i/DU.jpg">
+                                            	<a href="javascript:void(0)" onClick="UploadManager('${(application.id)!}');"><img src="/f/i/DU.jpg"></a>
                                                 <label for="lname">Document Upload</label>
                                             </div>
                                         </div>
@@ -378,6 +378,23 @@ function SendPdf2Client(id,pdf){
 	        }
 		}); 
 	}
+}
+function UploadManager(id){
+	var url = '/application/uploadManager/?appid='+id;
+	layer.open({
+		type: 2,
+		title: 'Upload Manager',
+		fixed: false, //不固定
+		maxmin: true,
+	    shadeClose: true, //点击遮罩关闭层
+		area: ['80%', '80%'],
+		content: url ,
+		success:function(layero,index){
+        },
+        end:function(){
+			//alert(1)
+        }
+	}); 
 }
 function Move2NextStage(id,status){
 	var status = status*1+1;

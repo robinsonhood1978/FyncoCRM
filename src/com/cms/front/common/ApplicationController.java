@@ -23,6 +23,14 @@ import net.sf.json.JSONObject;
 
 @Before(MInterceptor.class)
 public class ApplicationController extends Controller {
+	public void documents() {
+		int code = 0;
+		getModel(Application.class).update();
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("code",code);
+		renderJson(map);
+	}
 	public void saverate() {
 		int code = 0;
 		String loanJson = getPara("loan");
@@ -50,6 +58,10 @@ public class ApplicationController extends Controller {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("code",code);
 		renderJson(map);
+	}
+	public void uploadManager() {
+		setAttr("application",Application.dao.findById(getPara("appid")));
+		render("/t/upload_manager.html");
 	}
 	public void editrate() {
 		setAttr("application",Application.dao.findById(getPara("appid")));

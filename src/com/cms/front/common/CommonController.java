@@ -699,6 +699,9 @@ public class CommonController extends Controller {
 			render("/WEB-INF/f/c/msg.html");
 		}
 	}
+	public void select() {
+		render("/t/select.html");
+	}
 	public void email_temp() {
 		render("/WEB-INF/f/c/verify_email.html");
 	}

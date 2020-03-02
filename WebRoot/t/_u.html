@@ -85,9 +85,55 @@
 
             <div class="mdk-drawer-layout js-mdk-drawer-layout" data-push data-responsive-width="992px">
                 <#nested>
-                
+                <div class="mdk-drawer  js-mdk-drawer" id="default-drawer" data-align="start">
+                    <div class="mdk-drawer__content">
+                        <div class="sidebar sidebar-light sidebar-left simplebar" data-simplebar>
+                            <div>
+                            <div style="display:inline-block" class="sidebar-heading sidebar-m-t">Uploaded Files</div>
+                            <div style="display:inline-block;float:right"><a href="javascript:void(0)" onclick="ShowEditDiv();" class="btn btn-primary">Edit</a></div>
+                            </div>
+                            <div style="display:none" id="EditDiv">
+                            <a href="javascript:void(0)" onclick="" class="btn btn-success ml-3">Rename</a>
+                            <a href="javascript:void(0)" onclick="" class="btn btn-success ml-3">Classification</a>
+                            </div>
+                            <div id="menus">
+                                                <div style="display:none;" id="menu">
+	                                                <div id="menu_[kid]">
+		                                                   <div class="row">  
+					                                       		<div class="col">
+						                                            <div class="form-group">
+						                                                <select style="width:100%" id="[kid]" name="classy">
+																			<option value="Application Form">Application Form</option>
+																			<option value="Approval Letter">Approval Letter</option>
+																		</select>
+						                                            </div>
+						                                     	</div>
+					                                       </div>
+	                                                </div>
+                                                </div>
+                                                
+                                                
+                                                <div style="display:none;" id="pdf_file">
+                                                
+                                                   <div class="row">  
+			                                       		<div class="col">
+				                                            <div class="form-group">
+				                                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">picture_as_pdf</i>
+				                                            [pdf_file]
+				                                            </div>
+				                                     	</div>
+			                                       </div>
+                                              
+                                                </div>
+                                                
+                             </div>   
+                            
 
-                
+                            
+
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- // END drawer-layout -->
 
@@ -139,6 +185,64 @@
     
     <script src="/f/assets/js/layer.js"></script>
 <script src="/f/assets/js/mobile/mlayer.js"></script>
+<script>
+function ShowEditDiv(){
+	$('#EditDiv').show();
+}
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+};
+function parseDom(arg) {
+
+	var objE = document.createElement("div");
+
+	objE.innerHTML = '<div>'+arg+'</div>';
+
+	return objE.childNodes;
+
+}
+function copyNode(nodeid,key){
+	var sourceNode = document.getElementById(nodeid); // 获得被克隆的节点对象 
+	var clonedNode = sourceNode.cloneNode(true); // 克隆节点 
+	
+	$node = $(clonedNode);
+	//$node.find('select[name="classy"]').val(key);
+	var nbk = key.replace(/\s+/g,"");
+	var html = $node.html().replaceAll('[kid]',nbk);  
+	//console.log(html)
+	var newnode = parseDom(html);
+	sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点 
+}
+function copyLeaf(nodeid,key,filename){
+	var sourceNode = document.getElementById(nodeid); // 获得被克隆的节点对象 
+	var clonedNode = sourceNode.cloneNode(true); // 克隆节点 
+	
+	$node = $(clonedNode);
+	//$node.find('select[name="classy"]').val(key);
+	var html = $node.html().replaceAll('[pdf_file]',filename);  
+	//console.log(html)
+	var newnode = parseDom(html);
+	var parentClass = document.getElementById("menu_"+nbk); 
+	parentClass.appendChild($(newnode)[0]); // 在父节点插入克隆的节点 
+}
+var doc = '${(application.documents)!}';
+var documents = jsonToStrMap(doc);
+for (var [key] of documents) {
+	  copyNode("menu",key);
+}
+var classy = document.getElementsByName("classy");
+for (var [ky,value] of documents) {
+	var nbk = ky.replace(/\s+/g,"");
+	$('#'+nbk).val(ky);
+	$('#'+nbk).attr("disabled", "disabled"); 
+	for(var i=0;i<value.length;i++){
+		var vlObj = value[i];
+		var filename = vlObj.filename;
+		copyLeaf("pdf_file",ky,filename);
+	}
+}
+</script>
 </body>
 
 </html>

@@ -1,0 +1,238 @@
+<#include "/t/_u.html" />
+<@layout>
+                <div class="mdk-drawer-layout__content page">
+
+
+
+                    <div class="container-fluid page__container">
+                        
+                        <div class="card card-form">
+                        <div class="col-lg-12 card-body" style="padding-bottom: 10px;font-size: 30px; background-color: #C0C0C0;">
+                                    <p><strong class="headings-color">Upload Manager</strong></p>
+                                    <!-- <p class="text-muted">Edit the loan information.</p> -->
+                                    
+                                </div>
+                            <div class="row no-gutters">
+          
+                                <div class="col-lg-12 card-form__body card-body">
+                                
+	                                	
+                                	
+                                 	<div class="row">
+                                        
+                                        <div class="col">
+                                            <div class="form-group">
+                                           
+                                                <#if finalProofList??>
+		<div class="parentFileBox" style="width: 100%;">
+		<ul class="fileBoxUl">
+			<#list finalProofList as c>
+				<li class="">
+				<div class="diyUnit"><div class="diyFileName">${c.name!}</div><div name="diyFileSize" class="diyFileSize"></div><div name="classification" class="classification"></div></div>
+				<div class="diyCancel"></div>
+				<div class="diySuccess" style="display: block;"></div>
+				<div class="diyBar" style="display: none;">
+				<div class="diyProgress" style="width: 100%;"></div>
+				<div class="diyProgressText">Uploading finished</div>
+				</div>
+				</li>
+			</#list>
+		</ul>
+		</div>
+		</#if>
+                                                <div id="demo">
+													<div id="final_proof_div"></div>
+												</div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                   
+                                   
+                                    
+                                    
+                                    
+                                
+                            
+                            </div>
+                            </div>
+                        </div>
+                    
+                        
+                        
+                        <div class="text-right mb-5">
+                        	
+                        	 <input type="hidden" id="appid" value="${(application.id)!}">
+                        	 <input type="hidden" id="final_proof" value="">
+                        	 <input type="hidden" id="classy" value="">
+                        	 <input type="hidden" id="pdf_num" value="">
+                        	 <input type="hidden" id="temp_num" value="0">
+                        	
+                        	
+                        	 
+                            
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- // END drawer-layout__content -->
+                <script>
+              
+                function conver(limit){
+            		var size = "";
+            		if( limit < 0.1 * 1024 ){ //如果小于0.1KB转化成B
+            			size = limit.toFixed(2) + "B"; 	
+            		}else if(limit < 0.1 * 1024 * 1024 ){//如果小于0.1MB转化成KB
+            			size = (limit / 1024).toFixed(2) + "KB";			
+            		}else if(limit < 0.1 * 1024 * 1024 * 1024){ //如果小于0.1GB转化成MB
+            			size = (limit / (1024 * 1024)).toFixed(2) + "MB";
+            		}else{ //其他转化成GB
+            			size = (limit / (1024 * 1024 * 1024)).toFixed(2) + "GB";
+            		}
+            		
+            		var sizestr = size + ""; 
+            		var len = sizestr.indexOf("\.");
+            		var dec = sizestr.substr(len + 1, 2);
+            		if(dec == "00"){//当小数点后为00时 去掉小数部分
+            			return sizestr.substring(0,len) + sizestr.substr(len + 3,2);
+            		}
+            		return sizestr;
+            	}
+                function strMapToObj(strMap) {
+				    let obj = Object.create(null);
+				    for (let [k,v] of strMap) {
+				        // We don’t escape the key '__proto__'
+				        // which can cause problems on older engines
+				        obj[k] = v;
+				    }
+				    return obj;
+				}
+				
+				function objToStrMap(obj) {
+				    let strMap = new Map();
+				    for (let k of Object.keys(obj)) {
+				        strMap.set(k, obj[k]);
+				    }
+				    return strMap;
+				}
+				function strMapToJson(strMap) {
+				    return JSON.stringify(strMapToObj(strMap));
+				}
+
+				function jsonToStrMap(jsonStr) {
+				    return objToStrMap(JSON.parse(jsonStr));
+				}
+                /*
+
+                * 服务器地址,成功返回,失败返回参数格式依照jquery.ajax习惯;
+
+                * 其他参数同WebUploader
+
+                */
+                $('#final_proof_div').diyUpload({
+
+                	url:'/file/file',
+
+                	success:function( data ) {
+
+                		var fp = $('#final_proof').val();
+                		if(fp==''){
+                			
+                		}
+                		else{
+                			fp = fp + "," ;
+                		}
+                		fp = fp + data.data[0];
+                		$('#final_proof').val(fp);
+                		$('#temp_num').val($('#temp_num').val()*1+1);
+                		var pdf_num = $('#pdf_num').val();
+                		if($('#temp_num').val()==pdf_num){
+                			var classy = new Array();
+                			var filenames = new Array();
+                			var filesizes = new Array();
+                			var classifiy = document.getElementsByName("classify");
+                			var file_name = document.getElementsByName("file_name");
+                			var file_size = document.getElementsByName("file_size");
+                			for(var i=0;i<classifiy.length;i++){
+                				  filenames.push(file_name[i].value);
+                				  filesizes.push(file_size[i].value);
+	               				  for(var j=0;j<classifiy[i].options.length;j++){
+	               				       if(classifiy[i].options[j].selected){
+	               				    	   classy.push(classifiy[i].options[j].value);
+	               				           break;
+	               				       }
+	               				   }
+                			}
+                			var strClassy = String(classy);
+                			$('#classy').val(strClassy);
+                			//alert($('#classy').val());
+                			
+                			var checklist = new Map();
+            				var url = $('#final_proof').val();
+            				var urls = url.split(",");
+            				for(var i=0;i<pdf_num;i++){
+            					var key = classy[i];
+            					var checkArr = new Array();
+            					var check = new Object();
+            					
+            					check.name=key;
+            					check.filename = filenames[i];
+            					check.filesize = filesizes[i];
+            					check.url = urls[i];
+            					
+            					if(checklist.has(key)){
+            						checkArr = checklist.get(key);
+            					}
+            					checkArr.push(check);
+            					checklist.set(key,checkArr);
+            				}
+            				var documents = strMapToJson(checklist);
+            				var appid = $('#appid').val();
+
+                			$.post("/application/documents", {"application.id":appid,"application.documents":documents}, function(data) {
+            					if(data.code==0){
+            						mlayer.open({
+    								    content: 'Success',
+    								    btn: 'Got it',
+    								    yes: function(){
+    								    	var index = parent.layer.getFrameIndex(window.name);
+    								    	parent.layer.close(index);
+    								      }
+    								  });
+            					}
+            					return false;
+            				}, "json");   
+                		}
+                		//console.info( $('#final_proof').val() );
+                		//alert($('#final_proof').val());
+
+                	},
+
+                	error:function( err ) {
+
+                		console.info( err );	
+
+                	},
+
+                	buttonText : 'Select More Files',
+
+                	//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
+
+                	fileNumLimit:5,
+
+                	fileSizeLimit:25000 * 1024,
+
+                	fileSingleSizeLimit:5000 * 1024,
+
+                	accept: {}
+
+                });
+                window.onload = function() { 
+                	
+                	
+                }; 
+                
+</script>
+</@layout>

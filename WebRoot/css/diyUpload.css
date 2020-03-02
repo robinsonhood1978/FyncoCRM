@@ -17,25 +17,29 @@
 	float:left;
 	border:1px solid #09F;
 	border-radius:5px;
-	width:170px;
-	height:150px;
+	width:90%;
+	height:50px;
 	margin-top:5px;
 	margin-left:5px;
+	margin-right:5px;
 	overflow:hidden;
 	position:relative;
-	background-color:#099;
+	/*background-color:#099;*/
 }
 .parentFileBox>.fileBoxUl>li>.viewThumb {
 	position:absolute;
 	top:0;
 	left:0;
-	width:170px;
+	width:100%;
 	height:150px;
 	overflow:hidden;
 }
 .parentFileBox>.fileBoxUl>li>.viewThumb>img {
 	width:100%;
 	height:100%;
+}
+.parentFileBox>.fileBoxUl>li>.diyUnit {
+	/*position:relative;*/
 }
 .parentFileBox>.fileBoxUl>li>.diyCancel,.parentFileBox>.fileBoxUl>li>.diySuccess {
 	position:absolute;
@@ -53,18 +57,46 @@
 	background:url(/images/check_alt.png) no-repeat;
 	cursor:default;
 }
-.parentFileBox>.fileBoxUl>li>.diyFileName {
-	position:absolute;
+.parentFileBox>.fileBoxUl>li>.diyUnit>.diyFileName {
+	float:left;
 	bottom:0px;
 	left:0px;
-	width:100%;
-	height:20px;
-	line-height:20px;
+	width:40%;
+	height:40px;
+	line-height:40px;
 	text-align:center;
-	color:#fff;
-	font-size:12px;
-	display:none;
-	background:url(/images/bgblack.png);
+	color:#000;
+	font-size:20px;
+	display:inline-block;
+	/*background:url(/images/bgblack.png);*/
+}
+.parentFileBox>.fileBoxUl>li>.diyUnit>.diyFileSize {
+	float:left;
+	bottom:0px;
+	left:0px;
+	width:20%;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+	color:#000;
+	font-size:20px;
+	display:inline-block;
+	/*background:url(/images/bgblack.png);*/
+}
+.parentFileBox>.fileBoxUl>li>.diyUnit>.classificaiton {
+	float:left;
+	margin-top:20px;
+	vetical-align:middle;
+	bottom:0px;
+	left:0px;
+	width:40%;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+	vertical-align:center;
+	color:#000;
+	font-size:20px;
+	display:inline-block;
 }
 .parentFileBox>.fileBoxUl>li>.diyBar {
 	top:0;
@@ -152,7 +184,7 @@
 	background-image:url(/images/filebg/mp3.png);
 }
 .pdf_diy_bg {
-	background-image:url(/images/filebg/pdf.png);
+	/*background-image:url(/images/filebg/pdf.png);*/
 }
 .rar_diy_bg {
 	background-image:url(/images/filebg/rar.png);
