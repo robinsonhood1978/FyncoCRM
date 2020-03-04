@@ -102,7 +102,7 @@ public class AnnouncementController extends Controller {
 		boolean count1 = delChannel(contentId);
 		// 删除关键字关联表对应的content记录
 		boolean count4 = delKeyByContent(contentId);
-		count4 = delView(contentId);
+		//count4 = delView(contentId);
 		count4 = delNotification(contentId);
 		// 删除content记录中对应的图片
 		delImg(contentId);
@@ -130,7 +130,7 @@ public class AnnouncementController extends Controller {
 	 */
 	private boolean delNotification(int contentId) {
 		int i = Db.update("delete from message where (type=0 or type=1) and link_id=?",contentId);
-		System.out.println(i+"deleleele  hwo");
+//		System.out.println(i+"deleleele  hwo");
 		return true;
 	}
 	

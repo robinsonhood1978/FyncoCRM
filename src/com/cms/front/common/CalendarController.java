@@ -2,6 +2,8 @@ package com.cms.front.common;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -114,8 +116,8 @@ public class CalendarController extends Controller {
 		User u = getSessionAttr("user");
 		//allDay=0  start=1575244800000  end=1575331200000  className=bg-danger  title=33  
 		String title = getPara("title");
-		long start = getParaToLong("start")/1000;
-		long end = getParaToLong("end")/1000;
+		long start = (getParaToLong("start")+(13*3600000))/1000;
+		long end = (getParaToLong("end")+(13*3600000))/1000;
 		String class_name = getPara("className");
 		String content = getPara("content");
 		
@@ -157,15 +159,17 @@ public class CalendarController extends Controller {
 		String start_date=DateFmt.TimeStamp2Date(String.valueOf(start), "");
 		String reminder_date = DateFmt.addLongDays(start_date, (-1)*reminder);
 //		String local_time = DateFmt.TimeStamp2Date(String.valueOf(start),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
-		String local_time = DateFmt.timestamp2str(new Timestamp((start*1000)+(13*3600000)),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
-		
-		
+		String local_time = DateFmt.timestamp2str(new Timestamp(start*1000),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY)+13);
+		Date today = calendar.getTime();
 		int i = Db.update("insert into alert (title,content,type,type_name,start_time,end_time,class_name,allday,creator,user_id,alert_time) values "
 				+ "(?,?,?,?,from_unixtime(?),from_unixtime(?),?,?,?,?,?)",title,content,type,type_name,start,end,class_name,all_day,u.getInt("id"),u.getInt("id"),reminder_date);
 		int id = Db.queryInt("select max(id) from alert");
 		String message = "<span class='Key'>"+title+"</span>";
 		Db.update("insert into message (name,link_id,type,type_name,sender,receiver,create_time,alert_time) values (?,?,?,?,?,?,?,?)",
-				"You have an upcoming &nbsp;<B>"+type_name+"</B> &nbsp;"+message+"&nbsp; at &nbsp;<span class='Key'>"+local_time+"</span>",id,type,type_name,u.getInt("id"),u.getInt("id"),DateFmt.addLongDays(0),reminder_date);
+				"You have an upcoming &nbsp;<B>"+type_name+"</B> &nbsp;"+message+"&nbsp; at &nbsp;<span class='Key'>"+local_time+"</span>",id,type,type_name,u.getInt("id"),u.getInt("id"),today,reminder_date);
 		int link_id = id;
 		if(!others.equals("")) {
 			String[] arr_others = others.split(",");
@@ -174,7 +178,7 @@ public class CalendarController extends Controller {
 						+ "(?,?,?,?,?,from_unixtime(?),from_unixtime(?),?,?,?,?,?)",id,title,content,type,type_name,start,end,class_name,all_day,u.getInt("id"),other,reminder_date);
 				String otherMessage = "with &nbsp;<span class='Key'>"+u.getStr("first_name")+"&nbsp;"+u.getStr("last_name")+"</span>";
 				Db.update("insert into message (name,link_id,type,type_name,sender,receiver,create_time,alert_time) values (?,?,?,?,?,?,?,?)",
-						"You have an upcoming &nbsp;<B>"+type_name+"</B> &nbsp;"+otherMessage+"&nbsp; at &nbsp;<span class='Key'>"+local_time+"</span>",++link_id,type,type_name,u.getInt("id"),other,DateFmt.addLongDays(0),reminder_date);
+						"You have an upcoming &nbsp;<B>"+type_name+"</B> &nbsp;"+otherMessage+"&nbsp; at &nbsp;<span class='Key'>"+local_time+"</span>",++link_id,type,type_name,u.getInt("id"),other,today,reminder_date);
 			
 			}
 		}
@@ -217,8 +221,8 @@ public class CalendarController extends Controller {
 		int id = getParaToInt("id");//event id.
 		String parent_id = getPara("parent_id");
 		String title = getPara("title");
-		long start = getParaToLong("start")/1000;
-		long end = getParaToLong("end")/1000;
+		long start = (getParaToLong("start")+(13*3600000))/1000;
+		long end = (getParaToLong("end")+(13*3600000))/1000;
 		String class_name = getPara("className");
 		String content = getPara("content");
 		String others = getPara("others");
@@ -262,14 +266,11 @@ public class CalendarController extends Controller {
 		String end_date=DateFmt.TimeStamp2Date(String.valueOf(end), "");
 		String reminder_date = DateFmt.addLongDays(start_date, (-1)*reminder);
 //		String local_time = DateFmt.TimeStamp2Date(String.valueOf(start),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
-		String local_time = DateFmt.timestamp2str(new Timestamp((start*1000)+(13*3600000)),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
-//		
-//		if (!parent_id.equals("")) {
-//			
-//		}
-//		System.out.println("Id:"+id+"|parent_id:"+parent_id+"|title:"+title+"|start:"+start+"| end"+end+"|classname:"+class_name+"|content:"+content+"|others:"+others);
-//		long start = getParaToLong("start")/1000;
-//		long end = getParaToLong("end")/1000;
+		String local_time = DateFmt.timestamp2str(new Timestamp(start*1000),"hh:mm a dd/MM/yyyy").replace("AM", "am").replace("PM", "pm");
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY)+13);
+		Date today = calendar.getTime();
+		
 		User u = getSessionAttr("user");
 		Map<String, ArrayList<Integer>> test = getNewParticipant(getUsers(id),others,u.getInt("id"));
 		System.out.println(test.get("remove")+"|r and a|"+test.get("add"));
@@ -295,7 +296,7 @@ public class CalendarController extends Controller {
 				int link_id = Db.queryInt("select max(id) from alert");
 				String message = "with &nbsp;<span class='Key'>"+u.getStr("first_name")+"&nbsp;"+u.getStr("last_name")+"</span>";
 				Db.update("insert into message (name,link_id,type,type_name,sender,receiver,create_time,alert_time) values (?,?,?,?,?,?,?,?)",
-						"You have an upcoming &nbsp;<B>"+type_name+"</B> &nbsp;"+message+"&nbsp; at &nbsp;<span class='Key'>"+local_time+"</span>",link_id,type,type_name,u.getInt("id"),other,DateFmt.addLongDays(0),reminder_date);
+						"You have an upcoming &nbsp;<B>"+type_name+"</B> &nbsp;"+message+"&nbsp; at &nbsp;<span class='Key'>"+local_time+"</span>",link_id,type,type_name,u.getInt("id"),other,today,reminder_date);
 			}
 		}
 		//update all data that related to current event 
@@ -318,7 +319,7 @@ public class CalendarController extends Controller {
 	@ClearInterceptor(ClearLayer.ALL)
 	public void user() {
 		User u = getSessionAttr("user");
-		List<Record> l = Db.find("select 0 ifnew,id alertid,title,parent_id,content,UNIX_TIMESTAMP(start_time)*1000+13*3600000 start,UNIX_TIMESTAMP(end_time)*1000+13*3600000 end,class_name className,DATEDIFF(start_time, alert_time ) AS reminder from alert where user_id=?",u.getInt("id"));
+		List<Record> l = Db.find("select 0 ifnew,id alertid,title,parent_id,content,UNIX_TIMESTAMP(start_time)*1000 start,UNIX_TIMESTAMP(end_time)*1000 end,class_name className,DATEDIFF(start_time, alert_time ) AS reminder from alert where user_id=?",u.getInt("id"));
 		
 		renderJson(l);
 		//renderText("[{title: 'Hey!',start: 1576833300000,className: 'bg-warning'}, {title: 'See John Deo',start: 1576833300000,end: 1576833300000,className: 'bg-success'}, {title: 'Meet John Deo',start: 1576833300000,className: 'bg-info'}, {title: 'Buy a Theme',start: 1576833300000,className: 'bg-primary'}]");

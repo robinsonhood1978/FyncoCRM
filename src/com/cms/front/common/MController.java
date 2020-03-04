@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -356,11 +357,14 @@ public class MController extends Controller {
 	public void publish() {
 		int code=0;
 		String msg = "";
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY)+13);
+		final Date today = calendar.getTime();
 		final User loginUser = getSessionAttr("user");
 		boolean succeed = Db.tx(new IAtom() {
 			public boolean run() throws SQLException {
 				getModel(Content.class)
-				.set("release_date",DateFmt.addLongDays(0))
+				.set("release_date",today)
 				.set("creator", loginUser.getInt("id"))
 				.set("author", loginUser.getStr("first_name")+" "+loginUser.getStr("last_name")).save();
 				//拿到刚刚添加文字的ID
@@ -379,7 +383,7 @@ public class MController extends Controller {
 				titles = titles.length() <= 20? titles: titles.substring(0, 19) + "...";
 				for(Record r:ul) {
 					Db.update("insert into message (name,link_id,type,type_name,sender,receiver,create_time,alert_time) values (?,?,?,?,?,?,?,?)",
-							titles,contentId,type,type_name,loginUser.getInt("id"),r.getInt("id"),DateFmt.addLongDays(0),DateFmt.addLongDays(0));
+							titles,contentId,type,type_name,loginUser.getInt("id"),r.getInt("id"),today,today);
 				}
 				return true;
 			}
