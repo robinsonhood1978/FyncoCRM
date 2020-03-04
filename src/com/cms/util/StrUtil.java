@@ -2,11 +2,50 @@ package com.cms.util;
 
 import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
+
 public class StrUtil {
+	public static JSONArray joinJSONArray(JSONArray array1, JSONArray array2) {
+        StringBuffer sbf = new StringBuffer();
+        
+        try {
+            int len = array1.size();
+            for (int i = 0; i < len; i++) {
+                JSONObject obj1 = (JSONObject) array1.get(i);
+                if (i == len - 1)
+                    sbf.append(obj1.toString());
+                else
+                    sbf.append(obj1.toString()).append(",");
+            }
+            len = array2.size();
+            if (len > 0)
+                sbf.append(",");
+            for (int i = 0; i < len; i++) {
+                JSONObject obj2 = (JSONObject) array2.get(i);
+                if (i == len - 1)
+                    sbf.append(obj2.toString());
+                else
+                    sbf.append(obj2.toString()).append(",");
+            }
+            
+            sbf.insert(0, "[").append("]");
+            JSONArray jSONArray = JSONArray.fromObject(sbf.toString());
+            return jSONArray;
+        } catch (Exception e) {
+        }
+        return null;
+    }
 	public static String formatString(Double data) {
 		if(data!=0) {
 			DecimalFormat df = new DecimalFormat("#,###.00"); 
@@ -108,7 +147,50 @@ public class StrUtil {
 		}	
 		return route;
 	}
-	
+	public static Map<String, Object> jsonToMap(JSONObject json) throws JSONException {
+	    Map<String, Object> retMap = new HashMap<String, Object>();
+
+	    if(!json.isNullObject()) {
+	        retMap = toMap(json);
+	    }
+	    return retMap;
+	}
+
+	public static Map<String, Object> toMap(JSONObject object) throws JSONException {
+	    Map<String, Object> map = new HashMap<String, Object>();
+
+	    Iterator<String> keysItr = object.keys();
+	    while(keysItr.hasNext()) {
+	        String key = keysItr.next();
+	        Object value = object.get(key);
+
+	        if(value instanceof JSONArray) {
+	            value = toList((JSONArray) value);
+	        }
+
+	        else if(value instanceof JSONObject) {
+	            value = toMap((JSONObject) value);
+	        }
+	        map.put(key, value);
+	    }
+	    return map;
+	}
+
+	public static List<Object> toList(JSONArray array) throws JSONException {
+	    List<Object> list = new ArrayList<Object>();
+	    for(int i = 0; i < array.size(); i++) {
+	        Object value = array.get(i);
+	        if(value instanceof JSONArray) {
+	            value = toList((JSONArray) value);
+	        }
+
+	        else if(value instanceof JSONObject) {
+	            value = toMap((JSONObject) value);
+	        }
+	        list.add(value);
+	    }
+	    return list;
+	}
 	 public static void main(String[] args) throws UnsupportedEncodingException {
 		 System.out.println(StrUtil.replaceBlank("just do it!"));
 	 }

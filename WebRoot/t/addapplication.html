@@ -4117,8 +4117,7 @@ function SaveApp(autosave){
 						"application.total_assets":total_assets,
 						"application.total_liability":total_liability,
 						"application.equity":equity,
-						"application.total_security":total_security,
-						"application.documents":documents}, function(data) {
+						"application.total_security":total_security}, function(data) {
 						if(data.code==1){
 							if(autosave==1){
 								mlayer.open({

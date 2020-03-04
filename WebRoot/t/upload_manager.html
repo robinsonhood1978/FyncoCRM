@@ -23,12 +23,13 @@
                                         <div class="col">
                                             <div class="form-group">
                                            
-                                                <#if finalProofList??>
+                                                <#if docList??>
 		<div class="parentFileBox" style="width: 100%;">
 		<ul class="fileBoxUl">
-			<#list finalProofList as c>
-				<li class="">
-				<div class="diyUnit"><div class="diyFileName">${c.name!}</div><div name="diyFileSize" class="diyFileSize"></div><div name="classification" class="classification"></div></div>
+			<#list docList as c>
+				<li class="diyUploadHover">
+				<div><input style="display:none;" type="radio" name="diySelect" value="${c.id}"></div>
+				<div class="diyUnit"><div class="diyFileName">${c.name!}</div><div name="diyFileSize2" class="diyFileSize">${c.filesize!}</div><div name="classify2" class="classification">${c.classification!}</div></div>
 				<div class="diyCancel"></div>
 				<div class="diySuccess" style="display: block;"></div>
 				<div class="diyBar" style="display: none;">
@@ -136,6 +137,7 @@
                 	url:'/file/file',
 
                 	success:function( data ) {
+           				
 
                 		var fp = $('#final_proof').val();
                 		if(fp==''){
@@ -148,6 +150,8 @@
                 		$('#final_proof').val(fp);
                 		$('#temp_num').val($('#temp_num').val()*1+1);
                 		var pdf_num = $('#pdf_num').val();
+                		var appid = $('#appid').val();
+           				
                 		if($('#temp_num').val()==pdf_num){
                 			var classy = new Array();
                 			var filenames = new Array();
@@ -169,6 +173,7 @@
                 			$('#classy').val(strClassy);
                 			//alert($('#classy').val());
                 			
+           				
                 			var checklist = new Map();
             				var url = $('#final_proof').val();
             				var urls = url.split(",");
@@ -177,7 +182,7 @@
             					var checkArr = new Array();
             					var check = new Object();
             					
-            					check.name=key;
+            					check.classification=key;
             					check.filename = filenames[i];
             					check.filesize = filesizes[i];
             					check.url = urls[i];
@@ -189,9 +194,8 @@
             					checklist.set(key,checkArr);
             				}
             				var documents = strMapToJson(checklist);
-            				var appid = $('#appid').val();
-
-                			$.post("/application/documents", {"application.id":appid,"application.documents":documents}, function(data) {
+            				//alert(documents)
+                			$.post("/application/documents", {"application.id":appid,"documents":documents}, function(data) {
             					if(data.code==0){
             						mlayer.open({
     								    content: 'Success',

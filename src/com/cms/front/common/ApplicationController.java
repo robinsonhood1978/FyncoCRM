@@ -1,5 +1,6 @@
 package com.cms.front.common;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,11 +8,16 @@ import java.util.Map;
 
 import com.cms.admin.user.User;
 import com.cms.front.entity.Application;
+import com.cms.front.entity.ApplicationAtt;
 import com.cms.front.entity.Client;
 import com.cms.front.entity.Task;
 import com.cms.util.DateFmt;
 import com.cms.util.FileUtil;
 import com.cms.util.PdfUtil;
+import com.cms.util.StrUtil;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
@@ -23,9 +29,69 @@ import net.sf.json.JSONObject;
 
 @Before(MInterceptor.class)
 public class ApplicationController extends Controller {
-	public void documents() {
+	public void savedoc() {
 		int code = 0;
-		getModel(Application.class).update();
+		String name = getPara("name");
+		String classification = getPara("classy");
+		int id = getParaToInt("id");
+
+		getModel(ApplicationAtt.class).set("id", id).set("name", name).set("classification", classification).update();
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("code",code);
+		renderJson(map);
+	}
+	public void rename() {
+		setAttr("action","rename");
+		setAttr("att",ApplicationAtt.dao.findById(getPara("attid")));
+		render("/t/rename_doc.html");
+	}
+	public void classy() {
+		setAttr("action","classy");
+		setAttr("att",ApplicationAtt.dao.findById(getPara("attid")));
+		render("/t/rename_doc.html");
+	}
+	public void documents() throws JsonParseException, JsonMappingException, IOException {
+		int code = 0;
+		int appid = getParaToInt("application.id");
+		String doc = getPara("documents");
+		Application app = Application.dao.findById(appid);
+		String docJson = app.getStr("documents");
+		ObjectMapper mapper = new ObjectMapper();    
+		Map<String,Object> oriMap = new HashMap<String,Object>();
+		if(docJson!=null) {
+			oriMap = mapper.readValue(docJson, Map.class);  
+		}
+		Map<String,Object> docMap = mapper.readValue(doc, Map.class);  
+		int j = 1;
+		for (String key : docMap.keySet()) {
+			JSONArray oriMapArray = null;
+			if(!oriMap.isEmpty()) {
+				oriMapArray = JSONArray.fromObject(oriMap.get(key));
+			}
+			JSONArray jsonArray = JSONArray.fromObject(docMap.get(key));
+			if(!oriMap.isEmpty()) {
+				oriMapArray.addAll(jsonArray);
+			}
+			else {
+				oriMapArray = jsonArray;
+			}
+			oriMap.put(key, oriMapArray);
+			for (int i = 0; i < jsonArray.size(); i++) {
+				JSONObject obj = jsonArray.getJSONObject(i);
+				String filename = obj.getString("filename");
+				String classification = obj.getString("classification");
+				String filesize = obj.getString("filesize");
+				String url = obj.getString("url");
+				Db.update("insert into application_att (appid,classification,name,filesize,url,priority) values (?,?,?,?,?,?)",
+						appid,classification,filename,filesize,url,j++);
+			}
+			
+		}
+
+		String documentStr = mapper.writeValueAsString(oriMap);
+		System.out.println(documentStr);
+		getModel(Application.class).set("documents", documentStr).update();
 		
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("code",code);
@@ -61,6 +127,7 @@ public class ApplicationController extends Controller {
 	}
 	public void uploadManager() {
 		setAttr("application",Application.dao.findById(getPara("appid")));
+		setAttr("docList",Db.find("select * from application_att where appid=?",getPara("appid")));
 		render("/t/upload_manager.html");
 	}
 	public void editrate() {

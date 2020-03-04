@@ -1,0 +1,88 @@
+<#include "/t/_s.html" />
+<@layout>
+                <div class="mdk-drawer-layout__content page">
+
+
+
+                    <div class="container-fluid page__container">
+                        <div class="card card-form">
+                        <div class="col-lg-12 card-body" style="padding-bottom: 10px;font-size: 30px; background-color: #C0C0C0;">
+                                    <p><strong class="headings-color">Rename Document</strong></p>
+                                    <!-- <p class="text-muted">Edit the client general information.</p> -->
+                                    
+                                </div>
+                            <div class="row no-gutters">
+                                
+                                <div class="col-lg-12 card-form__body card-body">
+                                	
+                                 	<div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="fname">Document Name</label>
+                                                <input type="text" class="form-control" id="name" value="${(att.name)!}">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lname">Classification</label>
+                                                <select style="width:100%" id="classy" name="classy">
+																			<option value="Application Form">Application Form</option>
+																			<option value="Approval Letter">Approval Letter</option>
+																		</select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                   
+                                    
+                                   
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+ 
+
+                        
+                        <div class="text-right mb-5">
+                        <input type="hidden" id="attid" value="${(att.id)!}">
+                            <button class="btn btn-success" onClick="return Save();">Save</button>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- // END drawer-layout__content -->
+                <script>
+                function Save(){
+                	var attid = $('#attid').val();
+                	var name = $('#name').val();
+                	var classy = $('#classy').val();
+                	alert(name)
+                	alert(classy)
+                	$.post("/application/savedoc", {"id":attid,"name":name,"classy":classy}, function(data) {
+    					if(data.code==0){
+    						mlayer.open({
+							    content: 'Success',
+							    btn: 'Got it',
+							    yes: function(){
+							    	var index = parent.layer.getFrameIndex(window.name);
+							    	parent.layer.close(index);
+							      }
+							  });
+    					}
+    					return false;
+    				}, "json");   
+                }
+				window.onload = function() { 
+					$('#classy').val('${(att.classification)!}');
+					<#if action='rename'>
+					$('#classy').attr("disabled", "disabled"); 
+					<#else>
+					$('#name').prop('readonly', true);
+					</#if>
+                	
+                }; 
+                
+</script>
+</@layout>

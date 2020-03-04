@@ -93,8 +93,9 @@
                             <div style="display:inline-block;float:right"><a href="javascript:void(0)" onclick="ShowEditDiv();" class="btn btn-primary">Edit</a></div>
                             </div>
                             <div style="display:none" id="EditDiv">
-                            <a href="javascript:void(0)" onclick="" class="btn btn-success ml-3">Rename</a>
-                            <a href="javascript:void(0)" onclick="" class="btn btn-success ml-3">Classification</a>
+                            <a href="javascript:void(0)" onclick="DeleteDoc();" class="btn btn-success ml-3">Delete</a>
+                            <a href="javascript:void(0)" onclick="RenameDoc();" class="btn btn-success ml-3">Rename</a>
+                            <a href="javascript:void(0)" onclick="ClassDoc();" class="btn btn-success ml-3">Classification</a>
                             </div>
                             <div id="menus">
                                                 <div style="display:none;" id="menu">
@@ -186,8 +187,101 @@
     <script src="/f/assets/js/layer.js"></script>
 <script src="/f/assets/js/mobile/mlayer.js"></script>
 <script>
+function ClassDoc(){
+	var val=$('input:radio[name="diySelect"]:checked').val();
+    if(val==null){
+    	mlayer.open({
+		    content: 'Please select one file at first!',
+		    btn: 'Got it'
+		    
+		  });
+        return false;
+    }
+    else{
+    	var url = '/application/classy/?attid='+val;
+    	layer.open({
+    		type: 2,
+    		title: 'Modify Classification of Document',
+    		fixed: false, //不固定
+    		maxmin: true,
+    	    shadeClose: true, //点击遮罩关闭层
+    		area: ['80%', '80%'],
+    		content: url ,
+    		success:function(layero,index){
+            },
+            end:function(){
+    			//alert(1)
+            }
+    	}); 
+    }
+	
+}
+function RenameDoc(){
+	var val=$('input:radio[name="diySelect"]:checked').val();
+    if(val==null){
+    	mlayer.open({
+		    content: 'Please select one file at first!',
+		    btn: 'Got it'
+		    
+		  });
+        return false;
+    }
+    else{
+    	var url = '/application/rename/?attid='+val;
+    	layer.open({
+    		type: 2,
+    		title: 'Rename Document',
+    		fixed: false, //不固定
+    		maxmin: true,
+    	    shadeClose: true, //点击遮罩关闭层
+    		area: ['80%', '80%'],
+    		content: url ,
+    		success:function(layero,index){
+            },
+            end:function(){
+    			//alert(1)
+            }
+    	}); 
+    }
+	
+}
+function DeleteDoc(){
+	var val=$('input:radio[name="diySelect"]:checked').val();
+    if(val==null){
+    	mlayer.open({
+		    content: 'Please select one file at first!',
+		    btn: 'Got it'
+		    
+		  });
+        return false;
+    }
+    else{
+    	mlayer.open({
+    	    content: 'It cannot be recovered after deletion. Do you really want to delete this file?'
+    	    ,btn: ['Yes', 'Cancel']
+    	    ,yes: function(index){
+    	    	alert(val)
+    	        mlayer.close(index);
+    	    }
+    	    ,no:function(index){
+    	    	mlayer.close(index);
+    	    }
+    	  });
+    }
+	
+}
+var switching = false;
 function ShowEditDiv(){
-	$('#EditDiv').show();
+	if(!switching){
+		$('#EditDiv').show();
+		$('input[type="radio"]').show();
+		switching = true;
+	}
+	else{
+		$('#EditDiv').hide();
+		$('input[type="radio"]').hide();
+		switching = false;
+	}
 }
 String.prototype.replaceAll = function(search, replacement) {
     var target = this;
