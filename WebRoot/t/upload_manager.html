@@ -28,7 +28,7 @@
 		<ul class="fileBoxUl">
 			<#list docList as c>
 				<li class="diyUploadHover">
-				<div><input style="display:none;" type="radio" name="diySelect" value="${c.id}"></div>
+				
 				<div class="diyUnit"><div class="diyFileName">${c.name!}</div><div name="diyFileSize2" class="diyFileSize">${c.filesize!}</div><div name="classify2" class="classification">${c.classification!}</div></div>
 				<div class="diyCancel"></div>
 				<div class="diySuccess" style="display: block;"></div>
@@ -201,8 +201,9 @@
     								    content: 'Success',
     								    btn: 'Got it',
     								    yes: function(){
-    								    	var index = parent.layer.getFrameIndex(window.name);
-    								    	parent.layer.close(index);
+    								    	window.location.reload(); 
+    								    	//var index = parent.layer.getFrameIndex(window.name);
+    								    	//parent.layer.close(index);
     								      }
     								  });
             					}
@@ -234,8 +235,10 @@
 
                 });
                 window.onload = function() { 
-                	
-                	
+                	var filesize = document.getElementsByName("diyFileSize2");
+                	for(var i=0;i<filesize.length;i++){
+                		filesize[i].innerHTML=conver(filesize[i].innerHTML);
+                	}
                 }; 
                 
 </script>

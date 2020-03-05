@@ -106,6 +106,12 @@
 						                                                <select style="width:100%" id="[kid]" name="classy">
 																			<option value="Application Form">Application Form</option>
 																			<option value="Approval Letter">Approval Letter</option>
+																			<option value="Appraisal">Appraisal</option>
+																			<option value="Gifting Letter">Gifting Letter</option>
+																			<option value="Proof of Identity">Proof of Identity</option>
+																			<option value="Rate Lock Form">Rate Lock Form</option>
+																			<option value="Sales Purchase Agreement">Sales Purchase Agreement</option>
+																			<option value="IRD Summary">IRD Summary</option>
 																		</select>
 						                                            </div>
 						                                     	</div>
@@ -119,6 +125,7 @@
                                                    <div class="row">  
 			                                       		<div class="col">
 				                                            <div class="form-group">
+				                                            <input style="display:none;" type="checkbox" name="diySelect" value="[attid]">
 				                                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">picture_as_pdf</i>
 				                                            [pdf_file]
 				                                            </div>
@@ -188,12 +195,15 @@
 <script src="/f/assets/js/mobile/mlayer.js"></script>
 <script>
 function ClassDoc(){
-	var val=$('input:radio[name="diySelect"]:checked').val();
-    if(val==null){
+	var b = [];
+    $("input:checkbox[name = 'diySelect']:checked").each(function(i){ 
+        b.push( $(this).val() ); 
+    });
+	var val = String(b);
+	if(b.length==0||b.length>1){
     	mlayer.open({
 		    content: 'Please select one file at first!',
 		    btn: 'Got it'
-		    
 		  });
         return false;
     }
@@ -217,13 +227,16 @@ function ClassDoc(){
 	
 }
 function RenameDoc(){
-	var val=$('input:radio[name="diySelect"]:checked').val();
-    if(val==null){
+	var b = [];
+    $("input:checkbox[name = 'diySelect']:checked").each(function(i){ 
+        b.push( $(this).val() ); 
+    });
+	var val = String(b);
+	if(b.length==0||b.length>1){
     	mlayer.open({
 		    content: 'Please select one file at first!',
 		    btn: 'Got it'
-		    
-		  });
+		});
         return false;
     }
     else{
@@ -246,8 +259,14 @@ function RenameDoc(){
 	
 }
 function DeleteDoc(){
-	var val=$('input:radio[name="diySelect"]:checked').val();
-    if(val==null){
+	var appid = $('#appid').val();
+	var b = [];
+        $("input:checkbox[name = 'diySelect']:checked").each(function(i){ 
+            //使用循环遍历迭代的方式得到所有被选中的checkbox复选框
+            b.push( $(this).val() ); //当前被选中checkbox背后对应的值
+        });
+	var val = String(b);
+    if(b.length==0){
     	mlayer.open({
 		    content: 'Please select one file at first!',
 		    btn: 'Got it'
@@ -260,13 +279,25 @@ function DeleteDoc(){
     	    content: 'It cannot be recovered after deletion. Do you really want to delete this file?'
     	    ,btn: ['Yes', 'Cancel']
     	    ,yes: function(index){
-    	    	alert(val)
+    	    	$.post("/application/deldoc", {"appid":appid,"id":val}, function(data) {
+					if(data.code==0){
+						mlayer.open({
+						    content: 'Success',
+						    btn: 'Got it',
+						    yes: function(){
+						    	window.location.reload(); 
+						    	
+						      }
+						  });
+					}
+					return false;
+				}, "json");   
     	        mlayer.close(index);
     	    }
     	    ,no:function(index){
     	    	mlayer.close(index);
     	    }
-    	  });
+    	  }); 
     }
 	
 }
@@ -274,12 +305,12 @@ var switching = false;
 function ShowEditDiv(){
 	if(!switching){
 		$('#EditDiv').show();
-		$('input[type="radio"]').show();
+		$('input[type="checkbox"]').show();
 		switching = true;
 	}
 	else{
 		$('#EditDiv').hide();
-		$('input[type="radio"]').hide();
+		$('input[type="checkbox"]').hide();
 		switching = false;
 	}
 }
@@ -308,13 +339,13 @@ function copyNode(nodeid,key){
 	var newnode = parseDom(html);
 	sourceNode.parentNode.appendChild($(newnode)[0]); // 在父节点插入克隆的节点 
 }
-function copyLeaf(nodeid,key,filename){
+function copyLeaf(nodeid,key,filename,attid){
 	var sourceNode = document.getElementById(nodeid); // 获得被克隆的节点对象 
 	var clonedNode = sourceNode.cloneNode(true); // 克隆节点 
 	
 	$node = $(clonedNode);
 	//$node.find('select[name="classy"]').val(key);
-	var html = $node.html().replaceAll('[pdf_file]',filename);  
+	var html = $node.html().replaceAll('[pdf_file]',filename).replaceAll('[attid]',attid);  
 	//console.log(html)
 	var newnode = parseDom(html);
 	var parentClass = document.getElementById("menu_"+nbk); 
@@ -333,7 +364,8 @@ for (var [ky,value] of documents) {
 	for(var i=0;i<value.length;i++){
 		var vlObj = value[i];
 		var filename = vlObj.filename;
-		copyLeaf("pdf_file",ky,filename);
+		var attid = vlObj.attid;
+		copyLeaf("pdf_file",ky,filename,attid);
 	}
 }
 </script>

@@ -7,7 +7,7 @@
                     <div class="container-fluid page__container">
                         <div class="card card-form">
                         <div class="col-lg-12 card-body" style="padding-bottom: 10px;font-size: 30px; background-color: #C0C0C0;">
-                                    <p><strong class="headings-color">Rename Document</strong></p>
+                                    <p><strong class="headings-color"><#if action='rename'>Rename Document<#else>Modify Classification</#if></strong></p>
                                     <!-- <p class="text-muted">Edit the client general information.</p> -->
                                     
                                 </div>
@@ -58,14 +58,15 @@
                 	var attid = $('#attid').val();
                 	var name = $('#name').val();
                 	var classy = $('#classy').val();
-                	alert(name)
-                	alert(classy)
+                	//alert(name)
+                	//alert(classy)
                 	$.post("/application/savedoc", {"id":attid,"name":name,"classy":classy}, function(data) {
     					if(data.code==0){
     						mlayer.open({
 							    content: 'Success',
 							    btn: 'Got it',
 							    yes: function(){
+							    	window.parent.location.reload(); //刷新父页面
 							    	var index = parent.layer.getFrameIndex(window.name);
 							    	parent.layer.close(index);
 							      }

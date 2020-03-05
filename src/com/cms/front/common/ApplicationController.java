@@ -2,6 +2,7 @@ package com.cms.front.common;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import com.cms.util.FileUtil;
 import com.cms.util.PdfUtil;
 import com.cms.util.StrUtil;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfinal.aop.Before;
@@ -29,13 +31,115 @@ import net.sf.json.JSONObject;
 
 @Before(MInterceptor.class)
 public class ApplicationController extends Controller {
-	public void savedoc() {
+	public void deldoc() throws JsonParseException, JsonMappingException, IOException {
+		int code = 0;
+		String ids= getPara("id");
+		int appid = getParaToInt("appid");
+		String realPath = this.getRequest().getRealPath("/");
+		
+		Application app = Application.dao.findById(appid);
+		
+		String docJson = app.getStr("documents");
+		ObjectMapper mapper = new ObjectMapper();    
+		Map<String,Object> oriMap = new HashMap<String,Object>();
+		
+		if(docJson!=null) {
+			oriMap = mapper.readValue(docJson, Map.class);  
+		}
+		
+		String[] idArr = ids.split(",");
+		for(String idstr:idArr) {
+			int id = Integer.parseInt(idstr);
+			String classification = ApplicationAtt.dao.findById(id).getStr("classification");
+			JSONArray oriMapArray = JSONArray.fromObject(oriMap.get(classification));
+			int arrSize = oriMapArray.size();
+			
+			Iterator<Object> o = oriMapArray.iterator();
+			while (o.hasNext()) {
+			    JSONObject jo = (JSONObject) o.next();
+			    if(jo.getInt("attid") == id) {
+			    	String url = jo.getString("url");
+			    	FileUtil.deleteAll(realPath+url);
+			        o.remove();  
+			    }
+			}
+			
+			if(arrSize>1) {
+				oriMap.put(classification, oriMapArray);
+			}
+			else {
+				oriMap.remove(classification);
+			}
+			ApplicationAtt.dao.deleteById(id);	
+		}
+
+		String documentStr = mapper.writeValueAsString(oriMap);
+		//System.out.println(documentStr);
+		getModel(Application.class).set("id", appid).set("documents", documentStr).update();
+//		Boolean b = ApplicationAtt.dao.deleteById(id);
+//		if(b)code=0;
+
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("code",code);
+		renderJson(map);
+	}
+	public void savedoc() throws IOException {
 		int code = 0;
 		String name = getPara("name");
 		String classification = getPara("classy");
 		int id = getParaToInt("id");
+		ApplicationAtt att = ApplicationAtt.dao.findById(id);
+		String oldClass = att.getStr("classification");
+		int appid = att.getInt("appid");
+		Application app = Application.dao.findById(appid);
+		
+		String docJson = app.getStr("documents");
+		ObjectMapper mapper = new ObjectMapper();    
+		Map<String,Object> oriMap = new HashMap<String,Object>();
+		
+		if(docJson!=null) {
+			oriMap = mapper.readValue(docJson, Map.class);  
+		}
+		JSONObject newObj = null;
+		JSONArray newMapArray = new JSONArray();
+		
+		JSONArray oriMapArray = null;
 
-		getModel(ApplicationAtt.class).set("id", id).set("name", name).set("classification", classification).update();
+		if(oriMap.get(oldClass)!=null) {
+			oriMapArray = JSONArray.fromObject(oriMap.get(oldClass));
+			int arrSize = oriMapArray.size();
+			System.out.println("arr:"+oriMapArray.toString());
+			
+			Iterator<Object> o = oriMapArray.iterator();
+			
+			
+			while (o.hasNext()) {
+			    JSONObject jo = (JSONObject) o.next();
+			    if(jo.getInt("attid") == id) {
+			    	newObj = jo;
+			    	newObj.put("classification", classification);
+			    	newObj.put("filename", name);
+			    	o.remove();
+			    }
+			}
+			if(arrSize>1) {
+				oriMap.put(oldClass, oriMapArray);
+			}
+			else {
+				oriMap.remove(oldClass);
+			}
+		}
+		if(oriMap.get(classification)!=null) {
+			newMapArray = JSONArray.fromObject(oriMap.get(classification));
+		}
+		newMapArray.add(newObj);
+		oriMap.put(classification, newMapArray);
+		
+
+		att.set("name", name).set("classification", classification).update();
+		String documentStr = mapper.writeValueAsString(oriMap);
+		//System.out.println(documentStr);
+		app.set("documents", documentStr).update();
 		
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("code",code);
@@ -67,25 +171,33 @@ public class ApplicationController extends Controller {
 		for (String key : docMap.keySet()) {
 			JSONArray oriMapArray = null;
 			if(!oriMap.isEmpty()) {
-				oriMapArray = JSONArray.fromObject(oriMap.get(key));
+				if(oriMap.get(key)!=null) {
+					oriMapArray = JSONArray.fromObject(oriMap.get(key));
+				}
 			}
 			JSONArray jsonArray = JSONArray.fromObject(docMap.get(key));
-			if(!oriMap.isEmpty()) {
-				oriMapArray.addAll(jsonArray);
-			}
-			else {
-				oriMapArray = jsonArray;
-			}
-			oriMap.put(key, oriMapArray);
+			
 			for (int i = 0; i < jsonArray.size(); i++) {
 				JSONObject obj = jsonArray.getJSONObject(i);
 				String filename = obj.getString("filename");
 				String classification = obj.getString("classification");
 				String filesize = obj.getString("filesize");
 				String url = obj.getString("url");
-				Db.update("insert into application_att (appid,classification,name,filesize,url,priority) values (?,?,?,?,?,?)",
-						appid,classification,filename,filesize,url,j++);
+//				Db.update("insert into application_att (appid,classification,name,filesize,url,priority) values (?,?,?,?,?,?)",
+//						appid,classification,filename,filesize,url,j++);
+				
+				ApplicationAtt att = new ApplicationAtt().set("appid", appid).set("classification", classification).set("name",filename).set("filesize",filesize).set("url",url).set("priority",j++);
+				att.save();
+				obj.put("attid", att.getInt("id"));
+				jsonArray.set(i, obj);
 			}
+			if(!oriMap.isEmpty()&&oriMap.get(key)!=null) {
+				oriMapArray.addAll(jsonArray);
+			}
+			else {
+				oriMapArray = jsonArray;
+			}
+			oriMap.put(key, oriMapArray);
 			
 		}
 
@@ -368,6 +480,7 @@ public class ApplicationController extends Controller {
 		render("/t/addapplication.html");
 	}
 	public void del() {
+		String realPath = this.getRequest().getRealPath("/");
 		Integer[] ids = getParaValuesToInt("ids");
 		String strId = "";
 		if(ids!=null && ids.length>0){
@@ -377,11 +490,33 @@ public class ApplicationController extends Controller {
 			strId = strId.substring(0, strId.length()-1);
 			Db.update("delete from application where id in ("+strId+")");
 			Db.update("delete from application_client where application_id in ("+strId+")");
+			Record r = Db.findFirst("select group_concat(url) urls from application_att where appid in ("+strId+")");
+			String urls = r.getStr("urls");
+			if(r.getStr("urls")!=null) {
+				String[] urlArr = urls.split(",");
+				for(String url:urlArr) {
+					if(url!=null) {
+						FileUtil.deleteAll(realPath+url);
+					}
+				}
+				Db.update("delete from application_att where appid in ("+strId+")");
+			}
 		}
 		else{
 			if(getParaToInt()>0) {
 				Application.dao.deleteById(getParaToInt());
 				Db.update("delete from application_client where application_id =?",getParaToInt());
+				Record r = Db.findFirst("select group_concat(url) urls from application_att where appid=?",getParaToInt());
+				String urls = r.getStr("urls");
+				if(r.getStr("urls")!=null) {
+					String[] urlArr = urls.split(",");
+					for(String url:urlArr) {
+						if(url!=null) {
+							FileUtil.deleteAll(realPath+url);
+						}
+					}
+					Db.update("delete from application_att where appid =?",getParaToInt());
+				}
 			}
 		}
 		index();
