@@ -53,7 +53,10 @@
               <#list atts as att>
               <a href="${att["att_file"]!}">${att["att_name"]!}</a>
               </#list>
-            
+          </div>
+          <div class="am-form-group">
+              <input type="file" name="uploadfile" id="uploadfile">
+				<button id="upload" onclick="return false;">upload</button> 
           </div>
 
           <div style="text-align:center;" class="am-form-group">
@@ -314,5 +317,48 @@ function SendMail(){
 	}
 }
 </script>
+<script>
+function setup() {
+	$('#upload').on('click', openDialog);
+	function openDialog() {
+		$('#uploadfile').click();
+    }
+	$('#uploadfile').on('change', submitForm);
+	function submitForm() {
+        /* document.getElementById('formid').submit(); */
+        alert("helllsdaaa")
+    }
+	/* $('#upload').click(function() {
+        upload($('#uploadfile').val());   
+    }); */
+}
+function upload(fileName) {
+    $.ajaxFileUpload({
+        url : '/upload',   //提交的路径
+        secureuri : false, // 是否启用安全提交，默认为false
+        fileElementId : 'uploadfile', // file控件id
+        dataType : 'json',
+        data : {
+            fileName : fileName   //传递参数，用于解析出文件名
+        }, // 键:值，传递文件名
+        success : function(data, status) {
+            alert("上传成功");
+        },
+        error : function(data, status) {
+            alert("上传失败");
+        }
+    });
+}
+$(function () { 
+	
+	var index = mlayer.open({
+	    type: 2
+	    ,content: 'Loading...'
+	  });
+	//
+	setup();
+	mlayer.close(index);
+})
+</script> 
 <script src="/f/assets/js/mobile/mlayer.js"></script>
 </@layout>

@@ -74,8 +74,7 @@ public class AnnouncementController extends Controller {
 		String type_name=(type==0)?"Announcement":"Notice";
 		String titles = getPara("content.title");
 		titles = titles.length() <= 20? titles: titles.substring(0, 19) + "...";
-		Db.update("update message set name=?, type=?, type_name=? where type=? and link_id=?",titles,type,type_name,preType,id);
-		System.out.println(id+"thsi asdsadsa");
+		Db.update("update message set name=?, type=?, type_name=? where type=? and link_id=?",titles,type,type_name,preType,id);		
 		renderJson(getModel(Content.class).update());
 	}
 	public void delete() {
