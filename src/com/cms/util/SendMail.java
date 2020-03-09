@@ -78,10 +78,16 @@ public class SendMail {
             //添加附件
             if(atts.length != 0){
                 for(String attachFile : atts){
+                	String[] attArr = attachFile.split("#");
                     bodyPart=new MimeBodyPart();  
-                    FileDataSource fds=new FileDataSource(attachFile); //得到数据源  
+                    FileDataSource fds=new FileDataSource(attArr[0]); //得到数据源  
                     bodyPart.setDataHandler(new DataHandler(fds)); //得到附件本身并放入BodyPart  
-                    bodyPart.setFileName(MimeUtility.encodeText(fds.getName()));  //得到文件名并编码（防止中文文件名乱码）同样放入BodyPart  
+                    if(attArr.length==1) {
+                    	bodyPart.setFileName(MimeUtility.encodeText(fds.getName()));  //得到文件名并编码（防止中文文件名乱码）同样放入BodyPart 
+                    }
+                    else {
+                    	bodyPart.setFileName(MimeUtility.encodeText(attArr[1]));
+                    }
                     multiPart.addBodyPart(bodyPart);  
                 }
             }

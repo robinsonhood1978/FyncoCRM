@@ -166,17 +166,31 @@ public class CommonController extends Controller {
 		        		
 		                String key = (String) iterator.next();
 		                Object value = obj.get(key);
-		                JSONObject valueObj = JSONObject.fromObject(value);
-		                if (!"".equals(valueObj.get("url").toString())) {
-		                	i++;
-		                	if(i>1)atts += ",";
-		                	atts += valueObj.get("url").toString();
-		                	HashMap<String,String> map = new HashMap<String,String>();
-							map.put("att_name", valueObj.get("name").toString());
-							map.put("att_file", valueObj.get("url").toString());
-							attachments.add(map);
-		                	System.out.println(i+":"+valueObj.get("url").toString());
-		                }
+		                //JSONObject valueObj = JSONObject.fromObject(value);
+		                JSONArray valueArray = JSONArray.fromObject(value);
+		                Iterator<Object> o = valueArray.iterator();
+		    			
+		    			int j=0;
+		    			while (o.hasNext()) {
+		    			    JSONObject jo = (JSONObject) o.next();
+		    			    if (!"".equals(jo.get("url").toString())) {
+			                	i++;
+			                	if(i>1)atts += ",";
+			                	j++;
+			                	String attname = jo.get("classification").toString()+"-"+j+".pdf";
+			                	attname = attname.replaceAll(" ", "");
+			                	atts += jo.get("url").toString()+"#"+attname;
+			                	HashMap<String,String> map = new HashMap<String,String>();
+			                	map.put("classification", jo.get("classification").toString());
+								map.put("att_name", jo.get("filename").toString());
+								map.put("att_file", jo.get("url").toString());
+								attachments.add(map);
+			                	System.out.println(i+":"+jo.get("url").toString());
+			                }
+		    			    
+		    			}
+		    			
+		                
 		        }
 		        
 			}
