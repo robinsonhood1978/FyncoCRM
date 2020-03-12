@@ -155,6 +155,7 @@ public class PdfUtil {
 	        document.setMargins(0f, 0f, 0f, 0f);
 	        
 	        document.add(addTitle(realPath,dest,"sm_4_title")); 
+	        document.add(addTitle(realPath,dest,"sm_4_asset_header_1")); 
 	        
 	        
 	      //asset
@@ -180,6 +181,7 @@ public class PdfUtil {
 	        document.add(getTotal( realPath, dest,"sm_4_asset_total","name","Total Assets","total",assetJson.getString("total_value")));
 	        //liability_header
 	        document.add(addTitle(realPath,dest,"sm_4_liability_header")); 
+	        document.add(addTitle(realPath,dest,"sm_4_liability_header_1")); 
 	        //liability body1-- 3 columns loop
 	        
 	        JSONObject liabilityJson = JSONObject.fromObject(app.getStr("liability"));
@@ -275,10 +277,10 @@ public class PdfUtil {
 				}
 			}
 			if(position[j]==0) {
-				fields.get(pdf_fields[j]).setValue(fv).setFontSize(10).setJustification(PdfFormField.ALIGN_LEFT);
+				fields.get(pdf_fields[j]).setValue(fv).setFontSize(9).setJustification(PdfFormField.ALIGN_LEFT);
 			}
 			else {
-				fields.get(pdf_fields[j]).setValue(fv).setFontSize(10).setJustification(PdfFormField.ALIGN_RIGHT);
+				fields.get(pdf_fields[j]).setValue(fv).setFontSize(9).setJustification(PdfFormField.ALIGN_RIGHT);
 			}
 		}
 		
@@ -298,8 +300,8 @@ public class PdfUtil {
 		PdfDocument pdfDoc6 = new PdfDocument(new PdfReader(src6), new PdfWriter(total_income_pdf));
 		PdfAcroForm form6 = PdfAcroForm.getAcroForm(pdfDoc6, true);
 		Map<String, PdfFormField> fields6 = form6.getFormFields();
-		fields6.get(pdf_txt_field_name).setValue(pdf_txt_field_value).setFontSize(11).setJustification(PdfFormField.ALIGN_RIGHT);
-        fields6.get(pdf_field).setValue(StrUtil.formatString(Double.valueOf(total_value))).setFontSize(10);
+		fields6.get(pdf_txt_field_name).setValue(pdf_txt_field_value).setFontSize(9).setJustification(PdfFormField.ALIGN_RIGHT);
+        fields6.get(pdf_field).setValue("$ "+StrUtil.formatString(Double.valueOf(total_value))).setFontSize(9).setJustification(PdfFormField.ALIGN_RIGHT);
         form6.flattenFields();//设置表单域不可编辑  
         pdfDoc6.close();
         pdf2Img(total_income_png, total_income_pdf);
@@ -322,16 +324,16 @@ public class PdfUtil {
     		 String value2 = StrUtil.null2Blank(assetObj.getString(key2));
     		
     		if(key2.equals("text")) {
-    			fields2.get("assets").setValue(value2).setFontSize(10).setJustification(PdfFormField.ALIGN_LEFT);
+    			fields2.get("assets").setValue(value2).setFontSize(9).setJustification(PdfFormField.ALIGN_LEFT);
     		}
     		else {
     			if(key2.indexOf("_v")>0) {
     				if(!value2.equals("")) {
-    					fields2.get("assets_v").setValue(StrUtil.formatString(Double.parseDouble(value2))).setFontSize(10).setJustification(PdfFormField.ALIGN_RIGHT);
+    					fields2.get("assets_v").setValue(StrUtil.formatString(Double.parseDouble(value2))).setFontSize(9).setJustification(PdfFormField.ALIGN_RIGHT);
     				}
     			}
     			else {
-    				fields2.get("assets_d").setValue(value2).setFontSize(10).setJustification(PdfFormField.ALIGN_LEFT);
+    				fields2.get("assets_d").setValue(value2).setFontSize(9).setJustification(PdfFormField.ALIGN_LEFT);
     			}
     		}
     	}
@@ -357,9 +359,7 @@ public class PdfUtil {
 		//String realPath = this.getRequest().getRealPath("/");
 
 
-        pdf2Img(dest+"sm_5_title.png", src);
-        
-        
+     
         File file = new File(url);
 
         PdfWriter pdfWriter = new PdfWriter(file);
@@ -367,10 +367,13 @@ public class PdfUtil {
 
         Document document = new Document(pdfDocument);
         document.setMargins(0f, 0f, 0f, 0f);
-        ImageData imageData = ImageDataFactory.create(dest+"sm_5_title.png");
-        Image pdfImg = new Image(imageData);
+//      pdf2Img(dest+"sm_5_title.png", src);
+//        ImageData imageData = ImageDataFactory.create(dest+"sm_5_title.png");
+//        Image pdfImg = new Image(imageData);    
+//        document.add(pdfImg);
         
-        document.add(pdfImg);
+        document.add(addTitle(realPath,dest,"sm_5_title")); 
+        
 		//monthincome
 		JSONArray monthincomeJsonArray = JSONArray.fromObject(app.getStr("monthincome"));
 		if(monthincomeJsonArray.size()>0) {
@@ -394,7 +397,8 @@ public class PdfUtil {
 					PdfDocument pdfDoc = new PdfDocument(new PdfReader(src2), new PdfWriter(applicant_header_pdf));
 					PdfAcroForm form = PdfAcroForm.getAcroForm(pdfDoc, true);
 					Map<String, PdfFormField> fields = form.getFormFields();
-			        fields.get("applicant_no").setValue(j+" - "+applicant_name).setFontSize(10);
+			        //fields.get("applicant_no").setValue(j+" - "+applicant_name).setFontSize(9);
+					fields.get("applicant_no").setValue(applicant_name).setFontSize(9);
 			        form.flattenFields();//设置表单域不可编辑  
 			        pdfDoc.close();
 			        pdf2Img(applicant_header_png, applicant_header_pdf);
@@ -402,7 +406,7 @@ public class PdfUtil {
 			        ImageData imageData2 = ImageDataFactory.create(applicant_header_png);
 			        Image pdfImg2 = new Image(imageData2);
 			        document.add(pdfImg2);
-			        
+			        document.add(addTitle(realPath,dest,"sm_5_header")); 
 					JSONArray incomeArray = monthincomeObj.getJSONArray("monthincome");
 					
 					int size = incomeArray.size();
@@ -421,10 +425,10 @@ public class PdfUtil {
 							monthincome_v = StrUtil.formatString(StrUtil.null2Blank(incomeObj.getString("monthincome_gross")));
 							monthincome_n = StrUtil.formatString(StrUtil.null2Blank(incomeObj.getString("monthincome_net")));
 							if(fields2.get("income")!=null) {
-								fields2.get("income").setValue(income).setFontSize(10).setJustification(PdfFormField.ALIGN_LEFT);
-						        fields2.get("income_d").setValue(monthincome_d).setFontSize(10).setJustification(PdfFormField.ALIGN_LEFT);
-						        fields2.get("income_v").setValue(monthincome_v).setFontSize(10).setJustification(PdfFormField.ALIGN_RIGHT);
-						        fields2.get("income_n").setValue(monthincome_n).setFontSize(10).setJustification(PdfFormField.ALIGN_RIGHT);
+								fields2.get("income").setValue(income).setFontSize(9).setJustification(PdfFormField.ALIGN_LEFT);
+						        fields2.get("income_d").setValue(monthincome_d).setFontSize(9).setJustification(PdfFormField.ALIGN_LEFT);
+						        fields2.get("income_v").setValue(monthincome_v).setFontSize(9).setJustification(PdfFormField.ALIGN_RIGHT);
+						        fields2.get("income_n").setValue(monthincome_n).setFontSize(9).setJustification(PdfFormField.ALIGN_RIGHT);
 							}
 						}
 						form2.flattenFields();//设置表单域不可编辑  
@@ -472,9 +476,9 @@ public class PdfUtil {
 					rental_d = StrUtil.null2Blank(rentalObj.getString("monthincomefr_description"));
 					rental_n = StrUtil.formatString(StrUtil.null2Blank(rentalObj.getString("monthincomefr_net")));
 					if(fields5.get("rental")!=null) {
-						fields5.get("rental").setValue(rental).setFontSize(10).setJustification(PdfFormField.ALIGN_LEFT);
-				        fields5.get("rental_d").setValue(rental_d).setFontSize(10).setJustification(PdfFormField.ALIGN_LEFT);
-				        fields5.get("rental_n").setValue(rental_n).setFontSize(10).setJustification(PdfFormField.ALIGN_RIGHT);
+						fields5.get("rental").setValue(rental).setFontSize(9).setJustification(PdfFormField.ALIGN_LEFT);
+				        fields5.get("rental_d").setValue(rental_d).setFontSize(9).setJustification(PdfFormField.ALIGN_LEFT);
+				        fields5.get("rental_n").setValue(rental_n).setFontSize(9).setJustification(PdfFormField.ALIGN_RIGHT);
 					}
 					
 					form5.flattenFields();//设置表单域不可编辑  
@@ -488,20 +492,22 @@ public class PdfUtil {
 			}
 		}
 		//total_monthly_income
-		String src6 = realPath+"/pdf/sm_5_income_total.pdf";
-		String total_income_pdf =dest+"sm_5_income_total.pdf";
-		String total_income_png =dest+"sm_5_income_total.png";
-		PdfDocument pdfDoc6 = new PdfDocument(new PdfReader(src6), new PdfWriter(total_income_pdf));
-		PdfAcroForm form6 = PdfAcroForm.getAcroForm(pdfDoc6, true);
-		Map<String, PdfFormField> fields6 = form6.getFormFields();
-        fields6.get("total_monthly_income_value").setValue(StrUtil.formatString(app.getBigDecimal("total_income").doubleValue())).setFontSize(10);
-        form6.flattenFields();//设置表单域不可编辑  
-        pdfDoc6.close();
-        pdf2Img(total_income_png, total_income_pdf);
-        
-        ImageData imageData6 = ImageDataFactory.create(total_income_png);
-        Image pdfImg6 = new Image(imageData6);
-        document.add(pdfImg6);
+//		String src6 = realPath+"/pdf/sm_5_income_total.pdf";
+//		String total_income_pdf =dest+"sm_5_income_total.pdf";
+//		String total_income_png =dest+"sm_5_income_total.png";
+//		PdfDocument pdfDoc6 = new PdfDocument(new PdfReader(src6), new PdfWriter(total_income_pdf));
+//		PdfAcroForm form6 = PdfAcroForm.getAcroForm(pdfDoc6, true);
+//		Map<String, PdfFormField> fields6 = form6.getFormFields();
+//        fields6.get("total_monthly_income_value").setValue(StrUtil.formatString(app.getBigDecimal("total_income").doubleValue())).setFontSize(9);
+//        form6.flattenFields();//设置表单域不可编辑  
+//        pdfDoc6.close();
+//        pdf2Img(total_income_png, total_income_pdf);
+//        
+//        ImageData imageData6 = ImageDataFactory.create(total_income_png);
+//        Image pdfImg6 = new Image(imageData6);
+//        document.add(pdfImg6);
+		
+		document.add(getTotal( realPath, dest,"sm_4_asset_total","name","Total Monthly Income","total",String.valueOf(app.getBigDecimal("total_income").doubleValue())));
 		
         //expense
         String src7 = realPath+"/pdf/sm_5_expense_header.pdf";
@@ -536,9 +542,9 @@ public class PdfUtil {
 					expense_d = StrUtil.null2Blank(expenseObj.getString("monthexpend_description"));
 					expense_n = StrUtil.formatString(StrUtil.null2Blank(expenseObj.getString("monthexpend_expense")));
 					if(fields8.get("expense")!=null) {
-						fields8.get("expense").setValue(expense).setFontSize(10).setJustification(PdfFormField.ALIGN_LEFT);
-				        fields8.get("expense_d").setValue(expense_d).setFontSize(10).setJustification(PdfFormField.ALIGN_LEFT);
-				        fields8.get("expense_v").setValue(expense_n).setFontSize(10).setJustification(PdfFormField.ALIGN_RIGHT);
+						fields8.get("expense").setValue(expense).setFontSize(9).setJustification(PdfFormField.ALIGN_LEFT);
+				        fields8.get("expense_d").setValue(expense_d).setFontSize(9).setJustification(PdfFormField.ALIGN_LEFT);
+				        fields8.get("expense_v").setValue(expense_n).setFontSize(9).setJustification(PdfFormField.ALIGN_RIGHT);
 					}
 					
 					form8.flattenFields();//设置表单域不可编辑  
@@ -552,21 +558,23 @@ public class PdfUtil {
 			}
 		}
 		//total_monthly_expense
-				String src9 = realPath+"/pdf/sm_5_expense_bottom.pdf";
-				String total_expense_pdf =dest+"sm_5_expense_bottom.pdf";
-				String total_expense_png =dest+"sm_5_expense_bottom.png";
-				PdfDocument pdfDoc9 = new PdfDocument(new PdfReader(src9), new PdfWriter(total_expense_pdf));
-				PdfAcroForm form9 = PdfAcroForm.getAcroForm(pdfDoc9, true);
-				Map<String, PdfFormField> fields9 = form9.getFormFields();
-		        fields9.get("total_monthly_expense_value").setValue(StrUtil.formatString(app.getBigDecimal("total_expense").doubleValue())).setFontSize(10);
-		        fields9.get("total_surplus_value").setValue(StrUtil.formatString(app.getBigDecimal("surplus").doubleValue())).setFontSize(10);
-		        form9.flattenFields();//设置表单域不可编辑  
-		        pdfDoc9.close();
-		        pdf2Img(total_expense_png, total_expense_pdf);
-		        
-		        ImageData imageData9 = ImageDataFactory.create(total_expense_png);
-		        Image pdfImg9 = new Image(imageData9);
-		        document.add(pdfImg9);
+//				String src9 = realPath+"/pdf/sm_5_expense_bottom.pdf";
+//				String total_expense_pdf =dest+"sm_5_expense_bottom.pdf";
+//				String total_expense_png =dest+"sm_5_expense_bottom.png";
+//				PdfDocument pdfDoc9 = new PdfDocument(new PdfReader(src9), new PdfWriter(total_expense_pdf));
+//				PdfAcroForm form9 = PdfAcroForm.getAcroForm(pdfDoc9, true);
+//				Map<String, PdfFormField> fields9 = form9.getFormFields();
+//		        fields9.get("total_monthly_expense_value").setValue(StrUtil.formatString(app.getBigDecimal("total_expense").doubleValue())).setFontSize(9);
+//		        fields9.get("total_surplus_value").setValue(StrUtil.formatString(app.getBigDecimal("surplus").doubleValue())).setFontSize(9);
+//		        form9.flattenFields();//设置表单域不可编辑  
+//		        pdfDoc9.close();
+//		        pdf2Img(total_expense_png, total_expense_pdf);
+//		        
+//		        ImageData imageData9 = ImageDataFactory.create(total_expense_png);
+//		        Image pdfImg9 = new Image(imageData9);
+//		        document.add(pdfImg9);
+		document.add(getTotal( realPath, dest,"sm_4_asset_total","name","Total Monthly Expenses","total",String.valueOf(app.getBigDecimal("total_expense").doubleValue())));
+		document.add(getTotal( realPath, dest,"sm_4_asset_total","name","Surplus","total",String.valueOf(app.getBigDecimal("surplus").doubleValue())));
         
         document.close();
 		}
@@ -681,7 +689,8 @@ public class PdfUtil {
 			}
 			String destfile = dest+"sm_2_"+foot+"_1_"+pra_max_size+".pdf";
 			String destfile2 = dest+"sm_2_"+foot+"_2_"+ce_max_size+".pdf";
-			String src = realPath+"/pdf/sm_2_"+foot+"_1_"+pra_max_size+".pdf";
+			//String src = realPath+"/pdf/sm_2_"+foot+"_1_"+pra_max_size+".pdf";
+			String src = realPath+"/pdf/sm_2_1_1_"+pra_max_size+".pdf";
 			String src2 = realPath+"/pdf/sm_2_1_2_"+ce_max_size+".pdf";
 			filelist.add(destfile);
 			filelist.add(destfile2);
@@ -731,7 +740,8 @@ public class PdfUtil {
 		        if(app[k].getStr("title")!=null) {
 		        	fields.get("app"+m+"_title_d").setValue(app[k].getStr("title")).setFontSize(9);
 		        }
-		        
+		        String fullname = StrUtil.null2Blank(app[k].getStr("first_name"))+" "+StrUtil.null2Blank(app[k].getStr("last_name"));
+		        fields.get("applicant_name_"+m).setValue(fullname).setFontSize(9);
 		        fields.get("app"+m+"_dob").setValue(birthday).setFontSize(9);
 		        fields.get("app"+m+"_gender").setValue(gender[app[k].getInt("gender")]).setFontSize(9);
 		        fields.get("app"+m+"_last_name").setValue(StrUtil.null2Blank(app[k].getStr("last_name"))).setFontSize(9);
@@ -816,6 +826,7 @@ public class PdfUtil {
 //		        fields2.get("app"+m+"_employment_duration").setValue(StrUtil.null2Blank(app[k].getStr("duration"))).setFontSize(9);
 //		        fields2.get("app"+m+"_employment_gi").setValue(StrUtil.null2Blank(StrUtil.formatString(app[k].getStr("gross_income")))).setFontSize(9);
 //		        
+		        fields2.get("applicant_name_"+m).setValue(fullname).setFontSize(9);
 		        if(app[k].getStr("current_employment")!=null) {
 			        JSONArray ceJsonArray = JSONArray.fromObject(app[k].getStr("current_employment"));
 			        

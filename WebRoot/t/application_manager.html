@@ -46,7 +46,7 @@
                                                     <tbody>
                                                     <#list clients as x>
                                                         <tr>
-                                                            <td>${x.first_name} ${x.last_name}</td>
+                                                            <td>${x.first_name!} ${x.last_name!}</td>
                                                             <td>${x.mobile?replace('\"','')?replace('[','')?replace(']','')}</td>
                                                             <td>
                                             ${x.personal_email?replace('\"','')?replace('[','')?replace(']','')}
@@ -506,6 +506,12 @@ function copyNode(nodeid){
 }
 
 window.onload = function() { 
+	var pdfurl = '${(application.pdf)!}';
+	if(pdfurl!=''){
+		$('#viewpdf').css("display","block");
+		$('#pdf_url').attr("href",pdfurl);
+	}
+	
 	var loan = '${(application.loan)!}';
 	if(loan!=''){
     	var loanArray = JSON.parse(loan);
