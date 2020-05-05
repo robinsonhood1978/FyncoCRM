@@ -19,6 +19,7 @@ import com.cms.util.DateFmt;
 import com.cms.util.ImageUtils;
 import com.cms.util.Md5;
 import com.cms.util.StrUtil;
+import com.itextpdf.kernel.xmp.impl.Base64;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.i18n.I18N;
@@ -27,6 +28,8 @@ import com.jfinal.plugin.activerecord.IAtom;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.upload.UploadFile;
+
+import oracle.net.aso.MD5;
 
 @Before(MInterceptor.class)
 public class MController extends Controller {
@@ -157,7 +160,10 @@ public class MController extends Controller {
 		else{
 			boolean boo = getModel(User.class).set("id", loginUser.getInt("id")).update();
 			if(boo){
-				setSessionAttr("user", User.dao.findById(loginUser.getInt("id")));
+				User user = User.dao.findById(loginUser.getInt("id"));
+				String email_pwd = user.getStr("sendmail_password");
+				user.set("sendmail_password", Base64.decode(email_pwd));
+				setSessionAttr("user", user);
 				msg="Register information modified success！";
 			}
 			else{

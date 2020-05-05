@@ -124,7 +124,7 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="lname">Email password</label>
-                                                <input type="password" class="form-control" id="sendmail_password" value="${(session.user.sendmail_password)!}">
+                                                <input type="password" class="form-control" id="sendmail_password" value="${(session.user.sendmail_password)!}" >
                                             </div>
                                         </div>
                                         <div class="col">
@@ -166,6 +166,9 @@
                 </div>
                 <!-- // END drawer-layout__content -->
                 <script>
+                document.addEventListener('contextmenu', function(e) {
+                	  e.preventDefault();
+                	});
                 var host = '${(session.user.mail_host)!}';
                 
                 if(host!=''){
@@ -199,11 +202,16 @@ function Mod(){
 				var sendmail_account=$('#sendmail_account').val();
 				var sendmail_password=$('#sendmail_password').val();
 				var mail_host=$('#mail_host').val();
-
+				sendmail_password = Base64.encode(sendmail_password);
+				var email_set = 0;
+				if ((sendmail_account != "") && (sendmail_password != "") && (mail_host != "")) {
+					email_set = 1;
+				}
+				
 				$.post("/m/jupinfo", {"user.first_name":first_name,"user.last_name":last_name,"user.prefered_name":prefered_name,
 					"user.work_phone":work_phone,"user.mobile":mobile,"user.title":title,"user.department":department,
 					"user.employee_number":employee_number,"user.office_location":office_location,
-					"user.sendmail_account":sendmail_account,"user.sendmail_password":sendmail_password, "user.mail_host":mail_host}, function(data) {
+					"user.sendmail_account":sendmail_account,"user.sendmail_password":sendmail_password, "user.mail_host":mail_host, "user.email_set":email_set}, function(data) {
 					if(data.code==1){
 					 	mlayer.open({
 						    content: data.msg,

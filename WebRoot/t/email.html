@@ -1,5 +1,37 @@
 <#include "/t/_c.html" />
 <@layout>
+<style>
+.text {
+  display: block;
+  width: 150px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.unread-text{
+	color: #91d0ee;
+}
+.read{
+	color: #4a90e2;
+	display: none;
+}
+.stars{
+	color:red !important;
+	display: none;
+}
+.unSet{
+	display: inline;
+}
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size:20px;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.clickEm
+</style>
                 <div class="mdk-drawer-layout__content page">
                     <div class="app-chat-container">
                         <div class="row h-100 m-0">
@@ -8,110 +40,118 @@
                                     <input type="text" class="form-control" placeholder="What are you looking for?" id="searchSample02">
                                     <button class="btn" type="button" role="button"><i class="material-icons">search</i></button>
                                 </div>
-
+								 <div class="border-top pt-3 px-3 text-center">
+                                    <a href="javascript:void(0)" onclick="ShowsEmail(1);" class="btn btn-primary" id="Inbox" style="color: black;"><i class="material-icons icon-20pt">inbox</i>Inbox</a>
+                                    <a href="javascript:void(0)" onclick="ShowsEmail(0);" class="btn btn-primary" id="Send" style="color: black;"><i class="material-icons icon-20pt">send</i>Sent</a>
+                                    <a href="javascript:void(0)" onclick="ShowsEmail(2);" class="btn btn-primary" id="Bin" style="color: black;"><i class="material-icons icon-20pt">archive</i>Bin</a>
+                                    <a href="javascript:void(0)" onclick="SendMail();" class="btn btn-primary" id="NewEmail" style="color: black;"><i class="material-icons icon-20pt">email</i>New</a>
+                                </div>
                                 <div class="flex pt-3 d-flex flex-column">
                                     <div data-simplebar class="h-100">
 
-                                        <div id="mails" class="list-group list-group-flush" style="position: relative; z-index: 0;">
+                                        <div id="mails" class="list-group list-group-flush" style="position: relative; z-index: 0;overflow:scroll; height:500px;">
 
                                             
 
-                                          <div id="tmail" style="display:none;">
-                                          	<div id="[divid]" onclick="ShowDetail('[divid]');">
-	                                            <div class="list-group-item d-flex align-items-start border-right-3 border-right-primary">
+                                          <div id="tmail" style="display:none; ">
+                                          	<div id="[divid]" onclick="ShowDetail('[divid]');" style="margin-bottom: 5px;">
+	                                            <div class="list-group-item d-flex align-items-start border-left-3" id="Email_card">
 	                                                <div class="mr-3 d-flex flex-column align-items-center">
-	                                                    <a href="#" class="avatar avatar-xs mb-2">
-	                                                        <img src="[avatar]" alt="Avatar" class="avatar-img rounded-circle">
-	                                                    </a>
-	                                                    <a href=""><i class="material-icons icon-16pt">star</i></a>
+	                                                    <span class="avatar avatar-xs mb-2">
+	                                                        <img src="/t/assets/images/avatar/dfavatar.png" alt="Avatar" class="avatar-img rounded-circle">
+	                                                    </span>
+	                                                    <a href="javascript:void(0);" onclick="setToImportant('[divid]');" class="stars"><i class="material-icons icon-16pt">star</i></a>
 	                                                </div>
 	                                                <div class="flex">
 	                                                    <p class="m-0">
 	                                                        <span class="d-flex align-items-center mb-1">
-	                                                            <a href="#" class="text-dark-gray"><strong>[name]</strong></a>
+	                                                            <a class="text-dark-gray"><strong>[name]</strong></a>
+	                                                            <span class="d-flex ml-auto text-muted icon_recevier">
+		                                                            <span class="ml-auto text-muted" >
+		                                                            	<span class="text-muted" id="delete_icon"><a href="javascript:void(0);" onfocus="delEmail('[divid]',2);" style="color: #4a90e2;"><i class="material-icons icon-16pt">delete</i></a></span>
+		                                                            	<span class="text-muted" id="mark_icon"><a href="javascript:void(0);" onfocus="setToRead('[divid]');" class="read"><i class="material-icons icon-16pt">bookmark</i></a></span>
+		                                                            </span>
+		                                                            <span class="text-muted d-flex Bin_icon" style="display: none !important;">
+		                                                            	<span class="text-muted"><a href="#" style="color: #4a90e2;" onfocus="recover('[divid]');"><i class="material-icons icon-16pt">undo</i></a></span>
+		                                                            	<span class="text-muted"><a href="#" style="color: #4a90e2;" onfocus="delEmail('[divid]',3);"><i class="material-icons icon-16pt">delete_forever</i></a></span>
+		                                                            </span>
+	                                                            </span>
+	                                                        </span>
+	                                                        <span class="d-flex align-items-center mb-1">
+	                                                            <span class="text">
+	                                                            	<strong class="mb-2">[subject]</strong>
+	                                                            </span>
 	                                                            <small class="ml-auto text-muted">[send_date]</small>
 	                                                        </span>
-	                                                        <span class="d-flex align-items-end">
-	                                                            <span class="flex mr-3">
-	                                                                <strong class="text-body mb-1">[subject]</strong><br>
-	                                                                <small class="text-muted" style="max-height: 2.5rem; overflow: hidden; position: relative; display: inline-block;">[content] ..</small>
+	                                                        <span class="d-flex align-items-end" id="attachs">
+	                                                            <span class="flex mr-3">   
+	                                                                <small class="text-muted" style="max-height: 1.3rem; overflow: hidden; position: relative; display: inline-block;">[content]</small>
 	                                                            </span>
-	                                                            <a href="" class="d-flex align-items-center mb-1">
-	                                                                <small class="text-muted mr-1">0</small>
-	                                                                <i class="material-icons icon-16pt">attachment</i>
-	                                                            </a>
 	                                                        </span>
 	                                                    </p>
 	                                                </div>
 	                                            </div>
 	                                          </div>
                                           </div>
-
-                                           
-
-                                            
-
-                                            
+                                          <div id="emails"></div>
 
                                         </div>
 
                                     </div>
                                 </div>
 
-                                <div class="border-top pt-3 px-3 text-center">
-                                    <a href="javascript:void(0)" onclick="SendMail();" class="btn btn-primary">Create Message</a>
-                                </div>
+                               
 
                             </div>
-                            <div class="col-lg-8 py-3 px-4 bg-white border-left d-flex flex-column">
-                                <div class="flex d-flex flex-column">
-                                    <div data-simplebar class="h-100">
-                                    	<div id="fdetail">
-                                    	<div id="detail" style="display:none;">
+                            <div id="detail" style="display:none;">
                                     	<div id="[detail_div]">
-                                        <div class="d-flex align-items-center mb-3">
-                                            <a href="#" class="avatar avatar-sm mr-3">
-                                                <img src="[avatar]" alt="Avatar" class="avatar-img rounded-circle">
+                                   	 	<span class="d-flex align-items-center">
+                                    		<h1 class="h4 flex">[subject]</h1>
+                                    		<a href="javascript:void(0)" onclick="ReplyMail();" class="text-dark-gray">
+                                                <i class="material-icons">reply</i>
+                                            </a>
+                                            <a href="javascript:void(0)" onclick="ReplyMail();" class="text-dark-gray">
+                                                <i class="material-icons">forward</i>
+                                            </a>
+                                           <a href="" class="text-dark-gray ml-2">
+                                               <i class="material-icons">print</i>
+                                          	</a>
+                                   		</span>
+                                        <div class="d-flex align-items-center mb-3" style="margin-top: 10px;">
+                                            <a class="avatar avatar-sm mr-3">
+                                                <img src="/t/assets/images/avatar/dfavatar.png" alt="Avatar" class="avatar-img rounded-circle">
                                             </a>
                                             <div class="flex">
                                                 <p class="m-0">
                                                     <span class="d-flex align-items-center">
-                                                        <a href="#" class="text-dark-gray"><strong>[name]</strong></a>
-                                                        <small class="ml-auto text-muted">[send_date]</small>
+                                                        <span class="text-dark-gray" style="font-size: 16px;"><strong>[name]</strong></span>
+                                                        <span style="height: 20px;"><a href="javascript:void(0);" onclick="setToImportant('[detail_div_star]');" class="stars" ><i class="material-icons icon-18pt">star</i></a></span>
+                                                    </span>
+                                                    <span class="d-flex align-items-center">
+                                                        <span class="text-dark-gray"><span class="text-muted">[send_date]</span></span>
+                                                    </span>
+                                                    <span class="d-flex align-items-center">
+                                                        <span class="text-dark-black"><span class="text-muted">To [recevier]</span></span>
                                                     </span>
                                                 </p>
                                             </div>
                                         </div>
-                                        <div class="d-flex align-items-center">
-                                            <h1 class="h4 flex">[subject]</h1>
-                                            <div class="d-flex align-items-center">
-                                                <a href="javascript:void(0)" onclick="ReplyMail();" class="text-dark-gray">
-                                                    <i class="material-icons">reply</i>
-                                                </a>
-                                                <a href="" class="text-dark-gray ml-2">
-                                                    <i class="material-icons">print</i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <div class="flex mr-3">
+                                        <div class="d-flex align-items-center" >
+                                           	<a class="avatar avatar-sm mr-3">
+                                                
+                                            </a>
+                                            <div class="flex mr-3" >
                                                 [content1]
                                             </div>
-                                            
-                                            <div class="text-center ml-3">
-                                                <a href="" class="d-flex flex-column mb-3">
-                                                    <i class="material-icons">star</i>
-                                                    <small class="text-muted">Starred</small>
-                                                </a>
-
-                                                <a href="" class="d-flex flex-column">
-                                                    <i class="material-icons">attachment</i>
-                                                    <small class="text-muted">0 Attachments</small>
-                                                </a>
-                                            </div>
                                         </div>
+                                        
                                     </div>
                                     </div>
+                            <div class="col-lg-8 py-3 px-4 bg-white border-left d-flex flex-column">
+                                <div class="flex d-flex flex-column">
+                                    <div data-simplebar class="h-100">
+                                    	<div id="fdetail">
+                                    	
                                     </div>
                                     </div>
                                 </div>
@@ -129,6 +169,167 @@
                 <!-- // END drawer-layout__content -->
 
                 <script>
+                function downloadURI(uri, name) {
+                	  var link = document.createElement("a");
+                	  link.download = name;
+                	  link.href = uri;
+                	  document.body.appendChild(link);
+                	  link.click();
+                	  document.body.removeChild(link);
+                	  delete link;
+                	}
+                
+                function toDownLoadFile(fileId,foot) {
+                	var attachments = JSON.parse(mails[foot]['attachment']);
+                	$.post("/email/getEmailDetails", {"id":mails[foot]['id'],"fileName":attachments[fileId]},function(data){
+                		var url = data.url;
+                		if (url == "") {
+                			mlayer.open({
+							    content: "Fail to Download the attachment!",
+							    btn: 'Got it'
+							  });
+						}else{
+							downloadURI(url,attachments[fileId]);
+							$.ajaxSettings.async = false;
+							removeFileLocal(url);
+							$.ajaxSettings.async = true;
+						}
+                	}); 
+				}
+                function removeFileLocal(fileUrl) {
+                	$.post("/email/removeFiles", {"fileUrl":fileUrl},function(data){
+                		if (data == 0) {
+                			mlayer.open({
+							    content: "Fail to remove the attachment!",
+							    btn: 'Got it'
+							  });
+						}
+                	});
+				}
+                function recover(divid) {
+                	var foot = divid.split("_")[1];
+                	mlayer.open({
+					    content: "Do You Want to Recover it?",
+					    btn: ['Yes', 'No'],
+					    yes: function(index){
+		                	$.post("/email/recoverEmail", {"email.id":mails[foot]["id"]},function(data) {
+								if(data==1){
+									mlayer.open({
+									    content: "The Email has Recovered to Original!",
+									    btn: 'Got it'
+									  });
+								}
+								else{ 
+									mlayer.open({
+									    content: "Fail to Recover Email",
+									    btn: 'Got it'
+									  });
+								} 						
+							}, "json");
+		                	$('#div_'+foot).remove();
+		                	$('#fdetail').empty();
+		                	if ($('#emails').is(':empty')) {
+		                		$("#emails").append("<div class=\"center\"><B>No Email Here</B></div>");
+		                	}
+		                	if ($('#fdetail').is(':empty')) {
+		                		$("#fdetail").append("<div class=\"center\"><B>No Email Select</B></div>");
+		                	}
+					    }
+					  });
+				}
+                function delEmail(divid,type) {
+                	var foot = divid.split("_")[1];
+                	mlayer.open({
+					    content: "Do You Want to Delete it?",
+					    btn: ['Yes', 'No'],
+					    yes: function(index){
+					    	$.post("/email/deleteEmail", {"email.id":mails[foot]["id"],"email.type":type},function(data) {
+								if(data==1){
+									mlayer.open({
+									    content: "The Email has Moved to the Bin!",
+									    btn: 'Got it'
+									  });
+								}
+								else{ 
+									mlayer.open({
+									    content: "Fail to Delete Email",
+									    btn: 'Got it'
+									  });
+								} 						
+							}, "json"); 
+					    	$('#div_'+foot).remove(); 
+		                	$('#fdetail').empty();
+		                	if ($('#emails').is(':empty')) {
+		                		$("#emails").append("<div class=\"center\"><B>No Email Here</B></div>");
+		                	}
+		                	if ($('#fdetail').is(':empty')) {
+		                		$("#fdetail").append("<div class=\"center\"><B>No Email Select</B></div>");
+		                	}
+					    }
+					  });
+				}
+                function getReadStatus(foot) {
+					var seen = (mails[foot]["flag"]!=null)&&(mails[foot]["flag"].indexOf("\Seen") != -1);
+					var flag = '';
+					if (seen) {
+						flag = mails[foot]["flag"].replace("\\Seen","");
+					}else{
+						flag = mails[foot]["flag"]+"\\Seen";
+					}
+					return flag == null? "":flag;
+				}
+                function setReadAndNotics(foot) {
+                	var flag = mails[foot]["flag"];
+                	mails[foot]["flag"] = getReadStatus(foot);
+                	setReadStatus("div_"+foot,mails[foot]);
+                	return (mails[foot]["flag"].indexOf("\Seen") != -1)? "The Email has marked as Read" : "The Email has marked as Unread";
+				}
+                function setToRead(divid) {
+                	var foot = divid.split("_")[1];
+                	var contents = setReadAndNotics(foot);
+                	$.ajaxSettings.async = false;
+                	$.post('/email/changeFlag', {"email.id":mails[foot]["id"],"email.flag":mails[foot]["flag"]}, function(data) {
+						if(data == 1){
+							mlayer.open({
+							    content: contents,
+							    btn: 'Got it'
+							  });
+						}else {
+							mlayer.open({
+							    content: "Fail to Update Flag!",
+							    btn: 'Got it'
+							  });
+						}
+					}, "json"); 
+                	$.ajaxSettings.async = true;
+				}
+                function setStarAndNotics(foot) {
+                	mails[foot]["status"] = (mails[foot]["status"]==0)? 1: 0;
+                	setStar("div_"+foot,mails[foot]);
+                	setStar("detail_"+foot,mails[foot]);
+                	return mails[foot]["status"]==1? "The Email has marked as Unimprotant" : "The Email has marked as Improtant";
+				}
+                function setToImportant(divid) {
+                	var foot = divid.split("_")[1];
+                	var contents = setStarAndNotics(foot);
+                	
+                	$.ajaxSettings.async = false;
+                	$.post('/email/changeStatus', {"email.id":mails[foot]["id"],"email.status":mails[foot]["status"]}, function(data) {
+						if(data == 1){
+							mlayer.open({
+							    content: contents,
+							    btn: 'Got it'
+							  });
+						}else {
+							mlayer.open({
+							    content: "Fail to Update Marks!",
+							    btn: 'Got it'
+							  });
+						}
+						
+					}, "json"); 
+                	$.ajaxSettings.async = true;
+				}
                 String.prototype.replaceAll = function(search, replacement) {
             	    var target = this;
             	    return target.split(search).join(replacement);
@@ -137,13 +338,29 @@
 function ShowDetail(divid){
 	//alert(divid)
 	var foot = divid.split("_")[1];
+	$('#fdetail').empty();
+	if((mails[foot]["flag"]==null)||(mails[foot]["flag"].indexOf("\Seen") == -1)){
+		mails[foot]["flag"] = mails[foot]["flag"]+"\\Seen";
+		reClass("div_"+foot, "text", "unread-text");
+		$.ajaxSettings.async = false;
+    	$.post('/email/changeFlag', {"email.id":mails[foot]["id"],"email.flag":mails[foot]["flag"]}, function(data) {
+			if(data != 1){
+				mlayer.open({
+				    content: "Fail to Update Flag!",
+				    btn: 'Got it'
+				  });
+			}
+		}, "json"); 
+    	$.ajaxSettings.async = true;
+	}
 	if(pre!=divid){
 		$('#'+pre).remove();
 		pre='detail_'+foot;
 	}
 	var detail = $('#detail').html(); 
 	var subject = mails[foot]['subject'];
-	var name = mails[foot]['sender_showname']==null?'':mails[foot]['sender_showname'];
+	var name = mails[foot]['sender_name']==null?'':mails[foot]['sender_name'];
+	name += "&lt;"+mails[foot]['sender']+"&gt;";
 	var sender_addr = mails[foot]['sender_address'];
 	
 	var sender_address = new Array();
@@ -152,18 +369,15 @@ function ShowDetail(divid){
 
 	var addr = String(Array.from(new Set(sender_address)));
 	//alert(addr)
-	var emails;
+	/* var emails;
 	$.ajaxSettings.async = false;
-	$.post("/email/avatar", {"mails":addr},function(data){
-		emails=data;
-		//alert(JSON.stringify(emails))
-	});
-	var avatar=emails[sender_addr];
-	if(avatar=='')avatar='/t/assets/images/avatar/dfavatar.png';
-	
-	var send_date = mails[foot]['send_date'];
-	var content1 = mails[foot]['content'][0];
-	var content2 = mails[foot]['content'][1];
+	$.post("/email/getEmailDetails", {"id":mails[foot]['id']},function(data){});
+	$.ajaxSettings.async = true; */
+
+	var content = JSON.parse(mails[foot]['content']);
+	var send_date = CovertDateTime(mails[foot]['create_time'],1);
+	var content1 = content[0];
+	var content2 = content[1];
 	if (typeof(content2) == "undefined")
 	{
 	    content2='';
@@ -175,8 +389,45 @@ function ShowDetail(divid){
 	$('#to_address').val(sender_address);
 	$('#origin_content').val(content1);
 	//console.log(detail.replace('[subject]',subject))
-	var html = detail.replace('[avatar]',avatar).replace('[detail_div]','detail_'+foot).replace('[subject]',subject).replace('[name]',name).replace('[send_date]',send_date).replace('[content1]',content1);
+	var receiver = JSON.parse(mails[foot]['receiver']);
+	var html = detail.replace('[detail_div]','detail_'+foot).replace('[detail_div_star]','detail_'+foot).replace('[subject]',subject).replace('[name]',name).replace('[send_date]',send_date).replace('[recevier]',receiver[0]["address"]).replace('[content1]',content1);
 	$('#fdetail').append(html);
+	var attachments = JSON.parse(mails[foot]['attachment']);
+	if (attachments.length > 0) {
+		$('#detail_'+foot).append("<hr>");
+		var attachs = getAppendHtml(attachments,1,foot);//set up 3 attachs for each row. 
+		$('#detail_'+foot).append(attachs);
+	} 
+	setStar("detail_"+foot,mails[foot]);
+}
+function getAppendHtml(attachments, numberOfRow,foot) {
+	var moreAttachs = Math.floor(attachments.length/numberOfRow);	
+	if (moreAttachs==0) {
+		return attachsRow(attachments, 1, numberOfRow,foot);
+	}else{
+		var times = Math.floor(attachments.length/numberOfRow)+Math.floor(attachments.length%numberOfRow);
+		var addHtmls = '';
+		var increase = 0;
+		for (var i = 0; i < times; i++) {
+			if (times == attachments.length) {
+				increase =1+i;
+			}else{
+				increase =1+(i*2);
+			}
+			addHtmls +=attachsRow(attachments, increase, numberOfRow, foot);
+		}
+		return addHtmls;
+	}
+}
+function attachsRow(attachments, startNumber, numberOfRow, foot) {
+	var attachs = "<div class=\"d-flex align-items-center\"><a class=\"avatar avatar-sm mr-3\"></a>";
+	var endPointer = startNumber+numberOfRow;
+	endPointer = (endPointer <= attachments.length) ? (endPointer-1): attachments.length;
+	for (var i = (startNumber-1); i < endPointer; i++) {
+		attachs += "<span style=\"margin-right:5px;\"><a href=\"javascript:void(0);\" onclick=\"toDownLoadFile("+i+","+foot+");\" ><i class=\"material-icons\">cloud_download</i>"+attachments[i]+"</a> </span>";
+	}
+	attachs += "</div>";
+	return attachs;
 }
 var tmail = $('#tmail').html();
 //alert(tmail)
@@ -266,45 +517,145 @@ function SendMail(){
         }
 	});
 }
+function CovertDateTime(d, type) {
+	var DTime =new Date(d);
+	if (type == 1) {
+		return moment(DTime).format('ddd, MMMM M YYYY, h:mm:ss a');
+	}
+	return moment(DTime).format('ddd, MMMM M YYYY');
+}
+function SetUpIcons(id, mail) {
+	setReadStatus(id,mail);
+	setStar(id,mail);
+	$('#'+id).find( "#delete_icon" ).css("display", "none");
+}
+function reClass(id, where, cname) {
+	$('#'+id).find( "."+where ).removeClass(cname);
+}
+function adClass(id, where, cname) {
+	$('#'+id).find( "."+where ).addClass(cname);
+}
+function setReadStatus(id,mail) {
+	if ((mail["flag"]!=null)&&(mail["flag"].indexOf("\Seen") != -1)) {
+		reClass(id, "read", "unSet");
+		reClass(id, "text", "unread-text");
+	}else {
+		adClass(id, "read", "unSet");
+		adClass(id, "text", "unread-text");
+	}
+}
+function setStar(id,mail) {
+	if (mail["status"] == 1) {
+		$('#'+id).find( ".stars" ).removeClass("unSet");
+	}else {
+		$('#'+id).find( ".stars" ).addClass("unSet");
+	}
+}
+function ShowsControl(id, mail, type) {
+	SetUpIcons(id, mail);
+	$('#'+id).mouseenter(function() {
+		$( this ).find( "#Email_card" ).addClass("border-left-primary");
+		$( this ).find( "#Email_card" ).css("background-color", "#cbf0cb");
+	    if (type == 2) {
+	    	$( this ).find('.Bin_icon').attr("style", "display: inline !important");
+		}else{
+		    $( this ).find( "#delete_icon" ).css("display", "inline");
+		    $(this).find( ".read" ).addClass("unSet");
+		    $( this ).find( ".stars" ).addClass("unSet");
+		}
+	  })
+	  .mouseleave(function() {
+	  	$( this ).find( "#Email_card" ).removeClass("border-left-primary");
+	 	$( this ).find( "#Email_card" ).css("background-color", "#fff");
+	 	setReadStatus(id,mail);
+	 	setStar(id,mail);
+	 	if (type == 2) {
+	 		$( this ).find('.Bin_icon').attr("style", "display: none !important");
+		}
+	    $( this ).find( "#delete_icon" ).css("display", "none");
+	    /* $( this ).find( ".icon_recevier" ).attr("style", "display: none !important"); */
+	  });
+}
+function AddAttachs(id, number) {
+	$('#'+id).find( "#attachs" ).append("<a class=\"d-flex align-items-center mb-1\"><i class=\"material-icons icon-16pt\">attachment</i></a>");
+}
+var curType = 1;
+function ShowsEmail(type) {
+	changeBtnColor(getBtnId(curType),"black");
+	curType = type;
+	$("#emails").empty();
+	$('#fdetail').empty();
+	changeBtnColor(getBtnId(type),"white");
+	$.post("/email/getEmails", {"type":type}, function(data){
+		   /*  var mails = JSON.stringify(data); */
+		    /* console.log(data.list); */
+		    mails = data.list;
+		    var emails ;
+		    if(mails.length>0){
+		    	var i=0;
+			    for(var mail of mails){
+			    	$(tmail.replaceAll('[divid]','div_'+i).replace('[name]',mail['sender_name']==null?'':mail['sender_name']).replace('[send_date]',CovertDateTime(mail['create_time'], 0)).replace('[subject]',mail['subject']).replace('[content]',JSON.parse(mail['content'])[0].substring(0, 40))).appendTo($('#emails'));
+			    	ShowsControl('div_'+i, mail, type);
+			    	var attachs = JSON.parse(mail['attachment']);
+			    	if (attachs.length != 0 ) {
+			    		AddAttachs('div_'+i, attachs.length);
+					}
+			    	i++;
+			    }
+		    }else{
+		    	$("#emails").append("<div class=\"center\"><B>No Email Here</B></div>");
+		    }
+		    
+	},"json");
+	if ($('#fdetail').is(':empty')) {
+		$("#fdetail").append("<div class=\"center\"><B>No Email Select</B></div>");
+	}
+}
+function getBtnId(number) {
+	if (number == 0) {
+		return 'Send';
+	}else if (number == 2) {
+		return 'Bin';
+	}else {
+		return 'Inbox';
+	}
+}
+function changeBtnColor(id, color) {
+	$('#'+id).css("color", color);
+}
+function setUpBtn(id) {
+	$("#"+id).mouseenter(function(){
+	    $(this).css("color", "white");
+	  }).mouseleave(function(){
+		if (getBtnId(curType) != id) {
+			$(this).css("color", "black");
+		}
+	  });
+}
 $(function () { 
-	
 	var index = mlayer.open({
 	    type: 2
 	    ,content: 'Loading...'
 	  });
-	//
+	$.get('/email/mails', function(data) {
+		if(data == 1){
+			ShowsEmail(1);
+			setUpBtn("Inbox");
+			setUpBtn("Send");
+			setUpBtn("Bin");
+			setUpBtn("NewEmail");
+			mlayer.close(index);  
+		}else {
+			$("#emails").append("<div class=\"center\"><B>No Email Here</B></div>");
+			$("#fdetail").append("<div class=\"center\"><B>No Email Select</B></div>");
+			mlayer.open({
+			    content: "please Set Up Your Email!",
+			    btn: 'Got it'
+			  });
+			mlayer.close(index);  
+		}
+	}, "json");
 
-	$.get("/email/mails", function(data){
-	    //alert(JSON.stringify(data))
-	    console.log(data);
-	    mails = data.list;
-	    var emails ;
-	    if(mails.length>0){
-	    	var sender_address = new Array();
-	    	for(var mail of mails){
-	    		sender_address.push(mail['sender_address']);
-	    	}
-	    	var addr = String(Array.from(new Set(sender_address)));
-	    	//alert(addr)
-	    	$.ajaxSettings.async = false;
-	    	$.post("/email/avatar", {"mails":addr},function(data){
-	    		emails=data;
-	    		//alert(JSON.stringify(emails))
-	    	});
-	    	$.ajaxSettings.async = true;
-	    	var i=0;
-		    for(var mail of mails){
-		    	//alert(JSON.stringify(mail))
-		    	var sender = mail['sender_address'];
-		    	var avatar=emails[sender];
-		    	//if(avatar=='')avatar='/t/assets/images/avatar/dfavatar.png';
-		    	$(tmail.replaceAll('[divid]','div_'+i).replace('[avatar]',avatar).replace('[name]',mail['sender_showname']==null?'':mail['sender_showname']).replace('[send_date]',mail['send_date']).replace('[subject]',mail['subject']).replace('[content]',mail['content'][0])).appendTo($('#mails'));
-		    	i++;
-		    }
-	    }
-	    
-	    mlayer.close(index);
-	  });
 })
 </script>			
 

@@ -15,6 +15,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sound.midi.Soundbank;
 import javax.swing.JOptionPane;
 
 import com.cms.admin.channel.Channel;
@@ -29,6 +30,7 @@ import com.cms.util.Md5;
 import com.cms.util.Paginable;
 import com.cms.util.SendMail;
 import com.cms.util.StringUtils;
+import com.itextpdf.kernel.xmp.impl.Base64;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.i18n.I18N;
@@ -458,6 +460,8 @@ public class CommonController extends Controller {
 			list = User.dao.find("select u.* from user u where email=? and pwd=?",email,Md5.encodePassword(pwd,"fynco"));
 			if(list.size()==1){
 				// 放数据至session
+				String email_pwd = list.get(0).getStr("sendmail_password");
+				list.get(0).set("sendmail_password", Base64.decode(email_pwd));
 				setSessionAttr("user", list.get(0));
 			}
 			else {
