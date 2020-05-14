@@ -13,8 +13,11 @@ import javax.mail.search.ReceivedDateTerm;
 import javax.mail.search.SearchTerm;
 import javax.mail.search.SentDateTerm;
 
+import com.jfinal.plugin.activerecord.Db;
+
 import java.io.*;
-	import java.util.ArrayList;
+import java.security.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -65,24 +68,22 @@ import java.util.UUID;
 			}
 			return store;
 		}
-	    public static String getEmailDetails(Map<String,Object> mailserver,String path, int creator, String fileName,int id, String messageId, String username,String pass) {
+	    public static String getEmailDetails(Map<String,Object> mailserver,String path, int creator, String fileName,int id, String messageId, String username,String pass,int folderId) {
 	    	Folder inbox = null;
 	        Store store = null;
-	    	
 	    	try {
 				store = getStoreConnect(mailserver,username,pass);
 				// 获得收件箱 
-		        inbox = store.getFolder("INBOX"); 
+		        inbox = store.getFolder(getFolderName(mailserver,folderId)); 
 		        // 以读写模式打开收件箱 
 		        inbox.open(Folder.READ_ONLY); 
 		        Message[] messages = inbox.search(new MessageIDTerm(messageId));
-		        System.out.println(messages.length+"dasdsajhvdsavdghsavdhgsa");
 				return MailReader.downLoadAttach(path, creator, fileName, id, messages[0]);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}finally{
 	            try {
-	                inbox.close(false);
+	                inbox.close();
 	                store.close();
 	            } catch (MessagingException e) {
 	            	e.printStackTrace();
@@ -91,46 +92,63 @@ import java.util.UUID;
 	    	return null;
 		}
 	    
-	    public String getFolderName(Map<String,Object> mailserver,int folderId) {
+	    public static boolean setMailFlag(Map<String,Object> mailserver, String flag, String messageId, String username,String pass,int folderId) {
+	    	Folder inbox = null;
+	        Store store = null;
+	    	try {
+				store = getStoreConnect(mailserver,username,pass);
+				// 获得收件箱 
+		        inbox = store.getFolder(getFolderName(mailserver,folderId)); 
+		        // 以读写模式打开收件箱 
+		        inbox.open(Folder.READ_WRITE); 
+		        MessageIDTerm idTerm = new MessageIDTerm(messageId);
+		        if (flag.contains("Delete")) {
+		        	inbox.search(idTerm)[0].setFlag(Flag.DELETED, true);
+				}else {
+					inbox.search(idTerm)[0].setFlag(Flag.SEEN, flag.contains("Seen"));
+				}
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+	            try {
+	                inbox.close();
+	                store.close();
+	            } catch (MessagingException e) {
+	            	e.printStackTrace();
+	            }
+	        }
+	    	return false;
+		}
+	    
+	    public static String getFolderName(Map<String,Object> mailserver,int folderId) {
 	    	String folderName = "Inbox";
 	    	if (folderId != 1) {
 				if(mailserver.get("name").toString().equals("gmail") ) {
 					folderName = "[Gmail]/Sent Mail";
 				}else {
-					folderName = "Sent";
+					folderName = "Sent Items";
 				}
 			}
 	    	return folderName;
 		}
-	    
-	    public Map<String, Object> getMails(Map<String,Object> mailserver,String path,int creator, int folderId, String username,String pass){
-	    	Map<String, Object> map = new HashMap<String, Object>();
-	    	ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-	        // 准备连接服务器的会话信息 
-	        Folder inbox = null;
-	        Store store = null;
+	    public static void getLastEmails(Map<String,Object> mailserver, Store store, String path,int creator, int folderId) {
+	    	Folder inbox = null;
 	        try {
-        	store = getStoreConnect(mailserver,username,pass);
-        	Folder[] f = store.getDefaultFolder().list();
-        	for(Folder fd:f)
-        	    System.out.println(">> "+fd.getName());
 	        // 获得收件箱 
-        	System.out.println(getFolderName(mailserver,folderId));
 	        inbox = store.getFolder(getFolderName(mailserver,folderId)); 
 	        // 以读写模式打开收件箱 
 	        inbox.open(Folder.READ_ONLY); 
 
 	        // 获得收件箱的邮件列表 
-	        // Message[] messages = inbox.getMessages(); 
-	        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("NZ"));
+	        //get last mail date for different folder.
+			Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("NZ"));
 	        SearchTerm olderThan = new SentDateTerm(ComparisonTerm.LE, cal.getTime());
-	        cal.roll(Calendar.MONTH, false);
-	        SearchTerm newerThan = new SentDateTerm(ComparisonTerm.GE, cal.getTime());
+			cal.roll(Calendar.DAY_OF_YEAR, -1);
+			SearchTerm newerThan = new SentDateTerm(ComparisonTerm.GE, cal.getTime());
 	        SearchTerm andTerm = new AndTerm(olderThan, newerThan);
-	        
-	        System.out.println(cal.getTime()+"today is newssssss!!!!");
-			Message[] messages = inbox.search(andTerm);//dannel modify for only shows unread mail inbox
-
+			Message[] messages = inbox.search(andTerm);
+			
 	        // 打印不同状态的邮件数量 
 	        System.out.println("收件箱中共" + messages.length + "封邮件!"); 
 	        System.out.println("收件箱中共" + inbox.getUnreadMessageCount() + "封未读邮件!"); 
@@ -142,24 +160,61 @@ import java.util.UUID;
 	        	MailReader.parseMessage(path, creator, folderId, messages);
 			}	        	
 	        System.out.println("------------------------结束----------------------------------"); 
-	            map.put("list", list);
-
-	        } catch (MessagingException e) {
+	        } catch (Exception e) {	  
 	        	e.printStackTrace();
 	            // TODO Auto-generated catch block
 	        } finally{
 	            try {
-	                inbox.close(false);
-	                store.close();
+	                inbox.close();
+//	                store.close();
 	            } catch (MessagingException e) {
 	            	e.printStackTrace();
 	                // TODO Auto-generated catch block
 	                //e.printStackTrace();
-	            }finally{
-	        		return map;
 	            }
 	        }
+		}
+	    
+	    public static void getMails(Map<String,Object> mailserver, Store store, String path,int creator, int folderId){
+	        Folder inbox = null;
+	        try {
+	        // 获得收件箱 
+	        inbox = store.getFolder(getFolderName(mailserver,folderId)); 
+	        // 以读写模式打开收件箱 
+	        inbox.open(Folder.READ_ONLY); 
 
+	        // 获得收件箱的邮件列表 
+	        // Message[] messages = inbox.getMessages(); 
+	        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("NZ"));
+	        SearchTerm olderThan = new SentDateTerm(ComparisonTerm.LE, cal.getTime());
+	        cal.roll(Calendar.MONTH, false);
+	        SearchTerm newerThan = new SentDateTerm(ComparisonTerm.GE, cal.getTime());
+	        SearchTerm andTerm = new AndTerm(olderThan, newerThan);
+			Message[] messages = inbox.search(andTerm);//dannel modify for only shows unread mail inbox
+	        // 打印不同状态的邮件数量 
+	        System.out.println("收件箱中共" + messages.length + "封邮件!"); 
+	        System.out.println("收件箱中共" + inbox.getUnreadMessageCount() + "封未读邮件!"); 
+	        System.out.println("收件箱中共" + inbox.getNewMessageCount() + "封新邮件!"); 
+	        System.out.println("收件箱中共" + inbox.getDeletedMessageCount() + "封已删除邮件!"); 
+	        
+	        System.out.println("------------------------开始解析邮件----------------------------------"); 
+	        if (messages.length>0) {
+	        	MailReader.parseMessage(path, creator, folderId, messages);
+			}	        	
+	        System.out.println("------------------------结束----------------------------------"); 
+	        } catch (Exception e) {	  
+	        	e.printStackTrace();
+	            // TODO Auto-generated catch block
+	        } finally{
+	            try {
+	                inbox.close();
+//	                store.close();
+	            } catch (MessagingException e) {
+	            	e.printStackTrace();
+	                // TODO Auto-generated catch block
+	                //e.printStackTrace();
+	            }
+	        }
 	    } 
 	    public List<Object> getList() {
 	        return list;

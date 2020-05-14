@@ -130,11 +130,11 @@
                                             </div>
                                         </div>
                                         <div class="col">
-                                       		<div class="form-group">
+                                       		<!-- <div class="form-group">
                                                 <label for="lname">Wechat</label><br/>
                                                 ${(client.wechat)!}
                                             </div>
- 
+ --> 
                                         </div>
                                     </div>
                                      <#if type!=2>
@@ -155,17 +155,7 @@
                                         </div>
                                     </div>
                                      </#if>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="fname">Address</label>
-                                               
-                                                <div id="addresses">
-                                                	
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
@@ -244,91 +234,69 @@
                                    
                                     
                                     
-                                                <label for="fname">Previous Residential Address (If client have stayed at current address for less than 3 years)</label>
-                                               <div id="preaddresses">
-                                                	<div id="inputpreaddress">
-                                                	<div id="divpreaddress" style="margin-bottom: 10px;">
-                                               <div id="previous_employment">
-                                               	<div id="employ">
-                                               		
-	                                               <div id="employ_[employ_index]">
+                                              <label for="fname">Previous Residential Address (If client have stayed at current address for less than 3 years)</label>
+                                             <div id="preaddresses">
+                                              	<div id="inputpreaddress">
+                                               	<div id="divpreaddress" style="margin-bottom: 10px;">
+	                                               <div>
+	                                               	<div>
+		                                               <div id="preadd_[employ_index]">
 			                                               <div class="row">
-		                                    <div class="col">
-		                                            <div class="card-header bg-white d-flex align-items-center" style="padding-bottom: 2px;">
-						                               <p><strong class="headings-color">Previous Residential Address</strong></p>
-						                                
-						                            </div>
-				                                    </div>
-				                                    </div>
-				                                    <div class="row">
-				                                    	<div style="padding-left:16px; width: 70%">
-					                                    	<label for="fname">Previous Residential Address</label>
+					                                    		<div class="col">
+						                                            <div class="card-header bg-white d-flex align-items-center" style="padding-bottom: 2px;">
+										                               <p><strong class="headings-color">Previous Residential Address</strong></p>
+										                                
+										                            </div>
+							                                    </div>
+						                                    </div>
+						                                    <div class="row">
+						                                    	<div style="padding-left:16px; width: 70%">
+							                                    	<label for="fname">Previous Residential Address</label>
+							                                    </div>
+							                                    <div style="width: 30%; padding-left: 2px;">
+							                                     	<label for="fname">Period Styled(Year(s), Month(s))</label>
+							                                    </div>
+						                                    </div>
+					                                     	<div class="row">
+							                                    <div style="padding-left: 16px;padding-right: 8px; width: 70%">
+							                                    	<div name="preaddress"></div>
+							                                    </div>
+							                                    <div style="width: 15%; padding-left: 2px;padding-right: 8px;">
+							                                     	<div name="p_time_stayed_years"></div>
+							                                    </div>
+							                                    <div style="width: 15%; padding-left: 2px;padding-right: 16px;">
+							                                     	<div name="p_time_stayed_months"></div>
+							                                    </div>
+						                                    </div>
 					                                    </div>
-					                                    <div style="width: 30%; padding-left: 2px;">
-					                                     	<label for="fname">Period Styled(Year(s), Month(s))</label>
-					                                    </div>
+					                                   </div>
 				                                    </div>
-				                                    <!-- <div class="row">
-				                                       <div class="col">
-				                                            <div class="form-group">
-				                                                <label>Previous Residential Address</label><br/>
-				                                                <div name="preaddress"></div>
-				                                            </div>
-					                                     </div>
-				                                     </div> -->
-				                                     <div class="row">
-	                                    <div style="padding-left: 16px;padding-right: 8px; width: 70%">
-	                                    	<div name="preaddress"></div>
+		                                  		</div>
+		                                    </div>
 	                                    </div>
-	                                    <div style="width: 15%; padding-left: 2px;padding-right: 8px;">
-	                                     	<div name="p_time_stayed_years"></div>
-	                                    </div>
-	                                    <div style="width: 15%; padding-left: 2px;padding-right: 16px;">
-	                                     	<div name="p_time_stayed_months"></div>
-	                                    </div>
-                                    </div>
-					                                     <!-- <div class="row">
-				                                       <div class="col">
-				                                            <div class="form-group">
-				                                                <label for="fname">Time Stayed:(Address client are currently residing)</label><br/>
-				                                                <div class="row">
-					                                      
-					                                      <div class="col">
-				                                            <div class="form-group">
-				                                                <label>Year(s)</label><br/>
-				                                                <div name="p_time_stayed_years"></div>
-				                                            </div>
-				                                        </div>
-				                                        <div class="col">
-				                                            <div class="form-group">
-				                                                <label>Month(s)</label><br/>
-				                                                <div name="p_time_stayed_months"></div>
-				                                            </div>
-				                                        </div>
-				                                        
-				                                    </div>
-				                                            </div>
-					                                     </div>
-					                                     </div> -->
-					                                      
-				                                    </div>
-				                                    </div>
-			                                    </div>
-			                                  </div>
-				                                    </div>
-			                                    </div>
                                            
                                     
                                     <div class="row">
 	                                    <div style="width: 70%; padding-left: 16px;padding-right: 8px;">
 	                                    	<div class="form-group">
                                                 <label for="fname">Postal Address (If different from residential address)</label>
-                                                ${(client.postal_address)!}
                                             </div>
 	                                    </div>
 	                                    <div style="width: 30%; padding-left: 2px;padding-right: 16px;">
 	                                    <div class="form-group">
                                                 <label for="fname">Current Living Situation</label>
+                                            </div>
+	                                    </div>
+                                    </div>
+                                    <div class="row">
+	                                    <div style="width: 70%; padding-left: 16px;padding-right: 8px;">
+	                                    	<div class="form-group">
+                                                ${(client.postal_address)!}
+                                            </div>
+	                                    </div>
+	                                    <div style="width: 30%; padding-left: 2px;padding-right: 16px;">
+	                                    <div class="form-group">
+                                               
                                                 <#assign current_living_situation=["Renting","Living in own home","Boarding","Other"]/>
                                                 ${(current_living_situation[client.current_living_situation])!}
                                             </div>
@@ -976,6 +944,7 @@ function CalReview(node_index){
 }
                 $(function () { 
                 	function copyNode(nodeid){
+                		console.log(nodeid);
                 		var node_index = document.getElementsByName("loan_effective_date").length;
                 		var property_index = document.getElementsByName("security_property").length;
                 		var curemploy_index = document.getElementsByName("curcompany").length;
@@ -987,7 +956,7 @@ function CalReview(node_index){
                 		var pre_address_index = document.getElementsByName("preaddress").length;//dannel modify
                 		var sourceNode = document.getElementById(nodeid); // 获得被克隆的节点对象 
                 		var clonedNode = sourceNode.cloneNode(true); // 克隆节点 
-                		//console.log(sourceNode.innerHTML)
+                		console.log(sourceNode.innerHTML)
                 		//console.log('--------------------')
                 		$node = $(clonedNode);
                 		$node.find('button[id="bt_mobile"]').css("display","block");
@@ -1054,10 +1023,10 @@ function CalReview(node_index){
                 	});
                 	$("#addnew").on('click',function(e){
                 		copyNode("employ");
-                	});
+                	});/* 
                 	$("#addproperty").on('click',function(e){
                 		copyNode("property");
-                	});
+                	}); */
                 	
                 	if('${method}'=='view'){
                 		var arr = JSON.parse('${(client.personal_email)!}');
@@ -1119,6 +1088,7 @@ function CalReview(node_index){
 	                	var employment = '${(client.previous_employment)!}';
 	                	if(employment!=''){
 		                	var employmentArray = JSON.parse(employment);
+		                	//console.log(employmentArray);
 		                	for(var i=1;i<employmentArray.length;i++){
 		                		copyNode("employ");
 		                	}

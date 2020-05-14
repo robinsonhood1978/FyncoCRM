@@ -27,7 +27,8 @@ public class FileController extends Controller {
 		String savefilename="";
 		String filedataFileName ="";
 		StringBuffer files=new StringBuffer();
-		List<UploadFile> upfilelist = this.getFiles();
+		
+		List<UploadFile> upfilelist = this.getFiles("upgradeFile", 5000 * 1024);
 		if(upfilelist!=null&&upfilelist.isEmpty()==false){
 			String realPath = this.getRequest().getRealPath("/");
 			
@@ -45,17 +46,18 @@ public class FileController extends Controller {
 					filedataFileName = upfile.getOriginalFileName();
 					savefilename = uploadroot+path+"/"+ sf.format(new Date())+StrUtil.randomNum(3)+ filedataFileName.substring(filedataFileName.lastIndexOf("."));
 					if(file != null){
-						upfile.getFile().renameTo(new File(realPath + savefilename));
-						files.append(savefilename);
-						if(i<fsize)
-							files.append(",");
+						if (upfile.getFile().renameTo(new File(realPath + savefilename))) {
+							files.append(savefilename+"#"+filedataFileName);
+							if(i<fsize)
+								files.append(",");
+						}
 					}
 				}
 				i++;
 			}
 		}
 		
-		String[] strArray=files.toString().split(",");
+		String strArray=files.toString();
 		Map map = new HashMap();
 		map.put("errno","0");
 		map.put("data",strArray);

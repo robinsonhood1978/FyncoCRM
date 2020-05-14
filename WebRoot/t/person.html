@@ -112,9 +112,24 @@
                         
                         <div class="card card-form">
                             <div class="row no-gutters">
-                                
+                                <div class="col-lg-4 card-body">
+                                    <p><strong class="headings-color">Sending Mail Setting</strong></p>
+                                    <p class="text-muted">Edit your email account and password to send email.</p>
+                                </div>
                                 <div class="col-lg-8 card-form__body card-body">
-                                 	<div class="row">
+                                	
+		                                <div class="row">
+		                                    <div class="flex col-lg-8" style="margin-bottom: 20px;">
+		                                        <label for="uselogo">To set up your email on systerm</label><br>
+		                                        <div class="custom-control custom-checkbox-toggle custom-control-inline mr-1">
+		                                            <input type="checkbox" id="emailSet" class="custom-control-input">
+		                                            <label class="custom-control-label" for="emailSet">Yes</label>
+		                                        </div>
+		                                        <label for="emailSet" id="emailContrler" class="mb-0">Yes</label>
+		                                    </div>
+		                                </div>
+	                                
+                                 	<div class="row" id="emailSeting" style="pointer-events:none;">
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="fname">Email account</label>
@@ -147,10 +162,7 @@
                                     </div>
                                     
                                 </div>
-                                <div class="col-lg-4 card-body">
-                                    <p><strong class="headings-color">Sending Mail Setting</strong></p>
-                                    <p class="text-muted">Edit your email account and password to send email.</p>
-                                </div>
+                                
                             </div>
                         </div>
 
@@ -170,7 +182,59 @@
                 	  e.preventDefault();
                 	});
                 var host = '${(session.user.mail_host)!}';
+                var email_set =parseInt('${(session.user.email_set)!}');
+                var use = 0;
                 
+                if (email_set != 0) {
+                	$( "#emailContrler" ).html( "New" );
+                	$( "#emailSet" ).prop( "checked", false );
+				}else {
+					$( "#emailContrler" ).html( "Old" );
+					$( "#emailSet" ).prop( "checked", true );
+					use = 1;
+					//$('#emailSeting').attr("style", "pointer-events:none");
+				}
+                setInputFiels(use);
+                function setInputFiels(check) {
+                	if (check == 1) {
+       					$('#emailSeting').attr("style", "pointer-events:inline;");
+       					$('#sendmail_account').val("");
+       					$('#sendmail_password').val("");
+       					$( "#emailContrler" ).html( "New" );
+					}else{
+						$('#emailSeting').attr("style", "pointer-events:none;");
+						$( "#emailContrler" ).html( "Old" );
+					}
+				}
+                
+                $('#emailSet').change(function(){
+       			  if(this.checked != true)
+       			  {
+       				  use = 0;
+       			  }
+       			  else{
+       				  use = 1;
+       			  }
+       			setInputFiels(use);
+       			  if (use == 1) {
+       				  var userID = '${(session.user.id)!}'
+	       				$.post("/email/resetEmail", {"user.id":userID,"user.email_set":0}, function(data) {
+	       					if(data!=0){
+	       						mlayer.open({
+	       						    content: 'Setting changed',
+	       						    btn: 'Got it'
+	       						  });
+	       					}
+	       					else{
+	       						mlayer.open({
+	       						    content: 'Fail',
+	       						    btn: 'Got it'
+	       						  });
+	   
+	       					}
+	       				}, "json");
+					}
+       			});
                 if(host!=''){
                 	$('#mail_host').val(host);
                 }
@@ -178,8 +242,13 @@
                 if(title!=''){
                 	$('#title').val(title).trigger('change');
                 }
+                function setUpEmail() {
+                	$.get('/email/setUpEmails', function(data) {}, "json");
+				}
 function Mod(){
 	var vmobile=$('#mobile').val();
+	var sendmail_account=$('#sendmail_account').val();
+	var sendmail_password=$('#sendmail_password').val();
 	if(vmobile!=''){
 			$.post("/mobile", {mobile:vmobile}, function(data) {
 			if(data.code>0){
@@ -189,7 +258,7 @@ function Mod(){
 				  });
 				return false;
 			}
-			else{
+			else if((sendmail_account != '') && (sendmail_password != '')){
 				var first_name=$('#first_name').val();
 				var last_name=$('#last_name').val();
 				var prefered_name=$('#prefered_name').val();
@@ -199,12 +268,9 @@ function Mod(){
 				var department=$('#department').val();
 				var employee_number=$('#employee_number').val();
 				var office_location=$('#office_location').val();
-				var sendmail_account=$('#sendmail_account').val();
-				var sendmail_password=$('#sendmail_password').val();
 				var mail_host=$('#mail_host').val();
-				sendmail_password = Base64.encode(sendmail_password);
-				var email_set = 0;
-				if ((sendmail_account != "") && (sendmail_password != "") && (mail_host != "")) {
+				if (use == 1) {
+					sendmail_password = Base64.encode(sendmail_password);
 					email_set = 1;
 				}
 				
@@ -222,16 +288,22 @@ function Mod(){
 					else{ 
 						//sessionStorage.setItem("fynco_email", vemail); 
 						mlayer.open({
-						    content: 'Success',
+						    content: 'Success to Set up Email!',
 						    btn: 'Got it',
 						    yes: function(){
 						    	location.href="/";
 						      }
-						  });
+						});
+						setUpEmail();
 					}
 					return false;
 				}, "json");
 				return false;
+			}else {
+				mlayer.open({
+				    content: 'Please enter account and password to Set up Email!',
+				    btn: 'Got it'  
+				});
 			}
 		}, "json");
 	}

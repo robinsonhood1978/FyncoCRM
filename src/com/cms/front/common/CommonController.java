@@ -13,6 +13,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.Store;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sound.midi.Soundbank;
@@ -28,6 +30,7 @@ import com.cms.util.DateFmt;
 import com.cms.util.FileUtil;
 import com.cms.util.Md5;
 import com.cms.util.Paginable;
+import com.cms.util.ReadMail;
 import com.cms.util.SendMail;
 import com.cms.util.StringUtils;
 import com.itextpdf.kernel.xmp.impl.Base64;
@@ -115,26 +118,57 @@ public class CommonController extends Controller {
 		String content = getPara("email.content");
 		String atts = getPara("atts");
 		String jatts = getPara("jatts");
+		String personName = u.getStr("first_name")+" "+u.getStr("last_name");
+		String realPath = this.getRequest().getRealPath("/");
+		System.out.println(atts);
+		System.out.println("To|"+to+"-From|"+from+"Password|"+Base64.decode(passwd)+"Subject|"+subject+"Content|"+content+personName);
 		//System.out.println(atts);
 		//System.out.println(jatts);
-		String[] att_arr = atts.split(",");
-		String realPath = this.getRequest().getRealPath("/");
-		int i=0;
-		for(String att:att_arr) {
-			att_arr[i]=realPath+att;
-			i++;
+		String[] att_arr = null;
+		if (atts!="") {
+			att_arr = atts.split(",");
+			System.out.println(realPath);
+			int i=0;
+			for(String att:att_arr) {
+				att_arr[i]=realPath+att;
+				i++;
+			}
 		}
+		
 		Record r = Db.findFirst("select * from mailserver where name=?",host);
 		//JSONObject jr = JSONObject.fromObject(r.getColumns(););
 		
 		//System.out.println(jr.toString());
-		SendMail.send(r.getColumns(),from, passwd, to, subject, content,att_arr);
-		boolean b = getModel(Email.class).set("status", 1).set("attachment", jatts)
-				.set("creator", u.getInt("id")).save();
-		if(b)code=0;
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("code",code);
-		renderJson(map);
+		
+		Store store = null;
+		try {
+			SendMail.send(r.getColumns(),from, Base64.decode(passwd), to, subject, content,att_arr);
+			store = ReadMail.getStoreConnect(r.getColumns(), from,Base64.decode(passwd));
+			ReadMail.getLastEmails(r.getColumns(),store,realPath,u.getInt("id"),0);
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+            try {
+                store.close();
+                renderJson(1);
+            } catch (MessagingException e) {
+            	e.printStackTrace();
+                // TODO Auto-generated catch block
+            }
+        }
+		
+	}
+	@Before(MInterceptor.class)
+	public void newEmail() {
+		String to = "";
+		if(getPara("t")!=null) {
+			to = getPara("t");
+		}else {
+			setSessionAttr("email_content", "");
+		}
+		setAttr("to",to);
+		render("/t/amail.html");
 	}
 	@Before(MInterceptor.class)
 	public void amail() {
@@ -460,8 +494,6 @@ public class CommonController extends Controller {
 			list = User.dao.find("select u.* from user u where email=? and pwd=?",email,Md5.encodePassword(pwd,"fynco"));
 			if(list.size()==1){
 				// 放数据至session
-				String email_pwd = list.get(0).getStr("sendmail_password");
-				list.get(0).set("sendmail_password", Base64.decode(email_pwd));
 				setSessionAttr("user", list.get(0));
 			}
 			else {
@@ -541,6 +573,7 @@ public class CommonController extends Controller {
 	public void logout(){
 		// 删除session中的属性
 		removeSessionAttr("user");
+		removeSessionAttr("emailKey");
 		HttpSession session = this.getRequest().getSession(false);
 		if (session != null)
 			session.invalidate();

@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.imageio.ImageIO;
+import javax.sound.midi.Soundbank;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
@@ -626,6 +627,16 @@ public class PdfUtil {
         srcDoc.close();
         resultPdfDoc.close();
     }
+	public static int get_pdf_2_code(int ce_client1, int ce_client2, int pe_client1, int pe_client2) {
+		int cal_ce = ce_client1 > ce_client2 ? ce_client1: ce_client2;
+		int cal_pe = pe_client1 > pe_client2 ? pe_client1: pe_client2;
+		return conver_pdf_2_Id(cal_ce, cal_pe);
+	}
+	private static int conver_pdf_2_Id(int ce, int pe) {
+		ce = ce==0? 1: ce;
+		pe = pe==0? 1: pe;
+		return (ce-1)*2+(pe-1)+1;
+	}
 	public static String pdf_2(String dest,String realPath,Client[] clients,Application apt) throws Exception {
 		ArrayList<String> filelist = new ArrayList<String>();
 		Client[] client = new Client[2];
@@ -673,19 +684,27 @@ public class PdfUtil {
 			
 			int ce_size1 = 1;
 			int ce_size2 = 1;
+			int pe_size1 = 1;
+			int pe_size2 = 1;
 			int ce_max_size=1;
 			if(app[0].getStr("previous_residential_address")!=null) {
 	              JSONArray ceJsonArray = JSONArray.fromObject(app[0].getStr("current_employment"));
 	              ce_size1 = ceJsonArray.size();
+	              JSONArray peJsonArray = JSONArray.fromObject(app[0].getStr("previous_employment"));
+	              pe_size1 = peJsonArray.size();
 	        }
 			if(client_size==2) {
 				if(app[1]!=null&&app[1].getStr("previous_residential_address")!=null) {
 		              JSONArray ceJsonArray2 = JSONArray.fromObject(app[1].getStr("current_employment"));
 		              ce_size2 = ceJsonArray2.size();
+		              JSONArray peJsonArray2 = JSONArray.fromObject(app[1].getStr("previous_employment"));
+		              pe_size2 = peJsonArray2.size();
 		        }
 			}
-			if(ce_size1>1||ce_size2>1) {
-				ce_max_size=2;
+			if(client_size>1) {
+				ce_max_size=get_pdf_2_code(ce_size1, ce_size2,pe_size1, pe_size2);
+			}else {
+				ce_max_size=conver_pdf_2_Id(ce_size1, pe_size1);
 			}
 			String destfile = dest+"sm_2_"+foot+"_1_"+pra_max_size+".pdf";
 			String destfile2 = dest+"sm_2_"+foot+"_2_"+ce_max_size+".pdf";
@@ -859,11 +878,15 @@ public class PdfUtil {
 			        	int j=i+1;
 			        	String company_name = "";
 			        	String time_stayed = "";
+			        	String job_title = "";
 			        	if(peObj!=null) {
 			        		company_name = StrUtil.null2Blank(peObj.getString("company_name"));
 			        		time_stayed = StrUtil.null2Blank(peObj.getString("time_stayed"));
+			        		job_title = StrUtil.null2Blank(peObj.getString("job_title"));
 			        	}
+			        	System.out.print("app"+m+"_employment_p_company_"+j+job_title);
 			    		fields2.get("app"+m+"_employment_p_cn"+j).setValue(company_name).setFontSize(9);
+			    		fields2.get("app"+m+"_employment_p_o_"+j).setValue(job_title).setFontSize(9);
 			    		fields2.get("app"+m+"_employment_p_ts"+j).setValue(time_stayed).setFontSize(9);
 					}
 		        }
@@ -1109,18 +1132,18 @@ public class PdfUtil {
         PdfPage page = pdfDoc.getFirstPage();
         PdfDictionary dict = page.getPdfObject();
  
-        PdfObject object = dict.get(PdfName.Contents);
-        if (object instanceof PdfStream) {
-            PdfStream stream = (PdfStream) object;
-            byte[] data = stream.getBytes();
-            String replacedData = new String(data)
-            		.replace("Application Date","Lender")
-            		.replace("Bank", "Application Date")
-            		.replace("Email","Adviser Email")
-            		.replace("Mobile","Adviser Contact Number");
-            //System.out.println(replacedData);
-            stream.setData(replacedData.getBytes(StandardCharsets.UTF_8));
-        }
+//        PdfObject object = dict.get(PdfName.Contents);
+//        if (object instanceof PdfStream) {
+//            PdfStream stream = (PdfStream) object;
+//            byte[] data = stream.getBytes();
+//            String replacedData = new String(data)
+//            		.replace("Application Date","Lender")
+//            		.replace("Bank", "Application Date")
+//            		.replace("Email","Adviser Email")
+//            		.replace("Mobile","Adviser Contact Number");
+//            //System.out.println(replacedData);
+//            stream.setData(replacedData.getBytes(StandardCharsets.UTF_8));
+//        }
         
 //        java.util.Iterator<String> it = fields.keySet().iterator();
 //        while (it.hasNext()) {

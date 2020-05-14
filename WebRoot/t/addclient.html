@@ -166,13 +166,6 @@
                                                 <input type="text" class="form-control" name="client.home_phone" id="home_phone" value="${(client.home_phone)!}">
                                             </div>
                                         </div>
-                                        <div class="col">
-                                       		<div class="form-group">
-                                                <label for="lname">Wechat</label>
-                                                <input type="text" class="form-control" name="client.wechat" id="wechat" value="${(client.wechat)!}">
-                                            </div>
- 
-                                        </div>
                                     </div>
                                     <!-- dannel Modify Start-->
                                     <#if type!=2>
@@ -488,7 +481,7 @@
 	                                                	
 	                                                </div>
                                                 </div>
-                                                <div style="text-align: center; border: solid 1px; height: 40px; border-radius:15px;">
+                                                <div id="add_pre_address_control" style="text-align: center; border: solid 1px; height: 40px; border-radius:15px;">
                                                 	<div id="add_pre_address" style="padding-top: 7px;">
                                                 		<i class="material-icons">add_circle_outline</i>
                                        					<label for="fname">Add Previous Residential Address</label>
@@ -646,7 +639,7 @@
                                         
 	                                     
                                     </div>
-                                    <div style="text-align: center; border: solid 1px; height: 40px; border-radius:15px;">
+                                    <div id="add_curemploy_control" style="text-align: center; border: solid 1px; height: 40px; border-radius:15px;">
                                     <div id="add_curemploy" style="padding-top: 7px;">
                                                 <i class="material-icons">add_circle_outline</i>
                                            		<label for="fname">Add Current Employment</label>
@@ -660,18 +653,18 @@
                                                		
 	                                               <div id="employ_[employ_index]">
 			                                               <div class="row">
-		                                    <div class="col">
-		                                            <div class="card-header bg-white d-flex align-items-center" style="padding-bottom: 1px;">
-						                               <p><strong class="headings-color">Previous Employment</strong></p>
-						                                <div class="d-flex ml-auto">
-						                                    <div style="display:none" onclick="RemoveEmploy('[employ_index]')" id="removeEmploy">
-						                                                <i class="material-icons">remove_circle_outline</i>
-						                                           		<label>Remove</label>
-						                                           		</div>
-						                                </div>
-						                            </div>
-				                                    </div>
-				                                    </div>
+						                                    <div class="col">
+					                                            <div class="card-header bg-white d-flex align-items-center" style="padding-bottom: 1px;">
+									                               <p><strong class="headings-color">Previous Employment</strong></p>
+									                                <div class="d-flex ml-auto">
+									                                    <div style="display:none" onclick="RemoveEmploy('[employ_index]')" id="removeEmploy">
+									                                                <i class="material-icons">remove_circle_outline</i>
+									                                           		<label>Remove</label>
+									                                           		</div>
+									                                </div>
+									                            </div>
+						                                    </div>
+				                                    		</div>
 				                                    <div class="row">
 				                                       <div class="col">
 				                                            <div class="form-group">
@@ -706,7 +699,7 @@
 				                                    </div>
 				                                    </div>
 			                                    </div>
-			                                    <div style="text-align: center; border: solid 1px; height: 40px; border-radius:15px;">
+			                                    <div id="addnew_control" style="text-align: center; border: solid 1px; height: 40px; border-radius:15px;">
 			                                    
 				                                   <div id="addnew" style="padding-top: 7px;">
 	                                                <i class="material-icons">add_circle_outline</i>
@@ -1026,9 +1019,11 @@
                 	$('#loan_'+id).remove();
                 }
                 function RemoveEmploy(id){
+                	$("#addnew_control").css("display","block");
                 	$('#employ_'+id).remove();
                 }
                 function RemoveCurEmploy(id){
+                	$("#add_curemploy_control").css("display","block");
                 	$('#curemploy_'+id).remove();
                 }
                 function RemoveProperty(id){
@@ -1045,6 +1040,7 @@
                 }
                 //dannel modify
                 function RemovePreAddress(id){
+                	$("#add_pre_address_control").css("display","block");
                 	$('#divpreaddress_'+id).remove();
                 }
                 function d2sd(effective_date,months){
@@ -1164,7 +1160,13 @@ function CalReview(node_index){
                 	});
                 	//dannel modify
                 	$("#add_pre_address").on('click',function(e){
-                		copyNode("inputpreaddress");
+                		var pre_address_index = document.getElementsByName("preaddress").length;//dannel modify
+                		if (pre_address_index<2) {
+                			if (pre_address_index == 1) {
+    							$("#add_pre_address_control").css("display","none");
+    						}
+                			copyNode("inputpreaddress");
+						}
                 	});
                 	$("#addloan").on('click',function(e){
                 		copyNode("loan");
@@ -1172,11 +1174,24 @@ function CalReview(node_index){
                 	});
                 	
                 	$("#add_curemploy").on('click',function(e){
-                		copyNode("curemploy");
-                		$("[name='gross_income']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+                		var employ_cur = document.getElementsByName("preaddress").length;
+                		if (employ_cur<2) {
+                			if (employ_cur == 1) {
+                    			$("#add_curemploy_control").css("display","none");
+    						}
+                			copyNode("curemploy");
+                    		$("[name='gross_income']").maskMoney({prefix:'$', allowNegative: true, thousands:',', decimal:'.', affixesStay: false});
+						}
                 	});
                 	$("#addnew").on('click',function(e){
-                		copyNode("employ");
+                		var employ_pre = document.getElementsByName("preaddress").length;
+                		if (employ_pre<2) {
+                			if (employ_pre == 1) {
+                    			$("#addnew_control").css("display","none");
+    						}
+                			copyNode("employ");
+						}
+                		
                 	});
                 	$("#addproperty").on('click',function(e){
                 		copyNode("property");
@@ -1368,6 +1383,9 @@ function CalReview(node_index){
                 	
                 //});
                 function formatDate(date) {
+                	if (date==null || date == "") {
+						return false;
+					}
                     var d = new Date(date),
                         month = '' + (d.getMonth() + 1),
                         day = '' + d.getDate(),
@@ -1385,8 +1403,23 @@ function SaveClient(method){
 				var gender=$('#gender').val();
 				var first_name=$('#first_name').val();
 				var last_name=$('#last_name').val();
+				if (first_name == "" && last_name == "") {
+					mlayer.open({
+					    content: 'Please enter client name before you save!',
+					    btn: 'Got it'
+					  });
+					return false;
+				}
 				var prefered_name=$('#prefered_name').val();
 				var birthday=formatDate($('#birthday').val());
+				if (!birthday) {
+					mlayer.open({
+					    content: 'Please enter client birthday before you save!',
+					    btn: 'Got it'
+					  });
+					return false;
+				}
+				
 				var work_phone=$('#work_phone').val();
 				var description=$('#description').val();
 				var mobileArr=[];

@@ -29,10 +29,16 @@
                     
                         <div class="card card-form">
                         <div class="col-lg-12 card-body " style="font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;">
-                                    <p><strong class="headings-color">General</strong></p>
-                                   
+	                         <p class="m-0">
+	                         <span class="d-flex align-items-center mb-1">
+	                         <span class="text-dark-gray"><strong class="headings-color">General</strong></span>
+	                         <span class="d-flex ml-auto text-muted">
+	                         <a href="javascript:ShowAndHidden('General')" class="btn-class">
+	                         <i class="material-icons icon-32pt">expand_more</i></a></span>
+	                         </span>
+	                         </p>
                          </div>
-                            <div class="row no-gutters">
+                            <div class="row no-gutters" id="General">
                                 <!-- <div class="col-lg-4 card-body">
                                     <p><strong class="headings-color">General</strong></p>
                                    
@@ -82,10 +88,16 @@
                         </div>
                         <div class="card card-form">
                         <div class="col-lg-12 card-body" style="font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;">
-                                    <p><strong class="headings-color">Loan Information</strong></p>
-                                   
+                                   <p class="m-0">
+			                         <span class="d-flex align-items-center mb-1">
+			                         <span class="text-dark-gray"><strong class="headings-color">Loan Information</strong></span>
+			                         <span class="d-flex ml-auto text-muted">
+			                         <a href="javascript:ShowAndHidden('Loan')" class="btn-class">
+			                         <i class="material-icons icon-32pt">expand_more</i></a></span>
+			                         </span>
+			                         </p>
                                 </div>
-                            <div class="row no-gutters">
+                            <div class="row no-gutters" id="Loan">
                                 
                                 <div class="col-lg-12 card-form__body card-body">
                                 	
@@ -196,11 +208,18 @@
                         
                         <div class="card card-form">
                         <div class="col-lg-12 card-body" style="font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;">
-                                    <p><strong class="headings-color">Security</strong></p>
+                                    <p class="m-0">
+			                         <span class="d-flex align-items-center mb-1">
+			                         <span class="text-dark-gray"><strong class="headings-color">Security</strong></span>
+			                         <span class="d-flex ml-auto text-muted">
+			                         <a href="javascript:ShowAndHidden('Security')" class="btn-class">
+			                         <i class="material-icons icon-32pt">expand_more</i></a></span>
+			                         </span>
+			                         </p>
                                     <input type="hidden" class="form-control" id="security_total_value" value="">
                                     <!-- <p class="text-muted">Edit the client detailed security information.</p> -->
                                 </div>
-                            <div class="row no-gutters">
+                            <div class="row no-gutters" id="Security">
                                 
                                 <div class="col-lg-12 card-form__body card-body">
                                 	<div id="security">
@@ -281,7 +300,7 @@
                                    
                                     <div class="row">
                                         <div class="col">
-                                            <div class="form-group" style="text-align: center; border: solid 1px; height: 40px; border-radius:15px;" >
+                                            <div id="addproperty_control" class="form-group" style="text-align: center; border: solid 1px; height: 40px; border-radius:15px;" >
 			                                   <div id="addproperty" style="margin: 5px;">
                                                 <i class="material-icons">add_circle_outline</i>
                                            		<label for="fname">Add More Property</label>
@@ -297,10 +316,16 @@
                         </div>
 							<div class="card card-form">
 							<div class="col-lg-12 card-body" style="font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;">
-                                    <p><strong class="headings-color">Applicant</strong></p>
-                                   
+                                   <p class="m-0">
+			                         <span class="d-flex align-items-center mb-1">
+			                         <span class="text-dark-gray"><strong class="headings-color">Applicant</strong></span>
+			                         <span class="d-flex ml-auto text-muted">
+			                         <a href="javascript:ShowAndHidden('Applicant_tab')" class="btn-class">
+			                         <i class="material-icons icon-32pt">expand_more</i></a></span>
+			                         </span>
+			                         </p>
                                 </div>
-                            <div class="row no-gutters">
+                            <div class="row no-gutters" id="Applicant_tab">
                                 
                                 <div class="col-lg-12 card-form__body card-body">
                                 	
@@ -362,7 +387,7 @@
 					                            <div class="card stories-card">
 					                                <div class="stories-card__content d-flex align-items-center flex-wrap">
 					                                    <div class="avatar avatar-sm mr-2">
-					                                        <img src="[applicant_avatar]"  alt="Avatar" class="avatar-img rounded-circle">
+					                                        <img src="/t/assets/images/avatar/dfavatar.png"  alt="Avatar" class="avatar-img rounded-circle">
 					                                    </div>
 					                                    <div class="stories-card__title flex">
 					                                        <h6 class="card-title m-0">[applicant_name]</h6>
@@ -394,8 +419,7 @@
                                 </div>
                                 
                                 
-                            </div>
-                        </div>
+                            
                         
                         
                         	
@@ -435,16 +459,23 @@
 	                                </div>
 	                            </div>
 	                            
-	                            
+	                            </div>
+                        </div>
                             
                         	
                         
                         <div class="card card-form">
                         <div class="col-lg-12 card-body" style="font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;"> 
-                                    <p><strong class="headings-color">Assets</strong></p>
-                                    <p class="text-muted"></p>
+                                     <p class="m-0">
+				                         <span class="d-flex align-items-center mb-1">
+				                         <span class="text-dark-gray"><strong class="headings-color">Assets</strong></span>
+				                         <span class="d-flex ml-auto text-muted">
+				                         <a href="javascript:ShowAndHidden('Assets')" class="btn-class">
+				                         <i class="material-icons icon-32pt">expand_more</i></a></span>
+				                         </span>
+			                         </p>
                                 </div>
-                            <div class="row no-gutters">
+                            <div class="row no-gutters" id="Assets">
                                 
                                 <div class="col-lg-12 card-form__body">
                                    			<div class="row">
@@ -1049,10 +1080,16 @@
                         
                          <div class="card card-form">
                          <div class="col-lg-12 card-body" style="font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;">
-                                    <p><strong class="headings-color">Liabilities</strong></p>
-                                    <p class="text-muted"></p>
+                                    <p class="m-0">
+				                         <span class="d-flex align-items-center mb-1">
+				                         <span class="text-dark-gray"><strong class="headings-color">Liabilities</strong></span>
+				                         <span class="d-flex ml-auto text-muted">
+				                         <a href="javascript:ShowAndHidden('Liabilities')" class="btn-class">
+				                         <i class="material-icons icon-32pt">expand_more</i></a></span>
+				                         </span>
+			                         </p>
                                 </div>
-                            <div class="row no-gutters">
+                            <div class="row no-gutters" id="Liabilities">
                                 
                                 <div class="col-lg-12 card-form__body">
                                    			<div class="row">
@@ -1662,21 +1699,29 @@
 <div id="income" class="card card-form" style="display:none;">
 
  <div id="applicantmi_txt" class="col-lg-12 card-body" style="display:none; font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;">
-  <p><strong class="headings-color">Income</strong></p>
+  	<p class="m-0">
+     <span class="d-flex align-items-center mb-1">
+     <span class="text-dark-gray"><strong class="headings-color">Income</strong></span>
+     <span class="d-flex ml-auto text-muted">
+     <a href="javascript:ShowAndHidden('Income_tab')" class="btn-class">
+     <i class="material-icons icon-32pt">expand_more</i></a></span>
+     </span>
+    </p>
 <!-- <h5>Monthly Income from work</h5> -->   
  </div>  
- <div class="card card-form" style="margin-left: 10px; margin-right: 10px; margin-top: 5px; ">
- <div class="row no-gutters">
- <div class="row no-gutters">
-	<div class="card-header card-header-sm" style="background-color: #C0C0C0; font-size: 20;" ><h6 class="card-header__title">Monthly Income from work</h6></div>   
-</div>
+ <div id="Income_tab">
+ <div class="card card-form" style=" margin-top: 5px; " >
+ <div class="row no-gutters" >
+
 <div id="midiv" style="display:none;" >
-	<div id="applicant_mi_card_[applicant_id]" class="card card-form" style="margin-left: 7px; margin-right: 7px; margin-top: 7px;">
+	<div id="applicant_mi_card_[applicant_id]" class="card card-form" >
+                             
                             <div class="row no-gutters">
-                                <div class="card-header card-header-sm bg-white">
-                                        <h6 id="applicant_name" class="card-header__title">[applicant_name]</h6>
-                                        <input type="hidden" name="applicantname_[applicant_id]" value="[applicant_name]">
-                                    </div>
+                               
+                                <div class="card-header card-header-sm" style="background-color: #C0C0C0; font-size: 20;" >
+									<h6 id="applicant_name" class="card-header__title">[applicant_name]</h6>
+									<input type="hidden" name="applicantname_[applicant_id]" value="[applicant_name]">
+									</div>
                                 <div class="col-lg-12 card-form__body">
                                    			<div class="row">
                                                    <div style="width:5%">
@@ -1820,7 +1865,7 @@
                                    
 <div id="mifrdivs">
 <div id="mifrdiv" style="display:none;" >
-	<div id="applicant_mifr_card_[applicant_id]" class="card card-form" style="margin-left: 10px; margin-right: 10px;">
+	<div id="applicant_mifr_card_[applicant_id]" class="card card-form">
                             <div class="row no-gutters">
                                 <div class="card-header card-header-sm " style="background-color: #C0C0C0; font-size: 20;">
                                         <h6 id="applicant_name" class="card-header__title">Monthly Income from Rental</h6>
@@ -1939,8 +1984,8 @@
 	
 </div>
 </div> 
-
-										<div class="row">
+</div>
+										<div class="row" style="margin-top: 25px;">
                                                <div class="col">
 		                                            
 		                                        </div>
@@ -1979,10 +2024,16 @@
 <div id="miexdiv" style="display:none;" >
 	<div id="applicant_miex_card" class="card card-form">
 	<div class="col-lg-12 card-body" style="font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;">
-                                    <p><strong class="headings-color">Expense</strong></p>
-                                   
+                                   <p class="m-0">
+				                         <span class="d-flex align-items-center mb-1">
+				                         <span class="text-dark-gray"><strong class="headings-color">Expense</strong></span>
+				                         <span class="d-flex ml-auto text-muted">
+				                         <a href="javascript:ShowAndHidden('Expense_tab')" class="btn-class">
+				                         <i class="material-icons icon-32pt">expand_more</i></a></span>
+				                         </span>
+			                         </p>
                                 </div>
-                            <div class="row no-gutters">
+                            <div class="row no-gutters" id="Expense_tab">
                                 <!-- <div class="card-header card-header-sm" style="font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;">
                                         <h6 id="applicant_name" >Monthly Expenditure</h6>
                                     </div> -->
@@ -2164,10 +2215,16 @@
 </div>		                                                        
 <div class="card card-form">
 <div class="col-lg-12 card-body" style="font-size: 30; background-color: #C0C0C0; padding-bottom: 10px;">
-                                    <p><strong class="headings-color">Notes</strong></p>
-                                   
+                                   <p class="m-0">
+				                         <span class="d-flex align-items-center mb-1">
+				                         <span class="text-dark-gray"><strong class="headings-color">Notes</strong></span>
+				                         <span class="d-flex ml-auto text-muted">
+				                         <a href="javascript:ShowAndHidden('Notes_tab')" class="btn-class">
+				                         <i class="material-icons icon-32pt">expand_more</i></a></span>
+				                         </span>
+			                         </p>
                                 </div>
-                            <div class="row no-gutters">
+                            <div class="row no-gutters" id="Notes_tab">
                                 
                                 <div class="col-lg-12 card-form__body card-body">
                                 	<div id="notes">
@@ -2180,7 +2237,7 @@
 		                                                <i id="add_note" class="material-icons">add_circle_outline</i>
 		                                                &nbsp;&nbsp;<i style="display:none" onclick="RemoveNote('[note_index]')" id="minus_note" class="material-icons">remove_circle_outline</i>
 		                                                <br/>
-		                                                <textarea class="comment" name="note" rows="3" cols="60"></textarea>
+		                                                <textarea class="comment" name="note" rows="6" cols="60"></textarea>
 		                                            </div>
 		                                        </div>
 		                                    </div>
@@ -2492,6 +2549,21 @@
                 </div>
                 <!-- // END drawer-layout__content -->
                 <script>
+                $('.btn-class').on('click',function(){
+                    if ($(this).find('i').text() == 'expand_more'){
+                        $(this).find('i').text('expand_less');
+                    } else {
+                        $(this).find('i').text('expand_more');
+                    }
+                });
+                function ShowAndHidden(tagId) {
+                	var x = document.getElementById(tagId);
+                	  if (x.style.display === "none") {
+                	    x.style.display = "block";
+                	  } else {
+                	    x.style.display = "none";
+                	  }
+				}
               //dannel modify
                 const formatter = new Intl.NumberFormat('en-US', {
                 	  style: 'currency',
@@ -2856,6 +2928,7 @@
                 	Asset();
                 }
                 function RemoveSecurityProperty(id){
+                	$("#addproperty_control").css("display","block");
                 	$('#security_property_'+id).remove();
                 }
                 function RemoveNote(id){
@@ -3592,7 +3665,13 @@
                 		copyTr("vehicle");
                 	});
                 	$("#addproperty").on('click',function(e){
-                		copyNode("security_property");
+                		var property_index = document.getElementsByName("security_property").length;
+                		if (property_index <4) {
+							if (property_index == 3) {
+								$("#addproperty_control").css("display","none");
+							}
+							copyNode("security_property");
+						}
                 	});
                 	$("#add_new_lead").on('click',function(e){
                 		$("#minus_ids").val([]);
@@ -4490,9 +4569,9 @@ window.onload = function() {
 		MonthExpend();
 		Liability();
 	}
-	$('body').everyTime('60s',function(){
+	/* $('body').everyTime('60s',function(){
 		SaveApp(1);
-	});
+	}); */
 }; 
 </script>
 

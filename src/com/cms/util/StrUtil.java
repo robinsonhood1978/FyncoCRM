@@ -52,7 +52,7 @@ public class StrUtil {
 			return df.format(data);
 		}
 		else {
-			return "";
+			return "0";
 		}
     }
 	public static String formatString(String data) {

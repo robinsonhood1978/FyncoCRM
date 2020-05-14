@@ -57,7 +57,16 @@ public class SendMail {
             message.setFrom(new InternetAddress(from));
 
             // Set To: header field of the header.
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            if (to.indexOf(',') > 0) {
+            	message.setRecipients(Message.RecipientType.CC, InternetAddress.parse(to));   
+            }
+            else {
+            	message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            }
+
+//            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+//	
+//            
 
             // Set Subject: header field
             message.setSubject(subject);
@@ -76,7 +85,7 @@ public class SendMail {
             multiPart.addBodyPart(bodyPart);
 
             //添加附件
-            if(atts.length != 0){
+            if(atts != null){
                 for(String attachFile : atts){
                 	String[] attArr = attachFile.split("#");
                     bodyPart=new MimeBodyPart();  

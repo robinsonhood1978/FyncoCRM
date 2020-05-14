@@ -85,7 +85,7 @@
 	                                                        </span>
 	                                                        <span class="d-flex align-items-end" id="attachs">
 	                                                            <span class="flex mr-3">   
-	                                                                <small class="text-muted" style="max-height: 1.3rem; overflow: hidden; position: relative; display: inline-block;">[content]</small>
+	                                                                <small class="text-muted" style="max-height: 1.3rem; max-width:8.3rem; overflow: hidden; position: relative; display: inline-block;">[content]</small>
 	                                                            </span>
 	                                                        </span>
 	                                                    </p>
@@ -107,13 +107,13 @@
                                     	<div id="[detail_div]">
                                    	 	<span class="d-flex align-items-center">
                                     		<h1 class="h4 flex">[subject]</h1>
-                                    		<a href="javascript:void(0)" onclick="ReplyMail();" class="text-dark-gray">
+                                    		<a href="javascript:void(0)" onclick="ReplyMail('[detail_foot]');" class="text-dark-gray">
                                                 <i class="material-icons">reply</i>
                                             </a>
-                                            <a href="javascript:void(0)" onclick="ReplyMail();" class="text-dark-gray">
+                                            <a href="javascript:void(0)" onclick="ForwardMail('[detail_foot]');" class="text-dark-gray">
                                                 <i class="material-icons">forward</i>
                                             </a>
-                                           <a href="" class="text-dark-gray ml-2">
+                                           <a href="javascript:void(0)" onclick="SimplePdf();" class="text-dark-gray ml-2">
                                                <i class="material-icons">print</i>
                                           	</a>
                                    		</span>
@@ -148,14 +148,14 @@
                                     </div>
                                     </div>
                             <div class="col-lg-8 py-3 px-4 bg-white border-left d-flex flex-column">
-                                <div class="flex d-flex flex-column">
+                                <div class="flex d-flex flex-column" style="position: relative; z-index: 0;overflow:scroll; height:600px;">
                                     <div data-simplebar class="h-100">
-                                    	<div id="fdetail">
+                                    	<div id="fdetail" style="margin-bottom: 50px;">
                                     	
-                                    </div>
+                                    	</div>
                                     </div>
                                 </div>
-                                <div class="border-top pt-3 px-3 text-center">
+                                <div class="border-top pt-3 px-3 text-center" id="eDetailCont" style="display: none;">
                                 	<input type="hidden" id="to_address">
                                 	<input type="hidden" id="origin_content">
                                     Click here to <a class="btn btn-link px-0" href="javascript:void(0)" onclick="ReplyMail();">Reply</a> or <a class="btn btn-link px-0" href="javascript:void(0)" onclick="ForwardMail();">Forward</a> this message.
@@ -177,24 +177,26 @@
                 	  link.click();
                 	  document.body.removeChild(link);
                 	  delete link;
+                	  //removeFileLocal(uri);
                 	}
                 
                 function toDownLoadFile(fileId,foot) {
                 	var attachments = JSON.parse(mails[foot]['attachment']);
+                	var url = "";
+                	$.ajaxSettings.async = false;
                 	$.post("/email/getEmailDetails", {"id":mails[foot]['id'],"fileName":attachments[fileId]},function(data){
-                		var url = data.url;
+                		url = data.url;
                 		if (url == "") {
                 			mlayer.open({
 							    content: "Fail to Download the attachment!",
 							    btn: 'Got it'
 							  });
-						}else{
-							downloadURI(url,attachments[fileId]);
-							$.ajaxSettings.async = false;
-							removeFileLocal(url);
-							$.ajaxSettings.async = true;
 						}
                 	}); 
+                	$.ajaxSettings.async = true;
+                	if (url != "") {
+                		downloadURI(url,attachments[fileId]);
+                	}
 				}
                 function removeFileLocal(fileUrl) {
                 	$.post("/email/removeFiles", {"fileUrl":fileUrl},function(data){
@@ -239,6 +241,7 @@
 				}
                 function delEmail(divid,type) {
                 	var foot = divid.split("_")[1];
+                	var contents = (type != 3)? "The Email has Moved to the Bin!":"The Email has Moved to the Bin On Server!";
                 	mlayer.open({
 					    content: "Do You Want to Delete it?",
 					    btn: ['Yes', 'No'],
@@ -246,7 +249,7 @@
 					    	$.post("/email/deleteEmail", {"email.id":mails[foot]["id"],"email.type":type},function(data) {
 								if(data==1){
 									mlayer.open({
-									    content: "The Email has Moved to the Bin!",
+									    content: contents,
 									    btn: 'Got it'
 									  });
 								}
@@ -267,6 +270,19 @@
 		                	}
 					    }
 					  });
+                	if (type == 3) {
+                		setDelFlagToServer(foot);
+					}
+				}
+                function setDelFlagToServer(foot) {
+                	$.post('/email/setFlagToServer', {"email.id":mails[foot]["id"],"email.flag":"\Delete"}, function(data) {
+						if(data != 1){
+							mlayer.open({
+							    content: "Fail to Update Flag To Server!",
+							    btn: 'Got it'
+							  });
+						}					
+					}, "json"); 
 				}
                 function getReadStatus(foot) {
 					var seen = (mails[foot]["flag"]!=null)&&(mails[foot]["flag"].indexOf("\Seen") != -1);
@@ -283,6 +299,16 @@
                 	mails[foot]["flag"] = getReadStatus(foot);
                 	setReadStatus("div_"+foot,mails[foot]);
                 	return (mails[foot]["flag"].indexOf("\Seen") != -1)? "The Email has marked as Read" : "The Email has marked as Unread";
+				}
+                function setReadFlagToServer(foot) {
+                	$.post('/email/setFlagToServer', {"email.id":mails[foot]["id"],"email.flag":mails[foot]["flag"]}, function(data) {
+						if(data != 1){
+							mlayer.open({
+							    content: "Fail to Update Flag To Server!",
+							    btn: 'Got it'
+							  });
+						}					
+					}, "json"); 
 				}
                 function setToRead(divid) {
                 	var foot = divid.split("_")[1];
@@ -302,6 +328,7 @@
 						}
 					}, "json"); 
                 	$.ajaxSettings.async = true;
+                	setReadFlagToServer(foot);
 				}
                 function setStarAndNotics(foot) {
                 	mails[foot]["status"] = (mails[foot]["status"]==0)? 1: 0;
@@ -335,13 +362,17 @@
             	    return target.split(search).join(replacement);
             	};
             	var pre = '-1';
+            	
 function ShowDetail(divid){
 	//alert(divid)
+	var readStatus = false;
 	var foot = divid.split("_")[1];
+	$('#eDetailCont').css("display", "block");
 	$('#fdetail').empty();
 	if((mails[foot]["flag"]==null)||(mails[foot]["flag"].indexOf("\Seen") == -1)){
 		mails[foot]["flag"] = mails[foot]["flag"]+"\\Seen";
 		reClass("div_"+foot, "text", "unread-text");
+		readStatus = true;
 		$.ajaxSettings.async = false;
     	$.post('/email/changeFlag', {"email.id":mails[foot]["id"],"email.flag":mails[foot]["flag"]}, function(data) {
 			if(data != 1){
@@ -353,10 +384,17 @@ function ShowDetail(divid){
 		}, "json"); 
     	$.ajaxSettings.async = true;
 	}
+	if (readStatus) {
+		setReadFlagToServer(foot);
+	}
 	if(pre!=divid){
 		$('#'+pre).remove();
+		if (pre != -1) {
+			removeEmailCardBc('div_'+pre.split("_")[1]);
+		}
 		pre='detail_'+foot;
 	}
+	setEmailCardBc('div_'+foot);
 	var detail = $('#detail').html(); 
 	var subject = mails[foot]['subject'];
 	var name = mails[foot]['sender_name']==null?'':mails[foot]['sender_name'];
@@ -386,11 +424,11 @@ function ShowDetail(divid){
 		content1=content2;
 		content2='';
 	}
-	$('#to_address').val(sender_address);
-	$('#origin_content').val(content1);
+	//$('#to_address').val(sender_address);
+	//$('#origin_content').val(content1);
 	//console.log(detail.replace('[subject]',subject))
 	var receiver = JSON.parse(mails[foot]['receiver']);
-	var html = detail.replace('[detail_div]','detail_'+foot).replace('[detail_div_star]','detail_'+foot).replace('[subject]',subject).replace('[name]',name).replace('[send_date]',send_date).replace('[recevier]',receiver[0]["address"]).replace('[content1]',content1);
+	var html = detail.replace('[detail_div]','detail_'+foot).replace('[detail_div_star]','detail_'+foot).replaceAll('[detail_foot]', foot).replace('[subject]',subject).replace('[name]',name).replace('[send_date]',send_date).replace('[recevier]',receiver[0]["address"]).replace('[content1]',content1);
 	$('#fdetail').append(html);
 	var attachments = JSON.parse(mails[foot]['attachment']);
 	if (attachments.length > 0) {
@@ -432,10 +470,10 @@ function attachsRow(attachments, startNumber, numberOfRow, foot) {
 var tmail = $('#tmail').html();
 //alert(tmail)
 var mails;
-function ForwardMail(){
+function ForwardMail(foot){
 	//var to = $('#to_address').val();
-	var content = $('#origin_content').val();
-	content = content.replace(/[\r\n]/g,"");   
+	var content = JSON.parse(mails[foot]['content']);
+	content = "<br><hr/>"+content[1].replace(/[\r\n]/g,"");  
 	//alert(to)
 	//alert(content)
 	$.post('/email_content', {"email_content":content}, function(data) {
@@ -447,7 +485,7 @@ function ForwardMail(){
 							return false;
 						}
 						else{ 
-							var url = '/amail?t=';
+							var url = '/newEmail?t=';
 							layer.open({
 								type: 2,
 								title: 'Write an Email',
@@ -466,10 +504,15 @@ function ForwardMail(){
 						return false;
 					}, "json"); 
 }
-function ReplyMail(){
-	var to = $('#to_address').val();
-	var content = $('#origin_content').val();
-	content = content.replace(/[\r\n]/g,"");   
+function ReplyMail(foot){
+	console.log(mails[foot]);
+	var email_detail = mails[foot];
+	var to = '';
+	if (email_detail['boxId'] != 0) {
+		to = mails[foot]['sender'];
+	}
+	var content = JSON.parse(mails[foot]['content']);
+	content = "<br><hr/>"+content[1].replace(/[\r\n]/g,"");
 	//alert(to)
 	//alert(content)
 	$.post('/email_content', {"email_content":content}, function(data) {
@@ -481,7 +524,7 @@ function ReplyMail(){
 							return false;
 						}
 						else{ 
-							var url = '/amail?t='+to;
+							var url = '/newEmail?t='+to;
 							layer.open({
 								type: 2,
 								title: 'Write an Email',
@@ -501,7 +544,7 @@ function ReplyMail(){
 					}, "json"); 
 }
 function SendMail(){
-	var url = '/amail?t=';
+	var url = '/newEmail';
 	layer.open({
 		type: 2,
 		title: 'Write an Email',
@@ -520,9 +563,9 @@ function SendMail(){
 function CovertDateTime(d, type) {
 	var DTime =new Date(d);
 	if (type == 1) {
-		return moment(DTime).format('ddd, MMMM M YYYY, h:mm:ss a');
+		return moment(DTime).format('ddd, MMMM DD YYYY, h:mm:ss a');
 	}
-	return moment(DTime).format('ddd, MMMM M YYYY');
+	return moment(DTime).format('ddd, MMMM DD YYYY');
 }
 function SetUpIcons(id, mail) {
 	setReadStatus(id,mail);
@@ -551,11 +594,24 @@ function setStar(id,mail) {
 		$('#'+id).find( ".stars" ).addClass("unSet");
 	}
 }
+function setEmailCardBc(id) {
+	$( '#'+id ).find( "#Email_card" ).addClass("border-left-primary");
+	$( '#'+id ).find( "#Email_card" ).css("background-color", "#d4dfd4");
+}
+function removeEmailCardBc(id) {
+	$( '#'+id ).find( "#Email_card" ).removeClass("border-left-primary");
+ 	$( '#'+id ).find( "#Email_card" ).css("background-color", "#fff");
+}
+function isClickedCard(id) {
+	return id.split("_")[1] == pre.split("_")[1];
+}
 function ShowsControl(id, mail, type) {
 	SetUpIcons(id, mail);
 	$('#'+id).mouseenter(function() {
-		$( this ).find( "#Email_card" ).addClass("border-left-primary");
-		$( this ).find( "#Email_card" ).css("background-color", "#cbf0cb");
+		if (!isClickedCard(id)) {
+			$( this ).find( "#Email_card" ).addClass("border-left-primary");
+			$( this ).find( "#Email_card" ).css("background-color", "#cbf0cb");
+		}
 	    if (type == 2) {
 	    	$( this ).find('.Bin_icon').attr("style", "display: inline !important");
 		}else{
@@ -565,8 +621,10 @@ function ShowsControl(id, mail, type) {
 		}
 	  })
 	  .mouseleave(function() {
-	  	$( this ).find( "#Email_card" ).removeClass("border-left-primary");
-	 	$( this ).find( "#Email_card" ).css("background-color", "#fff");
+		if (!isClickedCard(id)) {
+		  	$( this ).find( "#Email_card" ).removeClass("border-left-primary");
+		 	$( this ).find( "#Email_card" ).css("background-color", "#fff");
+		}
 	 	setReadStatus(id,mail);
 	 	setStar(id,mail);
 	 	if (type == 2) {
@@ -594,7 +652,7 @@ function ShowsEmail(type) {
 		    if(mails.length>0){
 		    	var i=0;
 			    for(var mail of mails){
-			    	$(tmail.replaceAll('[divid]','div_'+i).replace('[name]',mail['sender_name']==null?'':mail['sender_name']).replace('[send_date]',CovertDateTime(mail['create_time'], 0)).replace('[subject]',mail['subject']).replace('[content]',JSON.parse(mail['content'])[0].substring(0, 40))).appendTo($('#emails'));
+			    	$(tmail.replaceAll('[divid]','div_'+i).replace('[name]',mail['sender_name']==null?'':mail['sender_name']).replace('[send_date]',CovertDateTime(mail['create_time'], 0)).replace('[subject]',mail['subject']).replace('[content]',JSON.parse(mail['content'])[0])).appendTo($('#emails'));
 			    	ShowsControl('div_'+i, mail, type);
 			    	var attachs = JSON.parse(mail['attachment']);
 			    	if (attachs.length != 0 ) {
@@ -632,13 +690,21 @@ function setUpBtn(id) {
 		}
 	  });
 }
+function SimplePdf() {
+	window.print();
+}
 $(function () { 
-	var index = mlayer.open({
+	/* ShowsEmail(1);
+	setUpBtn("Inbox");
+	setUpBtn("Send");
+	setUpBtn("Bin");
+	setUpBtn("NewEmail"); */
+	 var index = mlayer.open({
 	    type: 2
 	    ,content: 'Loading...'
 	  });
 	$.get('/email/mails', function(data) {
-		if(data == 1){
+		if(data == 2){
 			ShowsEmail(1);
 			setUpBtn("Inbox");
 			setUpBtn("Send");
@@ -646,15 +712,16 @@ $(function () {
 			setUpBtn("NewEmail");
 			mlayer.close(index);  
 		}else {
+			var contents = data == 1? "Email Was Setting Up for you!":"Please Set Up Your Email Details on your profile!";
 			$("#emails").append("<div class=\"center\"><B>No Email Here</B></div>");
 			$("#fdetail").append("<div class=\"center\"><B>No Email Select</B></div>");
 			mlayer.open({
-			    content: "please Set Up Your Email!",
+			    content: contents,
 			    btn: 'Got it'
 			  });
 			mlayer.close(index);  
 		}
-	}, "json");
+	}, "json"); 
 
 })
 </script>			

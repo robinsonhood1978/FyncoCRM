@@ -1,5 +1,37 @@
 <#include "/t/_b.html" />
 <@layout>
+<style>
+.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+.loading {
+display:inline-block;
+margin-left:8px;
+  border: 3px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 3px solid #3498db;
+  width: 15px;
+  height: 15px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+  }
+  /* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+  #progress_bar .percent {
+    background-color: #99ccff;
+    height: auto;
+    width: 0;
+  }
+</style>
   <!-- content start -->
   <div class="admin-content">
 
@@ -48,12 +80,21 @@
           </div>
 
 		<div class="am-form-group">
-            
+              
+              <#if atts??>
               Attachments: <br/>
-              <#list atts as att>
-              <a href="${att["att_file"]!}">${att["att_name"]!}</a>
-              </#list>
-            
+	             <#list atts as att>
+	              <a href="${att["att_file"]!}">${att["att_name"]!}</a>
+	              </#list>
+              </#if>
+              <form enctype="multipart/form-data" id="form_example">
+				    <input type="file" id="files" multiple style="display: none;"/>
+				    <input type="submit" value="attachments"/>
+				</form> 
+				 <!-- <input type="file" id="files" name="file" multiple/><button onclick="abortRead();">Cancel read</button>
+-->
+ 		
+				<div id='file-list-display'></div>
           </div>
 
           <div style="text-align:center;" class="am-form-group">
@@ -267,10 +308,12 @@
 <script>
 
 $('#editor1').html('${(session.email_content)!}');
-var jatts = '${atts_jstr!}';
+
+/* var jatts = '${atts_jstr!}';
 var arr = JSON.parse(jatts);
-var str_arr = JSON.stringify(arr);
+var str_arr = JSON.stringify(arr); */
 //alert(str_arr)
+
 function SendMail(){
 	if($('#editor1').html().trim()==''){
 		mlayer.open({
@@ -287,6 +330,9 @@ function SendMail(){
 		var jatts = $('#jatts').val();
 		//alert(jatts)
 		if(to!=''){
+			var attachPath = uploadFiles();
+			atts = attachPath != null? attachPath: atts;
+			//console.log(atts);
 			var url = "/sendmail";
 			$.post(url, {"email.receiver":to,"email.sender":from,
 				"email.subject":subject,"email.content":content,"type":atts,"atts":atts,"jatts":jatts}, function(data) {
@@ -306,13 +352,192 @@ function SendMail(){
 							parent.layer.close(index);
 					      }
 					  });
-					
 				}
 			}, "json"); 
+		}else {
+			mlayer.open({
+			    content: "Please input receiver email address.",
+			    btn: 'Got it'
+			  });
 		} 
 		
 	}
 }
+</script>
+<script type="text/javascript">
+
+//upload files without over size files.
+function uploadFiles() {
+	/* console.log(fileList); */
+	var attachPath = null;
+	if (HasPreFiles()) {
+		var request = new XMLHttpRequest();
+		var formData = new FormData();
+	    fileList.forEach(function (file) {
+	    	if (file != null) {
+	    		formData.append(file.name, file);
+			}
+	    })
+	    request.onreadystatechange = function() {
+	        if (request.readyState === 4) {
+	        	attachPath = JSON.parse(request.response)["data"];
+	          }
+	        }
+	    request.open("POST", "/file/file", false);
+	    request.send(formData);
+	}
+	return attachPath;
+}
+function checkTotalFileSize(files) {
+	var totalSize = 0;
+	files.forEach(function (file) {
+    	if (file != null) {
+    		totalSize += file.size;
+		}
+    })
+    //console.log(totalSize);
+    return totalSize;
+}
+
+function removeFile(ul,li,id,number) {
+	delete fileList[id]
+	ul.removeChild(li);
+	//console.log(fileList[id]==null);
+}
+
+function handleFileSelect(file,ul,id) {
+	//console.log(file.name);
+	  // Reset progress indicator on new file selection.
+	  var li = document.createElement("li");
+	  var span = document.createElement("span");
+	  var span1 = document.createElement("span");
+	  var span2 = document.createElement("span");
+	  var loadingIcon = document.createElement("div");
+	  loadingIcon.className = "loading";
+	  var reader = new FileReader();
+	  reader.onloadstart = function(e) {
+		  span1.innerHTML = file.name+id;
+		  span2.appendChild(loadingIcon);
+		  span.appendChild(span1);
+		  span.appendChild(span2);
+		  li.appendChild(span);
+	      ul.appendChild(li);
+	    //document.getElementById('progress_bar').className = 'loading';
+	  };
+	  reader.onload = function(e) {
+	    // Ensure that the progress bar displays 100% at the end.
+	    //console.log(file.size);
+	    span.removeChild(span2);
+	    var cSpan = document.createElement("span");
+    	var link_a = document.createElement("a");
+    	cSpan.className = "close";
+    	link_a.href="javascript:void(0);";
+    	link_a.style.color = "red";
+    	link_a.style.textDecoration = "none";
+    	link_a.innerHTML="&times;";
+    	
+    	var notify = document.createElement("span");
+    	var number = 1;
+	    if (file.size > (5000*1024)) {
+	    	notify.style.color = "red";
+	    	notify.textContent="Error! This file is over 5 MB";
+		}else{
+			notify.style.color = "green";
+			notify.innerHTML="&#10004;";
+			number = 0;
+		}
+	    link_a.addEventListener('click', function () {
+    		removeFile(ul,li,id,number);
+        })
+	    span.appendChild(notify);
+	    cSpan.appendChild(link_a);
+	    span.appendChild(cSpan);
+	  }
+	  reader.readAsText(file, "UTF-8");
+	  // Read in the image file as a binary string.
+	  //reader.readAsBinaryString(evt.target.files[0]);
+	}
+	var fileListDisplay = document.getElementById('file-list-display');
+	var fileDisplayEl = document.createElement("ol");
+	function updateDisplay(file,ol,index) {
+		handleFileSelect(file,ol,index);
+        fileListDisplay.appendChild(ol);
+	}
+	function HasPreFiles() {
+		var check = false;
+		if (fileList.length != 0) {
+			fileList.forEach(function (file) {
+		    	if (file != null) {
+		    		check = true;
+				}
+		    })
+		}
+		return check;
+	}
+	function convertToArray(files) {
+		var newfileList = [];
+		for (var i = 0; i < files.length; i++) {
+			newfileList.push(files[i]);
+        }
+		return newfileList;
+	}
+var fileList = [];
+$(document).ready(function () {
+    var fileCatcher = document.getElementById('form_example');
+    var files = document.getElementById("files"), renderFileList;
+    var sendFile;
+    
+    fileCatcher.addEventListener("submit", function (event) {
+        event.preventDefault();
+        document.getElementById("files").click();
+        //上传文件
+        //sendFile();
+    });
+
+    files.addEventListener("change", function (event) {
+    	if (files.value.length) {
+    		//check for new files size
+    		var newFilesSize = checkTotalFileSize(convertToArray(files.files));
+    		if (newFilesSize < (5000*1024)) {
+    			var fileLength = files.files.length;
+    			if (HasPreFiles()) {
+    				//for additional attach.
+    				if ((checkTotalFileSize(fileList)+newFilesSize) < (5000*1024)) {
+    					var preList = fileList.length;
+                        for (var i = 0; i < fileLength; i++) {
+                            fileList.push(files.files[i]);
+            				updateDisplay(files.files[i], fileDisplayEl, (preList+i));
+                        }
+					}else {
+						mlayer.open({
+						    content: "Fail to add more file, total is over limit size (5MB).",
+						    btn: 'Got it'
+						  });
+					}
+    			}else {
+    				fileListDisplay.innerHTML = '';
+    				//for first attach when previous empty.
+    				for (var i = 0; i < fileLength; i++) {
+                        fileList.push(files.files[i]);
+                    }
+                    renderFileList();
+				}
+			}else {
+				mlayer.open({
+				    content: "Please Make sure attachment under limit size (5MB).",
+				    btn: 'Got it'
+				  });
+			}       
+		}
+    });
+
+    renderFileList = function () {
+        fileListDisplay.innerHTML = '';
+        fileList.forEach(function (file, index) {
+        	updateDisplay(file, fileDisplayEl, index);
+        })
+    };
+})
 </script>
 <script src="/f/assets/js/mobile/mlayer.js"></script>
 </@layout>

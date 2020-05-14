@@ -161,9 +161,8 @@ public class MController extends Controller {
 			boolean boo = getModel(User.class).set("id", loginUser.getInt("id")).update();
 			if(boo){
 				User user = User.dao.findById(loginUser.getInt("id"));
-				String email_pwd = user.getStr("sendmail_password");
-				user.set("sendmail_password", Base64.decode(email_pwd));
 				setSessionAttr("user", user);
+				System.out.println(user.getStr("sendmail_password")+"dbajsdjashhhhhhhhhh");
 				msg="Register information modified success！";
 			}
 			else{

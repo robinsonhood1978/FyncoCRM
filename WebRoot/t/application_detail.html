@@ -3239,15 +3239,16 @@
                 	} 
                 	
                 	var doc = '${(application.documents)!}';
-                	var documents = jsonToStrMap(doc);
-                	
-                	for(var i=1;i<=documents.size;i++){
-    					var key = $('#doc'+i).attr("name");
-    					$('#doc'+i).val(documents.get(key).url);
-    					if(documents.get(key).url!='')
-    						$('#up'+i).html('<img src="/f/i/check.png">');
-    				}
-                	
+                	if (doc != '') {
+                		var documents = jsonToStrMap(doc);
+                    	
+                    	for(var i=1;i<=documents.size;i++){
+        					var key = $('#doc'+i).attr("name");
+        					$('#doc'+i).val(documents.get(key).url);
+        					if(documents.get(key).url!='')
+        						$('#up'+i).html('<img src="/f/i/check.png">');
+        				}
+					}
                 	//alert(documents);
                 }
                 $(function () { 

@@ -10,16 +10,13 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Set;
 
 import javax.activation.DataSource;
-import javax.activation.MimeType;
 import javax.mail.Address;
 import javax.mail.BodyPart;
 import javax.mail.Flags;
@@ -40,7 +37,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Document.OutputSettings;
 import org.jsoup.safety.Whitelist;
 
-import com.cms.front.entity.Email;
+import com.cms.admin.user.User;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 
@@ -50,12 +47,13 @@ public class MailReader {
 
 	private static SimpleDateFormat sfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private static SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmsssSSS");
-	private static SimpleDateFormat ym = new SimpleDateFormat("yyyyMM");
+//	private static SimpleDateFormat ym = new SimpleDateFormat("yyyyMM");
 	private static String uploadroot = "/upload/receiver/";
 	private static HashMap<String, String> fName = new HashMap<String, String>();
 	
 	private static String getFolderName(String path, int creator) {
-		String folderName=ym.format(new Date())+String.valueOf(creator);
+//		String folderName=ym.format(new Date())+String.valueOf(creator);
+		String folderName=String.valueOf(creator);
 		String folderPath = path+uploadroot;
 		creatFolder(folderPath);// create an email receiver folder while it is not occur.
 		creatFolder(folderPath+folderName);//create a folder to store email data of current month.
@@ -76,6 +74,7 @@ public class MailReader {
 		MimeMessage msg = (MimeMessage) messages;
 		String saveFilePath = getFolderName(path, creator);
 		String viewPath = uploadroot + saveFilePath +"/";
+		System.out.println("step1");
         return downloadAttachs(msg, viewPath, path, fileName); // 保存附件
 	}
 	/**
@@ -85,24 +84,22 @@ public class MailReader {
      *            要解析的邮件列表
 	 * @throws Exception 
      */
-    public static ArrayList<HashMap<String, Object>> parseMessage(String path,int creator,int folderId, Message... messages)
+    public static void parseMessage(String path,int creator,int folderId, Message... messages)
             throws Exception {
         if (messages == null || messages.length < 1) {
             throw new MessagingException("未找到要解析的邮件!");
         }
         fName = new HashMap<String, String>();
         String saveFilePath = getFolderName(path, creator);
-        
-        ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+       
         // 解析所有邮件
         for (int i = messages.length; 0 < i; i--) {
         	HashMap<String, Object> mp = new HashMap<String, Object>();
             MimeMessage msg = (MimeMessage) messages[i-1];
             if (messageInDB(msg.getMessageID(), creator)) {
-            System.out.println("------------------解析第" + msg.getMessageNumber()
-                    + "封邮件-------------------- ");
+//            System.out.println("------------------解析第" + msg.getMessageNumber()
+//                    + "封邮件-------------------- ");
             mp.put("flag", msg.getFlags().toString());
-            System.out.println(msg.getFlags().toString());
             mp.put("type", folderId);
             mp.put("status", 1);
             mp.put("send_date", msg.getSentDate());
@@ -121,69 +118,46 @@ public class MailReader {
 	            }
 	            mp.put("sender_showname", person);
 	        }
-	        System.out.println("sender"+mp.get("sender_address"));
-	        System.out.println("sender peeee"+mp.get("sender_showname"));
-	        System.out.println("header:"+msg.getContentType());
-	        System.out.println("subject:"+msg.getSubject());
+
 	        mp.put("subject", getSubject(msg));
+	        System.out.println(msg.getSubject());
 	        JSONArray recarr = JSONArray.fromObject(getReceiveAddress(msg, null));
 	        mp.put("receiver", recarr.toString());
-	        System.out.println(mp.get("receiver"));
-//            System.out.println("主题: " + getSubject(msg));
-//            System.out.println("发件人: " + getFrom(msg));
-//            System.out.println("收件人：" + getReceiveAddress(msg, null));
-//            System.out.println("发送时间：" + getSentDate(msg, null));
-//            System.out.println("是否已读：" + isSeen(msg));
-//            System.out.println("邮件优先级：" + getPriority(msg));
-//            System.out.println("是否需要回执：" + isReplySign(msg));
-//            System.out.println("邮件大小：" + msg.getSize() * 1024 + "kb");
-            boolean isContainerAttachment = isContainAttachment(msg);
-            System.out.println("是否包含附件：" + isContainerAttachment);
-//            System.out.println("邮件ID：" + msg.getMessageID());
+
+//            boolean isContainerAttachment = isContainAttachment(msg);
             mp.put("messageId", msg.getMessageID());
             String viewPath = uploadroot + saveFilePath +"/";
             ArrayList<String> ct = new ArrayList<String>();
             ArrayList<String> attaList = new ArrayList<String>();
             saveAttachment(msg, viewPath, path, ct, attaList); // 保存附件
 
-            System.out.println("-----fininal download attachment-----");
+//            System.out.println("-----fininal download attachment-----");
             
-//            getMailTextContent(msg, ct);
-//            System.out.println("-------finish read content!-----");
-//            JSONArray arr = JSONArray.fromObject(replacePicturePth(msg,ct,viewPath+givenName,path));
-//            System.out.println("------finish replace-------");
-//            if (isContainerAttachment) {
-//            	HashMap<String,String> map = new HashMap<String,String>();
-//				map.put("att_name", "");
-//				map.put("att_file", "");
-//				attaList.add(map);
-//			}
             mp.put("attachment", JSONArray.fromObject(attaList).toString());
             mp.put("content", JSONArray.fromObject(ct).toString());
-            list.add(mp);
-            System.out.println("邮件正文："
-                    + mp.get("content"));
-            System.out.println("attachment:"+mp.get("attachment"));
-            System.out.println("type:"+mp.get("type"));
-            System.out.println("sender_address:"+mp.get("sender_address"));
-            System.out.println("receiver:"+mp.get("receiver"));
-            System.out.println("status:"+mp.get("status"));
-            System.out.println("messageId:"+mp.get("messageId"));
-            System.out.println("flag:"+mp.get("flag"));
-            System.out.println("sender_showname:"+mp.get("sender_showname"));
-            System.out.println("send_date:"+sfDate.format(mp.get("send_date")));
+    
+//            System.out.println("邮件正文："
+//                    + mp.get("content"));
+//            System.out.println("attachment:"+mp.get("attachment"));
+//            System.out.println("type:"+mp.get("type"));
+//            System.out.println("sender_address:"+mp.get("sender_address"));
+//            System.out.println("receiver:"+mp.get("receiver"));
+//            System.out.println("status:"+mp.get("status"));
+//            System.out.println("messageId:"+mp.get("messageId"));
+//            System.out.println("flag:"+mp.get("flag"));
+//            System.out.println("sender_showname:"+mp.get("sender_showname"));
+//            System.out.println("send_date:"+sfDate.format(mp.get("send_date")));
             
             
            // messageInDB(msg.getMessageID(), creator);
-           
-        	  int c = Db.update("insert into email (subject,content,attachment,sender,receiver,status,create_time,creator,messageId,flag,type,sender_name,boxId) values "
+  
+        	  Db.update("insert into email (subject,content,attachment,sender,receiver,status,create_time,creator,messageId,flag,type,sender_name,boxId) values "
    					+ "(?,?,?,?,?,?,?,?,?,?,?,?,?)",mp.get("subject"),mp.get("content"),mp.get("attachment"),mp.get("sender_address"),mp.get("receiver"),mp.get("status"),sfDate.format(mp.get("send_date")),creator,mp.get("messageId"),mp.get("flag"),mp.get("type"),mp.get("sender_showname"),mp.get("type"));
 //        	  System.out.println(c);
-        	  System.out.println("------------------第" + msg.getMessageNumber()
-                    + "封邮件解析结束-------------------- ");
+//        	  System.out.println("------------------第" + msg.getMessageNumber()
+//                    + "封邮件解析结束-------------------- ");
            }
         }
-        return list;
     }
     private static boolean messageInDB(String messageID, int creator) {
     	Record message = Db.findFirst("select * from email where creator="+creator+" and messageId = '"+messageID+"'");
@@ -226,9 +200,9 @@ public class MailReader {
      * @throws MessagingException
      *             String
      */
-    public static String getSubject(MimeMessage msg)
+    public static byte[] getSubject(MimeMessage msg)
             throws UnsupportedEncodingException, MessagingException {
-        return msg.getSubject() != null ?MimeUtility.decodeText(msg.getSubject()):"";
+        return msg.getSubject() != null?MimeUtility.decodeText(msg.getSubject()).getBytes():new byte[] {};
     }
 
     /**
@@ -282,7 +256,6 @@ public class MailReader {
      */
     public static ArrayList<HashMap<String,String>> getReceiveAddress(MimeMessage msg,
             Message.RecipientType type) throws MessagingException {
-        StringBuffer receiveAddress = new StringBuffer();
         Address[] addresss = null;
         ArrayList<HashMap<String,String>> receList = new ArrayList<HashMap<String,String>>();
         if (type == null) {
@@ -292,7 +265,7 @@ public class MailReader {
         }
         
         if (addresss == null || addresss.length < 1) {
-//            throw new MessagingException("没有收件人!");
+            throw new MessagingException("没有收件人!");
         }else {
 	        for (Address address : addresss) {
 	        	HashMap<String,String> map = new HashMap<String,String>();
@@ -526,7 +499,7 @@ public class MailReader {
     
     private static String downloadAttachs(Part part, String destDir, String root, String fileName) throws MessagingException, IOException {
     	if (part.isMimeType("multipart/*")) {
-        	System.out.println("----------start save ******!-------");        	
+//        	System.out.println("----------start save ******!-------");        	
             Multipart multipart = (Multipart) part.getContent(); // 复杂体邮件
             // 复杂体邮件包含多个邮件体
             int partCount = multipart.getCount();
@@ -535,7 +508,7 @@ public class MailReader {
             	MimeBodyPart bodyPart = (MimeBodyPart) multipart.getBodyPart(i);
                 // 某一个邮件体也有可能是由多个邮件体组成的复杂体
                 String disp = bodyPart.getDisposition();
-                System.out.println(disp+" | "+bodyPart.getContentType());
+//                System.out.println(disp+" | "+bodyPart.getContentType());
                 boolean isHasAttachment = (disp != null && (disp
                         .equalsIgnoreCase(Part.ATTACHMENT)));
                 if (isHasAttachment) { // save all attachment in local place.    
@@ -545,7 +518,7 @@ public class MailReader {
 					}
                     System.out.println("------------end download----------------");
                 } else if (bodyPart.isMimeType("multipart/*")) {
-                	System.out.println("go to next!");
+//                	System.out.println("go to next!");
                 	downloadAttachs(bodyPart, destDir, root, fileName);
                 }else {
                     String contentType = bodyPart.getContentType();
@@ -553,10 +526,10 @@ public class MailReader {
                             || contentType.indexOf("application") != -1) {
                         saveFile(bodyPart.getInputStream(), destDir, root,
                         		decodeText(bodyPart.getFileName()));
-                        System.out.println("not picturesss ");
+//                        System.out.println("not picturesss ");
                     }
                 }
-                System.out.println("---------------one set finish at "+i+"--------------");
+//                System.out.println("---------------one set finish at "+i+"--------------");
             }
         } else if (part.isMimeType("message/rfc822")) {
         	downloadAttachs((Part) part.getContent(), destDir, root, fileName);
@@ -580,12 +553,10 @@ public class MailReader {
     public static void saveAttachment(Part part, String destDir, String root, ArrayList<String> content, ArrayList<String> attaList)
             throws UnsupportedEncodingException, MessagingException,
             FileNotFoundException, IOException {
-//    	 ArrayList<String> ct = new ArrayList<String>();
-//       getMailTextContent(part, ct);
-    	System.out.println("----------start save!-------");
-    	System.out.println(part.getContentType());
+//    	System.out.println("----------start save!-------");
+//    	System.out.println(part.getContentType());
         if (part.isMimeType("multipart/*")) {
-        	System.out.println("----------start save ******!-------");
+//        	System.out.println("----------start save ******!-------");
             Multipart multipart = (Multipart) part.getContent(); // 复杂体邮件
             // 复杂体邮件包含多个邮件体
             int partCount = multipart.getCount();
@@ -594,12 +565,12 @@ public class MailReader {
             	MimeBodyPart bodyPart = (MimeBodyPart) multipart.getBodyPart(i);
                 // 某一个邮件体也有可能是由多个邮件体组成的复杂体
                 String disp = bodyPart.getDisposition();
-                System.out.println(disp+" | "+bodyPart.getContentType());
+//                System.out.println(disp+" | "+bodyPart.getContentType());
                 boolean isHasAttachment = (disp != null && (disp
                         .equalsIgnoreCase(Part.ATTACHMENT) || disp
                         .equalsIgnoreCase(Part.INLINE)));
                 if (isHasAttachment) { // save all attachment in local place.    
-                    System.out.println("------------start download----------------");
+//                    System.out.println("------------start download----------------");
                     if (disp.equalsIgnoreCase(Part.INLINE)) {//replace inline attachment path to real.
                     	String newUrl = saveFile(bodyPart.getInputStream(), destDir, root, decodeText(bodyPart.getFileName()));
 	                	 String cid = bodyPart.getContentID();
@@ -607,14 +578,11 @@ public class MailReader {
                     	replaceAllElement("cid:"+cid,newUrl,content);
     				}
                     if (disp.equalsIgnoreCase(Part.ATTACHMENT)) {//save attachment path.
-//                    	HashMap<String,String> map = new HashMap<String,String>();
-//    					map.put("att_name", decodeText(bodyPart.getFileName()));
     					attaList.add(decodeText(bodyPart.getFileName()));	
     				}
-                    System.out.println("------------end download----------------");
+//                    System.out.println("------------end download----------------");
                 } else 
                 	if (bodyPart.isMimeType("multipart/*")) {
-                	System.out.println("enter from here!");
                     saveAttachment(bodyPart, destDir, root, content, attaList);
                 }else if (bodyPart.isMimeType("text/*") && !(bodyPart.getContentType().indexOf("name") > 0)) {
                 	if (bodyPart.isMimeType("text/html") && (content.size() == 0)) {
@@ -627,13 +595,11 @@ public class MailReader {
                             || contentType.indexOf("application") != -1) {
                         saveFile(bodyPart.getInputStream(), destDir, root,
                         		decodeText(bodyPart.getFileName()));
-                        System.out.println("not picturesss ");
                     }
                 }
-                System.out.println("---------------one set finish at "+i+"--------------");
+//                System.out.println("---------------one set finish at "+i+"--------------");
             }
         } else if (part.isMimeType("message/rfc822")) {
-        	System.out.println("----------start save rfc822!-------");
             saveAttachment((Part) part.getContent(), destDir, root, content, attaList);
         }else if(part.isMimeType("text/*") && !(part.getContentType().indexOf("name") > 0)){
         	if (part.isMimeType("text/html") && (content.size() == 0)) {
@@ -678,7 +644,7 @@ public class MailReader {
         BufferedInputStream bis = new BufferedInputStream(is);
         String realFileName = destDir + sf.format(new Date())+StrUtil.randomNum(3)+ 
         		fileName.substring(fileName.lastIndexOf("."));
-        File downLoad = new File(root+realFileName);        
+        File downLoad = new File(root+realFileName);
         BufferedOutputStream bos = new BufferedOutputStream(
                 new FileOutputStream(downLoad));
         int len = -1;
